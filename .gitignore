@@ -1,0 +1,6 @@
+node_modules
+dist
+storybook-static
+coverage
+debug-storybook.log
+.DS_Store
