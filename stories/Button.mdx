@@ -1,0 +1,29 @@
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Stories,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as ButtonStories from "./Button.stories.js";
+
+<Meta of={ButtonStories} />
+
+<Title />
+
+<Description />
+
+Klean UI keeps the button contract deliberately small: choose the truthful element,
+pass its native attributes, and style it with ordinary Tailwind classes. There are no
+visual variants to learn or theme configuration to maintain.
+
+<Canvas of={ButtonStories.Playground} />
+
+## API
+
+The props below change behavior or semantics. Use `class` for every visual decision.
+
+<Controls of={ButtonStories.Playground} />
+
+<Stories title="Examples" includePrimary={false} />

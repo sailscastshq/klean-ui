@@ -136,7 +136,7 @@ If a developer wants a button red, larger, flatter, or more square, they should 
 Klean should not ask people to write:
 
 ```js
-import { KleanButton } from 'klean-ui'
+import { KleanButton } from "klean-ui";
 ```
 
 That is the wrong feeling.
@@ -144,7 +144,7 @@ That is the wrong feeling.
 The right feeling is:
 
 ```js
-import Button from '@/components/ui/button'
+import Button from "@/components/ui/button";
 ```
 
 or, for very simple cases:
@@ -445,9 +445,9 @@ The brand should live in the distribution system, not in every line of app code.
 
 ## Default Technical Biases
 
-The first version should bias toward:
+Klean should bias toward:
 
-- Vue first
+- framework-native Vue, React, and Svelte source
 - copied source
 - Tailwind-first styling
 - token-backed classes
@@ -460,7 +460,7 @@ The first version should avoid:
 
 - package-first runtime consumption
 - heavy style prop APIs
-- framework parity pressure
+- lowest-common-denominator cross-framework APIs
 - giant component count
 - data table before primitives
 - hidden behavior engines
