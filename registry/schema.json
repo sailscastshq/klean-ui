@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://klean-ui.sailscasts.com/registry/schema.json",
+  "title": "Klean UI registry item",
+  "type": "object",
+  "required": ["name", "description", "frameworks"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "description": {
+      "type": "string"
+    },
+    "frameworks": {
+      "type": "object",
+      "required": ["vue", "react", "svelte"],
+      "additionalProperties": false,
+      "properties": {
+        "vue": { "$ref": "#/$defs/framework" },
+        "react": { "$ref": "#/$defs/framework" },
+        "svelte": { "$ref": "#/$defs/framework" }
+      }
+    }
+  },
+  "$defs": {
+    "framework": {
+      "type": "object",
+      "required": ["source", "target", "dependencies"],
+      "properties": {
+        "source": { "type": "string" },
+        "target": { "type": "string" },
+        "dependencies": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
