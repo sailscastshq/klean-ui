@@ -336,6 +336,69 @@ function loadRegistryItem(component, registryDirectory) {
   };
 }
 
+function frameworkFiles(component, frameworkItem) {
+  const files =
+    frameworkItem.files ??
+    (frameworkItem.source && frameworkItem.target
+      ? [{ source: frameworkItem.source, target: frameworkItem.target }]
+      : []);
+
+  if (!files.length) {
+    throw new KleanInstallerError(
+      `The ${component} registry item does not declare any source files.`,
+      { code: "INVALID_REGISTRY" },
+    );
+  }
+
+  return files;
+}
+
+function resolveRegistryItems(
+  component,
+  framework,
+  registryDirectory,
+  state = {
+    visiting: [],
+    resolved: new Map(),
+  },
+) {
+  if (state.resolved.has(component)) return state;
+
+  if (state.visiting.includes(component)) {
+    const cycle = [...state.visiting, component].join(" -> ");
+    throw new KleanInstallerError(
+      `Klean UI found a registry dependency cycle: ${cycle}.`,
+      { code: "INVALID_REGISTRY" },
+    );
+  }
+
+  const registryItem = loadRegistryItem(component, registryDirectory);
+  const frameworkItem = registryItem.manifest.frameworks[framework];
+
+  if (!frameworkItem) {
+    throw new KleanInstallerError(
+      `The ${component} registry item does not support ${framework}.`,
+      { code: "UNSUPPORTED_COMPONENT_FRAMEWORK" },
+    );
+  }
+
+  state.visiting.push(component);
+
+  for (const dependency of registryItem.manifest.registryDependencies ?? []) {
+    resolveRegistryItems(dependency, framework, registryDirectory, state);
+  }
+
+  state.visiting.pop();
+  state.resolved.set(component, {
+    component,
+    directory: registryItem.directory,
+    manifest: registryItem.manifest,
+    frameworkItem,
+  });
+
+  return state;
+}
+
 function hasDirectDependency(packageJson, dependency) {
   return DEPENDENCY_SECTIONS.some(
     (section) => packageJson[section]?.[dependency],
@@ -415,16 +478,13 @@ export function createInstallPlan(component, options = {}) {
   const registryDirectory = resolve(
     options.registryDirectory ?? DEFAULT_REGISTRY_DIRECTORY,
   );
-  const registryItem = loadRegistryItem(component, registryDirectory);
-  const frameworkItem =
-    registryItem.manifest.frameworks[frameworkDetection.framework];
-
-  if (!frameworkItem) {
-    throw new KleanInstallerError(
-      `The ${component} registry item does not support ${frameworkDetection.framework}.`,
-      { code: "UNSUPPORTED_COMPONENT_FRAMEWORK" },
-    );
-  }
+  const registryItems = [
+    ...resolveRegistryItems(
+      component,
+      frameworkDetection.framework,
+      registryDirectory,
+    ).resolved.values(),
+  ];
 
   const componentsDirectory = ensureInsideRoot(
     application.root,
@@ -436,39 +496,90 @@ export function createInstallPlan(component, options = {}) {
     options.cssPath ?? DEFAULT_CSS_PATH,
     "CSS path",
   );
-  const sourcePath = validateRegistryPath(
-    registryItem.directory,
-    frameworkItem.source,
-    "Registry source",
-  );
-  const targetPath = validateRegistryPath(
-    componentsDirectory,
-    frameworkItem.target,
-    "Registry target",
-  );
+  const targetSources = new Map();
+  const files = [];
+  const dependencyVersions = new Map();
 
-  if (!existsSync(sourcePath)) {
-    throw new KleanInstallerError(
-      `The ${component} registry source for ${frameworkDetection.framework} is missing.`,
-      { code: "INVALID_REGISTRY" },
-    );
+  for (const registryItem of registryItems) {
+    for (const [name, version] of Object.entries(
+      registryItem.frameworkItem.dependencies ?? {},
+    )) {
+      const existingVersion = dependencyVersions.get(name);
+
+      if (existingVersion && existingVersion !== version) {
+        throw new KleanInstallerError(
+          `Registry items require conflicting versions of ${name}: ${existingVersion} and ${version}.`,
+          { code: "INVALID_REGISTRY" },
+        );
+      }
+
+      dependencyVersions.set(name, version);
+    }
+
+    for (const declaredFile of frameworkFiles(
+      registryItem.component,
+      registryItem.frameworkItem,
+    )) {
+      const sourcePath = validateRegistryPath(
+        registryItem.directory,
+        declaredFile.source,
+        "Registry source",
+      );
+      const targetPath = validateRegistryPath(
+        componentsDirectory,
+        declaredFile.target,
+        "Registry target",
+      );
+
+      if (!existsSync(sourcePath)) {
+        throw new KleanInstallerError(
+          `The ${registryItem.component} registry source for ${frameworkDetection.framework} is missing.`,
+          { code: "INVALID_REGISTRY" },
+        );
+      }
+
+      const registrySource = readFileSync(sourcePath, "utf8");
+      const existingTarget = targetSources.get(targetPath);
+
+      if (existingTarget) {
+        if (existingTarget.registrySource !== registrySource) {
+          throw new KleanInstallerError(
+            `Registry items ${existingTarget.component} and ${registryItem.component} write different source to ${displayRelativePath(componentsDirectory, targetPath)}.`,
+            { code: "INVALID_REGISTRY" },
+          );
+        }
+        continue;
+      }
+
+      const currentSource = existsSync(targetPath)
+        ? readFileSync(targetPath, "utf8")
+        : undefined;
+      let action = "create";
+      let difference;
+
+      if (currentSource === registrySource) {
+        action = "unchanged";
+      } else if (currentSource !== undefined) {
+        action = options.overwrite ? "overwrite" : "conflict";
+        difference = firstDifference(currentSource, registrySource);
+      }
+
+      const file = {
+        component: registryItem.component,
+        action,
+        sourcePath,
+        targetPath,
+        displayPath: displayRelativePath(componentsDirectory, targetPath),
+        registrySource,
+        difference,
+      };
+
+      targetSources.set(targetPath, file);
+      files.push(file);
+    }
   }
 
-  const registrySource = readFileSync(sourcePath, "utf8");
-  const currentSource = existsSync(targetPath)
-    ? readFileSync(targetPath, "utf8")
-    : undefined;
-  let fileAction = "create";
-  let difference;
-
-  if (currentSource === registrySource) {
-    fileAction = "unchanged";
-  } else if (currentSource !== undefined) {
-    fileAction = options.overwrite ? "overwrite" : "conflict";
-    difference = firstDifference(currentSource, registrySource);
-  }
-
-  const dependencies = Object.entries(frameworkItem.dependencies ?? {}).map(
+  const dependencies = [...dependencyVersions.entries()].map(
     ([name, version]) => ({
       name,
       version,
@@ -493,14 +604,9 @@ export function createInstallPlan(component, options = {}) {
     ),
     cssPath,
     cssDisplayPath: displayRelativePath(application.root, cssPath),
-    file: {
-      action: fileAction,
-      sourcePath,
-      targetPath,
-      displayPath: displayRelativePath(componentsDirectory, targetPath),
-      registrySource,
-      difference,
-    },
+    registryItems: registryItems.map((item) => item.component),
+    files,
+    file: files.length === 1 ? files[0] : undefined,
     dependencies,
     missingDependencies: dependencies.filter(
       (dependency) => dependency.missing,
@@ -624,9 +730,11 @@ function verifyInstalledDependencies(plan) {
 }
 
 export function applyInstallPlan(plan, options = {}) {
-  if (plan.file.action === "conflict") {
+  const conflict = plan.files.find((file) => file.action === "conflict");
+
+  if (conflict) {
     throw new KleanInstallerError(
-      `${plan.file.displayPath} has local changes and was not overwritten.\n${plan.file.difference}\nRe-run with \`--overwrite\` only if replacing the application-owned source is intentional.`,
+      `${conflict.displayPath} has local changes and was not overwritten.\n${conflict.difference}\nRe-run with \`--overwrite\` only if replacing the application-owned source is intentional.`,
       { code: "SOURCE_CONFLICT", plan },
     );
   }
@@ -641,18 +749,21 @@ export function applyInstallPlan(plan, options = {}) {
 
   const dependencyInstaller =
     options.dependencyInstaller ?? defaultDependencyInstaller;
-  const directoryRollbackBoundary = nearestExistingDirectory(
-    dirname(plan.file.targetPath),
-  );
+  const directoryRollbackBoundaries = plan.files.map((file) => ({
+    directory: dirname(file.targetPath),
+    boundary: nearestExistingDirectory(dirname(file.targetPath)),
+  }));
   const snapshots = snapshotFiles([
-    plan.file.targetPath,
+    ...plan.files.map((file) => file.targetPath),
     plan.packagePath,
     ...LOCKFILES.map((lockfile) => resolve(plan.root, lockfile)),
   ]);
 
   try {
-    if (["create", "overwrite"].includes(plan.file.action)) {
-      writeFileAtomically(plan.file.targetPath, plan.file.registrySource);
+    for (const file of plan.files) {
+      if (["create", "overwrite"].includes(file.action)) {
+        writeFileAtomically(file.targetPath, file.registrySource);
+      }
     }
 
     if (plan.missingDependencies.length) {
@@ -665,10 +776,9 @@ export function applyInstallPlan(plan, options = {}) {
     }
   } catch (error) {
     restoreFiles(snapshots);
-    pruneEmptyDirectories(
-      dirname(plan.file.targetPath),
-      directoryRollbackBoundary,
-    );
+    for (const { directory, boundary } of directoryRollbackBoundaries) {
+      pruneEmptyDirectories(directory, boundary);
+    }
 
     throw new KleanInstallerError(
       `Klean UI could not add ${plan.component}; changes to component and package files were rolled back. ${error.message}`,
@@ -679,8 +789,9 @@ export function applyInstallPlan(plan, options = {}) {
   return {
     plan,
     changed:
-      ["create", "overwrite"].includes(plan.file.action) ||
-      plan.missingDependencies.length > 0,
+      plan.files.some((file) =>
+        ["create", "overwrite"].includes(file.action),
+      ) || plan.missingDependencies.length > 0,
     dryRun: false,
   };
 }
@@ -712,13 +823,15 @@ export function formatActions(result) {
   );
 
   if (result.dryRun) {
-    const fileVerb = {
-      create: "Would add",
-      overwrite: "Would overwrite",
-      unchanged: "Already matches",
-    }[plan.file.action];
+    for (const file of plan.files) {
+      const fileVerb = {
+        create: "Would add",
+        overwrite: "Would overwrite",
+        unchanged: "Already matches",
+      }[file.action];
 
-    lines.push(`○ ${fileVerb} ${plan.file.displayPath}`);
+      lines.push(`○ ${fileVerb} ${file.displayPath}`);
+    }
     lines.push(
       dependencyNames.length
         ? `○ Would add direct dependencies: ${dependencyNames.join(", ")}`
@@ -727,12 +840,15 @@ export function formatActions(result) {
     return lines.join("\n");
   }
 
-  const fileLine = {
-    create: `✓ Added ${plan.file.displayPath}`,
-    overwrite: `✓ Replaced ${plan.file.displayPath}`,
-    unchanged: `– ${plan.file.displayPath} already matches`,
-  }[plan.file.action];
-  lines.push(fileLine);
+  for (const file of plan.files) {
+    lines.push(
+      {
+        create: `✓ Added ${file.displayPath}`,
+        overwrite: `✓ Replaced ${file.displayPath}`,
+        unchanged: `– ${file.displayPath} already matches`,
+      }[file.action],
+    );
+  }
   lines.push(
     dependencyNames.length
       ? `✓ Added direct dependencies: ${dependencyNames.join(", ")}`

@@ -8,9 +8,10 @@ Run the same command in every standard Boring Stack application:
 
 ```bash
 npx klean-ui add button
+npx klean-ui add field
 ```
 
-Klean detects Sails and the frontend framework from `package.json` and the conventional application entry. It then installs exactly one native source file:
+Klean detects Sails and the frontend framework from `package.json` and the conventional application entry. It then installs the selected framework-native registry item and its prerequisites. Button is one source file:
 
 ```text
 Vue      assets/js/components/ui/button/Button.vue
@@ -37,6 +38,24 @@ npx klean-ui add button \
 Klean will not silently replace edited source. Re-running an unchanged installation is a no-op; edited files produce a useful conflict and require the deliberate `--overwrite` flag.
 
 Read [the complete installer contract](./docs/installer.md).
+
+## Form foundation
+
+`add field` installs Field, Label, Input, and Textarea for the detected framework. Field renders its native label and messages, then generates the complete control relationship by convention; the individual primitives still work independently.
+
+```vue
+<Field
+  name="email"
+  label="Email address"
+  description="We only use this for account messages."
+  :error="form.errors.email"
+  required
+>
+  <Input v-model="form.email" type="email" autocomplete="email" />
+</Field>
+```
+
+Validation and values remain application-owned. Visual density, color, shape, and layout remain ordinary caller Tailwind classes. Read [the form foundation contract](./docs/field.md).
 
 ## Button contract
 
@@ -67,7 +86,7 @@ npm install
 npm run storybook
 ```
 
-Storybook opens at `http://localhost:6006`. Start with **Klean UI / Introduction**, then open **Components / Button** for controls, semantic element recipes, product uses, source, and accessibility documentation.
+Storybook opens at `http://localhost:6006`. Start with **Klean UI / Introduction**, then open **Components / Button** or **Components / Field** for live controls, states, recipes, source, and accessibility documentation.
 
 ## Validate Klean UI
 
@@ -84,4 +103,4 @@ The package contains the CLI and its versioned registry. It does not publish the
 
 Klean is the canonical implementation of our Durable UI practice. Durable behavior lives in the component, composable, or Boring Stack block that owns it; it does not turn every primitive into a state-management abstraction.
 
-Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).
+Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), [form foundation contract](./docs/field.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).

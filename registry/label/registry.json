@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "label",
+  "description": "A native label that associates itself with a Klean UI Field control by convention.",
+  "registryDependencies": ["field-context"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/Label.vue",
+      "target": "label/Label.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Label.jsx",
+      "target": "label/Label.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Label.svelte",
+      "target": "label/Label.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

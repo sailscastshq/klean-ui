@@ -12,6 +12,14 @@
     "description": {
       "type": "string"
     },
+    "registryDependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "uniqueItems": true
+    },
     "frameworks": {
       "type": "object",
       "required": ["vue", "react", "svelte"],
@@ -26,15 +34,32 @@
   "$defs": {
     "framework": {
       "type": "object",
-      "required": ["source", "target", "dependencies"],
+      "required": ["dependencies"],
       "properties": {
         "source": { "type": "string" },
         "target": { "type": "string" },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["source", "target"],
+            "properties": {
+              "source": { "type": "string" },
+              "target": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
         "dependencies": {
           "type": "object",
           "additionalProperties": { "type": "string" }
         }
       },
+      "oneOf": [
+        { "required": ["source", "target"] },
+        { "required": ["files"] }
+      ],
       "additionalProperties": false
     }
   },

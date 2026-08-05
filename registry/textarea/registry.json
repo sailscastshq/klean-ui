@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "textarea",
+  "description": "A native multiline control with accessible Field conventions and caller-owned resizing.",
+  "registryDependencies": ["field-context"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/Textarea.vue",
+      "target": "textarea/Textarea.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Textarea.jsx",
+      "target": "textarea/Textarea.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Textarea.svelte",
+      "target": "textarea/Textarea.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

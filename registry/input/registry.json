@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "input",
+  "description": "A native text-like input with accessible Field conventions and caller-owned Tailwind styling.",
+  "registryDependencies": ["field-context"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/Input.vue",
+      "target": "input/Input.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Input.jsx",
+      "target": "input/Input.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Input.svelte",
+      "target": "input/Input.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
