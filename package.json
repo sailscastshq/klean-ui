@@ -1,6 +1,6 @@
 {
   "name": "klean-ui",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "Klean UI: copied-source, durable UI for The Boring JavaScript Stack",
   "keywords": [
