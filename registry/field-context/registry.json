@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "field-context",
+  "description": "Internal framework context shared by Klean UI form primitives.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/field-context.js",
+      "target": "field/field-context.js",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/field-context.js",
+      "target": "field/field-context.js",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/field-context.js",
+      "target": "field/field-context.js",
+      "dependencies": {}
+    }
+  }
+}

@@ -4,9 +4,10 @@ The Klean UI installer has one conventional path:
 
 ```bash
 npx klean-ui add button
+npx klean-ui add field
 ```
 
-It does not initialize a project. It resolves a Boring Stack application, selects one framework-native registry source, copies that source into the application, installs only its missing direct dependencies, and reports the result.
+It does not initialize a project. It resolves a Boring Stack application, selects one framework-native registry item, copies its source files and prerequisites into the application, installs only its missing direct dependencies, and reports the result.
 
 ## What the command resolves
 
@@ -44,6 +45,8 @@ All configured paths must stay inside the detected application root. Klean does 
 
 The registry source and item manifest are bundled in the installed `klean-ui` package. A specific CLI version therefore installs a specific reviewed component; the command does not fetch mutable component source from a remote endpoint.
 
+Registry items can declare prerequisites and more than one source file. For example, `add field` resolves the internal field context plus Label, Input, Textarea, and Field in dependency order. The complete set is planned before the installer mutates the application.
+
 The file behavior is deterministic:
 
 - a missing file is created;
@@ -65,7 +68,7 @@ Klean itself is not installed as an application runtime dependency. `npx` downlo
 
 `--dry-run` resolves and prints the framework, conventional paths, destination file, package manager, dependencies, and planned mutations. It performs no writes and runs no package-manager command.
 
-Before applying a real installation, Klean snapshots the component target, `package.json`, and recognized lockfiles. A failed file or dependency operation restores those controlled files and returns a non-zero exit code. Package-manager caches and already-materialized `node_modules` contents are outside that practical rollback boundary.
+Before applying a real installation, Klean snapshots every component target, `package.json`, and recognized lockfile. One conflicting target blocks the whole registry transaction before mutation. A failed file or dependency operation restores all controlled files, removes empty directories and atomic-write temporary files, and returns a non-zero exit code. Package-manager caches and already-materialized `node_modules` contents are outside that practical rollback boundary.
 
 ## Maintainer registry
 
@@ -79,6 +82,9 @@ registry/
     vue/Button.vue
     react/Button.jsx
     svelte/Button.svelte
+  field/
+    registry.json
+    vue/Field.vue
 ```
 
-Every item maps a framework source to its conventional destination and direct dependencies. Tests prove all three canonical applications, safe re-runs, local edits, missing dependencies, path overrides, ambiguity, non-Sails rejection, dry runs, and rollback before a release can publish the registry.
+Every item maps one or more framework sources to conventional destinations, registry prerequisites, and direct dependencies. Tests prove all three canonical applications, safe re-runs, local edits, missing dependencies, path overrides, ambiguity, non-Sails rejection, dry runs, multi-file transactions, temporary-file cleanup, and rollback before a release can publish the registry.

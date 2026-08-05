@@ -107,6 +107,51 @@ function recordingDependencyInstaller(calls) {
   };
 }
 
+function writeRegistryItem(registryDirectory, name, options = {}) {
+  const itemDirectory = resolve(registryDirectory, name);
+  const files = options.files ?? [
+    {
+      source: `vue/${name}.vue`,
+      target: `${name}/${name}.vue`,
+      contents: `<template><div>${name}</div></template>\n`,
+    },
+  ];
+
+  for (const file of files) {
+    write(resolve(itemDirectory, file.source), file.contents);
+  }
+
+  write(
+    resolve(itemDirectory, "registry.json"),
+    `${JSON.stringify(
+      {
+        name,
+        type: "registry:ui",
+        ...(options.registryDependencies
+          ? { registryDependencies: options.registryDependencies }
+          : {}),
+        frameworks: {
+          vue: {
+            files: files.map(({ source, target }) => ({ source, target })),
+            dependencies: options.dependencies ?? {},
+          },
+        },
+      },
+      null,
+      2,
+    )}\n`,
+  );
+}
+
+function allFiles(directory) {
+  if (!existsSync(directory)) return [];
+
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = resolve(directory, entry.name);
+    return entry.isDirectory() ? allFiles(path) : [path];
+  });
+}
+
 for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
   test(`installs only the native ${framework} Button in a canonical app`, () => {
     const root = makeFixture({ framework });
@@ -125,6 +170,39 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(readFileSync(destination, "utf8")).toBe(
       readFileSync(result.plan.file.sourcePath, "utf8"),
     );
+  });
+}
+
+for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
+  test(`installs the complete native ${framework} Field foundation`, () => {
+    const root = makeFixture({ framework });
+    const result = installComponent("field", { cwd: root });
+    const extension = fixture.extension;
+
+    expect(result.plan.registryItems).toEqual([
+      "field-context",
+      "label",
+      "input",
+      "textarea",
+      "field",
+    ]);
+    expect(result.plan.files).toHaveLength(5);
+    expect(
+      existsSync(
+        resolve(root, `assets/js/components/ui/field/Field.${extension}`),
+      ),
+    ).toBe(true);
+    expect(
+      existsSync(
+        resolve(root, `assets/js/components/ui/input/Input.${extension}`),
+      ),
+    ).toBe(true);
+    expect(
+      existsSync(
+        resolve(root, `assets/js/components/ui/textarea/Textarea.${extension}`),
+      ),
+    ).toBe(true);
+    expect(allFiles(root).some((path) => path.includes(".klean-"))).toBe(false);
   });
 }
 
@@ -328,6 +406,144 @@ test("rolls component, package, and lock files back after a partial failure", ()
   expect(readFileSync(resolve(root, "package-lock.json"), "utf8")).toBe(
     originalLock,
   );
+});
+
+test("installs registry prerequisites and multi-file items dependency first", () => {
+  const root = makeFixture({ framework: "vue", tailwindMerge: false });
+  const registryDirectory = mkdtempSync(join(tmpdir(), "klean-ui-registry-"));
+  fixtures.push(registryDirectory);
+
+  writeRegistryItem(registryDirectory, "field-context", {
+    files: [
+      {
+        source: "vue/field-context.js",
+        target: "field/field-context.js",
+        contents: "export const fieldContext = {};\n",
+      },
+    ],
+  });
+  writeRegistryItem(registryDirectory, "input", {
+    registryDependencies: ["field-context"],
+    files: [
+      {
+        source: "vue/Input.vue",
+        target: "input/Input.vue",
+        contents: "<template><input /> </template>\n",
+      },
+    ],
+    dependencies: { "tailwind-merge": "^3.6.0" },
+  });
+  writeRegistryItem(registryDirectory, "field", {
+    registryDependencies: ["field-context", "input"],
+    files: [
+      {
+        source: "vue/Field.vue",
+        target: "field/Field.vue",
+        contents: "<template><div><slot /></div></template>\n",
+      },
+      {
+        source: "vue/FieldError.vue",
+        target: "field/FieldError.vue",
+        contents: "<template><p><slot /></p></template>\n",
+      },
+    ],
+  });
+
+  const calls = [];
+  const result = installComponent("field", {
+    cwd: root,
+    registryDirectory,
+    dependencyInstaller: recordingDependencyInstaller(calls),
+  });
+
+  expect(result.plan.registryItems).toEqual([
+    "field-context",
+    "input",
+    "field",
+  ]);
+  expect(result.plan.files.map((file) => file.displayPath)).toEqual([
+    "field/field-context.js",
+    "input/Input.vue",
+    "field/Field.vue",
+    "field/FieldError.vue",
+  ]);
+  expect(result.plan.file).toBeUndefined();
+  expect(calls).toHaveLength(1);
+  expect(
+    existsSync(resolve(root, "assets/js/components/ui/field/field-context.js")),
+  ).toBe(true);
+  expect(allFiles(root).some((path) => path.includes(".klean-"))).toBe(false);
+});
+
+test("blocks a multi-file install before mutation when any target conflicts", () => {
+  const root = makeFixture({ framework: "vue" });
+  const registryDirectory = mkdtempSync(join(tmpdir(), "klean-ui-registry-"));
+  fixtures.push(registryDirectory);
+  writeRegistryItem(registryDirectory, "field", {
+    files: [
+      {
+        source: "vue/Field.vue",
+        target: "field/Field.vue",
+        contents: "<template><div /></template>\n",
+      },
+      {
+        source: "vue/FieldError.vue",
+        target: "field/FieldError.vue",
+        contents: "<template><p /></template>\n",
+      },
+    ],
+  });
+  const conflictingPath = resolve(
+    root,
+    "assets/js/components/ui/field/FieldError.vue",
+  );
+  const untouchedPath = resolve(
+    root,
+    "assets/js/components/ui/field/Field.vue",
+  );
+  write(conflictingPath, "<!-- application owned -->\n");
+
+  expect(() =>
+    installComponent("field", { cwd: root, registryDirectory }),
+  ).toThrow(/has local changes/);
+  expect(existsSync(untouchedPath)).toBe(false);
+  expect(readFileSync(conflictingPath, "utf8")).toBe(
+    "<!-- application owned -->\n",
+  );
+});
+
+test("rolls every registry file back and removes atomic temp files", () => {
+  const root = makeFixture({ framework: "vue", tailwindMerge: false });
+  const registryDirectory = mkdtempSync(join(tmpdir(), "klean-ui-registry-"));
+  fixtures.push(registryDirectory);
+  writeRegistryItem(registryDirectory, "field", {
+    files: [
+      {
+        source: "vue/Field.vue",
+        target: "field/Field.vue",
+        contents: "<template><div /></template>\n",
+      },
+      {
+        source: "vue/FieldError.vue",
+        target: "field/FieldError.vue",
+        contents: "<template><p /></template>\n",
+      },
+    ],
+    dependencies: { "tailwind-merge": "^3.6.0" },
+  });
+
+  expect(() =>
+    installComponent("field", {
+      cwd: root,
+      registryDirectory,
+      dependencyInstaller: () => {
+        throw new Error("simulated package manager failure");
+      },
+    }),
+  ).toThrow(/rolled back/);
+
+  expect(existsSync(resolve(root, "assets/js/components/ui"))).toBe(false);
+  expect(allFiles(root).some((path) => path.includes(".klean-"))).toBe(false);
 });
 
 test("does not generate project configuration or a shared class helper", () => {

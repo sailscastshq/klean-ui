@@ -19,6 +19,7 @@ Usage:
 
 Examples:
   klean-ui add button
+  klean-ui add field
   klean-ui add button --dry-run
   klean-ui add button --components-dir assets/js/components/ui
 

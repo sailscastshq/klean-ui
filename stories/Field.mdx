@@ -1,0 +1,61 @@
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Stories,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as FieldStories from "./Field.stories.js";
+
+<Meta of={FieldStories} />
+
+<Title />
+
+<Description />
+
+Field is Klean UI's small accessibility convention for forms. It generates the
+control ID, renders its native label and messages, and connects them through
+`aria-describedby`. The control remains native HTML.
+
+```sh
+npx klean-ui@latest add field
+```
+
+That one command installs Field, Label, Input, Textarea, and their internal
+framework context into the conventional application component directory.
+
+<Canvas of={FieldStories.Playground} />
+
+## API
+
+Field accepts only relationship and native-state props. Use `class` for layout,
+density, color, and every other visual decision.
+
+<Controls of={FieldStories.Playground} />
+
+## Vue
+
+```vue
+<Field
+  name="email"
+  label="Email address"
+  description="We only use this for account messages."
+  :error="form.errors.email"
+>
+  <Input v-model="form.email" type="email" autocomplete="email" />
+</Field>
+```
+
+Validate late—after blur or submit—and clear stale errors as soon as the user
+edits. That timing belongs to the application, not the primitive.
+
+## Durable behavior
+
+Klean does not persist form values twice. The application restores its server,
+URL, or local draft state through the framework's normal binding; Field rebuilds
+its native relationships from that state, and Textarea derives the correct height
+from the restored value and current width. Conditional errors remove their stale
+`aria-describedby` relationship immediately.
+
+<Stories title="Examples" includePrimary={false} />
