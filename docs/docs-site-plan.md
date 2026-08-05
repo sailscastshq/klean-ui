@@ -1,45 +1,40 @@
 # Klean UI on docs.sailscasts.com
 
-The current Sailscasts docs site is a VitePress application with a custom theme, global preview components, local search, project sidebars, and Markdown content. Klean can fit that architecture without allowing the host framework to define Klean's framework support.
+The public Klean UI documentation belongs on `docs.sailscasts.com`, inside a dedicated Klean UI section with Doctrine, Durable UI, Theming, Installation, CLI, and a Components subsection. Component names do not become the top-level information architecture.
 
-## Proposed first docs slice
+## Component-page contract
+
+Every component page should provide, in this order:
+
+1. a concise semantic promise;
+2. the same installation command for Vue, React, and Svelte;
+3. a live isolated preview;
+4. framework-native usage and semantic recipes;
+5. API, accessibility, and applicable Durable UI guarantees;
+6. syntax-highlighted, copyable source.
+
+The first Button page implements this in VitePress with Preview and Source tabs. Preview markup is isolated from VitePress theme styles, while the Source view uses VitePress's build-time syntax highlighting and copies the exact text shown.
+
+## Registry relationship
+
+The package registry is the source-installation contract:
 
 ```text
-docs/klean-ui/
-  index.md
-  design-philosophy.md
-  durable-ui.md
-  button.md
-docs/.vitepress/theme/components/klean/
-  ComponentPreview.vue
-  CopyCode.vue
-  button/Button.vue
+registry/button/vue/Button.vue
+registry/button/react/Button.jsx
+registry/button/svelte/Button.svelte
 ```
 
-The docs theme registers `ComponentPreview` globally, just as it currently registers `ProjectGrid`. A component page can then combine prose, a live framework example, exact source for Vue, React, or Svelte, copy controls, and an API table in one place.
+The public docs may render one framework at a time, but wording and installation must remain framework-neutral. Any source copied into the docs theme for a live preview must stay behaviorally identical to the corresponding registry item. Registry changes and public examples should be reviewed together until this synchronization is automated.
 
 ## Styling without disrupting VitePress
 
-Add Tailwind CSS v4 to the docs build, but import only its theme and utilities layers so Tailwind Preflight does not reset the existing VitePress theme. Scan only the Klean preview components and Klean Markdown pages.
+Klean previews use scoped Tailwind output so host typography rules, anchor decoration, resets, and application CSS cannot leak into the component canvas. Dark-mode state is synchronized into that isolated preview rather than supplied through a Klean provider.
 
-The canonical registry source should be copied into the docs theme during a small sync step. That keeps the rendered example identical to the source users receive while preserving the source-owned distribution model.
+This isolation is a documentation concern, not a component runtime. Installed source remains ordinary framework-native code and uses the consuming application's Tailwind stylesheet.
 
-## Page order
+## Storybook and VitePress
 
-1. Live preview and concise promise, including the applicable Durable UI guarantee.
-2. Install or copy command when the registry exists.
-3. Usage example.
-4. State, recovery, dismissal, and product recipe previews.
-5. API, accessibility, and Durable UI contract.
-6. Full source with copy action.
+Storybook is the development workbench: controls, semantic states, edge cases, accessibility inspection, and product recipes. VitePress is the polished adoption surface: doctrine, installation, live examples, exact source, and copy behavior.
 
-Storybook remains the development workbench and edge-case catalog. VitePress becomes the polished learning and adoption surface. The same story scenarios can later drive visual regression without embedding Storybook inside the public docs page.
-
-## Launch sequence
-
-1. Stabilize Button behavior in Hagfish issue #242.
-2. Graduate the source into the Klean registry shape.
-3. Add the Klean section and preview components to docs.sailscasts.com.
-4. Reuse the Button state and recipe matrix from this Storybook.
-5. Publish the Durable UI decision framework and framework-native implementation roadmap.
-6. Add copy/install UX only when the registry output is real.
+The two surfaces should share the same component contract without embedding Storybook in public documentation or presenting Storybook's story names as the public sidebar.

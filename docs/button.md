@@ -4,15 +4,25 @@ Button is a native-first action primitive. It owns element selection, safe butto
 
 Its appearance may look button-like while its rendered element follows the job. Actions are buttons. Navigation is an anchor or the Boring Stack Link. Klean never recommends wrapping one interactive element inside another.
 
+## Installation
+
+The command is identical for Vue, React, and Svelte:
+
+```bash
+npx klean-ui add button
+```
+
+Klean detects the application framework and writes only `Button.vue`, `Button.jsx`, or `Button.svelte` to `assets/js/components/ui/button/`. No initializer, framework prompt, configuration file, or Klean runtime package is required.
+
 ## API
 
-| Input        | Default    | Purpose                                                                                |
-| ------------ | ---------- | -------------------------------------------------------------------------------------- |
-| `as`         | `'button'` | Render a native `button`, native `a`, or a framework component such as Inertia `Link`. |
-| `type`       | `'button'` | Preserve safe button behavior; accepts `button`, `submit`, or `reset`.                 |
-| `disabled`   | `false`    | Uses native disabled behavior for buttons and accessible disabled semantics for links. |
-| `class`      | —          | The visual API. Caller Tailwind classes merge last.                                    |
-| default slot | —          | Label, icon, Spinner, or any other accessible button content.                          |
+| Input                 | Default    | Purpose                                                                                |
+| --------------------- | ---------- | -------------------------------------------------------------------------------------- |
+| `as`                  | `'button'` | Render a native `button`, native `a`, or a framework component such as Inertia `Link`. |
+| `type`                | `'button'` | Preserve safe button behavior; accepts `button`, `submit`, or `reset`.                 |
+| `disabled`            | `false`    | Uses native disabled behavior for buttons and accessible disabled semantics for links. |
+| `class` / `className` | —          | The visual API. Caller Tailwind classes merge last.                                    |
+| default slot          | —          | Label, icon, Spinner, or any other accessible button content.                          |
 
 There are intentionally no `variant`, `size`, `color`, `tone`, `radius`, `elevated`, or `loading` props.
 
@@ -179,4 +189,4 @@ Not every Slipway button is only a Button concern. Tabs, menus, and compound wid
 - Processing indicators are decorative when the visible label already describes the state.
 - Motion is removed when the user prefers reduced motion.
 
-This contract remains provisional until the Hagfish proving work in issue #242 is complete.
+This is the registry contract for Button. Hagfish and Slipway continue to prove application-owned recipes without expanding the primitive into a visual variant API.

@@ -1,29 +1,46 @@
 # Klean UI
 
-Klean UI means Kelvin's Lean UI: the copied-source UI system for The Boring JavaScript Stack. It supports Vue, React, and Svelte with framework-native components and Durable UI patterns so markup, state, navigation context, and interactions remain accessible and resilient. The source belongs to the application as soon as it is added.
+Klean UI means Kelvin's Lean UI: source-owned, accessible UI for The Boring JavaScript Stack. It gives Vue, React, and Svelte applications framework-native components with neutral defaults, ordinary Tailwind styling, and Durable UI patterns. The source belongs to the application as soon as it is added.
 
-This branch contains the provisional Button workbench from [issue #4](https://github.com/sailscastshq/klean-ui/issues/4). The complete Durable UI implementation is tracked in [issue #7](https://github.com/sailscastshq/klean-ui/issues/7). Final registry extraction waits for the behavioral proof in [Hagfish issue #242](https://github.com/sailscastshq/hagfish/issues/242).
+## Add a component
 
-## See the component
-
-```bash
-npm install
-npm run storybook
-```
-
-Storybook opens at `http://localhost:6006`. Start with **Klean UI / Introduction**, then open **Components / Button** for controls, semantic element recipes, source-app uses, and API documentation.
-
-## Validate the slice
+Run the same command in every standard Boring Stack application:
 
 ```bash
-npm test
-npm run build
-npm run build-storybook
+npx klean-ui add button
 ```
 
-## Current Button prototype
+Klean detects Sails and the frontend framework from `package.json` and the conventional application entry. It then installs exactly one native source file:
 
-The current workbench is exercising one implementation of the framework-neutral Button contract:
+```text
+Vue      assets/js/components/ui/button/Button.vue
+React    assets/js/components/ui/button/Button.jsx
+Svelte   assets/js/components/ui/button/Button.svelte
+```
+
+There is no `init`, `klean-ui.json`, framework questionnaire, alias questionnaire, generated `cn.js`, or Klean runtime dependency. Each installed component is ordinary application code. Its visual API is `class` in Vue and Svelte or `className` in React, and caller Tailwind classes win.
+
+Preview the resolved work without changing the application:
+
+```bash
+npx klean-ui add button --dry-run
+```
+
+Nonstandard Boring Stack applications can use explicit path overrides:
+
+```bash
+npx klean-ui add button \
+  --components-dir assets/js/design-system \
+  --css assets/styles/app.css
+```
+
+Klean will not silently replace edited source. Re-running an unchanged installation is a no-op; edited files produce a useful conflict and require the deliberate `--overwrite` flag.
+
+Read [the complete installer contract](./docs/installer.md).
+
+## Button contract
+
+Button has behavioral inputs only: rendered element, native button type, and disabled semantics. Actions remain buttons; navigation renders a native anchor or the Boring Stack/Inertia Link component. Loading labels and product styling remain application concerns.
 
 ```vue
 <script setup>
@@ -31,19 +48,40 @@ import Button from "@/components/ui/button/Button.vue";
 </script>
 
 <template>
-  <Button type="submit" :disabled="form.processing">
-    <Spinner v-if="form.processing" aria-hidden="true" />
+  <Button
+    type="submit"
+    :disabled="form.processing"
+    class="rounded-full bg-emerald-700 px-6 hover:bg-emerald-800"
+  >
     {{ form.processing ? "Saving" : "Save changes" }}
   </Button>
 </template>
 ```
 
-The public props are behavioral: `as`, `type`, and `disabled`. Styling remains the ordinary `class` attribute, and caller classes win last. There is intentionally no `variant`, `size`, `tone`, or generated public `cn.js` API; repeating visual recipes become application-owned components styled with Tailwind.
+There is intentionally no `variant`, `size`, `tone`, `color`, `radius`, or generated class-helper API. Repeated visual treatments become application-owned components styled with Tailwind.
 
-## Durable UI is part of Klean
+## Component workbench
 
-Klean is both a component system and the canonical implementation of our Durable UI practice. Vue, React, and Svelte receive idiomatic copied-source components and state utilities for resilient storage, shareable URL state, draft recovery, multi-step progress, predictable dismissal, focus management, optimistic rollback, scroll restoration, toast queues, and cancellable debounced search.
+```bash
+npm install
+npm run storybook
+```
 
-This does not put every behavior into every primitive. Button remains a Button. Durable behavior lives in the component, composable, or Boring Stack block that owns it, behind one opinionated Klean API and without a required provider, manifest, or state-library configuration.
+Storybook opens at `http://localhost:6006`. Start with **Klean UI / Introduction**, then open **Components / Button** for controls, semantic element recipes, product uses, source, and accessibility documentation.
 
-Read [the design philosophy and shadcn boundary](./docs/design-philosophy.md), [the Durable UI contract](./docs/durable-ui.md), [the theming convention and prior-art study](./docs/theming.md), [the Button contract](./docs/button.md), and [the Sailscasts docs plan](./docs/docs-site-plan.md).
+## Validate Klean UI
+
+```bash
+npm test
+npm run build
+npm run build-storybook
+npm pack --dry-run
+```
+
+The package contains the CLI and its versioned registry. It does not publish the Storybook, development build, or framework runtimes.
+
+## Doctrine
+
+Klean is the canonical implementation of our Durable UI practice. Durable behavior lives in the component, composable, or Boring Stack block that owns it; it does not turn every primitive into a state-management abstraction.
+
+Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).

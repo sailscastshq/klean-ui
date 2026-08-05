@@ -1,0 +1,340 @@
+import { afterEach, describe, expect, test } from "@rstest/core";
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
+import { dirname, join, resolve } from "node:path";
+import {
+  createInstallPlan,
+  detectFramework,
+  installComponent,
+  KleanInstallerError,
+} from "../cli/installer.js";
+
+const fixtures = [];
+
+const FRAMEWORK_FIXTURES = {
+  vue: {
+    dependency: "vue",
+    entry: 'import { createApp } from "vue";\ncreateApp({});\n',
+    extension: "vue",
+  },
+  react: {
+    dependency: "react",
+    entry:
+      'import { createRoot } from "react-dom/client";\ncreateRoot(document.body);\n',
+    extension: "jsx",
+  },
+  svelte: {
+    dependency: "svelte",
+    entry: 'import { mount } from "svelte";\nmount(App, {});\n',
+    extension: "svelte",
+  },
+};
+
+afterEach(() => {
+  while (fixtures.length) {
+    rmSync(fixtures.pop(), { recursive: true, force: true });
+  }
+});
+
+function write(path, source) {
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, source);
+}
+
+function makeFixture(options = {}) {
+  const root = mkdtempSync(join(tmpdir(), "klean-ui-installer-"));
+  fixtures.push(root);
+  const framework = options.framework ?? "vue";
+  const fixture = FRAMEWORK_FIXTURES[framework];
+  const dependencies = {
+    ...(options.sails === false ? {} : { sails: "^1.5.0" }),
+    ...(fixture ? { [fixture.dependency]: "latest" } : {}),
+    ...(options.tailwindMerge === false ? {} : { "tailwind-merge": "^3.6.0" }),
+    ...(options.dependencies ?? {}),
+  };
+  const packageJson = {
+    name: "fixture-app",
+    private: true,
+    dependencies,
+    ...(options.packageManager
+      ? { packageManager: options.packageManager }
+      : {}),
+  };
+
+  write(
+    resolve(root, "package.json"),
+    `${JSON.stringify(packageJson, null, 2)}\n`,
+  );
+  write(resolve(root, "package-lock.json"), "{}\n");
+
+  if (options.entry !== false) {
+    write(
+      resolve(root, "assets/js/app.js"),
+      options.entry ?? fixture?.entry ?? "",
+    );
+  }
+
+  write(resolve(root, "assets/css/app.css"), '@import "tailwindcss";\n');
+  return root;
+}
+
+function readPackage(root) {
+  return JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
+}
+
+function recordingDependencyInstaller(calls) {
+  return ({ root, packageManager, dependencies }) => {
+    calls.push({ root, packageManager, dependencies });
+    const packageJson = readPackage(root);
+    packageJson.dependencies ??= {};
+
+    for (const { name, version } of dependencies) {
+      packageJson.dependencies[name] = version;
+    }
+
+    write(
+      resolve(root, "package.json"),
+      `${JSON.stringify(packageJson, null, 2)}\n`,
+    );
+  };
+}
+
+for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
+  test(`installs only the native ${framework} Button in a canonical app`, () => {
+    const root = makeFixture({ framework });
+    const result = installComponent("button", { cwd: root });
+    const destination = resolve(
+      root,
+      `assets/js/components/ui/button/Button.${fixture.extension}`,
+    );
+
+    expect(result.plan.framework).toBe(framework);
+    expect(result.plan.frameworkDetection.source).toBe("entry");
+    expect(existsSync(destination)).toBe(true);
+    expect(readdirSync(dirname(destination))).toEqual([
+      `Button.${fixture.extension}`,
+    ]);
+    expect(readFileSync(destination, "utf8")).toBe(
+      readFileSync(result.plan.file.sourcePath, "utf8"),
+    );
+  });
+}
+
+test("creates the conventional destination directories when missing", () => {
+  const root = makeFixture({ framework: "vue" });
+  const destinationDirectory = resolve(root, "assets/js/components/ui");
+
+  expect(existsSync(destinationDirectory)).toBe(false);
+  installComponent("button", { cwd: root });
+  expect(existsSync(resolve(destinationDirectory, "button/Button.vue"))).toBe(
+    true,
+  );
+});
+
+test("is idempotent when the application-owned source still matches", () => {
+  const root = makeFixture({ framework: "react" });
+
+  const first = installComponent("button", { cwd: root });
+  const second = installComponent("button", { cwd: root });
+
+  expect(first.changed).toBe(true);
+  expect(second.changed).toBe(false);
+  expect(second.plan.file.action).toBe("unchanged");
+});
+
+test("refuses to overwrite locally edited source and shows the difference", () => {
+  const root = makeFixture({ framework: "vue" });
+  const first = installComponent("button", { cwd: root });
+  write(first.plan.file.targetPath, "<!-- application edit -->\n");
+
+  let receivedError;
+  try {
+    installComponent("button", { cwd: root });
+  } catch (error) {
+    receivedError = error;
+  }
+
+  expect(receivedError).toBeInstanceOf(KleanInstallerError);
+  expect(receivedError.code).toBe("SOURCE_CONFLICT");
+  expect(receivedError.message).toContain("First difference at line 1");
+  expect(receivedError.message).toContain("--overwrite");
+  expect(readFileSync(first.plan.file.targetPath, "utf8")).toBe(
+    "<!-- application edit -->\n",
+  );
+});
+
+test("overwrites local source only with the explicit flag", () => {
+  const root = makeFixture({ framework: "vue" });
+  const first = installComponent("button", { cwd: root });
+  write(first.plan.file.targetPath, "<!-- replace me -->\n");
+
+  const result = installComponent("button", {
+    cwd: root,
+    overwrite: true,
+  });
+
+  expect(result.plan.file.action).toBe("overwrite");
+  expect(readFileSync(first.plan.file.targetPath, "utf8")).toBe(
+    result.plan.file.registrySource,
+  );
+});
+
+test("adds only missing direct dependencies with the detected package manager", () => {
+  const root = makeFixture({ framework: "svelte", tailwindMerge: false });
+  const calls = [];
+
+  const result = installComponent("button", {
+    cwd: root,
+    dependencyInstaller: recordingDependencyInstaller(calls),
+  });
+
+  expect(result.plan.packageManager).toBe("npm");
+  expect(calls).toHaveLength(1);
+  expect(calls[0].dependencies).toEqual([
+    { name: "tailwind-merge", version: "^3.6.0", missing: true },
+  ]);
+  expect(readPackage(root).dependencies["tailwind-merge"]).toBe("^3.6.0");
+});
+
+test("honors explicit non-standard component and CSS paths", () => {
+  const root = makeFixture({ framework: "react" });
+  const result = installComponent("button", {
+    cwd: root,
+    componentsDirectory: "assets/js/design-system",
+    cssPath: "assets/styles/tailwind.css",
+  });
+
+  expect(result.plan.componentsDisplayPath).toBe("assets/js/design-system");
+  expect(result.plan.cssDisplayPath).toBe("assets/styles/tailwind.css");
+  expect(
+    existsSync(resolve(root, "assets/js/design-system/button/Button.jsx")),
+  ).toBe(true);
+});
+
+test("rejects paths that escape the detected application", () => {
+  const root = makeFixture({ framework: "vue" });
+
+  expect(() =>
+    createInstallPlan("button", {
+      cwd: root,
+      componentsDirectory: "../shared-components",
+    }),
+  ).toThrow(/must stay inside/);
+});
+
+test("fails with evidence when framework detection is ambiguous", () => {
+  const root = makeFixture({
+    framework: "vue",
+    dependencies: { react: "latest", "react-dom": "latest" },
+    entry:
+      'import { createApp } from "vue";\nimport { createRoot } from "react-dom/client";\n',
+  });
+
+  expect(() => detectFramework(root, readPackage(root))).toThrow(
+    /ambiguous framework evidence.*app\.js \(vue, react\)/,
+  );
+});
+
+test("allows an explicit framework override without prompting", () => {
+  const root = makeFixture({
+    framework: "vue",
+    dependencies: { react: "latest", "react-dom": "latest" },
+    entry:
+      'import { createApp } from "vue";\nimport { createRoot } from "react-dom/client";\n',
+  });
+
+  const result = installComponent("button", {
+    cwd: root,
+    framework: "react",
+  });
+
+  expect(result.plan.framework).toBe("react");
+  expect(result.plan.frameworkDetection.source).toBe("override");
+  expect(result.plan.file.targetPath.endsWith("Button.jsx")).toBe(true);
+});
+
+test("rejects non-Sails applications", () => {
+  const root = makeFixture({ framework: "vue", sails: false });
+
+  let receivedError;
+  try {
+    createInstallPlan("button", { cwd: root });
+  } catch (error) {
+    receivedError = error;
+  }
+
+  expect(receivedError).toBeInstanceOf(KleanInstallerError);
+  expect(receivedError.code).toBe("NOT_SAILS");
+  expect(receivedError.message).toContain("declares `sails`");
+});
+
+test("dry run reports the complete plan without mutating files or dependencies", () => {
+  const root = makeFixture({ framework: "react", tailwindMerge: false });
+  const calls = [];
+  const result = installComponent("button", {
+    cwd: root,
+    dryRun: true,
+    dependencyInstaller: recordingDependencyInstaller(calls),
+  });
+
+  expect(result.dryRun).toBe(true);
+  expect(result.plan.file.action).toBe("create");
+  expect(result.plan.missingDependencies).toHaveLength(1);
+  expect(existsSync(result.plan.file.targetPath)).toBe(false);
+  expect(readPackage(root).dependencies["tailwind-merge"]).toBeUndefined();
+  expect(calls).toHaveLength(0);
+});
+
+test("rolls component, package, and lock files back after a partial failure", () => {
+  const root = makeFixture({ framework: "svelte", tailwindMerge: false });
+  const originalPackage = readFileSync(resolve(root, "package.json"), "utf8");
+  const originalLock = readFileSync(resolve(root, "package-lock.json"), "utf8");
+  const plan = createInstallPlan("button", { cwd: root });
+
+  let receivedError;
+  try {
+    installComponent("button", {
+      cwd: root,
+      dependencyInstaller: ({ root: applicationRoot }) => {
+        const packageJson = readPackage(applicationRoot);
+        packageJson.dependencies["tailwind-merge"] = "^3.6.0";
+        write(
+          resolve(applicationRoot, "package.json"),
+          `${JSON.stringify(packageJson)}\n`,
+        );
+        write(resolve(applicationRoot, "package-lock.json"), "changed\n");
+        throw new Error("simulated package manager failure");
+      },
+    });
+  } catch (error) {
+    receivedError = error;
+  }
+
+  expect(receivedError.code).toBe("APPLY_FAILED");
+  expect(receivedError.message).toContain("rolled back");
+  expect(existsSync(plan.file.targetPath)).toBe(false);
+  expect(existsSync(resolve(root, "assets/js/components/ui"))).toBe(false);
+  expect(readFileSync(resolve(root, "package.json"), "utf8")).toBe(
+    originalPackage,
+  );
+  expect(readFileSync(resolve(root, "package-lock.json"), "utf8")).toBe(
+    originalLock,
+  );
+});
+
+test("does not generate project configuration or a shared class helper", () => {
+  const root = makeFixture({ framework: "vue" });
+  installComponent("button", { cwd: root });
+
+  expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
+  expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
+  expect(existsSync(resolve(root, "assets/js/utils.js"))).toBe(false);
+});

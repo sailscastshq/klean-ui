@@ -63,7 +63,7 @@ In a conventional Boring Stack application, Klean should infer the framework, Ta
 
 Configuration remains possible only as an escape hatch for a nonstandard project. It must never become ceremony imposed on the standard path.
 
-Once installed, `Button.vue` is application code. A developer can read it, edit it, rename it, or stop receiving changes. Klean may report upstream differences later, but it must not pretend to retain ownership.
+Once installed, `Button.vue`, `Button.jsx`, or `Button.svelte` is application code. A developer can read it, edit it, rename it, or stop receiving changes. Klean reports a conflict when a local file differs; it does not pretend to retain ownership or overwrite the application automatically.
 
 ## Native HTML first
 
@@ -128,7 +128,7 @@ Hagfish can keep its offset-shadow press because that motion is part of Hagfish'
 When a visual recipe repeats, give that product concept a local name:
 
 ```vue
-<!-- resources/js/components/PrimaryButton.vue -->
+<!-- assets/js/components/PrimaryButton.vue -->
 <script setup>
 import Button from "@/components/ui/button/Button.vue";
 </script>

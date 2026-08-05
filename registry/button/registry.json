@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "name": "button",
+  "description": "An accessible action primitive with native button, anchor, and framework-link semantics.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Button.vue",
+      "target": "button/Button.vue",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/Button.jsx",
+      "target": "button/Button.jsx",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "source": "svelte/Button.svelte",
+      "target": "button/Button.svelte",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}
