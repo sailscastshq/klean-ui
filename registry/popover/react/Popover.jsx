@@ -31,6 +31,7 @@ const Popover = forwardRef(function Popover(
     offset = 8,
     className,
     style,
+    "data-slot": dataSlot = "popover-content",
     children,
     ...contentProps
   },
@@ -276,7 +277,7 @@ const Popover = forwardRef(function Popover(
       id={contentId}
       popover="auto"
       hidden={!supportsNative && !isOpen}
-      data-slot="popover-content"
+      data-slot={dataSlot}
       data-state={isOpen ? "open" : "closed"}
       data-placement={resolvedPlacement}
       className={twMerge(BASE_CLASSES, className)}

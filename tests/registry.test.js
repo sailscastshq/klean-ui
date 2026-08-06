@@ -150,3 +150,43 @@ test("keeps Popover semantic, class-first, and ephemeral", () => {
     expect(source).not.toMatch(/role=["'](?:menu|dialog)["']/);
   }
 });
+
+test("keeps the Vue Menu workbench and installable registry source identical", () => {
+  expect(registrySource("vue", "Menu.vue", "menu")).toBe(
+    readFileSync(resolve("src/vue/menu/Menu.vue"), "utf8"),
+  );
+});
+
+test("ships compiler-valid framework-native Menu source", () => {
+  const reactSource = registrySource("react", "Menu.jsx", "menu");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  const svelteSource = registrySource("svelte", "Menu.svelte", "menu");
+  const result = compile(svelteSource, {
+    filename: "Menu.svelte",
+    generate: false,
+  });
+
+  expect(result.warnings).toEqual([]);
+});
+
+test("keeps Menu semantic, class-first, ephemeral, and motion-free", () => {
+  for (const [framework, filename] of [
+    ["vue", "Menu.vue"],
+    ["react", "Menu.jsx"],
+    ["svelte", "Menu.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "menu");
+
+    expect(source).toContain("../popover/Popover");
+    expect(source).toContain("menuitem");
+    expect(source).toContain("aria-haspopup");
+    expect(source).toContain("typeahead");
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
+    expect(source).not.toMatch(/\bvariant\b/i);
+    expect(source).not.toMatch(/transition|animate|duration-/);
+    expect(source).not.toMatch(/MenuTrigger|MenuItem/);
+  }
+});

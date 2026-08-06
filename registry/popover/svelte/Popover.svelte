@@ -117,6 +117,10 @@
     requestOpen(false, { restoreFocus: true });
   }
 
+  export function getContent() {
+    return contentElement;
+  }
+
   function handleNativeToggle(event) {
     const nextOpen = event.newState === "open";
     const shouldRestoreFocus =
@@ -242,7 +246,7 @@
   id={contentId}
   popover="auto"
   hidden={!supportsNative && !isOpen}
-  data-slot="popover-content"
+  data-slot={contentProps["data-slot"] ?? "popover-content"}
   data-state={isOpen ? "open" : "closed"}
   data-placement={resolvedPlacement}
   class={twMerge(BASE_CLASSES, className)}

@@ -1,0 +1,101 @@
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Source,
+  Stories,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as MenuStories from "./Menu.stories.js";
+
+export const vueUsage = `<Button popovertarget="project-actions">
+  Actions
+</Button>
+
+<Menu id="project-actions" aria-label="Project actions" class="w-56">
+  <button
+    type="button"
+    class="flex w-full rounded px-3 py-2 text-left text-sm outline-none hover:bg-gray-100 focus:bg-gray-100"
+  >
+    Redeploy
+  </button>
+  <a
+    href="/deployments"
+    class="flex w-full rounded px-3 py-2 text-sm no-underline outline-none hover:bg-gray-100 focus:bg-gray-100"
+  >
+    View deployments
+  </a>
+</Menu>`;
+
+export const reactUsage = `<Button popovertarget="project-actions">
+  Actions
+</Button>
+
+<Menu id="project-actions" aria-label="Project actions" className="w-56">
+  <button type="button" className="flex w-full rounded px-3 py-2 text-left text-sm outline-none hover:bg-gray-100 focus:bg-gray-100">
+    Redeploy
+  </button>
+  <a href="/deployments" className="flex w-full rounded px-3 py-2 text-sm no-underline outline-none hover:bg-gray-100 focus:bg-gray-100">
+    View deployments
+  </a>
+</Menu>`;
+
+export const svelteUsage = `<Button popovertarget="project-actions">
+  Actions
+</Button>
+
+<Menu id="project-actions" aria-label="Project actions" class="w-56">
+  <button type="button" class="flex w-full rounded px-3 py-2 text-left text-sm outline-none hover:bg-gray-100 focus:bg-gray-100">
+    Redeploy
+  </button>
+  <a href="/deployments" class="flex w-full rounded px-3 py-2 text-sm no-underline outline-none hover:bg-gray-100 focus:bg-gray-100">
+    View deployments
+  </a>
+</Menu>`;
+
+<Meta of={MenuStories} />
+
+<Title />
+
+<Description />
+
+Menu is one accessible interaction layer over Klean Popover. Connect a real Button
+with native `popovertarget`; put real buttons and links inside. Menu supplies
+`menuitem` semantics, roving focus, Arrow keys, Home/End, typeahead, dismissal,
+and focus return. Your ordinary Tailwind classes supply the product design.
+
+```sh
+npx klean-ui@latest add menu
+```
+
+The installer detects Vue, React, or Svelte and adds both Menu and its Popover
+prerequisite. It creates no configuration file, provider, helper, or trigger component.
+
+<Canvas of={MenuStories.Playground} />
+
+## Vue
+
+<Source code={vueUsage} language="vue" />
+
+## React
+
+<Source code={reactUsage} language="jsx" />
+
+## Svelte
+
+<Source code={svelteUsage} language="svelte" />
+
+## API
+
+Menu only adds interaction. `id`, `placement`, `offset`, optional observed open state,
+and the ordinary `class`/`className` attribute are the complete surface. There is no
+`MenuTrigger`, `MenuItem`, `asChild`, visual variant, or Klean theme API.
+
+Native button and anchor children become menu items automatically. A disabled native
+button or `aria-disabled="true"` link is skipped. Use a native anchor or the Boring
+Stack Link for navigation, and a native button for an action.
+
+<Controls of={MenuStories.Playground} />
+
+<Stories title="Examples" includePrimary={false} />
