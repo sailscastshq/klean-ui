@@ -191,7 +191,7 @@ Defaults should make an isolated component usable and accessible. They are a sta
 
 ## Obvious anatomy
 
-Klean source should read like the interface it produces. A Field should visibly contain a label, control, help text, and error relationship. A Dialog should visibly contain a trigger, overlay, panel, title, description, and actions. A Button should still look like a button implementation rather than a configuration interpreter.
+Klean source should read like the interface it produces. A form recipe should visibly contain its native label, control, help text, and error relationship. Klean does not hide that relationship behind Field, Label, description, or error components when the HTML is already the cleaner API. A Dialog should visibly contain a trigger, overlay, panel, title, description, and actions. A Button should still look like a button implementation rather than a configuration interpreter.
 
 Use slots for meaningful content and composition. Use props for behavior. Use `data-slot` for styling hooks. Avoid layers whose only job is to pass through another layer.
 

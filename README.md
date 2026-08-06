@@ -8,7 +8,8 @@ Run the same command in every standard Boring Stack application:
 
 ```bash
 npx klean-ui add button
-npx klean-ui add field
+npx klean-ui add input
+npx klean-ui add textarea
 ```
 
 Klean detects Sails and the frontend framework from `package.json` and the conventional application entry. It then installs the selected framework-native registry item and its prerequisites. Button is one source file:
@@ -39,23 +40,29 @@ Klean will not silently replace edited source. Re-running an unchanged installat
 
 Read [the complete installer contract](./docs/installer.md).
 
-## Form foundation
+## Native form controls
 
-`add field` installs Field, Label, Input, and Textarea for the detected framework. Field renders its native label and messages, then generates the complete control relationship by convention; the individual primitives still work independently.
+Klean installs Input and Textarea independently. The application writes the real label, help, and error elements so the form remains obvious HTML instead of a configuration API.
 
 ```vue
-<Field
-  name="email"
-  label="Email address"
-  description="We only use this for account messages."
-  :error="form.errors.email"
-  required
->
-  <Input v-model="form.email" type="email" autocomplete="email" />
-</Field>
+<div class="grid gap-2">
+  <label for="email">Email address</label>
+  <Input
+    id="email"
+    v-model="form.email"
+    name="email"
+    type="email"
+    autocomplete="email"
+    required
+    :aria-invalid="!!form.errors.email"
+    :aria-describedby="form.errors.email ? 'email-help email-error' : 'email-help'"
+  />
+  <p id="email-help">We only use this for account messages.</p>
+  <p v-if="form.errors.email" id="email-error">{{ form.errors.email }}</p>
+</div>
 ```
 
-Validation and values remain application-owned. Visual density, color, shape, and layout remain ordinary caller Tailwind classes. Read [the form foundation contract](./docs/field.md).
+Validation, IDs, messages, and values remain application-owned. Input and Textarea forward native attributes, while visual density, color, shape, and layout remain ordinary caller Tailwind classes. Read [the native form markup contract](./docs/forms.md).
 
 ## Button contract
 
@@ -86,7 +93,7 @@ npm install
 npm run storybook
 ```
 
-Storybook opens at `http://localhost:6006`. Start with **Klean UI / Introduction**, then open **Components / Button** or **Components / Field** for live controls, states, recipes, source, and accessibility documentation.
+Storybook opens at `http://localhost:6006`. Start with **Klean UI / Introduction**, then open **Components / Button**, **Components / Input**, or **Components / Textarea** for live controls, states, recipes, source, and accessibility documentation.
 
 ## Validate Klean UI
 
@@ -103,4 +110,4 @@ The package contains the CLI and its versioned registry. It does not publish the
 
 Klean is the canonical implementation of our Durable UI practice. Durable behavior lives in the component, composable, or Boring Stack block that owns it; it does not turn every primitive into a state-management abstraction.
 
-Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), [form foundation contract](./docs/field.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).
+Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), [native form markup contract](./docs/forms.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).

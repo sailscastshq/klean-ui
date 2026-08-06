@@ -1,6 +1,5 @@
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
-import { mergeDescribedBy, useFieldContext } from "../field/field-context.js";
 
 const BASE_CLASSES = [
   "block min-h-11 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-base text-gray-950 shadow-sm outline-none transition-colors duration-150",
@@ -13,38 +12,14 @@ const BASE_CLASSES = [
 ];
 
 const Input = forwardRef(function Input(
-  {
-    id,
-    name,
-    type = "text",
-    disabled,
-    required,
-    className,
-    "aria-invalid": ariaInvalid,
-    "aria-describedby": ariaDescribedBy,
-    ...props
-  },
+  { type = "text", className, ...props },
   ref,
 ) {
-  const field = useFieldContext();
-  const resolvedDisabled = disabled ?? field?.disabled ?? false;
-  const resolvedInvalid = ariaInvalid ?? (field?.invalid ? true : undefined);
-
   return (
     <input
       {...props}
       ref={ref}
-      id={field?.controlId ?? id}
-      name={name ?? field?.name}
       type={type}
-      disabled={resolvedDisabled}
-      required={required ?? field?.required ?? false}
-      aria-invalid={resolvedInvalid}
-      aria-describedby={mergeDescribedBy(ariaDescribedBy, field?.describedBy)}
-      data-invalid={
-        resolvedInvalid === true || resolvedInvalid === "true" ? "" : undefined
-      }
-      data-disabled={resolvedDisabled ? "" : undefined}
       data-slot="input"
       className={twMerge(BASE_CLASSES, className)}
     />

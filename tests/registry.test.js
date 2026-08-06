@@ -56,11 +56,8 @@ test("keeps visual variants and product motion out of every registry source", ()
   }
 });
 
-test("keeps every Vue form workbench source identical to its registry source", () => {
+test("keeps every Vue form-control source identical to its registry source", () => {
   for (const [item, sourcePath, filename] of [
-    ["field-context", "src/vue/field/field-context.js", "field-context.js"],
-    ["field", "src/vue/field/Field.vue", "Field.vue"],
-    ["label", "src/vue/label/Label.vue", "Label.vue"],
     ["input", "src/vue/input/Input.vue", "Input.vue"],
     ["textarea", "src/vue/textarea/Textarea.vue", "Textarea.vue"],
   ]) {
@@ -72,9 +69,6 @@ test("keeps every Vue form workbench source identical to its registry source", (
 
 test("ships parseable framework-native React form source", () => {
   for (const [item, filename] of [
-    ["field-context", "field-context.js"],
-    ["field", "Field.jsx"],
-    ["label", "Label.jsx"],
     ["input", "Input.jsx"],
     ["textarea", "Textarea.jsx"],
   ]) {
@@ -89,8 +83,6 @@ test("ships parseable framework-native React form source", () => {
 
 test("ships compiler-valid Svelte 5 form source", () => {
   for (const [item, filename] of [
-    ["field", "Field.svelte"],
-    ["label", "Label.svelte"],
     ["input", "Input.svelte"],
     ["textarea", "Textarea.svelte"],
   ]) {
@@ -103,20 +95,19 @@ test("ships compiler-valid Svelte 5 form source", () => {
   }
 });
 
-test("keeps form primitives free of visual variant APIs", () => {
+test("keeps form controls native and free of hidden field APIs", () => {
   for (const [item, framework, filename] of [
-    ["field", "vue", "Field.vue"],
     ["input", "vue", "Input.vue"],
     ["textarea", "vue", "Textarea.vue"],
-    ["field", "react", "Field.jsx"],
     ["input", "react", "Input.jsx"],
     ["textarea", "react", "Textarea.jsx"],
-    ["field", "svelte", "Field.svelte"],
     ["input", "svelte", "Input.svelte"],
     ["textarea", "svelte", "Textarea.svelte"],
   ]) {
     const source = registrySource(framework, filename, item);
     expect(source).not.toMatch(/\bvariant\b/i);
     expect(source).not.toMatch(/\borientation\b/i);
+    expect(source).not.toMatch(/field-context/i);
+    expect(source).not.toMatch(/useFieldContext|getFieldContext/i);
   }
 });

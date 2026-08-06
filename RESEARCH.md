@@ -51,7 +51,7 @@ Before building anything, question the usual assumptions:
 - Do we need styling props for every visual choice? No.
 - Do we need a giant component zoo first? No.
 - Do we need tables before primitives? No.
-- Do we need framework parity before the model is calm? No.
+- Do we need one cross-framework runtime to create parity? No.
 - Do we need Klean-branded component names in app code? No.
 
 ### 2. Delete Anything Nonessential
@@ -100,9 +100,9 @@ First prove:
 Then add:
 
 - registry manifests
-- `klean add button`
-- `klean add dialog`
-- `klean add login-form`
+- `npx klean-ui add button`
+- `npx klean-ui add dialog`
+- `npx klean-ui add login-form`
 
 ## The Core Doctrine
 
@@ -288,8 +288,6 @@ Klean should begin with the smallest set of primitives a real boring-stack app n
 - Button
 - Input
 - Textarea
-- Label
-- Field
 - Select
 - Checkbox
 - Radio Group
@@ -339,7 +337,7 @@ This phase proves:
 
 These should come **after** the primitives feel right.
 
-DataTable should not be the thing that teaches us what Button, Field, Menu, and Dialog should have been.
+DataTable should not be the thing that teaches us what Button, native form markup, Menu, and Dialog should have been.
 
 ## What Klean Can Learn From Inertia Table
 
@@ -383,9 +381,9 @@ Klean should be distributed in layers.
 Example:
 
 ```bash
-klean add button
-klean add input
-klean add field
+npx klean-ui add button
+npx klean-ui add input
+npx klean-ui add textarea
 ```
 
 This writes local source into the app.
@@ -395,9 +393,9 @@ This writes local source into the app.
 Example:
 
 ```bash
-klean add dialog
-klean add dropdown-menu
-klean add tabs
+npx klean-ui add dialog
+npx klean-ui add dropdown-menu
+npx klean-ui add tabs
 ```
 
 ### 3. Boring Stack Blocks
@@ -405,9 +403,9 @@ klean add tabs
 Later:
 
 ```bash
-klean add login-form
-klean add settings-shell
-klean add resource-table
+npx klean-ui add login-form
+npx klean-ui add settings-shell
+npx klean-ui add resource-table
 ```
 
 These blocks may compose primitives and, when needed, optionally use Durable UI imports.
@@ -432,7 +430,7 @@ Use simple, local names:
 
 - `Button`
 - `Input`
-- `Field`
+- `Textarea`
 - `Dialog`
 
 Never require:
