@@ -563,3 +563,20 @@ test("plans Popover as one source component with automatic geometry dependencies
   ]);
   expect(plan.registryItems).not.toContain("button");
 });
+
+test("installs Menu with Popover first and no configuration ceremony", () => {
+  const root = makeFixture({ framework: "vue", tailwindMerge: false });
+  const plan = createInstallPlan("menu", { cwd: root });
+
+  expect(plan.registryItems).toEqual(["popover", "menu"]);
+  expect(plan.files.map((file) => file.displayPath)).toEqual([
+    "popover/Popover.vue",
+    "menu/Menu.vue",
+  ]);
+  expect(plan.dependencies).toEqual([
+    { name: "@floating-ui/dom", version: "^1.8.0", missing: true },
+    { name: "tailwind-merge", version: "^3.6.0", missing: true },
+  ]);
+  expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
+  expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
+});

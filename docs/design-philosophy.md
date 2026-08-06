@@ -268,9 +268,9 @@ Source ownership does not justify casual reimplementation of difficult accessibi
 
 1. **Native HTML.** Use the platform when it already provides the required semantics and interaction.
 2. **Small, readable framework behavior.** Add local framework logic when the contract remains short, obvious, and thoroughly testable.
-3. **A focused unstyled primitive.** Use a mature headless dependency when keyboard navigation, focus management, dismissal, collision-aware positioning, or WAI-ARIA behavior becomes substantial.
+3. **A focused unstyled primitive.** Use a mature headless dependency only when the remaining keyboard, focus, or WAI-ARIA behavior becomes too substantial to keep obvious and prove locally.
 
-Button needs no headless interaction dependency. Combobox, Menu, Select, Tooltip, or Dialog may justify one. A framework-appropriate focused primitive is acceptable when it makes the accessibility contract more reliable and remains visible in the installed dependency declaration.
+Button needs no interaction dependency. Popover starts with the browser's native Popover API and adds only collision geometry plus a readable fallback. Menu composes that Popover and adds a tested roving-focus/typeahead contract in framework-native source. More complex widgets such as Combobox may still justify a focused primitive after the native platform and small local behavior have been exhausted.
 
 The rule is neither “no dependencies” nor “wrap a headless library for everything.” The rule is: choose the smallest dependency level that can prove the complete behavior.
 

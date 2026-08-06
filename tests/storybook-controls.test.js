@@ -6,6 +6,7 @@ import textareaMeta, {
   Playground as TextareaPlayground,
 } from "../stories/Textarea.stories.js";
 import { Playground as PopoverPlayground } from "../stories/Popover.stories.js";
+import { Playground as MenuPlayground } from "../stories/Menu.stories.js";
 
 const usefulControls = [
   "label",
@@ -39,4 +40,15 @@ test("keeps Popover controls behavioral and composition-sized", () => {
     "disabled",
     "class",
   ]);
+});
+
+test("keeps Menu controls behavioral and composition-sized", () => {
+  expect(MenuPlayground.parameters.controls.include).toEqual([
+    "label",
+    "placement",
+    "offset",
+    "disabled",
+    "class",
+  ]);
+  expect(MenuPlayground.play).toBeTypeOf("function");
 });

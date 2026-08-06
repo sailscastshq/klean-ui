@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "menu",
+  "description": "An accessible action and navigation menu composed on Klean Popover with roving focus and typeahead.",
+  "registryDependencies": ["popover"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/Menu.vue",
+      "target": "menu/Menu.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Menu.jsx",
+      "target": "menu/Menu.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Menu.svelte",
+      "target": "menu/Menu.svelte",
+      "dependencies": {}
+    }
+  }
+}
