@@ -1,8 +1,7 @@
 {
   "$schema": "../schema.json",
   "name": "input",
-  "description": "A native text-like input with accessible Field conventions and caller-owned Tailwind styling.",
-  "registryDependencies": ["field-context"],
+  "description": "A styled native input with caller-owned attributes and Tailwind classes.",
   "frameworks": {
     "vue": {
       "source": "vue/Input.vue",

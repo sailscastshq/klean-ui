@@ -1,0 +1,55 @@
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Stories,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as InputStories from "./Input.stories.js";
+
+<Meta of={InputStories} />
+
+<Title />
+
+<Description />
+
+Input is one styled native control. Klean does not hide the surrounding form
+markup behind a Field abstraction.
+
+```sh
+npx klean-ui@latest add input
+```
+
+<Canvas of={InputStories.Playground} />
+
+## Vue recipe
+
+```vue
+<div class="grid gap-2">
+  <label for="email">Email address</label>
+  <Input
+    id="email"
+    v-model="form.email"
+    name="email"
+    type="email"
+    :aria-invalid="!!form.errors.email"
+    :aria-describedby="form.errors.email ? 'email-help email-error' : 'email-help'"
+  />
+  <p id="email-help">We only use this for account messages.</p>
+  <p v-if="form.errors.email" id="email-error">{{ form.errors.email }}</p>
+</div>
+```
+
+The application owns the visible label, deterministic IDs, validation timing,
+help, and error text. Input forwards those native attributes and merges caller
+Tailwind classes last.
+
+## API
+
+Input accepts native input attributes, framework-native value binding, `class`,
+and nothing resembling a visual variant or field configuration API.
+
+<Controls of={InputStories.Playground} />
+
+<Stories title="Examples" includePrimary={false} />

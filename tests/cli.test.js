@@ -71,7 +71,9 @@ test("shows terse command help", () => {
   expect(exitCode).toBe(0);
   expect(stdout.value()).toBe(`${HELP}\n`);
   expect(stdout.value()).toContain("klean-ui add button");
-  expect(stdout.value()).toContain("klean-ui add field");
+  expect(stdout.value()).toContain("klean-ui add input");
+  expect(stdout.value()).toContain("klean-ui add textarea");
+  expect(stdout.value()).not.toContain("klean-ui add field");
   expect(stdout.value()).not.toContain("klean-ui init");
 });
 

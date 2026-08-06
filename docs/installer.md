@@ -4,7 +4,8 @@ The Klean UI installer has one conventional path:
 
 ```bash
 npx klean-ui add button
-npx klean-ui add field
+npx klean-ui add input
+npx klean-ui add textarea
 ```
 
 It does not initialize a project. It resolves a Boring Stack application, selects one framework-native registry item, copies its source files and prerequisites into the application, installs only its missing direct dependencies, and reports the result.
@@ -45,7 +46,7 @@ All configured paths must stay inside the detected application root. Klean does 
 
 The registry source and item manifest are bundled in the installed `klean-ui` package. A specific CLI version therefore installs a specific reviewed component; the command does not fetch mutable component source from a remote endpoint.
 
-Registry items can declare prerequisites and more than one source file. For example, `add field` resolves the internal field context plus Label, Input, Textarea, and Field in dependency order. The complete set is planned before the installer mutates the application.
+Registry items can declare prerequisites and more than one source file for future compound components. The complete set is planned before the installer mutates the application. Today's Button, Input, and Textarea remain deliberately self-contained: adding one installs one component source file.
 
 The file behavior is deterministic:
 
@@ -80,11 +81,12 @@ registry/
   button/
     registry.json
     vue/Button.vue
-    react/Button.jsx
-    svelte/Button.svelte
-  field/
+  input/
     registry.json
-    vue/Field.vue
+    vue/Input.vue
+  textarea/
+    registry.json
+    vue/Textarea.vue
 ```
 
 Every item maps one or more framework sources to conventional destinations, registry prerequisites, and direct dependencies. Tests prove all three canonical applications, safe re-runs, local edits, missing dependencies, path overrides, ambiguity, non-Sails rejection, dry runs, multi-file transactions, temporary-file cleanup, and rollback before a release can publish the registry.

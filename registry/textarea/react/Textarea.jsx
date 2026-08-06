@@ -1,6 +1,5 @@
 import { forwardRef, useCallback, useLayoutEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
-import { mergeDescribedBy, useFieldContext } from "../field/field-context.js";
 
 const BASE_CLASSES = [
   "block h-[var(--klean-textarea-height)] min-h-28 w-full resize-none overflow-y-hidden rounded-md border border-gray-300 bg-white px-3 py-2 text-base text-gray-950 shadow-sm outline-none transition-colors duration-150",
@@ -13,25 +12,10 @@ const BASE_CLASSES = [
 ];
 
 const Textarea = forwardRef(function Textarea(
-  {
-    id,
-    name,
-    disabled,
-    required,
-    value,
-    defaultValue,
-    className,
-    onInput,
-    "aria-invalid": ariaInvalid,
-    "aria-describedby": ariaDescribedBy,
-    ...props
-  },
+  { value, defaultValue, className, onInput, ...props },
   ref,
 ) {
-  const field = useFieldContext();
   const element = useRef(null);
-  const resolvedDisabled = disabled ?? field?.disabled ?? false;
-  const resolvedInvalid = ariaInvalid ?? (field?.invalid ? true : undefined);
 
   const setRefs = useCallback(
     (node) => {
@@ -76,18 +60,8 @@ const Textarea = forwardRef(function Textarea(
     <textarea
       {...props}
       ref={setRefs}
-      id={field?.controlId ?? id}
-      name={name ?? field?.name}
-      disabled={resolvedDisabled}
-      required={required ?? field?.required ?? false}
       value={value}
       defaultValue={defaultValue}
-      aria-invalid={resolvedInvalid}
-      aria-describedby={mergeDescribedBy(ariaDescribedBy, field?.describedBy)}
-      data-invalid={
-        resolvedInvalid === true || resolvedInvalid === "true" ? "" : undefined
-      }
-      data-disabled={resolvedDisabled ? "" : undefined}
       data-slot="textarea"
       className={twMerge(BASE_CLASSES, className)}
       onInput={handleInput}

@@ -1,8 +1,7 @@
 {
   "$schema": "../schema.json",
   "name": "textarea",
-  "description": "A native multiline control with accessible Field conventions and caller-owned resizing.",
-  "registryDependencies": ["field-context"],
+  "description": "A styled native textarea that grows from its value and keeps caller-owned attributes.",
   "frameworks": {
     "vue": {
       "source": "vue/Textarea.vue",
