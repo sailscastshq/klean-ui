@@ -21,6 +21,7 @@ Examples:
   klean-ui add button
   klean-ui add input
   klean-ui add textarea
+  klean-ui add popover
   klean-ui add button --dry-run
   klean-ui add button --components-dir assets/js/components/ui
 

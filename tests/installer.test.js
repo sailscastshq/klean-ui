@@ -549,3 +549,17 @@ test("does not generate project configuration or a shared class helper", () => {
   expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
   expect(existsSync(resolve(root, "assets/js/utils.js"))).toBe(false);
 });
+
+test("plans Popover as one source component with automatic geometry dependencies", () => {
+  const root = makeFixture({ framework: "vue", tailwindMerge: false });
+  const plan = createInstallPlan("popover", { cwd: root });
+
+  expect(plan.registryItems).toEqual(["popover"]);
+  expect(plan.files).toHaveLength(1);
+  expect(plan.files[0].displayPath).toBe("popover/Popover.vue");
+  expect(plan.dependencies).toEqual([
+    { name: "@floating-ui/dom", version: "^1.8.0", missing: true },
+    { name: "tailwind-merge", version: "^3.6.0", missing: true },
+  ]);
+  expect(plan.registryItems).not.toContain("button");
+});

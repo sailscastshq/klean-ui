@@ -111,3 +111,42 @@ test("keeps form controls native and free of hidden field APIs", () => {
     expect(source).not.toMatch(/useFieldContext|getFieldContext/i);
   }
 });
+
+test("keeps the Vue Popover workbench and registry source identical", () => {
+  expect(registrySource("vue", "Popover.vue", "popover")).toBe(
+    readFileSync(resolve("src/vue/popover/Popover.vue"), "utf8"),
+  );
+});
+
+test("ships compiler-valid framework-native Popover source", () => {
+  const reactSource = registrySource("react", "Popover.jsx", "popover");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  const svelteSource = registrySource("svelte", "Popover.svelte", "popover");
+  const result = compile(svelteSource, {
+    filename: "Popover.svelte",
+    generate: false,
+  });
+
+  expect(result.warnings).toEqual([]);
+});
+
+test("keeps Popover semantic, class-first, and ephemeral", () => {
+  for (const [framework, filename] of [
+    ["vue", "Popover.vue"],
+    ["react", "Popover.jsx"],
+    ["svelte", "Popover.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "popover");
+
+    expect(source).toContain("@floating-ui/dom");
+    expect(source).toContain('popover="auto"');
+    expect(source).toContain("aria-expanded");
+    expect(source).toContain("bottom-start");
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
+    expect(source).not.toMatch(/\bvariant\b/i);
+    expect(source).not.toMatch(/role=["'](?:menu|dialog)["']/);
+  }
+});
