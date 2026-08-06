@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema.json",
+  "name": "popover",
+  "description": "A native-first non-modal floating surface with durable dismissal, focus return, and collision-aware positioning.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Popover.vue",
+      "target": "popover/Popover.vue",
+      "dependencies": {
+        "@floating-ui/dom": "^1.8.0",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/Popover.jsx",
+      "target": "popover/Popover.jsx",
+      "dependencies": {
+        "@floating-ui/dom": "^1.8.0",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "source": "svelte/Popover.svelte",
+      "target": "popover/Popover.svelte",
+      "dependencies": {
+        "@floating-ui/dom": "^1.8.0",
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

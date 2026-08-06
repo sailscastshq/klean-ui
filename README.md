@@ -10,6 +10,7 @@ Run the same command in every standard Boring Stack application:
 npx klean-ui add button
 npx klean-ui add input
 npx klean-ui add textarea
+npx klean-ui add popover
 ```
 
 Klean detects Sails and the frontend framework from `package.json` and the conventional application entry. It then installs the selected framework-native registry item and its prerequisites. Button is one source file:
@@ -95,7 +96,7 @@ npm install
 npm run storybook
 ```
 
-Storybook opens at `http://localhost:6006`. Start with **Klean UI / Introduction**, then open **Components / Button**, **Components / Input**, or **Components / Textarea** for live controls, states, recipes, source, and accessibility documentation.
+Storybook opens at `http://localhost:6006`. Start with **Klean UI / Introduction**, then open **Components / Button**, **Components / Input**, **Components / Textarea**, or **Components / Popover** for live controls, states, recipes, source, and accessibility documentation.
 
 ## Validate Klean UI
 
@@ -112,4 +113,4 @@ The package contains the CLI and its versioned registry. It does not publish the
 
 Klean is the canonical implementation of our Durable UI practice. Durable behavior lives in the component, composable, or Boring Stack block that owns it; it does not turn every primitive into a state-management abstraction.
 
-Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), [native form markup contract](./docs/forms.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).
+Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), [native form markup contract](./docs/forms.md), [Popover contract](./docs/popover.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).

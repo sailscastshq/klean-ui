@@ -5,6 +5,7 @@ import inputMeta, {
 import textareaMeta, {
   Playground as TextareaPlayground,
 } from "../stories/Textarea.stories.js";
+import { Playground as PopoverPlayground } from "../stories/Popover.stories.js";
 
 const usefulControls = [
   "label",
@@ -28,4 +29,14 @@ test("keeps story composition out of the component-level API", () => {
     expect(meta.args).not.toHaveProperty("help");
     expect(meta.args).not.toHaveProperty("error");
   }
+});
+
+test("keeps Popover controls behavioral and composition-sized", () => {
+  expect(PopoverPlayground.parameters.controls.include).toEqual([
+    "label",
+    "placement",
+    "offset",
+    "disabled",
+    "class",
+  ]);
 });

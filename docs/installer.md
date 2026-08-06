@@ -6,6 +6,7 @@ The Klean UI installer has one conventional path:
 npx klean-ui add button
 npx klean-ui add input
 npx klean-ui add textarea
+npx klean-ui add popover
 ```
 
 It does not initialize a project. It resolves a Boring Stack application, selects one framework-native registry item, copies its source files and prerequisites into the application, installs only its missing direct dependencies, and reports the result.
@@ -46,7 +47,7 @@ All configured paths must stay inside the detected application root. Klean does 
 
 The registry source and item manifest are bundled in the installed `klean-ui` package. A specific CLI version therefore installs a specific reviewed component; the command does not fetch mutable component source from a remote endpoint.
 
-Registry items can declare prerequisites and more than one source file for future compound components. The complete set is planned before the installer mutates the application. Today's Button, Input, and Textarea remain deliberately self-contained: adding one installs one component source file.
+Registry items can declare prerequisites and more than one source file for future compound components. The complete set is planned before the installer mutates the application. Today's Button, Input, Textarea, and Popover each install one component source file.
 
 The file behavior is deterministic:
 
@@ -59,7 +60,7 @@ This is intentionally not an automatic update system. Once copied, the component
 
 ## Direct dependencies
 
-Each framework entry in the registry manifest declares only the packages imported by that copied file. Button imports `tailwind-merge`, so Klean adds it when the application does not already declare it directly.
+Each framework entry in the registry manifest declares only the packages imported by that copied file. Button imports `tailwind-merge`; Popover imports `tailwind-merge` and the focused `@floating-ui/dom` geometry engine. Klean adds only packages the application does not already declare directly.
 
 The installer honors the `packageManager` field first, then one unambiguous npm, pnpm, Yarn, or Bun lockfile, and otherwise follows the Boring Stack npm convention. It invokes the detected package manager so the direct dependency and lockfile stay in agreement.
 
@@ -87,6 +88,9 @@ registry/
   textarea/
     registry.json
     vue/Textarea.vue
+  popover/
+    registry.json
+    vue/Popover.vue
 ```
 
 Every item maps one or more framework sources to conventional destinations, registry prerequisites, and direct dependencies. Tests prove all three canonical applications, safe re-runs, local edits, missing dependencies, path overrides, ambiguity, non-Sails rejection, dry runs, multi-file transactions, temporary-file cleanup, and rollback before a release can publish the registry.
