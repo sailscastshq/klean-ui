@@ -33,17 +33,20 @@ npx klean-ui@latest add input
     v-model="form.email"
     name="email"
     type="email"
-    :aria-invalid="!!form.errors.email"
-    :aria-describedby="form.errors.email ? 'email-help email-error' : 'email-help'"
+    :aria-invalid="Boolean(form.errors.email)"
+    aria-describedby="email-help email-error"
   />
   <p id="email-help">We only use this for account messages.</p>
-  <p v-if="form.errors.email" id="email-error">{{ form.errors.email }}</p>
+  <p id="email-error" class="empty:hidden text-sm text-red-700">
+    {{ form.errors.email }}
+  </p>
 </div>
 ```
 
 The application owns the visible label, deterministic IDs, validation timing,
-help, and error text. Input forwards those native attributes and merges caller
-Tailwind classes last.
+help, and error text. The stable relationship needs no helper or conditional ID
+logic. Input forwards the native attributes and merges caller Tailwind classes
+last.
 
 ## API
 

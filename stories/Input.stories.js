@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import Button from "../src/vue/button/Button.vue";
 import Input from "../src/vue/input/Input.vue";
 import Textarea from "../src/vue/textarea/Textarea.vue";
@@ -16,6 +16,9 @@ const meta = {
     },
   },
   args: {
+    label: "Email address",
+    help: "We only use this for account messages.",
+    error: "",
     type: "email",
     name: "email",
     placeholder: "kelvin@example.com",
@@ -24,6 +27,22 @@ const meta = {
     class: "",
   },
   argTypes: {
+    label: {
+      control: "text",
+      description: "Visible label supplied by the story composition.",
+      table: { category: "Story composition" },
+    },
+    help: {
+      control: "text",
+      description: "Stable help text supplied by the story composition.",
+      table: { category: "Story composition" },
+    },
+    error: {
+      control: "text",
+      description:
+        "Application error text. An empty value hides the stable error node.",
+      table: { category: "Story composition" },
+    },
     type: { control: "text", description: "Native input type." },
     name: { control: "text", description: "Native form-data name." },
     disabled: { control: "boolean", description: "Native disabled state." },
@@ -42,18 +61,26 @@ export const Playground = {
     components: { Input },
     setup() {
       const value = ref("");
-      return { args, value };
+      const invalid = computed(() => Boolean(args.error));
+      return { args, invalid, value };
     },
     template: `
       <div class="grid w-[min(28rem,calc(100vw-2rem))] gap-2">
-        <label for="playground-email" class="text-sm font-medium text-gray-950">Email address</label>
+        <label for="playground-email" class="text-sm font-medium text-gray-950">{{ args.label }}</label>
         <Input
-          v-bind="args"
           id="playground-email"
           v-model="value"
-          aria-describedby="playground-email-help"
+          :type="args.type"
+          :name="args.name"
+          :placeholder="args.placeholder"
+          :disabled="args.disabled"
+          :required="args.required"
+          :class="args.class"
+          :aria-invalid="invalid"
+          aria-describedby="playground-email-help playground-email-error"
         />
-        <p id="playground-email-help" class="text-sm text-gray-600">We only use this for account messages.</p>
+        <p id="playground-email-help" class="text-sm text-gray-600">{{ args.help }}</p>
+        <p id="playground-email-error" class="empty:hidden text-sm text-red-700">{{ args.error }}</p>
       </div>
     `,
   }),
@@ -121,7 +148,8 @@ export const BoringStackForm = {
           <div class="mt-8 grid gap-6">
             <div class="grid gap-2">
               <label for="recipe-email" class="text-sm font-medium">Email address</label>
-              <Input id="recipe-email" v-model="email" name="email" type="email" autocomplete="email" required aria-invalid="true" aria-describedby="recipe-email-error" />
+              <Input id="recipe-email" v-model="email" name="email" type="email" autocomplete="email" required :aria-invalid="true" aria-describedby="recipe-email-help recipe-email-error" />
+              <p id="recipe-email-help" class="text-sm text-gray-600">Use the address where the team can reach you.</p>
               <p id="recipe-email-error" class="text-sm text-red-700">Enter a complete email address.</p>
             </div>
 

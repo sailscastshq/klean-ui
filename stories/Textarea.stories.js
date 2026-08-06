@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import Textarea from "../src/vue/textarea/Textarea.vue";
 
 const meta = {
@@ -14,6 +14,9 @@ const meta = {
     },
   },
   args: {
+    label: "Internal note",
+    help: "The control grows as the note wraps onto new lines.",
+    error: "",
     name: "note",
     rows: 3,
     placeholder: "Add context for your team…",
@@ -22,6 +25,22 @@ const meta = {
     class: "",
   },
   argTypes: {
+    label: {
+      control: "text",
+      description: "Visible label supplied by the story composition.",
+      table: { category: "Story composition" },
+    },
+    help: {
+      control: "text",
+      description: "Stable help text supplied by the story composition.",
+      table: { category: "Story composition" },
+    },
+    error: {
+      control: "text",
+      description:
+        "Application error text. An empty value hides the stable error node.",
+      table: { category: "Story composition" },
+    },
     rows: { control: "number", description: "Native initial row count." },
     disabled: { control: "boolean", description: "Native disabled state." },
     required: { control: "boolean", description: "Native required state." },
@@ -39,18 +58,26 @@ export const Playground = {
     components: { Textarea },
     setup() {
       const value = ref("");
-      return { args, value };
+      const invalid = computed(() => Boolean(args.error));
+      return { args, invalid, value };
     },
     template: `
       <div class="grid w-[min(32rem,calc(100vw-2rem))] gap-2">
-        <label for="playground-note" class="text-sm font-medium text-gray-950">Internal note</label>
+        <label for="playground-note" class="text-sm font-medium text-gray-950">{{ args.label }}</label>
         <Textarea
-          v-bind="args"
           id="playground-note"
           v-model="value"
-          aria-describedby="playground-note-help"
+          :name="args.name"
+          :rows="args.rows"
+          :placeholder="args.placeholder"
+          :disabled="args.disabled"
+          :required="args.required"
+          :class="args.class"
+          :aria-invalid="invalid"
+          aria-describedby="playground-note-help playground-note-error"
         />
-        <p id="playground-note-help" class="text-sm text-gray-600">The control grows as the note wraps onto new lines.</p>
+        <p id="playground-note-help" class="text-sm text-gray-600">{{ args.help }}</p>
+        <p id="playground-note-error" class="empty:hidden text-sm text-red-700">{{ args.error }}</p>
       </div>
     `,
   }),

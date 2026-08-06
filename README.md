@@ -54,15 +54,17 @@ Klean installs Input and Textarea independently. The application writes the real
     type="email"
     autocomplete="email"
     required
-    :aria-invalid="!!form.errors.email"
-    :aria-describedby="form.errors.email ? 'email-help email-error' : 'email-help'"
+    :aria-invalid="Boolean(form.errors.email)"
+    aria-describedby="email-help email-error"
   />
   <p id="email-help">We only use this for account messages.</p>
-  <p v-if="form.errors.email" id="email-error">{{ form.errors.email }}</p>
+  <p id="email-error" class="empty:hidden text-sm text-red-700">
+    {{ form.errors.email }}
+  </p>
 </div>
 ```
 
-Validation, IDs, messages, and values remain application-owned. Input and Textarea forward native attributes, while visual density, color, shape, and layout remain ordinary caller Tailwind classes. Read [the native form markup contract](./docs/forms.md).
+`aria-invalid="false"` is valid, and the stable empty error contributes no description. When an error appears, the same relationship becomes useful without conditional IDs or a Klean helper. Validation, IDs, messages, and values remain application-owned. Input and Textarea forward native attributes, while visual density, color, shape, and layout remain ordinary caller Tailwind classes. Read [the native form markup contract](./docs/forms.md).
 
 ## Button contract
 
