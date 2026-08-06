@@ -19,14 +19,20 @@ function defaultItems(onRedeploy = () => {}) {
 
 async function mountMenu(options = {}) {
   const host = document.createElement("div");
+  const before = document.createElement("button");
   const trigger = document.createElement("button");
+  const after = document.createElement("button");
   const id = options.id ?? "project-actions";
   let cleanupRoot = host;
 
+  before.type = "button";
+  before.textContent = "Before menu";
   trigger.type = "button";
   trigger.textContent = "Actions";
   trigger.setAttribute("popovertarget", id);
-  host.append(trigger);
+  after.type = "button";
+  after.textContent = "After menu";
+  host.append(before, trigger, after);
 
   if (options.dir) host.dir = options.dir;
 
@@ -52,7 +58,9 @@ async function mountMenu(options = {}) {
 
   return {
     wrapper,
+    before,
     trigger,
+    after,
     root: options.shadow ? host.getRootNode() : document,
     cleanup() {
       wrapper.unmount();
@@ -231,7 +239,7 @@ test("aria-disabled links do not navigate or fire application handlers", async (
   cleanup();
 });
 
-test("Escape restores the invoker while Tab and outside interaction do not steal focus", async () => {
+test("Escape restores the invoker while Tab exits in document order", async () => {
   const escape = await mountMenu();
   escape.trigger.click();
   await settle();
@@ -242,16 +250,36 @@ test("Escape restores the invoker while Tab and outside interaction do not steal
   expect(focusedElement(escape.root)).toBe(escape.trigger);
   escape.cleanup();
 
-  const tab = await mountMenu();
-  tab.trigger.click();
+  const forwardTab = await mountMenu();
+  forwardTab.trigger.click();
   await settle();
-  focusedElement(tab.root).dispatchEvent(
-    new KeyboardEvent("keydown", { key: "Tab", bubbles: true }),
-  );
+  const forwardEvent = new KeyboardEvent("keydown", {
+    key: "Tab",
+    bubbles: true,
+    cancelable: true,
+  });
+  focusedElement(forwardTab.root).dispatchEvent(forwardEvent);
   await settle();
-  expect(tab.trigger.getAttribute("aria-expanded")).toBe("false");
-  expect(focusedElement(tab.root)).not.toBe(tab.trigger);
-  tab.cleanup();
+  expect(forwardEvent.defaultPrevented).toBe(true);
+  expect(forwardTab.trigger.getAttribute("aria-expanded")).toBe("false");
+  expect(focusedElement(forwardTab.root)).toBe(forwardTab.after);
+  forwardTab.cleanup();
+
+  const backwardTab = await mountMenu();
+  backwardTab.trigger.click();
+  await settle();
+  const backwardEvent = new KeyboardEvent("keydown", {
+    key: "Tab",
+    shiftKey: true,
+    bubbles: true,
+    cancelable: true,
+  });
+  focusedElement(backwardTab.root).dispatchEvent(backwardEvent);
+  await settle();
+  expect(backwardEvent.defaultPrevented).toBe(true);
+  expect(backwardTab.trigger.getAttribute("aria-expanded")).toBe("false");
+  expect(focusedElement(backwardTab.root)).toBe(backwardTab.before);
+  backwardTab.cleanup();
 
   const outside = await mountMenu();
   const outsideButton = document.createElement("button");
@@ -270,7 +298,10 @@ test("Escape restores the invoker while Tab and outside interaction do not steal
 });
 
 test("keeps keyboard behavior inside Shadow DOM and in RTL", async () => {
-  const { trigger, root, cleanup } = await mountMenu({ shadow: true, dir: "rtl" });
+  const { trigger, after, root, cleanup } = await mountMenu({
+    shadow: true,
+    dir: "rtl",
+  });
   trigger.dispatchEvent(
     new KeyboardEvent("keydown", {
       key: "ArrowUp",
@@ -289,6 +320,17 @@ test("keeps keyboard behavior inside Shadow DOM and in RTL", async () => {
     }),
   );
   expect(focusedElement(root).textContent).toBe("Redeploy");
+
+  focusedElement(root).dispatchEvent(
+    new KeyboardEvent("keydown", {
+      key: "Tab",
+      bubbles: true,
+      cancelable: true,
+      composed: true,
+    }),
+  );
+  await settle();
+  expect(focusedElement(root)).toBe(after);
   cleanup();
 });
 

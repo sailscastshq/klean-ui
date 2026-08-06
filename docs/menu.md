@@ -22,7 +22,7 @@ Klean detects the framework, writes its framework-native `Menu` source, and inst
 <Menu id="project-actions" aria-label="Project actions" class="w-56">
   <button
     type="button"
-    class="flex w-full rounded px-3 py-2 text-left text-sm outline-none hover:bg-gray-100 focus:bg-gray-100"
+    class="flex w-full cursor-pointer rounded px-3 py-2 text-left text-sm outline-none hover:bg-gray-100 focus:bg-gray-100"
   >
     Redeploy
   </button>
@@ -44,7 +44,7 @@ React uses `className`; Svelte uses `class`. Their HTML relationship and behavio
 Use a button when selection performs an action:
 
 ```vue
-<button type="button" class="..." @click="redeploy">Redeploy</button>
+<button type="button" class="cursor-pointer ..." @click="redeploy">Redeploy</button>
 ```
 
 Use a native anchor for a destination that performs document navigation:
@@ -95,7 +95,7 @@ Hiding an unauthorized item remains application logic. Menu does not own permiss
 - Native Enter and Space activation remain owned by the real button or anchor, avoiding double firing.
 - Escape closes and restores focus to the invoker.
 - Selection closes and restores focus; link navigation may then move to the destination.
-- Tab closes without pulling focus backward.
+- Tab or Shift+Tab closes and continues to the next or previous control outside the menu; neither key moves between menu items.
 - Outside interaction closes without stealing focus from the thing the person selected.
 
 Menu has no animation. Applications can add motion with ordinary Tailwind classes when it adds value, and must use `motion-safe:` or a reduced-motion fallback.

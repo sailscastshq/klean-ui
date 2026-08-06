@@ -6,7 +6,11 @@ import textareaMeta, {
   Playground as TextareaPlayground,
 } from "../stories/Textarea.stories.js";
 import { Playground as PopoverPlayground } from "../stories/Popover.stories.js";
-import { Playground as MenuPlayground } from "../stories/Menu.stories.js";
+import {
+  Playground as MenuPlayground,
+  Products as MenuProducts,
+  Semantics as MenuSemantics,
+} from "../stories/Menu.stories.js";
 
 const usefulControls = [
   "label",
@@ -51,4 +55,17 @@ test("keeps Menu controls behavioral and composition-sized", () => {
     "class",
   ]);
   expect(MenuPlayground.play).toBeTypeOf("function");
+});
+
+test("makes Menu recipe cursor and Tab affordances explicit", () => {
+  const semanticsStory = MenuSemantics.render();
+  const semanticsClasses = semanticsStory.setup();
+  const productsTemplate = MenuProducts.render().template;
+
+  expect(semanticsClasses.itemClass).toContain("cursor-pointer");
+  expect(semanticsClasses.itemClass).toContain("disabled:cursor-not-allowed");
+  expect(semanticsClasses.dangerClass).toContain("cursor-pointer");
+  expect(productsTemplate).toContain("cursor-pointer");
+  expect(productsTemplate).toContain("cursor-not-allowed");
+  expect(MenuSemantics.play).toBeTypeOf("function");
 });

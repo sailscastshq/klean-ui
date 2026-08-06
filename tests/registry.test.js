@@ -188,5 +188,8 @@ test("keeps Menu semantic, class-first, ephemeral, and motion-free", () => {
     expect(source).not.toMatch(/\bvariant\b/i);
     expect(source).not.toMatch(/transition|animate|duration-/);
     expect(source).not.toMatch(/MenuTrigger|MenuItem/);
+    expect(source).toContain("TABBABLE_SELECTOR");
+    expect(source).toContain("adjacentTabStop");
+    expect(source).toMatch(/event\.key === ["']Tab["']/);
   }
 });
