@@ -16,9 +16,6 @@ const meta = {
     },
   },
   args: {
-    label: "Email address",
-    help: "We only use this for account messages.",
-    error: "",
     type: "email",
     name: "email",
     placeholder: "kelvin@example.com",
@@ -27,22 +24,6 @@ const meta = {
     class: "",
   },
   argTypes: {
-    label: {
-      control: "text",
-      description: "Visible label supplied by the story composition.",
-      table: { category: "Story composition" },
-    },
-    help: {
-      control: "text",
-      description: "Stable help text supplied by the story composition.",
-      table: { category: "Story composition" },
-    },
-    error: {
-      control: "text",
-      description:
-        "Application error text. An empty value hides the stable error node.",
-      table: { category: "Story composition" },
-    },
     type: { control: "text", description: "Native input type." },
     name: { control: "text", description: "Native form-data name." },
     disabled: { control: "boolean", description: "Native disabled state." },
@@ -57,6 +38,38 @@ const meta = {
 export default meta;
 
 export const Playground = {
+  args: {
+    label: "Email address",
+    help: "We only use this for account messages.",
+    error: "",
+  },
+  argTypes: {
+    label: {
+      control: "text",
+      description: "Visible label supplied by this story composition.",
+    },
+    help: {
+      control: "text",
+      description: "Stable help text supplied by this story composition.",
+    },
+    error: {
+      control: "text",
+      description:
+        "Application error text. An empty value hides the stable error node.",
+    },
+  },
+  parameters: {
+    controls: {
+      include: [
+        "label",
+        "help",
+        "error",
+        "placeholder",
+        "disabled",
+        "required",
+      ],
+    },
+  },
   render: (args) => ({
     components: { Input },
     setup() {

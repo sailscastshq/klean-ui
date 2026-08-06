@@ -14,9 +14,6 @@ const meta = {
     },
   },
   args: {
-    label: "Internal note",
-    help: "The control grows as the note wraps onto new lines.",
-    error: "",
     name: "note",
     rows: 3,
     placeholder: "Add context for your team…",
@@ -25,22 +22,6 @@ const meta = {
     class: "",
   },
   argTypes: {
-    label: {
-      control: "text",
-      description: "Visible label supplied by the story composition.",
-      table: { category: "Story composition" },
-    },
-    help: {
-      control: "text",
-      description: "Stable help text supplied by the story composition.",
-      table: { category: "Story composition" },
-    },
-    error: {
-      control: "text",
-      description:
-        "Application error text. An empty value hides the stable error node.",
-      table: { category: "Story composition" },
-    },
     rows: { control: "number", description: "Native initial row count." },
     disabled: { control: "boolean", description: "Native disabled state." },
     required: { control: "boolean", description: "Native required state." },
@@ -54,6 +35,38 @@ const meta = {
 export default meta;
 
 export const Playground = {
+  args: {
+    label: "Internal note",
+    help: "The control grows as the note wraps onto new lines.",
+    error: "",
+  },
+  argTypes: {
+    label: {
+      control: "text",
+      description: "Visible label supplied by this story composition.",
+    },
+    help: {
+      control: "text",
+      description: "Stable help text supplied by this story composition.",
+    },
+    error: {
+      control: "text",
+      description:
+        "Application error text. An empty value hides the stable error node.",
+    },
+  },
+  parameters: {
+    controls: {
+      include: [
+        "label",
+        "help",
+        "error",
+        "placeholder",
+        "disabled",
+        "required",
+      ],
+    },
+  },
   render: (args) => ({
     components: { Textarea },
     setup() {
