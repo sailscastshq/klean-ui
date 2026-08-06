@@ -32,14 +32,19 @@ npx klean-ui@latest add textarea
     id="note"
     v-model="form.note"
     name="note"
-    aria-describedby="note-help"
+    :aria-invalid="Boolean(form.errors.note)"
+    aria-describedby="note-help note-error"
   />
   <p id="note-help">Plain text, up to 2,000 characters.</p>
+  <p id="note-error" class="empty:hidden text-sm text-red-700">
+    {{ form.errors.note }}
+  </p>
 </div>
 ```
 
 There is no `Field`, label prop, description prop, error prop, or `autoGrow`
-switch. Native markup owns the relationship, and caller `h-*`, `resize-*`, and
+switch. The error node and description IDs stay stable even while the error is
+empty. Native markup owns the relationship, and caller `h-*`, `resize-*`, and
 `overflow-*` classes can take visual ownership.
 
 ## API

@@ -26,20 +26,20 @@ import Input from "@/components/ui/input/Input.vue";
       type="email"
       autocomplete="email"
       required
-      :aria-invalid="!!form.errors.email"
-      :aria-describedby="
-        form.errors.email ? 'email-help email-error' : 'email-help'
-      "
+      :aria-invalid="Boolean(form.errors.email)"
+      aria-describedby="email-help email-error"
     />
     <p id="email-help">We only use this for account messages.</p>
-    <p v-if="form.errors.email" id="email-error">
+    <p id="email-error" class="empty:hidden text-sm text-red-700">
       {{ form.errors.email }}
     </p>
   </div>
 </template>
 ```
 
-This is the convention over configuration: the browser's form model is the convention. `for` matches `id`, `name` controls submitted form data, `required` remains native, and the application adds or removes the error ID from `aria-describedby` with the error itself. When help and error are both visible, both IDs are described.
+This is the convention over configuration: the browser's form model is the convention. `for` matches `id`, `name` controls submitted form data, and `required` remains native. Help and error nodes keep stable IDs, so `aria-describedby` never needs conditional string building. `aria-invalid="false"` is valid, and `empty:hidden` removes the empty error from the layout. When an error appears, the same relationship becomes useful automatically.
+
+Do not add `role="alert"` to every inline error. When a failed submission needs announcement, use one application-owned form-level error summary and move focus to it; the stable inline messages remain descriptions for their controls.
 
 ## Ownership
 
@@ -59,7 +59,7 @@ Klean owns:
 - framework-native value binding;
 - Textarea height derived from its current value and responsive width.
 
-Input and Textarea do not validate, format, debounce, announce submissions, or create a second persistence layer. A failed submission that needs announcement should use one application-owned form error summary, focus it, and link its entries to the affected controls.
+Input and Textarea do not validate, format, debounce, announce submissions, or create a second persistence layer.
 
 ## Textarea durability
 

@@ -27,11 +27,13 @@ const NativeFormFixture = defineComponent({
           autocomplete="email"
           required
           :disabled="disabled"
-          :aria-invalid="invalid ? 'true' : undefined"
-          :aria-describedby="invalid ? 'account-email-help account-email-error' : 'account-email-help'"
+          :aria-invalid="invalid"
+          aria-describedby="account-email-help account-email-error"
         />
         <p id="account-email-help">Used for account messages.</p>
-        <p v-if="invalid" id="account-email-error">Enter a valid address.</p>
+        <p id="account-email-error" class="empty:hidden">
+          {{ invalid ? 'Enter a valid address.' : '' }}
+        </p>
       </div>
 
       <div class="grid gap-2">
@@ -58,14 +60,18 @@ test("keeps native form relationships explicit and untouched", () => {
   expect(error.attributes("role")).toBeUndefined();
 });
 
-test("lets the application remove a stale error relationship", async () => {
+test("keeps the relationship stable when the application clears an error", async () => {
   const wrapper = mount(NativeFormFixture, { props: { invalid: true } });
   await wrapper.setProps({ invalid: false });
 
-  expect(wrapper.find("#account-email-error").exists()).toBe(false);
-  expect(wrapper.find("input").attributes("aria-invalid")).toBeUndefined();
+  const error = wrapper.find("#account-email-error");
+
+  expect(error.exists()).toBe(true);
+  expect(error.text()).toBe("");
+  expect(error.classes()).toContain("empty:hidden");
+  expect(wrapper.find("input").attributes("aria-invalid")).toBe("false");
   expect(wrapper.find("input").attributes("aria-describedby")).toBe(
-    "account-email-help",
+    "account-email-help account-email-error",
   );
 });
 
