@@ -174,6 +174,24 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
 }
 
 for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
+  test(`installs only the native ${framework} Slide`, () => {
+    const root = makeFixture({ framework });
+    const result = installComponent("slide", { cwd: root });
+    const destination = resolve(
+      root,
+      `assets/js/components/ui/slide/Slide.${fixture.extension}`,
+    );
+
+    expect(result.plan.registryItems).toEqual(["slide"]);
+    expect(result.plan.files).toHaveLength(1);
+    expect(existsSync(destination)).toBe(true);
+    expect(readFileSync(destination, "utf8")).toBe(
+      readFileSync(result.plan.file.sourcePath, "utf8"),
+    );
+  });
+}
+
+for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
   for (const [component, filename] of [
     ["input", "Input"],
     ["textarea", "Textarea"],

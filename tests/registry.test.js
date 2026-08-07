@@ -240,6 +240,54 @@ test("keeps Dialog native, class-first, durable, and free of product APIs", () =
   }
 });
 
+test("keeps the Vue Slide workbench and installable source identical", () => {
+  expect(registrySource("vue", "Slide.vue", "slide")).toBe(
+    readFileSync(resolve("src/vue/slide/Slide.vue"), "utf8"),
+  );
+});
+
+test("ships compiler-valid framework-native Slide source", () => {
+  const reactSource = registrySource("react", "Slide.jsx", "slide");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  const svelteSource = registrySource("svelte", "Slide.svelte", "slide");
+  const result = compile(svelteSource, {
+    filename: "Slide.svelte",
+    generate: false,
+  });
+
+  expect(result.warnings).toEqual([]);
+});
+
+test("keeps Slide a native-button enhancement with ordinary styling", () => {
+  for (const [framework, filename] of [
+    ["vue", "Slide.vue"],
+    ["react", "Slide.jsx"],
+    ["svelte", "Slide.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "slide");
+
+    expect(source).toMatch(/<button/);
+    expect(source).toContain('type="button"');
+    expect(source).toContain("PointerCapture");
+    expect(source).toContain("ResizeObserver");
+    expect(source).toContain("CONFIRM_THRESHOLD = 0.85");
+    expect(source).toContain('data-slot="slide-status"');
+    expect(source).toContain("motion-reduce:transition-none");
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
+    expect(source).not.toMatch(/role=["']slider["']/);
+    expect(source).not.toMatch(/\bvariant\s*[=:]|\btone\s*[=:]/i);
+    expect(source).not.toMatch(/deploy|production|environmentName/i);
+    expect(source).not.toMatch(/\bfillClass\b|\bthumbClass\b|\btrackClass\b/i);
+    expect(source).not.toMatch(
+      /mousedown|touchstart|document\.addEventListener/,
+    );
+    expect(source).not.toMatch(/vibrat|confetti|sound/i);
+  }
+});
+
 test("ships compiler-valid Toast source for Vue, React, and Svelte", () => {
   const reactSource = registrySource("react", "Toast.jsx", "toast");
   expect(() =>
