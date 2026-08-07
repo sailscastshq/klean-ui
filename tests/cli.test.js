@@ -76,6 +76,7 @@ test("shows terse command help", () => {
   expect(stdout.value()).toContain("klean-ui add popover");
   expect(stdout.value()).toContain("klean-ui add menu");
   expect(stdout.value()).toContain("klean-ui add dialog");
+  expect(stdout.value()).toContain("klean-ui add toast");
   expect(stdout.value()).not.toContain("klean-ui add field");
   expect(stdout.value()).not.toContain("klean-ui init");
 });

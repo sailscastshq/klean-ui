@@ -594,3 +594,27 @@ test("plans Dialog as one source component with no interaction dependency", () =
   expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
   expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
 });
+
+for (const [framework, extension] of [
+  ["vue", "vue"],
+  ["react", "jsx"],
+  ["svelte", "svelte"],
+]) {
+  test(`installs the ${framework} Toast renderer and shared controller`, () => {
+    const root = makeFixture({ framework });
+    const result = installComponent("toast", { cwd: root });
+    const toastDirectory = resolve(root, "assets/js/components/ui/toast");
+
+    expect(result.plan.registryItems).toEqual(["toast"]);
+    expect(result.plan.files.map((file) => file.displayPath)).toEqual([
+      "toast/toast.js",
+      `toast/Toast.${extension}`,
+    ]);
+    expect(existsSync(resolve(toastDirectory, "toast.js"))).toBe(true);
+    expect(existsSync(resolve(toastDirectory, `Toast.${extension}`))).toBe(
+      true,
+    );
+    expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
+    expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
+  });
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "../schema.json",
+  "name": "toast",
+  "description": "A provider-free notification controller with durable timing, accessible announcements, and configurable offscreen motion.",
+  "frameworks": {
+    "vue": {
+      "files": [
+        {
+          "source": "toast.js",
+          "target": "toast/toast.js"
+        },
+        {
+          "source": "vue/Toast.vue",
+          "target": "toast/Toast.vue"
+        }
+      ],
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "files": [
+        {
+          "source": "toast.js",
+          "target": "toast/toast.js"
+        },
+        {
+          "source": "react/Toast.jsx",
+          "target": "toast/Toast.jsx"
+        }
+      ],
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "files": [
+        {
+          "source": "toast.js",
+          "target": "toast/toast.js"
+        },
+        {
+          "source": "svelte/Toast.svelte",
+          "target": "toast/Toast.svelte"
+        }
+      ],
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

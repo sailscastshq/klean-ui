@@ -1,0 +1,173 @@
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Source,
+  Stories,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as ToastStories from "./Toast.stories.js";
+import controllerSource from "../registry/toast/toast.js?raw";
+import reactSource from "../registry/toast/react/Toast.jsx?raw";
+import svelteSource from "../registry/toast/svelte/Toast.svelte?raw";
+import vueSource from "../registry/toast/vue/Toast.vue?raw";
+
+export const vueUsage = `<script setup>
+import Toast from '@/components/ui/toast/Toast.vue'
+import { toast } from '@/components/ui/toast/toast.js'
+</script>
+
+<template>
+  <Toast />
+  <button type="button" @click="toast('Changes saved')">Save</button>
+</template>`;
+
+export const reactUsage = `import Toast from '@/components/ui/toast/Toast.jsx'
+import { toast } from '@/components/ui/toast/toast.js'
+
+export default function App() {
+  return <>
+    <Toast />
+    <button type="button" onClick={() => toast('Changes saved')}>Save</button>
+  </>
+}`;
+
+export const svelteUsage = `<script>
+  import Toast from '$lib/components/ui/toast/Toast.svelte'
+  import { toast } from '$lib/components/ui/toast/toast.js'
+</script>
+
+<Toast />
+<button type="button" onclick={() => toast("Changes saved")}>
+  Save
+</button>
+`;
+
+export const deploymentUsage = `const id = toast({
+  title: 'Preparing deployment',
+  message: 'Reading service configuration',
+  progress: 12,
+  duration: false,
+})
+
+// Keep the same notification and update it from app-owned SSE events.
+toast.update(id, {
+title: 'Deployment live',
+message: 'production.example.com',
+progress: 100,
+duration: 5000,
+})`;
+
+<Meta of={ToastStories} />
+
+<Title />
+
+<Description />
+
+Toast is one renderer and one colocated controller. Mount the renderer once near
+the application root, then call the imported `toast` function from any action,
+form callback, or event stream. There is no provider and no required configuration.
+
+```sh
+npx klean-ui@latest add toast
+```
+
+The command installs `toast/Toast` for the detected framework and the shared
+`toast/toast.js` controller. Both files immediately belong to the application.
+
+<Canvas of={ToastStories.Playground} />
+
+## Vue
+
+<Source code={vueUsage} language="vue" />
+
+## React
+
+<Source code={reactUsage} language="jsx" />
+
+## Svelte
+
+<Source code={svelteUsage} language="svelte" />
+
+## The controller
+
+`toast('Saved')` covers the ordinary case. An object may carry `title`, `message`,
+`duration`, `dismissible`, `class`, and any application metadata. The returned id
+can be passed to `toast.update(id, patch)` or `toast.dismiss(id)`. Use
+`duration: false` for work whose end is controlled by an external event.
+
+<Source code={deploymentUsage} language="js" />
+
+`toast.clear()` dismisses the current stack. `createToast({ duration, max })`
+creates an isolated controller for tests, embedded surfaces, or independently
+positioned shelves. This is an escape hatch, not required setup.
+
+The controller pauses elapsed time on hover, keyboard focus, a hidden document,
+and a blurred window. Multiple pause reasons compose safely; removing one does not
+resume a notification while another remains active. Updates preserve the same DOM
+item and announcement history instead of adding a second deployment notification.
+
+## Motion
+
+The default top-right shelf enters and exits toward the right; left shelves use
+the left edge. Entry and exit therefore stay on the x-axis without configuration.
+The 340ms entry overshoots and settles; the 300ms exit first
+makes a small counter-move. This is the Durabo motion, generalized without turning
+motion into a theme system. `from` and `to` accept `left`, `right`, `top`, `bottom`,
+`fade`, or `none`. Reduced-motion preferences collapse all movement to 1ms.
+
+<Canvas of={ToastStories.Motion} />
+
+## Long-running work
+
+Slipway's deployment toast proves why updates and persistent duration matter. Klean
+does not own SSE, maritime status language, progress rules, or deployment colours.
+The application owns those in a custom renderer and updates one toast as events
+arrive.
+
+<Canvas of={ToastStories.Deployment} />
+
+## Product styling
+
+The base has neutral, useful defaults. It does not map `success`, `error`, or any
+other kind to colours or icons. Pass ordinary Tailwind through `class`, or replace
+the body through Vue's scoped slot, React's function child, or Svelte's snippet.
+That lets Hagfish retain its two-pixel border and offset shadow while inheriting
+Klean's durable controller and Durabo-derived motion.
+
+<Canvas of={ToastStories.Products} />
+
+## Accessibility contract
+
+`Toast` renders one persistent, labelled `<section aria-live="polite">` containing
+a semantic notification list. It never moves focus. The dismiss control is a real
+button with an accessible name, and focus inside a toast pauses its timer. Mount
+the live region before sending the first notification so assistive technology can
+observe additions. Use a separate assertive pattern only for rare, truly urgent
+messages; ordinary application feedback should remain polite.
+
+## Complete source
+
+These are the exact registry files. They are complete, copyable, and include the
+neutral Tailwind defaults and motion source.
+
+### Controller
+
+<Source code={controllerSource} language="js" />
+
+### Vue
+
+<Source code={vueSource} language="vue" />
+
+### React
+
+<Source code={reactSource} language="jsx" />
+
+### Svelte
+
+<Source code={svelteSource} language="svelte" />
+
+<Controls of={ToastStories.Playground} />
+
+<Stories title="Examples" includePrimary={false} />

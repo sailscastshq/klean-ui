@@ -13,6 +13,7 @@ npx klean-ui add textarea
 npx klean-ui add popover
 npx klean-ui add menu
 npx klean-ui add dialog
+npx klean-ui add toast
 ```
 
 Klean detects Sails and the frontend framework from `package.json` and the conventional application entry. It then installs the selected framework-native registry item and its prerequisites. Button is one source file:
@@ -21,6 +22,16 @@ Klean detects Sails and the frontend framework from `package.json` and the conve
 Vue      assets/js/components/ui/button/Button.vue
 React    assets/js/components/ui/button/Button.jsx
 Svelte   assets/js/components/ui/button/Button.svelte
+```
+
+Multi-file components remain conventional. Toast installs the detected renderer
+and one framework-neutral controller beside it:
+
+```text
+Vue      assets/js/components/ui/toast/Toast.vue
+React    assets/js/components/ui/toast/Toast.jsx
+Svelte   assets/js/components/ui/toast/Toast.svelte
+All      assets/js/components/ui/toast/toast.js
 ```
 
 There is no `init`, `klean-ui.json`, framework questionnaire, alias questionnaire, generated `cn.js`, or Klean runtime dependency. Each installed component is ordinary application code. Its visual API is `class` in Vue and Svelte or `className` in React, and caller Tailwind classes win.
@@ -109,7 +120,7 @@ composes three framework-native Storybooks:
 ```
 
 Open **Vue**, **React**, or **Svelte**, then choose **Components / Button**,
-**Input**, **Textarea**, **Popover**, **Menu**, or **Dialog**. The stories mount the actual
+**Input**, **Textarea**, **Popover**, **Menu**, **Dialog**, or **Toast**. The stories mount the actual
 registry source and share behavior expectations without sharing a runtime
 component abstraction. Controls stay limited to useful behavioral inputs;
 interaction stories and the accessibility addon verify the durable contract.
@@ -132,4 +143,4 @@ The package contains the CLI and its versioned registry. It does not publish the
 
 Klean is the canonical implementation of our Durable UI practice. Durable behavior lives in the component, composable, or Boring Stack block that owns it; it does not turn every primitive into a state-management abstraction.
 
-Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), [native form markup contract](./docs/forms.md), [Popover contract](./docs/popover.md), [Menu contract](./docs/menu.md), [Dialog contract](./docs/dialog.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).
+Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), [native form markup contract](./docs/forms.md), [Popover contract](./docs/popover.md), [Menu contract](./docs/menu.md), [Dialog contract](./docs/dialog.md), [Toast contract](./docs/toast.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).

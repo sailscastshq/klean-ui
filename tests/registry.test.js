@@ -239,3 +239,59 @@ test("keeps Dialog native, class-first, durable, and free of product APIs", () =
     expect(source).not.toMatch(/transition|animate|duration-/);
   }
 });
+
+test("ships compiler-valid Toast source for Vue, React, and Svelte", () => {
+  const reactSource = registrySource("react", "Toast.jsx", "toast");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  const svelteSource = registrySource("svelte", "Toast.svelte", "toast");
+  const result = compile(svelteSource, {
+    filename: "Toast.svelte",
+    generate: false,
+  });
+
+  expect(result.warnings).toEqual([]);
+  expect(registrySource("vue", "Toast.vue", "toast")).toContain(
+    'data-slot="toast-viewport"',
+  );
+  expect(
+    registrySource("vue", "Toast.vue", "toast").replace(
+      'from "../toast.js"',
+      'from "./toast.js"',
+    ),
+  ).toBe(readFileSync(resolve("src/vue/toast/Toast.vue"), "utf8"));
+  expect(readFileSync(resolve("registry/toast/toast.js"), "utf8")).toBe(
+    readFileSync(resolve("src/vue/toast/toast.js"), "utf8"),
+  );
+});
+
+test("keeps Toast provider-free, class-first, and durable", () => {
+  const controller = readFileSync(resolve("registry/toast/toast.js"), "utf8");
+
+  expect(controller).toContain("export function createToast");
+  expect(controller).toContain("export const toast");
+  expect(controller).toContain("pauseAll");
+  expect(controller).toContain("remaining");
+  expect(controller).not.toMatch(
+    /Provider|Context|localStorage|sessionStorage/,
+  );
+
+  for (const [framework, filename] of [
+    ["vue", "Toast.vue"],
+    ["react", "Toast.jsx"],
+    ["svelte", "Toast.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "toast");
+
+    expect(source).toContain("prefers-reduced-motion: reduce");
+    expect(source).toContain("aria-live");
+    expect(source).toContain("--klean-toast-enter-x");
+    expect(source).toContain("340ms cubic-bezier");
+    expect(source).toContain("300ms cubic-bezier");
+    expect(source).not.toMatch(/ToastProvider|ToastTitle|ToastDescription/);
+    expect(source).not.toMatch(/\bvariant\b|\btone\b/i);
+    expect(source).not.toMatch(/success.*(?:green|emerald)|error.*red/i);
+  }
+});
