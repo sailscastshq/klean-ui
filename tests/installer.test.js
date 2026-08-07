@@ -614,6 +614,12 @@ for (const [framework, extension] of [
     expect(existsSync(resolve(toastDirectory, `Toast.${extension}`))).toBe(
       true,
     );
+    const installedSource = readFileSync(
+      resolve(toastDirectory, `Toast.${extension}`),
+      "utf8",
+    );
+    expect(installedSource).toContain('from "./toast.js"');
+    expect(installedSource).not.toContain('from "../toast.js"');
     expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
     expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
   });
