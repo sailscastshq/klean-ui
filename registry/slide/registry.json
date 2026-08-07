@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "name": "slide",
+  "description": "A native-button confirmation control with optional pointer sliding and durable cancellation behavior.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Slide.vue",
+      "target": "slide/Slide.vue",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/Slide.jsx",
+      "target": "slide/Slide.jsx",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "source": "svelte/Slide.svelte",
+      "target": "slide/Slide.svelte",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

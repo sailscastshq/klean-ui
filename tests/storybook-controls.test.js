@@ -16,6 +16,7 @@ import {
   Playground as ToastPlayground,
   ReducedMotion as ToastReducedMotion,
 } from "../stories/Toast.stories.js";
+import { Playground as SlidePlayground } from "../stories/Slide.stories.js";
 import { readFileSync } from "node:fs";
 
 const usefulControls = [
@@ -61,6 +62,15 @@ test("keeps Menu controls behavioral and composition-sized", () => {
     "class",
   ]);
   expect(MenuPlayground.play).toBeTypeOf("function");
+});
+
+test("keeps Slide controls limited to caller-owned action state", () => {
+  expect(SlidePlayground.parameters.controls.include).toEqual([
+    "label",
+    "disabled",
+    "pending",
+    "class",
+  ]);
 });
 
 test("makes Menu recipe cursor and Tab affordances explicit", () => {
