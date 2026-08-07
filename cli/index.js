@@ -24,6 +24,7 @@ Examples:
   klean-ui add popover
   klean-ui add menu
   klean-ui add dialog
+  klean-ui add toast
   klean-ui add button --dry-run
   klean-ui add button --components-dir assets/js/components/ui
 

@@ -69,7 +69,7 @@ Once installed, `Button.vue`, `Button.jsx`, or `Button.svelte` is application co
 
 Klean begins with the platform. A button begins as `<button>`, navigation remains a link, labels are real `<label>` elements, related choices use `<fieldset>` and `<legend>`, and headings describe the document instead of acting as font-size shortcuts.
 
-The same rule applies to newer platform capabilities. Dialog begins as `<dialog>` and uses `showModal()`, `command`/`commandfor`, `closedby`, native toggle events, and native focus behavior before Klean adds framework code. Browser support determines the small fallback boundary; familiarity with an older component library does not.
+The same rule applies to newer platform capabilities. Dialog begins as `<dialog>` and uses `showModal()`, `command`/`commandfor`, `closedby`, native toggle events, and native focus behavior before Klean adds framework code. Toast begins as one persistent semantic section and list, uses the platform's live-region, focus, page-visibility, animation-event, and reduced-motion contracts, then adds only the bounded controller the platform does not provide. Browser support determines the small fallback boundary; familiarity with an older component library does not.
 
 This creates three useful properties:
 
@@ -121,7 +121,9 @@ Klean does not generate or publicly expose a `cn.js` helper. Use the framework's
 
 ### Motion belongs to the product
 
-The base components do not move, scale, bounce, or depress when activated. Their defaults use quiet tonal feedback and a visible focus indicator. Physical motion is a product-level choice expressed with Tailwind, not a personality Klean imposes on every application.
+Controls do not move, scale, bounce, or depress merely because they were activated. Their defaults use quiet tonal feedback and a visible focus indicator. Product decoration remains a Tailwind choice, not a personality Klean imposes on every application.
+
+Motion may be part of a component's actual interaction contract when it explains a state transition: a notification entering or leaving the viewport is the first such case. Toast therefore ships a restrained, tested default derived from Durabo, exposes only entry and exit direction, and collapses movement for `prefers-reduced-motion`. That is structural feedback, not a visual variant system.
 
 Hagfish can keep its offset-shadow press because that motion is part of Hagfish's visual language. Slipway can remain still because its dense operational controls rely on color changes. Both treatments use the same semantic Button.
 
@@ -255,12 +257,12 @@ The Durable UI surface includes:
 - focus entry, trapping, return, and recovery after destructive list changes;
 - optimistic toggles and list mutations only when success is highly likely and rollback is safe;
 - window and container scroll restoration, asynchronous hash navigation, and Inertia `preserveScroll` guidance;
-- accessible global toast queues with deduplication, hover pause, manual dismissal, and flash-message integration;
+- a provider-free global Toast queue mounted in the persistent layout, updated in place for long work, paused on hover, focus, hidden pages, and window blur, with flash deduplication handled by stable ids in a small Boring Stack adapter;
 - debounced client/server search with URL synchronization, loading and empty states, and stale-request cancellation.
 
 The storage decision is conventional: ephemeral interaction state stays local, browser-only preferences use storage, shareable navigation context uses the URL, and cross-device or authoritative state stays on the server. Sensitive or server-owned data never goes into browser storage.
 
-Zero configuration does not mean every pattern runs globally without being invoked. It means Klean supplies the correct source, safe defaults, and Boring Stack integration without requiring a registry manifest, provider hierarchy, state library, or parallel configuration language. A toast system still needs a host in the application layout; a Dialog still needs an accessible name and a real trigger relationship. Observed or controlled open state is optional and belongs only where application logic needs it. Those are semantic integration points, not configuration ceremony.
+Zero configuration does not mean every pattern runs globally without being invoked. It means Klean supplies the correct source, safe defaults, and Boring Stack integration without requiring a registry manifest, provider hierarchy, state library, or parallel configuration language. Toast still needs one persistent renderer in the application layout; its imported `toast()` function needs no provider or setup. A Dialog still needs an accessible name and a real trigger relationship. Observed or controlled open state is optional and belongs only where application logic needs it. Those are semantic integration points, not configuration ceremony.
 
 Read the complete scope and graduation criteria in [Durable UI in Klean](./durable-ui.md).
 
@@ -272,7 +274,7 @@ Source ownership does not justify casual reimplementation of difficult accessibi
 2. **Small, readable framework behavior.** Add local framework logic when the contract remains short, obvious, and thoroughly testable.
 3. **A focused unstyled primitive.** Use a mature headless dependency only when the remaining keyboard, focus, or WAI-ARIA behavior becomes too substantial to keep obvious and prove locally.
 
-Button needs no interaction dependency. Popover starts with the browser's native Popover API and adds only collision geometry plus a readable fallback. Menu composes that Popover and adds a tested roving-focus/typeahead contract in framework-native source. Dialog uses the native top layer, focus containment and return, close requests, and invoker commands; Klean adds only dismissal policy, cleanup, state observation, and compatibility fallbacks. More complex widgets such as Combobox may still justify a focused primitive after the native platform and small local behavior have been exhausted.
+Button needs no interaction dependency. Popover starts with the browser's native Popover API and adds only collision geometry plus a readable fallback. Menu composes that Popover and adds a tested roving-focus/typeahead contract in framework-native source. Dialog uses the native top layer, focus containment and return, close requests, and invoker commands; Klean adds only dismissal policy, cleanup, state observation, and compatibility fallbacks. Toast uses a small framework-neutral queue and framework-native live-region renderer because browsers provide the semantics but not notification lifecycle management. More complex widgets such as Combobox may still justify a focused primitive after the native platform and small local behavior have been exhausted.
 
 The rule is neither “no dependencies” nor “wrap a headless library for everything.” The rule is: choose the smallest dependency level that can prove the complete behavior.
 
