@@ -1,4 +1,5 @@
 import Button from "../src/vue/button/Button.vue";
+import Dialog from "../src/vue/dialog/Dialog.vue";
 
 const meta = {
   title: "Klean UI/Introduction",
@@ -13,7 +14,7 @@ export default meta;
 export const Philosophy = {
   name: "Design philosophy",
   render: () => ({
-    components: { Button },
+    components: { Button, Dialog },
     template: `
       <main class="klean-story-canvas min-h-svh overflow-hidden">
         <header class="flex items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
@@ -43,12 +44,21 @@ export const Philosophy = {
               <dd class="font-mono">class="..."</dd>
             </dl>
             <div class="mt-10 flex flex-wrap items-center gap-3">
-              <Button type="button">Open dialog</Button>
+              <Button commandfor="introduction-dialog" command="show-modal">Open dialog</Button>
               <Button as="a" href="#doctrine-heading" class="bg-transparent text-white ring-1 ring-inset ring-white/25 hover:bg-white/10 dark:bg-transparent dark:text-white dark:hover:bg-white/10">
                 Read the doctrine
               </Button>
             </div>
           </aside>
+
+          <Dialog id="introduction-dialog" aria-labelledby="introduction-dialog-title" class="max-w-md">
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-gray-500">Native underneath</p>
+            <h2 id="introduction-dialog-title" class="mt-2 text-2xl font-semibold tracking-tight">The platform does the hard part.</h2>
+            <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">This is a real dialog opened by a real button. The browser owns the top layer, modality, focus containment, Escape, and focus return.</p>
+            <form method="dialog" class="mt-6 flex justify-end">
+              <Button type="submit" value="close" autofocus>Close</Button>
+            </form>
+          </Dialog>
         </section>
 
         <section class="grid gap-10 bg-white px-5 py-16 sm:px-8 lg:grid-cols-3 lg:px-12 lg:py-24" aria-labelledby="doctrine-heading">

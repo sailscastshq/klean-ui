@@ -40,7 +40,7 @@ Names are provisional until each implementation graduates, and exact spelling fo
 ### Interaction resilience
 
 - `useClickOutside` and layered components — outside click for menus, backdrop click for blocking overlays, Escape dismissal, conditional listeners, cleanup, and body-scroll locking.
-- Dialog, Menu, Popover, and related components — semantic roles, complete keyboard behavior, focus entry/trapping/return, and safe dismissal behind Klean's public API.
+- Dialog, Menu, Popover, and related components — native semantics first, complete keyboard behavior, focus entry/containment/return, and safe dismissal behind Klean's public API.
 - `useOptimistic` — immediate state only for high-confidence reversible actions, with inflight protection, server resynchronization, rollback, and perceivable errors.
 - Toast components and `useToast` — a global bounded queue that survives Inertia page swaps, deduplicates flash messages, pauses on hover, supports manual dismissal, and announces through `aria-live`.
 - `useDebounce` and search blocks — client or server search, hygienic URL synchronization, loading and empty states, result feedback, minimum query rules, and `AbortController` cancellation.
@@ -62,7 +62,7 @@ Durability is not only storage. The interface must reflect what is actually true
 
 The standard Boring Stack path has no Durable UI initializer, manifest, provider maze, state-library requirement, or storage questionnaire.
 
-Klean infers the framework and conventional source locations. A copied component or composable carries its own local behavior and direct dependencies. Some patterns still require an honest integration point: a toast host belongs in the persistent application layout, a dialog needs controlled state, and server-backed URL filters use Inertia. Klean documents and generates those source changes directly instead of hiding them in configuration.
+Klean infers the framework and conventional source locations. A copied component or composable carries its own local behavior and direct dependencies. Some patterns still require an honest integration point: a toast host belongs in the persistent application layout, a dialog needs an accessible name and a native trigger relationship, and server-backed URL filters use Inertia. Controlled dialog state is optional. Klean documents and generates those source changes directly instead of hiding them in configuration.
 
 ## Dependencies remain an implementation decision
 

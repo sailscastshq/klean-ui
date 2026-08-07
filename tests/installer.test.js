@@ -580,3 +580,17 @@ test("installs Menu with Popover first and no configuration ceremony", () => {
   expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
   expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
 });
+
+test("plans Dialog as one source component with no interaction dependency", () => {
+  const root = makeFixture({ framework: "vue", tailwindMerge: false });
+  const plan = createInstallPlan("dialog", { cwd: root });
+
+  expect(plan.registryItems).toEqual(["dialog"]);
+  expect(plan.files).toHaveLength(1);
+  expect(plan.files[0].displayPath).toBe("dialog/Dialog.vue");
+  expect(plan.dependencies).toEqual([
+    { name: "tailwind-merge", version: "^3.6.0", missing: true },
+  ]);
+  expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
+  expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
+});

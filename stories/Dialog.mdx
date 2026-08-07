@@ -1,0 +1,144 @@
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Source,
+  Stories,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as DialogStories from "./Dialog.stories.js";
+import reactSource from "../registry/dialog/react/Dialog.jsx?raw";
+import svelteSource from "../registry/dialog/svelte/Dialog.svelte?raw";
+import vueSource from "../registry/dialog/vue/Dialog.vue?raw";
+
+export const vueUsage = `<Button commandfor="delete-project" command="show-modal">
+  Delete project
+</Button>
+
+<Dialog
+  id="delete-project"
+  aria-labelledby="delete-project-title"
+>
+  <h2 id="delete-project-title">Delete this project?</h2>
+  <p>This cannot be undone.</p>
+
+  <form method="dialog">
+    <Button type="submit" value="cancel" autofocus>Cancel</Button>
+    <Button type="submit" value="delete">Delete project</Button>
+  </form>
+</Dialog>`;
+
+export const reactUsage = `<Button commandfor="delete-project" command="show-modal">
+  Delete project
+</Button>
+
+<Dialog
+  id="delete-project"
+  aria-labelledby="delete-project-title"
+>
+  <h2 id="delete-project-title">Delete this project?</h2>
+  <p>This cannot be undone.</p>
+
+  <form method="dialog">
+    <Button type="submit" value="cancel" autoFocus>Cancel</Button>
+    <Button type="submit" value="delete">Delete project</Button>
+  </form>
+</Dialog>`;
+
+export const svelteUsage = `<Button commandfor="delete-project" command="show-modal">
+  Delete project
+</Button>
+
+<Dialog
+  id="delete-project"
+  aria-labelledby="delete-project-title"
+>
+  <h2 id="delete-project-title">Delete this project?</h2>
+  <p>This cannot be undone.</p>
+
+  <form method="dialog">
+    <Button type="submit" value="cancel" autofocus>Cancel</Button>
+    <Button type="submit" value="delete">Delete project</Button>
+  </form>
+</Dialog>`;
+
+<Meta of={DialogStories} />
+
+<Title />
+
+<Description />
+
+Dialog is one native `<dialog>`, not a family of trigger, portal, overlay,
+content, title, description, and action components. A real button targets its
+`id` with the platform's `command="show-modal"` relationship. The application
+writes the real heading, description, form, actions, and Tailwind classes.
+
+```sh
+npx klean-ui@latest add dialog
+```
+
+<Canvas of={DialogStories.Playground} />
+
+## Vue
+
+<Source code={vueUsage} language="vue" />
+
+## React
+
+<Source code={reactUsage} language="jsx" />
+
+## Svelte
+
+<Source code={svelteUsage} language="svelte" />
+
+## Native contract
+
+Opening with `showModal()` puts the dialog in the top layer and lets the browser
+own inert background content, focus containment, initial focus, Escape, and focus
+return. Klean adds `closedby` policy with a backdrop fallback for older browsers,
+observed state when the application needs it, safe scroll restoration, and caller-
+winning Tailwind defaults.
+
+Every dialog needs an accessible name. Point `aria-labelledby` at a visible heading
+or provide `aria-label`. Use `aria-describedby` only for a short, simple description.
+For long structured content, let assistive technology read the content structure
+instead. Put `autofocus` on the best initial target; destructive confirmations should
+normally focus Cancel.
+
+## API
+
+The behavioral surface is `id`, optional controlled `open`, `defaultOpen`, and
+`dismissible`. Vue uses `v-model:open`, React uses `open` plus `onOpenChange`, and
+Svelte uses `bind:open`. Observing state is optional: native `command`/`commandfor`
+works without framework state.
+
+The framework ref exposes the native dialog capability. Vue and Svelte expose
+`showModal()`, `close(returnValue)`, and `requestClose(returnValue)`; React forwards
+the actual `HTMLDialogElement`. Prefer native `<form method="dialog">` or command
+buttons for ordinary completion.
+
+There is no `DialogTrigger`, portal, provider, `ConfirmDialog`, visual variant,
+focus-trap dependency, or Klean theme API. Confirmation is a semantic recipe composed
+inside Dialog, not another universal component.
+
+## Complete source
+
+These are the exact files installed by the registry. Each source block is copyable,
+includes the neutral Tailwind defaults, and becomes application-owned immediately.
+
+### Vue
+
+<Source code={vueSource} language="vue" />
+
+### React
+
+<Source code={reactSource} language="jsx" />
+
+### Svelte
+
+<Source code={svelteSource} language="svelte" />
+
+<Controls of={DialogStories.Playground} />
+
+<Stories title="Examples" includePrimary={false} />
