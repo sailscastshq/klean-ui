@@ -9,7 +9,7 @@ const BoringStackLink = {
 };
 
 const itemClass = [
-  "flex w-full items-center gap-3 rounded px-3 py-2 text-left text-sm text-gray-700 no-underline outline-none",
+  "flex w-full cursor-pointer items-center gap-3 rounded px-3 py-2 text-left text-sm text-gray-700 no-underline outline-none",
   "hover:bg-gray-100 focus:bg-gray-100 focus:text-gray-950",
   "disabled:cursor-not-allowed disabled:opacity-40",
   "aria-disabled:cursor-not-allowed aria-disabled:opacity-40",
@@ -152,10 +152,26 @@ export const Semantics = {
             <BoringStackLink href="#menu-semantics" :class="itemClass">View settings with Inertia</BoringStackLink>
             <button type="button" :class="dangerClass">Delete service</button>
           </Menu>
+          <button type="button" class="ml-3 min-h-11 cursor-pointer rounded-md border border-gray-300 px-4 text-sm font-medium hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-950">
+            After menu
+          </button>
         </div>
       </section>
     `,
   }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button", { name: "Open project menu" });
+    const afterMenu = canvas.getByRole("button", { name: "After menu" });
+
+    await userEvent.click(trigger);
+    await expect(
+      canvas.getByRole("menuitem", { name: "Restart service" }),
+    ).toHaveFocus();
+    await userEvent.tab();
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(afterMenu).toHaveFocus();
+  },
 };
 
 export const States = {
@@ -201,8 +217,8 @@ export const Products = {
             <Menu id="hagfish-actions" aria-labelledby="hagfish-menu-title" class="w-64 rounded-none border-2 border-black p-2 shadow-[6px_6px_0_0_#000]">
               <p id="hagfish-menu-title" class="px-3 pb-2 pt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-gray-500">Invoice actions</p>
               <a href="#menu-docs" class="flex w-full border-2 border-transparent px-3 py-2 text-sm font-medium text-black no-underline outline-none hover:border-black focus:border-black">Preview invoice</a>
-              <button type="button" class="flex w-full border-2 border-transparent px-3 py-2 text-left text-sm font-medium text-black outline-none hover:border-black focus:border-black">Duplicate invoice</button>
-              <button type="button" class="flex w-full border-2 border-transparent px-3 py-2 text-left text-sm font-medium text-red-700 outline-none hover:border-red-700 focus:border-red-700">Void invoice</button>
+              <button type="button" class="flex w-full cursor-pointer border-2 border-transparent px-3 py-2 text-left text-sm font-medium text-black outline-none hover:border-black focus:border-black">Duplicate invoice</button>
+              <button type="button" class="flex w-full cursor-pointer border-2 border-transparent px-3 py-2 text-left text-sm font-medium text-red-700 outline-none hover:border-red-700 focus:border-red-700">Void invoice</button>
             </Menu>
           </div>
         </section>
@@ -213,7 +229,7 @@ export const Products = {
             <Button popovertarget="slipway-actions" class="min-h-9 min-w-0 bg-gray-800 px-3 py-1.5 text-sm hover:bg-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">Actions</Button>
             <Menu id="slipway-actions" aria-labelledby="slipway-menu-title" class="w-52 border-gray-700 bg-gray-900 p-1 text-white shadow-xl">
               <p id="slipway-menu-title" class="px-2 py-1.5 text-xs font-medium text-gray-400">Deployment</p>
-              <button type="button" class="flex w-full rounded px-2 py-2 text-left text-sm text-gray-200 outline-none hover:bg-white/10 focus:bg-white/10">Redeploy</button>
+              <button type="button" class="flex w-full cursor-pointer rounded px-2 py-2 text-left text-sm text-gray-200 outline-none hover:bg-white/10 focus:bg-white/10">Redeploy</button>
               <a href="#menu-docs" class="flex w-full rounded px-2 py-2 text-sm text-gray-200 no-underline outline-none hover:bg-white/10 focus:bg-white/10">View logs</a>
               <button type="button" disabled class="flex w-full cursor-not-allowed rounded px-2 py-2 text-left text-sm text-gray-500 outline-none">Stop provisioning</button>
             </Menu>
