@@ -468,6 +468,34 @@ function displayRelativePath(root, path) {
   return displayPath(relativePath || ".");
 }
 
+function rewriteRegistryImports(
+  registrySource,
+  sourcePath,
+  targetPath,
+  sourceTargets,
+) {
+  return registrySource.replace(
+    /(["'])(\.\.?\/[^"']+)\1/g,
+    (match, quote, specifier) => {
+      const [, importedPath, suffix = ""] =
+        specifier.match(/^([^?#]+)([?#].*)?$/) ?? [];
+      if (!importedPath) return match;
+
+      const importedTarget = sourceTargets.get(
+        resolve(dirname(sourcePath), importedPath),
+      );
+      if (!importedTarget) return match;
+
+      let rewrittenPath = displayPath(
+        relative(dirname(targetPath), importedTarget),
+      );
+      if (!rewrittenPath.startsWith(".")) rewrittenPath = `./${rewrittenPath}`;
+
+      return `${quote}${rewrittenPath}${suffix}${quote}`;
+    },
+  );
+}
+
 export function createInstallPlan(component, options = {}) {
   const application = findApplicationRoot(options.cwd);
   const frameworkDetection = detectFramework(
@@ -497,6 +525,8 @@ export function createInstallPlan(component, options = {}) {
     "CSS path",
   );
   const targetSources = new Map();
+  const sourceTargets = new Map();
+  const declaredFiles = [];
   const files = [];
   const dependencyVersions = new Map();
 
@@ -538,45 +568,63 @@ export function createInstallPlan(component, options = {}) {
         );
       }
 
-      const registrySource = readFileSync(sourcePath, "utf8");
-      const existingTarget = targetSources.get(targetPath);
-
-      if (existingTarget) {
-        if (existingTarget.registrySource !== registrySource) {
-          throw new KleanInstallerError(
-            `Registry items ${existingTarget.component} and ${registryItem.component} write different source to ${displayRelativePath(componentsDirectory, targetPath)}.`,
-            { code: "INVALID_REGISTRY" },
-          );
-        }
-        continue;
+      const existingTargetPath = sourceTargets.get(sourcePath);
+      if (existingTargetPath && existingTargetPath !== targetPath) {
+        throw new KleanInstallerError(
+          `Registry source ${displayRelativePath(registryDirectory, sourcePath)} maps to more than one target.`,
+          { code: "INVALID_REGISTRY" },
+        );
       }
 
-      const currentSource = existsSync(targetPath)
-        ? readFileSync(targetPath, "utf8")
-        : undefined;
-      let action = "create";
-      let difference;
-
-      if (currentSource === registrySource) {
-        action = "unchanged";
-      } else if (currentSource !== undefined) {
-        action = options.overwrite ? "overwrite" : "conflict";
-        difference = firstDifference(currentSource, registrySource);
-      }
-
-      const file = {
-        component: registryItem.component,
-        action,
-        sourcePath,
-        targetPath,
-        displayPath: displayRelativePath(componentsDirectory, targetPath),
-        registrySource,
-        difference,
-      };
-
-      targetSources.set(targetPath, file);
-      files.push(file);
+      sourceTargets.set(sourcePath, targetPath);
+      declaredFiles.push({ registryItem, sourcePath, targetPath });
     }
+  }
+
+  for (const { registryItem, sourcePath, targetPath } of declaredFiles) {
+    const registrySource = rewriteRegistryImports(
+      readFileSync(sourcePath, "utf8"),
+      sourcePath,
+      targetPath,
+      sourceTargets,
+    );
+    const existingTarget = targetSources.get(targetPath);
+
+    if (existingTarget) {
+      if (existingTarget.registrySource !== registrySource) {
+        throw new KleanInstallerError(
+          `Registry items ${existingTarget.component} and ${registryItem.component} write different source to ${displayRelativePath(componentsDirectory, targetPath)}.`,
+          { code: "INVALID_REGISTRY" },
+        );
+      }
+      continue;
+    }
+
+    const currentSource = existsSync(targetPath)
+      ? readFileSync(targetPath, "utf8")
+      : undefined;
+    let action = "create";
+    let difference;
+
+    if (currentSource === registrySource) {
+      action = "unchanged";
+    } else if (currentSource !== undefined) {
+      action = options.overwrite ? "overwrite" : "conflict";
+      difference = firstDifference(currentSource, registrySource);
+    }
+
+    const file = {
+      component: registryItem.component,
+      action,
+      sourcePath,
+      targetPath,
+      displayPath: displayRelativePath(componentsDirectory, targetPath),
+      registrySource,
+      difference,
+    };
+
+    targetSources.set(targetPath, file);
+    files.push(file);
   }
 
   const dependencies = [...dependencyVersions.entries()].map(
