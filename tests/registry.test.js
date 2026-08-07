@@ -289,7 +289,8 @@ test("keeps Toast provider-free, class-first, and durable", () => {
     expect(source).toContain("aria-live");
     expect(source).toContain("--klean-toast-enter-x");
     expect(source).toContain("340ms cubic-bezier");
-    expect(source).toContain("300ms cubic-bezier");
+    expect(source).toContain("240ms cubic-bezier");
+    expect(source).not.toContain("toast-counter");
     expect(source).not.toMatch(/ToastProvider|ToastTitle|ToastDescription/);
     expect(source).not.toMatch(/\bvariant\b|\btone\b/i);
     expect(source).not.toMatch(/success.*(?:green|emerald)|error.*red/i);

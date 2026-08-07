@@ -49,6 +49,18 @@ export const Playground = {
   },
 };
 
+export const Motion = {
+  name: "Motion",
+  args: { motion: "full" },
+  parameters: { controls: { include: ["position", "from", "to"] } },
+};
+
+export const ReducedMotion = {
+  name: "Reduced motion",
+  args: { motion: "reduced" },
+  parameters: { controls: { disable: true } },
+};
+
 export const CustomContent = {
   name: "Custom content",
   args: { custom: true, position: "bottom-right" },
