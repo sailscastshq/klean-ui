@@ -38,9 +38,22 @@
   let isOpen = $derived(open ?? internalOpen);
   let contentId = $derived(id ?? generatedId);
   let mergedStyle = $derived(
-    typeof style === "string"
-      ? `position:${positionStyle.position};left:${positionStyle.left};top:${positionStyle.top};${style}`
-      : { ...positionStyle, ...style },
+    [positionStyle, style]
+      .flatMap((value) => {
+        if (!value) return [];
+        if (typeof value === "string") return value;
+
+        return Object.entries(value)
+          .filter(([, propertyValue]) => propertyValue != null)
+          .map(([property, propertyValue]) => {
+            const cssProperty = property.replace(
+              /[A-Z]/g,
+              (letter) => `-${letter.toLowerCase()}`,
+            );
+            return `${cssProperty}:${propertyValue}`;
+          });
+      })
+      .join(";"),
   );
 
   function invokers() {

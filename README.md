@@ -97,7 +97,24 @@ npm install
 npm run storybook
 ```
 
-Storybook opens at `http://localhost:6006`. Start with **Klean UI / Introduction**, then open **Components / Button**, **Components / Input**, **Components / Textarea**, **Components / Popover**, or **Components / Menu** for live controls, states, recipes, source, and accessibility documentation.
+Storybook opens one neutral workbench at `http://localhost:6006`. Its sidebar
+composes three framework-native Storybooks:
+
+```text
+6006  Klean UI workbench
+6007  Vue
+6008  React
+6009  Svelte
+```
+
+Open **Vue**, **React**, or **Svelte**, then choose **Components / Button**,
+**Input**, **Textarea**, **Popover**, or **Menu**. The stories mount the actual
+registry source and share behavior expectations without sharing a runtime
+component abstraction. Controls stay limited to useful behavioral inputs;
+interaction stories and the accessibility addon verify the durable contract.
+
+`npm run build-storybook` produces the same composition as one static artifact:
+the neutral shell at `storybook-static`, with each renderer nested below it.
 
 ## Validate Klean UI
 

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @source '../stories';
+@source '../registry';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
