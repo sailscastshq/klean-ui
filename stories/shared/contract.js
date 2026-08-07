@@ -8,6 +8,9 @@ export const contract = Object.freeze({
   menuId: 'framework-menu',
   menuLabel: 'Actions',
   menuItems: ['Edit project', 'View deployments', 'Delete project'],
+  dialogId: 'framework-dialog',
+  dialogLabel: 'Delete project',
+  dialogTitle: 'Delete this project?',
 })
 
 export const menuItemClass = [

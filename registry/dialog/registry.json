@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "name": "dialog",
+  "description": "A native modal dialog with durable dismissal, controlled-state observation, and app-owned semantic content.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Dialog.vue",
+      "target": "dialog/Dialog.vue",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/Dialog.jsx",
+      "target": "dialog/Dialog.jsx",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "source": "svelte/Dialog.svelte",
+      "target": "dialog/Dialog.svelte",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

@@ -193,3 +193,49 @@ test("keeps Menu semantic, class-first, ephemeral, and motion-free", () => {
     expect(source).toMatch(/event\.key === ["']Tab["']/);
   }
 });
+
+test("keeps the Vue Dialog workbench and installable source identical", () => {
+  expect(registrySource("vue", "Dialog.vue", "dialog")).toBe(
+    readFileSync(resolve("src/vue/dialog/Dialog.vue"), "utf8"),
+  );
+});
+
+test("ships compiler-valid framework-native Dialog source", () => {
+  const reactSource = registrySource("react", "Dialog.jsx", "dialog");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  const svelteSource = registrySource("svelte", "Dialog.svelte", "dialog");
+  const result = compile(svelteSource, {
+    filename: "Dialog.svelte",
+    generate: false,
+  });
+
+  expect(result.warnings).toEqual([]);
+});
+
+test("keeps Dialog native, class-first, durable, and free of product APIs", () => {
+  for (const [framework, filename] of [
+    ["vue", "Dialog.vue"],
+    ["react", "Dialog.jsx"],
+    ["svelte", "Dialog.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "dialog");
+
+    expect(source).toMatch(/<dialog/);
+    expect(source).toContain("showModal");
+    expect(source).toContain("requestClose");
+    expect(source).toContain("commandfor");
+    expect(source).toContain("closedby");
+    expect(source).toContain('data-slot="dialog"');
+    expect(source).toContain("tailwind-merge");
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
+    expect(source).not.toMatch(/\bvariant\b|\btone\b|\bsize\b/i);
+    expect(source).not.toMatch(/ConfirmDialog|DialogTrigger|DialogTitle/);
+    expect(source).not.toMatch(/role=["']dialog["']/);
+    expect(source).not.toMatch(/FOCUSABLE|focusTrap|tabIndex.*-1/);
+    expect(source).not.toMatch(/Teleport|createPortal/);
+    expect(source).not.toMatch(/transition|animate|duration-/);
+  }
+});
