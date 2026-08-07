@@ -1,19 +1,19 @@
 /* Storybook must be able to review both motion contracts independently of the
    host browser's preference. These classes never ship with registry source. */
 .klean-toast-motion-preview [data-klean-toast-item][data-state="entering"] {
-  animation-duration: 340ms !important;
-  animation-timing-function: cubic-bezier(0.2, 0.9, 0.18, 1) !important;
+  animation-duration: var(--klean-toast-enter-duration) !important;
+  animation-timing-function: ease-out !important;
 }
 
 .klean-toast-motion-preview [data-klean-toast-item][data-state="closing"] {
-  animation-duration: 240ms !important;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+  animation-duration: var(--klean-toast-leave-duration) !important;
+  animation-timing-function: ease-in !important;
 }
 
 .klean-toast-motion-preview [data-klean-toast-row][data-state="closing"] {
-  animation-delay: 80ms !important;
-  animation-duration: 160ms !important;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+  animation-delay: var(--klean-toast-collapse-delay) !important;
+  animation-duration: var(--klean-toast-collapse-duration) !important;
+  animation-timing-function: ease-in !important;
 }
 
 .klean-toast-reduced-motion-preview [data-klean-toast-item][data-state] {

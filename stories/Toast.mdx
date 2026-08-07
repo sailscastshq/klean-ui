@@ -59,6 +59,17 @@ progress: 100,
 duration: 5000,
 })`;
 
+export const actionUsage = `toast({
+  title: 'Changes saved',
+  message: 'Your draft is ready.',
+  action: { label: 'View draft', href: '/drafts/42' },
+})
+
+toast({
+title: 'Connection lost',
+action: { label: 'Retry', onClick: reconnect },
+})`;
+
 <Meta of={ToastStories} />
 
 <Title />
@@ -93,9 +104,15 @@ The command installs `toast/Toast` for the detected framework and the shared
 ## The controller
 
 `toast('Saved')` covers the ordinary case. An object may carry `title`, `message`,
-`duration`, `dismissible`, `class`, and any application metadata. The returned id
-can be passed to `toast.update(id, patch)` or `toast.dismiss(id)`. Use
-`duration: false` for work whose end is controlled by an external event.
+`duration`, `dismissible`, `action`, `class`, and any application metadata. The
+returned id can be passed to `toast.update(id, patch)` or `toast.dismiss(id)`.
+Use `duration: false` for work whose end is controlled by an external event.
+
+An action with `href` is a real anchor. An action with `onClick` is a real button.
+Both dismiss the notification after activation, and `action.class` accepts ordinary
+Tailwind when the product needs a different treatment.
+
+<Source code={actionUsage} language="js" />
 
 <Source code={deploymentUsage} language="js" />
 
@@ -112,10 +129,12 @@ item and announcement history instead of adding a second deployment notification
 
 The default top-right shelf enters and exits toward the right; left shelves use
 the left edge. Entry and exit therefore stay on the x-axis without configuration.
-The 340ms entry overshoots and settles; the 240ms exit follows a calm,
-monotonic path while the stack closes its gap behind it. This motion is built in
-without becoming a theme system. `from` and `to` accept `left`, `right`, `top`, `bottom`,
-`fade`, or `none`.
+Nearby travel uses a direct 300ms ease-out entry and 200ms ease-in exit. Crossing
+the viewport receives 450ms and 320ms respectively, so it remains legible without
+making ordinary notifications sluggish. The stack closes its gap during the exit,
+not after it. There are no duration or easing props to tune. `from` and `to` accept
+`left`, `right`, `top`, `bottom`, `fade`, or `none` when a product genuinely needs
+a different direction.
 
 The motion canvases deliberately pin each behavior so Storybook and operating-system
 settings cannot hide either contract while the component is being reviewed. The
@@ -130,10 +149,9 @@ preferences automatically collapse movement to 1ms.
 
 ## Long-running work
 
-Slipway's deployment toast proves why updates and persistent duration matter. Klean
-does not own SSE, maritime status language, progress rules, or deployment colours.
-The application owns those in a custom renderer and updates one toast as events
-arrive.
+A long-running operation proves why updates and persistent duration matter. Klean
+does not own SSE, status language, progress rules, or product colours. The
+application owns those in a custom renderer and updates one toast as events arrive.
 
 <Canvas of={ToastStories.Deployment} />
 
@@ -142,7 +160,8 @@ arrive.
 The base has neutral, useful defaults. It does not map `success`, `error`, or any
 other kind to colours or icons. Pass ordinary Tailwind through `class`, or replace
 the body through Vue's scoped slot, React's function child, or Svelte's snippet.
-That lets Hagfish retain its two-pixel border and offset shadow while inheriting
+That lets a bold invoice product retain its two-pixel border and offset shadow,
+while a quieter infrastructure product can keep a dark neutral shell. Both inherit
 Klean's durable controller and built-in motion.
 
 <Canvas of={ToastStories.Products} />
