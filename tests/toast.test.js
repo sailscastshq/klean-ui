@@ -169,10 +169,16 @@ test("renders a persistent, named live region with caller-owned Tailwind", async
   expect(viewport.attributes("aria-live")).toBe("polite");
   expect(viewport.attributes("data-position")).toBe("bottom-left");
   expect(viewport.attributes("style")).toContain(
-    "--klean-toast-enter-y: calc(100% + 1.25rem)",
+    "--klean-toast-enter-y: calc(100% + 1rem)",
   );
   expect(viewport.attributes("style")).toContain(
-    "--klean-toast-leave-x: calc(-100% - 1.25rem)",
+    "--klean-toast-leave-x: calc(-100% - 1rem)",
+  );
+  expect(viewport.attributes("style")).toContain(
+    "--klean-toast-enter-duration: 300ms",
+  );
+  expect(viewport.attributes("style")).toContain(
+    "--klean-toast-leave-duration: 200ms",
   );
   expect(item.classes()).toContain("rounded-none");
   expect(item.classes()).toContain("border-2");
@@ -212,9 +218,71 @@ test("keeps default motion on the nearest horizontal edge", () => {
   );
   expect(
     left.get('[data-slot="toast-viewport"]').attributes("style"),
-  ).toContain("--klean-toast-enter-x: calc(-100% - 1.25rem)");
+  ).toContain("--klean-toast-enter-x: calc(-100% - 1rem)");
 
   left.unmount();
+  controller.destroy();
+});
+
+test("gives cross-viewport travel enough time without slowing nearby motion", () => {
+  const controller = createToast({ duration: false });
+  const wrapper = mount(Toast, {
+    props: {
+      controller,
+      position: "top-right",
+      from: "left",
+      to: "bottom",
+    },
+  });
+
+  const style = wrapper.get('[data-slot="toast-viewport"]').attributes("style");
+  expect(style).toContain("--klean-toast-enter-x: -100vw");
+  expect(style).toContain("--klean-toast-leave-y: 100dvh");
+  expect(style).toContain("--klean-toast-enter-duration: 450ms");
+  expect(style).toContain("--klean-toast-leave-duration: 320ms");
+
+  wrapper.unmount();
+  controller.destroy();
+});
+
+test("renders semantic actions and dismisses after activation", async () => {
+  const controller = createToast({ duration: false });
+  let actionCalls = 0;
+  const wrapper = mount(Toast, {
+    attachTo: document.body,
+    props: { controller },
+  });
+
+  const linkId = controller({
+    title: "Draft saved",
+    action: { label: "View draft", href: "#draft" },
+  });
+  await nextTick();
+  const link = wrapper.get('a[data-slot="toast-action"]');
+  expect(link.attributes("href")).toBe("#draft");
+  await link.trigger("click");
+  expect(
+    controller.getSnapshot().find((item) => item.id === linkId)?.state,
+  ).toBe("closing");
+
+  controller.remove(linkId);
+  controller({
+    title: "Connection lost",
+    action: {
+      label: "Retry",
+      onClick() {
+        actionCalls += 1;
+      },
+    },
+  });
+  await nextTick();
+  const button = wrapper.get('button[data-slot="toast-action"]');
+  expect(button.attributes("type")).toBe("button");
+  await button.trigger("click");
+  expect(actionCalls).toBe(1);
+  expect(controller.getSnapshot()[0].state).toBe("closing");
+
+  wrapper.unmount();
   controller.destroy();
 });
 

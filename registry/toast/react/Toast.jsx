@@ -11,56 +11,50 @@ const POSITIONS = {
   "bottom-right": "bottom-4 right-4 items-end",
 };
 
-const DIRECTIONS = {
-  right: [
-    "calc(100% + 1.25rem)",
-    "0px",
-    "-10px",
-    "0px",
-    "3px",
-    "0px",
-    "calc(100% + 1.25rem)",
-    "0px",
-  ],
-  left: [
-    "calc(-100% - 1.25rem)",
-    "0px",
-    "10px",
-    "0px",
-    "-3px",
-    "0px",
-    "calc(-100% - 1.25rem)",
-    "0px",
-  ],
-  top: [
-    "0px",
-    "calc(-100% - 1.25rem)",
-    "0px",
-    "10px",
-    "0px",
-    "-3px",
-    "0px",
-    "calc(-100% - 1.25rem)",
-  ],
-  bottom: [
-    "0px",
-    "calc(100% + 1.25rem)",
-    "0px",
-    "-10px",
-    "0px",
-    "3px",
-    "0px",
-    "calc(100% + 1.25rem)",
-  ],
-  fade: Array(8).fill("0px"),
-  none: Array(8).fill("0px"),
+const POSITION_EDGES = {
+  "top-left": ["top", "left"],
+  "top-center": ["top"],
+  "top-right": ["top", "right"],
+  "bottom-left": ["bottom", "left"],
+  "bottom-center": ["bottom"],
+  "bottom-right": ["bottom", "right"],
 };
+
+const NEARBY_DURATION = { enter: 300, leave: 200 };
+const CROSS_VIEWPORT_DURATION = { enter: 450, leave: 320 };
+
+function motionVector(direction, position) {
+  if (direction === "fade" || direction === "none") return ["0px", "0px"];
+
+  const nearby = POSITION_EDGES[position]?.includes(direction);
+  const horizontal = direction === "left" || direction === "right";
+  const negative = direction === "left" || direction === "top";
+  const distance = nearby
+    ? negative
+      ? "calc(-100% - 1rem)"
+      : "calc(100% + 1rem)"
+    : horizontal
+      ? negative
+        ? "-100vw"
+        : "100vw"
+      : negative
+        ? "-100dvh"
+        : "100dvh";
+
+  return horizontal ? [distance, "0px"] : ["0px", distance];
+}
+
+function motionDuration(phase, direction, position) {
+  if (direction === "none") return 0;
+  if (["fade", ...POSITION_EDGES[position]].includes(direction)) {
+    return NEARBY_DURATION[phase];
+  }
+  return CROSS_VIEWPORT_DURATION[phase];
+}
 
 const MOTION_CSS = `
 @keyframes klean-toast-enter {
   0% { opacity: 0; transform: translate3d(var(--klean-toast-enter-x), var(--klean-toast-enter-y), 0) scale(.98); }
-  62% { opacity: 1; transform: translate3d(var(--klean-toast-overshoot-x), var(--klean-toast-overshoot-y), 0) scale(1.01); }
-  82% { transform: translate3d(var(--klean-toast-bounce-x), var(--klean-toast-bounce-y), 0) scale(.997); }
   100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
 }
 @keyframes klean-toast-leave {
@@ -71,27 +65,30 @@ const MOTION_CSS = `
   0% { grid-template-rows: 1fr; padding-block-end: .75rem; }
   100% { grid-template-rows: 0fr; padding-block-end: 0; }
 }
-[data-klean-toast-item][data-state="entering"] { animation: klean-toast-enter 340ms cubic-bezier(.2,.9,.18,1) both; }
-[data-klean-toast-item][data-state="closing"] { animation: klean-toast-leave 240ms cubic-bezier(.4,0,.2,1) both; pointer-events: none; }
-[data-klean-toast-row][data-state="closing"] { animation: klean-toast-collapse 160ms cubic-bezier(.4,0,.2,1) 80ms both; overflow: hidden; }
+[data-klean-toast-item][data-state="entering"] { animation: klean-toast-enter var(--klean-toast-enter-duration) ease-out both; }
+[data-klean-toast-item][data-state="closing"] { animation: klean-toast-leave var(--klean-toast-leave-duration) ease-in both; pointer-events: none; }
+[data-klean-toast-row][data-state="closing"] { animation: klean-toast-collapse var(--klean-toast-collapse-duration) ease-in var(--klean-toast-collapse-delay) both; overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   [data-klean-toast-item][data-state] { animation-duration: 1ms; animation-timing-function: linear; }
   [data-klean-toast-row][data-state="closing"] { animation-delay: 0ms; animation-duration: 1ms; }
 }`;
 
-function motionStyle(from, to, style) {
-  const enter = DIRECTIONS[from] ?? DIRECTIONS.right;
-  const leave = DIRECTIONS[to] ?? DIRECTIONS.right;
+function motionStyle(from, to, position, style) {
+  const enter = motionVector(from, position);
+  const leave = motionVector(to, position);
+  const enterDuration = motionDuration("enter", from, position);
+  const leaveDuration = motionDuration("leave", to, position);
+  const collapseDelay = Math.min(80, Math.round(leaveDuration * 0.4));
 
   return {
     "--klean-toast-enter-x": enter[0],
     "--klean-toast-enter-y": enter[1],
-    "--klean-toast-overshoot-x": enter[2],
-    "--klean-toast-overshoot-y": enter[3],
-    "--klean-toast-bounce-x": enter[4],
-    "--klean-toast-bounce-y": enter[5],
-    "--klean-toast-leave-x": leave[6],
-    "--klean-toast-leave-y": leave[7],
+    "--klean-toast-leave-x": leave[0],
+    "--klean-toast-leave-y": leave[1],
+    "--klean-toast-enter-duration": `${enterDuration}ms`,
+    "--klean-toast-leave-duration": `${leaveDuration}ms`,
+    "--klean-toast-collapse-delay": `${collapseDelay}ms`,
+    "--klean-toast-collapse-duration": `${Math.max(0, leaveDuration - collapseDelay)}ms`,
     ...style,
   };
 }
@@ -116,8 +113,8 @@ export default function Toast({
     controller.getSnapshot,
   );
   const resolvedStyle = useMemo(
-    () => motionStyle(resolvedFrom, resolvedTo, style),
-    [resolvedFrom, resolvedTo, style],
+    () => motionStyle(resolvedFrom, resolvedTo, position, style),
+    [position, resolvedFrom, resolvedTo, style],
   );
 
   useEffect(() => {
@@ -169,12 +166,20 @@ export default function Toast({
     else if (item.state === "closing") controller.remove(item.id);
   }
 
+  function activateAction(item, event) {
+    item.action?.onClick?.(event, item);
+    controller.dismiss(item.id);
+  }
+
   function defaultContent(item) {
     return (
       <>
-        <div className="pr-8">
+        <div className="min-w-0 pt-0.5">
           {item.title ? (
-            <p data-slot="toast-title" className="font-medium">
+            <p
+              data-slot="toast-title"
+              className="text-sm font-semibold leading-5"
+            >
               {item.title}
             </p>
           ) : null}
@@ -183,19 +188,48 @@ export default function Toast({
               data-slot="toast-message"
               className={twMerge(
                 "text-sm leading-5 text-gray-600 dark:text-gray-300",
-                item.title && "mt-1",
+                item.title && "mt-0.5",
               )}
             >
               {item.message}
             </p>
+          ) : null}
+          {item.action?.href ? (
+            <a
+              data-slot="toast-action"
+              href={item.action.href}
+              className={twMerge(
+                "mt-2 inline-flex min-h-8 items-center text-sm font-semibold text-gray-950 underline decoration-gray-300 underline-offset-4 hover:decoration-current focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:text-white dark:decoration-gray-600 dark:focus-visible:ring-white",
+                item.action.class,
+                item.action.className,
+              )}
+              onClick={(event) => activateAction(item, event)}
+            >
+              {item.action.label}
+            </a>
+          ) : item.action?.label ? (
+            <button
+              type="button"
+              data-slot="toast-action"
+              className={twMerge(
+                "mt-2 inline-flex min-h-8 cursor-pointer items-center text-sm font-semibold text-gray-950 hover:text-gray-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:text-white dark:hover:text-gray-300 dark:focus-visible:ring-white",
+                item.action.class,
+                item.action.className,
+              )}
+              onClick={(event) => activateAction(item, event)}
+            >
+              {item.action.label}
+            </button>
           ) : null}
         </div>
         {item.dismissible !== false ? (
           <button
             type="button"
             data-slot="toast-dismiss"
-            className="absolute right-2 top-2 grid size-8 cursor-pointer place-items-center rounded-md text-lg leading-none text-gray-500 hover:bg-gray-100 hover:text-gray-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white dark:focus-visible:ring-white dark:focus-visible:ring-offset-gray-950"
-            aria-label={item.dismissLabel ?? "Dismiss notification"}
+            className="-mr-2 -mt-1 grid size-9 cursor-pointer place-items-center rounded-lg text-lg leading-none text-gray-400 hover:bg-gray-100 hover:text-gray-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:text-gray-500 dark:hover:bg-gray-800 dark:hover:text-white dark:focus-visible:ring-white"
+            aria-label={
+              item.dismissLabel ?? `Dismiss ${item.title || "notification"}`
+            }
             onClick={() => controller.dismiss(item.id)}
           >
             <span aria-hidden="true">×</span>
@@ -251,7 +285,7 @@ export default function Toast({
               data-from={resolvedFrom}
               data-to={resolvedTo}
               className={twMerge(
-                "pointer-events-auto relative min-h-0 w-full overflow-hidden rounded-lg border border-gray-200 bg-white p-4 text-gray-950 shadow-lg dark:border-gray-700 dark:bg-gray-950 dark:text-white",
+                "pointer-events-auto grid min-h-0 w-full grid-cols-[minmax(0,1fr)_auto] items-start gap-3 overflow-hidden rounded-xl bg-white px-4 py-3 text-gray-950 shadow-xl ring-1 ring-gray-950/10 dark:bg-gray-950 dark:text-white dark:ring-white/15",
                 item.class,
                 item.className,
               )}

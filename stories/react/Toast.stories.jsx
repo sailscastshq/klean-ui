@@ -52,6 +52,7 @@ function Demo(args) {
           notifications({
             title: "React notification",
             message: "The controller contract is shared, not wrapped.",
+            action: { label: "View activity", href: "#activity" },
           })
         }
       >
@@ -89,7 +90,9 @@ function MotionDemo({ reduced = false }) {
       title: `${nextFrom} in · ${nextTo} out`,
       message: reduced
         ? "Movement is reduced to a near-instant state change."
-        : "340ms overshoot in, a quiet 240ms exit.",
+        : nextFrom === "left" || nextFrom === "bottom"
+          ? "Long travel gets enough time; exit still closes cleanly."
+          : "Nearby travel is quick, direct, and monotonic.",
     });
   }
 

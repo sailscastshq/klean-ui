@@ -24,6 +24,7 @@
       notifications({
         title: "Svelte notification",
         message: "Svelte 5 runes subscribe to the same controller.",
+        action: { label: "View activity", href: "#activity" },
       });
     }
   }

@@ -86,7 +86,11 @@ test("keeps full and reduced Toast motion independently reviewable", () => {
   expect(ToastReducedMotion.render().template).toContain(
     "klean-toast-reduced-motion-preview",
   );
-  expect(css).toContain("animation-duration: 340ms !important");
-  expect(css).toContain("animation-duration: 240ms !important");
+  expect(css).toContain(
+    "animation-duration: var(--klean-toast-enter-duration) !important",
+  );
+  expect(css).toContain(
+    "animation-duration: var(--klean-toast-leave-duration) !important",
+  );
   expect(css).toContain("animation-duration: 1ms !important");
 });

@@ -65,6 +65,10 @@ export const Playground = {
           title: count === 1 ? "Changes saved" : `Notification ${count}`,
           message:
             "The application owns this message and every Tailwind class.",
+          action:
+            count === 1
+              ? { label: "View activity", href: "#activity" }
+              : undefined,
         });
       }
 
@@ -106,7 +110,10 @@ export const Motion = {
         to.value = nextTo;
         notifications({
           title: `${nextFrom} in · ${nextTo} out`,
-          message: "340ms overshoot in, a quiet 240ms exit.",
+          message:
+            nextFrom === "left" || nextFrom === "bottom"
+              ? "Long travel gets enough time; exit still closes cleanly."
+              : "Nearby travel is quick, direct, and monotonic.",
         });
       }
 
@@ -158,7 +165,7 @@ export const ReducedMotion = {
 };
 
 export const Deployment = {
-  name: "Deployment lifecycle",
+  name: "Long-running work",
   parameters: { layout: "fullscreen", controls: { disable: true } },
   render: () => ({
     components: { Toast },
@@ -209,7 +216,7 @@ export const Deployment = {
     template: `
       <main class="klean-toast-motion-preview min-h-[34rem] bg-gray-950 p-8 text-white sm:p-12">
         <div class="mx-auto max-w-3xl">
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-gray-500">Slipway recipe</p>
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-gray-500">Long-running work</p>
           <h2 class="mt-3 text-3xl font-semibold tracking-tight">One toast, updated in place.</h2>
           <p class="mt-3 max-w-xl text-sm leading-6 text-gray-400">The app still owns SSE, deployment language, progress, and terminal-state rules. Klean owns notification timing and motion.</p>
           <div class="mt-6 flex gap-2">
@@ -246,11 +253,11 @@ export const Products = {
   render: () => ({
     components: { Toast },
     setup() {
-      const hagfish = createToast({ duration: false });
-      const slipway = createToast({ duration: false });
+      const invoiceNotifications = createToast({ duration: false });
+      const serviceNotifications = createToast({ duration: false });
 
-      function showHagfish() {
-        hagfish({
+      function showInvoice() {
+        invoiceNotifications({
           title: "Invoice sent",
           message: "INV-1042 is on its way to Ada.",
           class:
@@ -258,8 +265,8 @@ export const Products = {
         });
       }
 
-      function showSlipway() {
-        slipway({
+      function showService() {
+        serviceNotifications({
           title: "Service restarted",
           message: "api-production is healthy.",
           class:
@@ -268,26 +275,31 @@ export const Products = {
       }
 
       onBeforeUnmount(() => {
-        hagfish.destroy();
-        slipway.destroy();
+        invoiceNotifications.destroy();
+        serviceNotifications.destroy();
       });
-      return { hagfish, showHagfish, showSlipway, slipway };
+      return {
+        invoiceNotifications,
+        serviceNotifications,
+        showInvoice,
+        showService,
+      };
     },
     template: `
       <div class="klean-toast-motion-preview grid min-h-[34rem] sm:grid-cols-2">
-        <section class="flex items-center justify-center bg-[#f7f3eb] p-8" aria-labelledby="hagfish-toast-recipe">
+        <section class="flex items-center justify-center bg-[#f7f3eb] p-8" aria-labelledby="bold-toast-recipe">
           <div class="text-center">
-            <h2 id="hagfish-toast-recipe" class="text-xs font-medium uppercase tracking-[0.18em] text-black/60">Hagfish</h2>
-            <button type="button" class="mt-4 min-h-11 cursor-pointer rounded-lg border-2 border-black bg-black px-4 py-2 font-medium text-white hover:bg-white hover:text-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2" @click="showHagfish">Send invoice</button>
+            <h2 id="bold-toast-recipe" class="text-xs font-medium uppercase tracking-[0.18em] text-black/60">Bold product styling</h2>
+            <button type="button" class="mt-4 min-h-11 cursor-pointer rounded-lg border-2 border-black bg-black px-4 py-2 font-medium text-white hover:bg-white hover:text-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2" @click="showInvoice">Send invoice</button>
           </div>
-          <Toast :controller="hagfish" position="top-left" from="left" to="left" />
+          <Toast :controller="invoiceNotifications" position="top-left" from="left" to="left" />
         </section>
-        <section class="dark flex items-center justify-center bg-gray-950 p-8 text-white" aria-labelledby="slipway-toast-recipe">
+        <section class="dark flex items-center justify-center bg-gray-950 p-8 text-white" aria-labelledby="quiet-toast-recipe">
           <div class="text-center">
-            <h2 id="slipway-toast-recipe" class="font-mono text-xs uppercase tracking-[0.18em] text-gray-500">Slipway</h2>
-            <button type="button" class="mt-4 min-h-10 cursor-pointer rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" @click="showSlipway">Restart service</button>
+            <h2 id="quiet-toast-recipe" class="font-mono text-xs uppercase tracking-[0.18em] text-gray-500">Quiet product styling</h2>
+            <button type="button" class="mt-4 min-h-10 cursor-pointer rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" @click="showService">Restart service</button>
           </div>
-          <Toast :controller="slipway" position="top-right" />
+          <Toast :controller="serviceNotifications" position="top-right" />
         </section>
       </div>
     `,

@@ -288,9 +288,17 @@ test("keeps Toast provider-free, class-first, and durable", () => {
     expect(source).toContain("prefers-reduced-motion: reduce");
     expect(source).toContain("aria-live");
     expect(source).toContain("--klean-toast-enter-x");
-    expect(source).toContain("340ms cubic-bezier");
-    expect(source).toContain("240ms cubic-bezier");
+    expect(source).toContain(
+      "const NEARBY_DURATION = { enter: 300, leave: 200 }",
+    );
+    expect(source).toContain(
+      "const CROSS_VIEWPORT_DURATION = { enter: 450, leave: 320 }",
+    );
+    expect(source).toContain('data-slot="toast-action"');
+    expect(source).toContain("ease-out");
+    expect(source).toContain("ease-in");
     expect(source).not.toContain("toast-counter");
+    expect(source).not.toMatch(/overshoot|bounce/i);
     expect(source).not.toMatch(/ToastProvider|ToastTitle|ToastDescription/);
     expect(source).not.toMatch(/\bvariant\b|\btone\b/i);
     expect(source).not.toMatch(/success.*(?:green|emerald)|error.*red/i);
