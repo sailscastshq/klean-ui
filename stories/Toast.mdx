@@ -112,12 +112,21 @@ item and announcement history instead of adding a second deployment notification
 
 The default top-right shelf enters and exits toward the right; left shelves use
 the left edge. Entry and exit therefore stay on the x-axis without configuration.
-The 340ms entry overshoots and settles; the 300ms exit first
-makes a small counter-move. This is the Durabo motion, generalized without turning
-motion into a theme system. `from` and `to` accept `left`, `right`, `top`, `bottom`,
-`fade`, or `none`. Reduced-motion preferences collapse all movement to 1ms.
+The 340ms entry overshoots and settles; the 240ms exit follows a calm,
+monotonic path while the stack closes its gap behind it. This motion is built in
+without becoming a theme system. `from` and `to` accept `left`, `right`, `top`, `bottom`,
+`fade`, or `none`.
+
+The motion canvases deliberately pin each behavior so Storybook and operating-system
+settings cannot hide either contract while the component is being reviewed. The
+application does not need to configure this: in production, reduced-motion
+preferences automatically collapse movement to 1ms.
 
 <Canvas of={ToastStories.Motion} />
+
+### Reduced motion
+
+<Canvas of={ToastStories.ReducedMotion} />
 
 ## Long-running work
 
@@ -134,7 +143,7 @@ The base has neutral, useful defaults. It does not map `success`, `error`, or an
 other kind to colours or icons. Pass ordinary Tailwind through `class`, or replace
 the body through Vue's scoped slot, React's function child, or Svelte's snippet.
 That lets Hagfish retain its two-pixel border and offset shadow while inheriting
-Klean's durable controller and Durabo-derived motion.
+Klean's durable controller and built-in motion.
 
 <Canvas of={ToastStories.Products} />
 

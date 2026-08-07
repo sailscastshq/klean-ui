@@ -21,7 +21,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A provider-free notification controller and one persistent live region. Durabo supplies the motion, Slipway proves long-running updates, Hagfish supplies a product recipe, and Tailwind remains application-owned.",
+          "A provider-free notification controller and one persistent live region. Motion is built in, long-running updates stay durable, and Tailwind remains application-owned.",
       },
     },
   },
@@ -72,7 +72,7 @@ export const Playground = {
       return { args, notifications, notify };
     },
     template: `
-      <div class="grid justify-items-center gap-3">
+      <div class="klean-toast-motion-preview grid justify-items-center gap-3">
         <button type="button" class="min-h-11 cursor-pointer rounded-md bg-gray-950 px-4 py-2 font-medium text-white hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2" @click="notify">
           Show toast
         </button>
@@ -92,7 +92,7 @@ export const Playground = {
 };
 
 export const Motion = {
-  name: "Durabo motion",
+  name: "Motion",
   parameters: { controls: { disable: true } },
   render: () => ({
     components: { Toast },
@@ -106,7 +106,7 @@ export const Motion = {
         to.value = nextTo;
         notifications({
           title: `${nextFrom} in · ${nextTo} out`,
-          message: "340ms overshoot in, 300ms counter-motion out.",
+          message: "340ms overshoot in, a quiet 240ms exit.",
         });
       }
 
@@ -114,7 +114,7 @@ export const Motion = {
       return { from, notifications, show, to };
     },
     template: `
-      <div class="flex max-w-lg flex-wrap justify-center gap-2">
+      <div class="klean-toast-motion-preview flex max-w-lg flex-wrap justify-center gap-2">
         <button v-for="direction in ['right', 'left', 'top', 'bottom', 'fade']" :key="direction" type="button" class="min-h-10 cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium capitalize hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950" @click="show(direction)">
           {{ direction }}
         </button>
@@ -122,6 +122,36 @@ export const Motion = {
           Cross the screen
         </button>
         <Toast :controller="notifications" :from="from" :to="to" />
+      </div>
+    `,
+  }),
+};
+
+export const ReducedMotion = {
+  name: "Reduced motion",
+  parameters: { controls: { disable: true } },
+  render: () => ({
+    components: { Toast },
+    setup() {
+      const notifications = createToast({ duration: false });
+
+      function notify() {
+        notifications({
+          title: "Changes saved",
+          message: "Movement is reduced to a near-instant state change.",
+        });
+      }
+
+      onBeforeUnmount(notifications.destroy);
+      return { notifications, notify };
+    },
+    template: `
+      <div class="klean-toast-reduced-motion-preview grid justify-items-center gap-3">
+        <button type="button" class="min-h-11 cursor-pointer rounded-md bg-gray-950 px-4 py-2 font-medium text-white hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2" @click="notify">
+          Show reduced-motion toast
+        </button>
+        <p class="max-w-sm text-center text-sm text-gray-500">The same production fallback used when the browser requests reduced motion.</p>
+        <Toast :controller="notifications" />
       </div>
     `,
   }),
@@ -177,7 +207,7 @@ export const Deployment = {
       return { advance, notifications, start };
     },
     template: `
-      <main class="min-h-[34rem] bg-gray-950 p-8 text-white sm:p-12">
+      <main class="klean-toast-motion-preview min-h-[34rem] bg-gray-950 p-8 text-white sm:p-12">
         <div class="mx-auto max-w-3xl">
           <p class="font-mono text-xs uppercase tracking-[0.18em] text-gray-500">Slipway recipe</p>
           <h2 class="mt-3 text-3xl font-semibold tracking-tight">One toast, updated in place.</h2>
@@ -244,7 +274,7 @@ export const Products = {
       return { hagfish, showHagfish, showSlipway, slipway };
     },
     template: `
-      <div class="grid min-h-[34rem] sm:grid-cols-2">
+      <div class="klean-toast-motion-preview grid min-h-[34rem] sm:grid-cols-2">
         <section class="flex items-center justify-center bg-[#f7f3eb] p-8" aria-labelledby="hagfish-toast-recipe">
           <div class="text-center">
             <h2 id="hagfish-toast-recipe" class="text-xs font-medium uppercase tracking-[0.18em] text-black/60">Hagfish</h2>

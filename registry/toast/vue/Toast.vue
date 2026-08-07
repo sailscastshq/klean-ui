@@ -29,8 +29,6 @@ const DIRECTIONS = {
     overshootY: "0px",
     bounceX: "3px",
     bounceY: "0px",
-    counterX: "-8px",
-    counterY: "0px",
     leaveX: "calc(100% + 1.25rem)",
     leaveY: "0px",
   },
@@ -41,8 +39,6 @@ const DIRECTIONS = {
     overshootY: "0px",
     bounceX: "-3px",
     bounceY: "0px",
-    counterX: "8px",
-    counterY: "0px",
     leaveX: "calc(-100% - 1.25rem)",
     leaveY: "0px",
   },
@@ -53,8 +49,6 @@ const DIRECTIONS = {
     overshootY: "10px",
     bounceX: "0px",
     bounceY: "-3px",
-    counterX: "0px",
-    counterY: "8px",
     leaveX: "0px",
     leaveY: "calc(-100% - 1.25rem)",
   },
@@ -65,8 +59,6 @@ const DIRECTIONS = {
     overshootY: "-10px",
     bounceX: "0px",
     bounceY: "3px",
-    counterX: "0px",
-    counterY: "-8px",
     leaveX: "0px",
     leaveY: "calc(100% + 1.25rem)",
   },
@@ -77,8 +69,6 @@ const DIRECTIONS = {
     overshootY: "0px",
     bounceX: "0px",
     bounceY: "0px",
-    counterX: "0px",
-    counterY: "0px",
     leaveX: "0px",
     leaveY: "0px",
   },
@@ -89,8 +79,6 @@ const DIRECTIONS = {
     overshootY: "0px",
     bounceX: "0px",
     bounceY: "0px",
-    counterX: "0px",
-    counterY: "0px",
     leaveX: "0px",
     leaveY: "0px",
   },
@@ -173,8 +161,6 @@ const motionStyle = computed(() => {
     "--klean-toast-overshoot-y": enter.overshootY,
     "--klean-toast-bounce-x": enter.bounceX,
     "--klean-toast-bounce-y": enter.bounceY,
-    "--klean-toast-counter-x": leave.counterX,
-    "--klean-toast-counter-y": leave.counterY,
     "--klean-toast-leave-x": leave.leaveX,
     "--klean-toast-leave-y": leave.leaveY,
   };
@@ -363,15 +349,6 @@ onBeforeUnmount(() => {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
   }
-  24% {
-    opacity: 1;
-    transform: translate3d(
-        var(--klean-toast-counter-x),
-        var(--klean-toast-counter-y),
-        0
-      )
-      scale(1.005);
-  }
   100% {
     opacity: 0;
     transform: translate3d(
@@ -383,24 +360,29 @@ onBeforeUnmount(() => {
   }
 }
 
+@keyframes klean-toast-collapse {
+  0% {
+    grid-template-rows: 1fr;
+    padding-block-end: 0.75rem;
+  }
+  100% {
+    grid-template-rows: 0fr;
+    padding-block-end: 0;
+  }
+}
+
 [data-klean-toast-item][data-state="entering"] {
   animation: klean-toast-enter 340ms cubic-bezier(0.2, 0.9, 0.18, 1) both;
 }
 
 [data-klean-toast-item][data-state="closing"] {
-  animation: klean-toast-leave 300ms cubic-bezier(0.68, -0.16, 0.32, 1) both;
+  animation: klean-toast-leave 240ms cubic-bezier(0.4, 0, 0.2, 1) both;
   pointer-events: none;
 }
 
-[data-klean-toast-row] {
-  transition:
-    grid-template-rows 320ms cubic-bezier(0.2, 0.9, 0.18, 1),
-    padding-block-end 320ms cubic-bezier(0.2, 0.9, 0.18, 1);
-}
-
 [data-klean-toast-row][data-state="closing"] {
-  grid-template-rows: 0fr;
-  padding-block-end: 0;
+  animation: klean-toast-collapse 160ms cubic-bezier(0.4, 0, 0.2, 1) 80ms both;
+  overflow: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -409,8 +391,9 @@ onBeforeUnmount(() => {
     animation-timing-function: linear;
   }
 
-  [data-klean-toast-row] {
-    transition: none;
+  [data-klean-toast-row][data-state="closing"] {
+    animation-delay: 0ms;
+    animation-duration: 1ms;
   }
 }
 </style>

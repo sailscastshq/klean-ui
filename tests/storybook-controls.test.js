@@ -11,6 +11,12 @@ import {
   Products as MenuProducts,
   Semantics as MenuSemantics,
 } from "../stories/Menu.stories.js";
+import {
+  Motion as ToastMotion,
+  Playground as ToastPlayground,
+  ReducedMotion as ToastReducedMotion,
+} from "../stories/Toast.stories.js";
+import { readFileSync } from "node:fs";
 
 const usefulControls = [
   "label",
@@ -68,4 +74,19 @@ test("makes Menu recipe cursor and Tab affordances explicit", () => {
   expect(productsTemplate).toContain("cursor-pointer");
   expect(productsTemplate).toContain("cursor-not-allowed");
   expect(MenuSemantics.play).toBeTypeOf("function");
+});
+
+test("keeps full and reduced Toast motion independently reviewable", () => {
+  const css = readFileSync("stories/shared/storybook.css", "utf8");
+
+  expect(ToastPlayground.render({}).template).toContain(
+    "klean-toast-motion-preview",
+  );
+  expect(ToastMotion.render().template).toContain("klean-toast-motion-preview");
+  expect(ToastReducedMotion.render().template).toContain(
+    "klean-toast-reduced-motion-preview",
+  );
+  expect(css).toContain("animation-duration: 340ms !important");
+  expect(css).toContain("animation-duration: 240ms !important");
+  expect(css).toContain("animation-duration: 1ms !important");
 });
