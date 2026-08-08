@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A future-only schedule field that keeps natural-language input as a visible proposal until the user confirms an exact instant.",
+          "A future-only schedule field that commits valid natural-language input on Enter or when focus leaves the complete picker.",
       },
     },
   },
@@ -70,6 +70,9 @@ export const Playground = {
           :class="args.class"
         />
         <output class="break-all font-mono text-xs text-gray-500">{{ value || 'No committed instant yet' }}</output>
+        <button type="button" class="mt-2 min-h-11 justify-self-start rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-950">
+          Continue
+        </button>
       </div>
     `,
   }),
@@ -88,7 +91,7 @@ export const PublishingWorkflow = {
         <form class="mx-auto max-w-2xl bg-white p-6 sm:p-10" @submit.prevent>
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Publishing</p>
           <h1 class="mt-2 text-3xl font-semibold tracking-[-0.04em]">Schedule this announcement</h1>
-          <p class="mt-3 text-gray-600">Nothing changes until the interpretation below the field is confirmed.</p>
+          <p class="mt-3 text-gray-600">A valid interpretation saves on Enter or when focus leaves the complete picker.</p>
           <div class="mt-8 grid gap-2">
             <label for="publish-at" class="text-sm font-medium">Publish at</label>
             <SchedulePicker id="publish-at" v-model="value" name="publishAt" time-zone="Africa/Lagos" required />

@@ -143,7 +143,8 @@ const Popover = forwardRef(function Popover(
     () => ({
       content: contentRef.current,
       open: () => requestOpen(true),
-      close: () => requestOpen(false, { restoreFocus: latestOpen.current }),
+      close: ({ restoreFocus = latestOpen.current } = {}) =>
+        requestOpen(false, { restoreFocus }),
     }),
     [requestOpen],
   );
@@ -268,7 +269,8 @@ const Popover = forwardRef(function Popover(
     }
   }
 
-  const close = () => requestOpen(false, { restoreFocus: latestOpen.current });
+  const close = ({ restoreFocus = latestOpen.current } = {}) =>
+    requestOpen(false, { restoreFocus });
 
   return (
     <div
