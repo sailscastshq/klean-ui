@@ -92,3 +92,35 @@ export const Reporting = {
     `,
   }),
 };
+
+export const Availability = {
+  parameters: { layout: "fullscreen", controls: { disable: true } },
+  render: () => ({
+    components: { DateRangePicker },
+    setup() {
+      const stay = ref({ start: "2026-08-08", end: "" });
+      const unavailable = (date) =>
+        date >= "2026-08-14" && date <= "2026-08-16";
+      return { stay, unavailable };
+    },
+    template: `
+      <main class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12">
+        <form class="mx-auto max-w-2xl bg-white p-6 sm:p-10" @submit.prevent>
+          <DateRangePicker
+            v-model="stay"
+            name="stay"
+            label="Stay dates"
+            min="2026-08-01"
+            max="2026-09-30"
+            :unavailable="unavailable"
+            required
+          />
+          <p class="mt-4 text-sm text-gray-600">
+            August 14–16 is unavailable, so a contiguous stay cannot cross it.
+          </p>
+          <output class="mt-5 block font-mono text-xs text-gray-500">{{ stay }}</output>
+        </form>
+      </main>
+    `,
+  }),
+};
