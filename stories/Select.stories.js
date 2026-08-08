@@ -201,38 +201,68 @@ export const Products = {
   render: () => ({
     components: { Select },
     setup() {
-      const invoiceStatus = ref("draft");
-      const environment = ref("production");
-      return { environment, invoiceStatus };
+      const category = ref("feature");
+      const categoryOptions = [
+        { value: "feature", label: "Feature" },
+        { value: "bug", label: "Bug" },
+      ];
+      return { category, categoryOptions };
     },
     template: `
-      <div class="grid min-h-[36rem] sm:grid-cols-2">
-        <section class="bg-[#f4f0e8] p-8 sm:p-14 [&_[data-slot=select-content]]:rounded-none [&_[data-slot=select-content]]:border-2 [&_[data-slot=select-content]]:border-black [&_[data-slot=select-content]]:shadow-[6px_6px_0_0_#000]" aria-labelledby="hagfish-select-title">
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-gray-600">Hagfish / invoice</p>
-          <h2 id="hagfish-select-title" class="mt-5 text-2xl font-semibold text-black">Invoice status</h2>
-          <div class="mt-5 max-w-sm">
-            <Select
-              id="hagfish-status"
-              v-model="invoiceStatus"
-              :options="[{ value: 'draft', label: 'Draft' }, { value: 'sent', label: 'Sent' }, { value: 'paid', label: 'Paid' }]"
-              class="rounded-none border-2 border-black bg-white text-black shadow-[4px_4px_0_0_#000] hover:border-black focus-visible:border-black focus-visible:outline-black"
-            />
-          </div>
-        </section>
+      <section
+        class="min-h-[36rem] bg-white px-5 py-14 text-gray-950 dark:bg-gray-950 dark:text-white sm:px-10 sm:py-20"
+        aria-labelledby="slipway-select-title"
+      >
+        <div class="mx-auto max-w-2xl">
+          <p class="text-xs font-medium uppercase tracking-[0.16em] text-gray-500 dark:text-gray-400">Slipway / Bearing feedback</p>
+          <h2 id="slipway-select-title" class="mt-3 text-2xl font-semibold tracking-tight">Share feedback</h2>
+          <p class="mt-2 max-w-xl text-sm leading-6 text-gray-500 dark:text-gray-400">
+            Choose a fixed feedback category without turning the compact composer header into a form field.
+          </p>
 
-        <section class="dark bg-gray-950 p-8 text-white sm:p-14 [&_[data-slot=select-content]]:border-gray-700 [&_[data-slot=select-content]]:bg-gray-900 [&_[data-slot=select-content]]:shadow-xl" aria-labelledby="slipway-select-title">
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-gray-400">Slipway / deploy</p>
-          <h2 id="slipway-select-title" class="mt-5 text-2xl font-semibold">Environment</h2>
-          <div class="mt-5 max-w-sm">
-            <Select
-              id="slipway-environment"
-              v-model="environment"
-              :options="[{ value: 'preview', label: 'Preview' }, { value: 'staging', label: 'Staging' }, { value: 'production', label: 'Production' }]"
-              class="min-h-9 border-gray-700 bg-gray-900 px-3 py-1.5 text-sm text-white shadow-none hover:border-gray-600 focus-visible:border-white focus-visible:outline-white"
+          <div class="mt-8 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-950 sm:p-7">
+            <div
+              class="flex items-center gap-3 [&_[data-slot=select]]:w-auto [&_[data-slot=select-content]]:max-h-64 [&_[data-slot=select-content]]:min-w-44 [&_[data-slot=select-content]]:max-w-[min(20rem,calc(100vw-2.5rem))] [&_[data-slot=select-content]]:rounded-xl [&_[data-slot=select-content]]:border-gray-200 [&_[data-slot=select-content]]:bg-white [&_[data-slot=select-content]]:p-1 [&_[data-slot=select-content]]:shadow-xl [&_[data-slot=select-content]]:shadow-gray-950/10 dark:[&_[data-slot=select-content]]:border-gray-700 dark:[&_[data-slot=select-content]]:bg-gray-900 dark:[&_[data-slot=select-content]]:shadow-black/30 [&_[data-slot=select-option]]:min-h-10 [&_[data-slot=select-option]]:rounded-none [&_[data-slot=select-option]]:px-3.5 [&_[data-slot=select-option]]:py-2 [&_[data-slot=select-option]]:text-gray-700 dark:[&_[data-slot=select-option]]:text-gray-300 [&_[data-slot=select-option][data-highlighted]]:bg-gray-50 dark:[&_[data-slot=select-option][data-highlighted]]:bg-gray-800 [&_[data-slot=select-indicator]]:text-gray-500 dark:[&_[data-slot=select-indicator]]:text-gray-400"
+            >
+              <span
+                role="img"
+                aria-label="Posting as Kelvin"
+                title="Posting as Kelvin"
+                class="grid size-10 shrink-0 place-items-center rounded-full bg-gray-950 text-xs font-semibold text-white dark:bg-white dark:text-gray-950"
+              >
+                <span aria-hidden="true">KO</span>
+              </span>
+
+              <svg aria-hidden="true" viewBox="0 0 16 16" class="size-4 shrink-0 text-gray-300 dark:text-gray-700" fill="none">
+                <path d="m6 3.5 4.5 4.5L6 12.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+              </svg>
+
+              <div>
+                <span id="slipway-category-label" class="sr-only">Category</span>
+                <Select
+                  id="slipway-category"
+                  v-model="category"
+                  :options="categoryOptions"
+                  aria-labelledby="slipway-category-label"
+                  class="min-h-10 w-auto max-w-[16rem] rounded-lg border-0 bg-gray-100 px-3.5 py-2 text-sm font-semibold text-gray-950 shadow-none hover:border-transparent hover:bg-gray-200 focus-visible:border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 dark:bg-gray-900 dark:text-white dark:hover:border-transparent dark:hover:bg-gray-800 dark:focus-visible:border-transparent dark:focus-visible:ring-white dark:focus-visible:ring-offset-gray-950"
+                />
+              </div>
+            </div>
+
+            <label for="slipway-feedback-summary" class="sr-only">Summary</label>
+            <input
+              id="slipway-feedback-summary"
+              type="text"
+              placeholder="What would make this better?"
+              class="mt-7 w-full border-0 bg-transparent p-0 text-xl font-semibold tracking-tight text-gray-950 placeholder:font-medium placeholder:text-gray-300 focus:ring-0 dark:text-white dark:placeholder:text-gray-500 sm:text-2xl"
             />
           </div>
-        </section>
-      </div>
+
+          <p class="mt-5 text-sm text-gray-500 dark:text-gray-400">
+            Current category: <span class="font-medium text-gray-950 dark:text-white">{{ category }}</span>
+          </p>
+        </div>
+      </section>
     `,
   }),
 };
