@@ -53,6 +53,10 @@ contract does not.
 - `aria-expanded`, `aria-controls`, focus return, and listener cleanup;
 - optional framework-native observed state.
 
+Composed controls such as Date Picker may open Popover programmatically with
+the active source element. Popover then uses that source for placement and
+focus return, matching the native `showPopover({ source })` relationship.
+
 Popover is non-modal. It does not trap focus, lock scrolling, render a backdrop,
 or assign `menu`/`dialog` roles. Menu will add composite keyboard behavior; Dialog
 will use modal semantics. Open state is ephemeral and is never written to storage or

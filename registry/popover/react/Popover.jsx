@@ -41,6 +41,7 @@ const Popover = forwardRef(function Popover(
   const contentId = id ?? `klean-popover-${generatedId}`;
   const contentRef = useRef(null);
   const activeInvoker = useRef(null);
+  const [referenceVersion, setReferenceVersion] = useState(0);
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
   const [supportsNative, setSupportsNative] = useState(false);
   const [resolvedPlacement, setResolvedPlacement] = useState(placement);
@@ -68,12 +69,17 @@ const Popover = forwardRef(function Popover(
 
   const resolveInvoker = useCallback(
     (candidate) => {
-      if (candidate?.getAttribute?.("popovertarget") === contentId) {
+      if (candidate?.isConnected && activeInvoker.current !== candidate) {
         activeInvoker.current = candidate;
+        setReferenceVersion((version) => version + 1);
       }
 
       if (!activeInvoker.current?.isConnected) {
-        activeInvoker.current = invokers()[0];
+        const fallback = invokers()[0];
+        if (activeInvoker.current !== fallback) {
+          activeInvoker.current = fallback;
+          setReferenceVersion((version) => version + 1);
+        }
       }
 
       return activeInvoker.current;
@@ -142,11 +148,14 @@ const Popover = forwardRef(function Popover(
     forwardedRef,
     () => ({
       content: contentRef.current,
-      open: () => requestOpen(true),
+      open: (source) => {
+        resolveInvoker(source);
+        requestOpen(true);
+      },
       close: ({ restoreFocus = latestOpen.current } = {}) =>
         requestOpen(false, { restoreFocus }),
     }),
-    [requestOpen],
+    [requestOpen, resolveInvoker],
   );
 
   useEffect(() => {
@@ -202,6 +211,7 @@ const Popover = forwardRef(function Popover(
     isOpen,
     offset,
     placement,
+    referenceVersion,
     resolveInvoker,
     syncInvokerAria,
     syncNativePopover,
@@ -212,9 +222,12 @@ const Popover = forwardRef(function Popover(
 
     function handleOutsidePointer(event) {
       const path = eventPath(event);
+      const reference = resolveInvoker();
 
       if (
         path.includes(contentRef.current) ||
+        (reference &&
+          (path.includes(reference) || reference.contains?.(event.target))) ||
         invokers().some(
           (invoker) => path.includes(invoker) || invoker.contains(event.target),
         )

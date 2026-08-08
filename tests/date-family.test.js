@@ -246,6 +246,191 @@ test("DateRangePicker keeps an inverted typed draft out of application state", a
   wrapper.unmount();
 });
 
+test("DateRangePicker anchors to the active field and returns focus on Escape", async () => {
+  const wrapper = mount(DateRangePicker, {
+    attachTo: document.body,
+    props: {
+      defaultValue: { start: "2026-08-08", end: "2026-08-12" },
+      name: "period",
+    },
+  });
+  const start = wrapper.get('input[name="period[start]"]');
+  const end = wrapper.get('input[name="period[end]"]');
+
+  end.element.focus();
+  await end.trigger("click");
+  await settle();
+
+  expect(end.attributes("aria-expanded")).toBe("true");
+  expect(start.attributes("aria-expanded")).toBe("false");
+  expect(
+    wrapper.get('[data-slot="date-range-popover"]').attributes("data-state"),
+  ).toBe("open");
+
+  document.dispatchEvent(
+    new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+  );
+  await settle();
+
+  expect(end.attributes("aria-expanded")).toBe("false");
+  expect(document.activeElement).toBe(end.element);
+  wrapper.unmount();
+});
+
+test("DateRangePicker accepts an inclusive same-day range", async () => {
+  const wrapper = mount(DateRangePicker, {
+    attachTo: document.body,
+    props: {
+      defaultValue: { start: "2026-08-12", end: "" },
+      name: "stay",
+    },
+  });
+
+  await wrapper.get('input[name="stay[end]"]').trigger("click");
+  await wrapper.get('[data-date="2026-08-12"]').trigger("click");
+  await settle();
+
+  expect(wrapper.emitted("update:modelValue").at(-1)).toEqual([
+    { start: "2026-08-12", end: "2026-08-12" },
+  ]);
+  wrapper.unmount();
+});
+
+test("DateRangePicker prevents a contiguous range from crossing unavailable dates", async () => {
+  const wrapper = mount(DateRangePicker, {
+    attachTo: document.body,
+    props: {
+      defaultValue: { start: "2026-08-08", end: "" },
+      name: "stay",
+      unavailable: (date) => date === "2026-08-10",
+    },
+  });
+  const end = wrapper.get('input[name="stay[end]"]');
+
+  await end.trigger("click");
+  await settle();
+  expect(
+    wrapper.get('[data-date="2026-08-09"]').attributes("disabled"),
+  ).toBeUndefined();
+  expect(wrapper.get('[data-date="2026-08-10"]').attributes("disabled")).toBe(
+    "",
+  );
+  expect(wrapper.get('[data-date="2026-08-12"]').attributes("disabled")).toBe(
+    "",
+  );
+
+  await end.setValue("2026-08-12");
+  await settle();
+
+  expect(end.attributes("aria-invalid")).toBe("true");
+  expect(end.element.validationMessage).toBe(
+    "The range cannot include an unavailable date.",
+  );
+  expect(wrapper.emitted("update:modelValue")).toBeUndefined();
+  wrapper.unmount();
+});
+
+test("DateRangePicker never commits an end without a start", async () => {
+  const wrapper = mount(DateRangePicker, {
+    attachTo: document.body,
+    props: {
+      defaultValue: { start: "2026-08-08", end: "2026-08-12" },
+      name: "period",
+    },
+  });
+  const start = wrapper.get('input[name="period[start]"]');
+  const end = wrapper.get('input[name="period[end]"]');
+
+  await start.setValue("");
+  await settle();
+
+  expect(wrapper.emitted("update:modelValue").at(-1)).toEqual([
+    { start: "", end: "" },
+  ]);
+  expect(end.element.value).toBe("");
+
+  await end.setValue("2026-08-12");
+  await settle();
+
+  expect(wrapper.emitted("update:modelValue")).toHaveLength(1);
+  expect(end.attributes("aria-invalid")).toBe("true");
+  expect(end.element.validationMessage).toBe(
+    "Choose a start date before the end date.",
+  );
+  wrapper.unmount();
+});
+
+test("DateRangePicker respects controlled visibility and field state", async () => {
+  const wrapper = mount(DateRangePicker, {
+    attachTo: document.body,
+    props: {
+      modelValue: { start: "2026-08-08", end: "2026-08-12" },
+      name: "period",
+      open: false,
+    },
+  });
+  const end = wrapper.get('input[name="period[end]"]');
+
+  await end.trigger("click");
+  await settle();
+  expect(wrapper.emitted("update:open").at(-1)).toEqual([true]);
+  expect(end.attributes("aria-expanded")).toBe("false");
+  expect(
+    wrapper.get('[data-slot="date-range-popover"]').attributes("data-state"),
+  ).toBe("closed");
+
+  await wrapper.setProps({ open: true });
+  await settle();
+  expect(end.attributes("aria-expanded")).toBe("true");
+  expect(
+    wrapper.get('[data-slot="date-range-popover"]').attributes("data-state"),
+  ).toBe("open");
+  wrapper.unmount();
+
+  const readonlyWrapper = mount(DateRangePicker, {
+    attachTo: document.body,
+    props: {
+      defaultValue: { start: "2026-08-08", end: "2026-08-12" },
+      readonly: true,
+    },
+  });
+  await readonlyWrapper.findAll("input")[0].trigger("click");
+  await settle();
+  expect(
+    readonlyWrapper
+      .get('[data-slot="date-range-popover"]')
+      .attributes("data-state"),
+  ).toBe("closed");
+  readonlyWrapper.unmount();
+});
+
+test("DateRangePicker applies min and max to both range boundaries", async () => {
+  const wrapper = mount(DateRangePicker, {
+    attachTo: document.body,
+    props: {
+      defaultValue: { start: "2026-08-08", end: "" },
+      min: "2026-08-08",
+      max: "2026-08-12",
+    },
+  });
+
+  await wrapper.findAll("input")[1].trigger("click");
+  await settle();
+  expect(wrapper.get('[data-date="2026-08-07"]').attributes("disabled")).toBe(
+    "",
+  );
+  expect(
+    wrapper.get('[data-date="2026-08-08"]').attributes("disabled"),
+  ).toBeUndefined();
+  expect(
+    wrapper.get('[data-date="2026-08-12"]').attributes("disabled"),
+  ).toBeUndefined();
+  expect(wrapper.get('[data-date="2026-08-13"]').attributes("disabled")).toBe(
+    "",
+  );
+  wrapper.unmount();
+});
+
 test("ships matching Vue sources and compiler-valid React and Svelte sources", () => {
   for (const [item, source, filename] of [
     ["calendar", "src/vue/calendar/Calendar.vue", "Calendar.vue"],

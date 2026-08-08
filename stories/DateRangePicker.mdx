@@ -62,6 +62,24 @@ Values use `{ start: "YYYY-MM-DD", end: "YYYY-MM-DD" }`. Choosing the first
 date keeps the calendar open for the end. Choosing an earlier second date
 orders the two boundaries rather than producing an invalid range.
 
+## Range rules
+
+- The calendar opens against the field that invoked it, then flips or shifts to
+  stay inside the viewport as the page scrolls or resizes.
+- Start and end are inclusive. Choosing the same date twice creates a valid
+  one-day range.
+- Choosing an earlier second date orders the result. Typing an end before the
+  start remains an invalid draft and never changes application state.
+- Clearing the start clears the range. Typing an end without a start stays an
+  invalid draft, so committed state is empty, start-only, or complete.
+- `min` and `max` constrain both boundaries. `unavailable` dates cannot be
+  selected or crossed, so the committed range is genuinely contiguous.
+- Escape and explicit dismissal return focus to the active field. Outside
+  pointer dismissal leaves focus where the person moved it.
+- Locale, writing direction, native form names, required, disabled, readonly,
+  controlled, and uncontrolled state keep the same contract as Calendar and
+  Input.
+
 ## Related components
 
 Calendar, Date Picker, and Date Range Picker use date-only `YYYY-MM-DD` values.

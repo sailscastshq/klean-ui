@@ -69,7 +69,7 @@
   }
 
   function resolveInvoker(candidate) {
-    if (candidate?.getAttribute?.("popovertarget") === contentId) {
+    if (candidate?.isConnected) {
       activeInvoker = candidate;
     }
 
@@ -130,7 +130,8 @@
     requestOpen(false, { restoreFocus });
   }
 
-  export function show() {
+  export function show(source) {
+    resolveInvoker(source);
     requestOpen(true);
   }
 
@@ -222,9 +223,12 @@
 
     function handleOutsidePointer(event) {
       const path = eventPath(event);
+      const reference = resolveInvoker();
 
       if (
         path.includes(contentElement) ||
+        (reference &&
+          (path.includes(reference) || reference.contains?.(event.target))) ||
         invokers().some(
           (invoker) => path.includes(invoker) || invoker.contains(event.target),
         )

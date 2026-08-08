@@ -67,6 +67,11 @@ The content slot also exposes `close()` for application actions that already run
 
 Explicit and Escape dismissal restore focus to the connected invoker. Outside pointer dismissal leaves focus with the element the person selected instead of stealing it back.
 
+Composed controls can pass their active source element when they open the
+Popover programmatically. Vue and React expose `open(source)`; Svelte exposes
+`show(source)`. The source becomes the placement and focus-return anchor, which
+is how Date Picker and Date Range Picker stay attached to the field in use.
+
 ## State is observable, not durable
 
 Popover state is ephemeral. Most use needs no state:
