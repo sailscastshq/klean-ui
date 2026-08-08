@@ -17,10 +17,21 @@
     class: className,
     ...props
   } = $props();
+
+  let element;
+
+  export function getElement() {
+    return element;
+  }
+
+  export function focus(options) {
+    element?.focus(options);
+  }
 </script>
 
 <input
   {...props}
+  bind:this={element}
   {type}
   bind:value
   data-slot="input"

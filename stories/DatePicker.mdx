@@ -1,0 +1,89 @@
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Stories,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as DatePickerStories from "./DatePicker.stories.js";
+
+<Meta of={DatePickerStories} />
+
+<Title />
+
+<Description />
+
+Date Picker is the normal choice for one date in a form. The field stays
+editable, the calendar is optional, and the submitted value is always
+`YYYY-MM-DD`.
+
+```sh
+npx klean-ui@latest add date-picker
+```
+
+<Canvas of={DatePickerStories.Playground} />
+
+## When to use
+
+Use Date Picker for issue dates, due dates, birthdays, effective dates, and
+other date-only fields where a time would be false precision.
+
+## When not to use
+
+Use Calendar when the date surface should stay visible. Use Date Range Picker
+for a bounded period. Use Schedule Picker when “9:30am in Lagos” must become an
+exact instant.
+
+## Vue
+
+```vue
+<label for="due-date">Due date</label>
+<DatePicker id="due-date" v-model="form.dueAt" name="dueAt" required />
+```
+
+## React
+
+```jsx
+<label htmlFor="due-date">Due date</label>
+<DatePicker
+  id="due-date"
+  value={dueAt}
+  onValueChange={setDueAt}
+  name="dueAt"
+  required
+/>
+```
+
+## Svelte
+
+```svelte
+<label for="due-date">Due date</label>
+<DatePicker id="due-date" bind:value={dueAt} name="dueAt" required />
+```
+
+The application owns the visible label and product availability rule. Klean
+owns parsing the stable value, validity, the native-first floating surface,
+keyboard navigation, and focus return. `ArrowDown` opens the calendar from the
+field.
+
+## Related dates
+
+Keep cross-field rules in the composition. In an invoice form, the issue date
+can use today as its `min`, the due date can use the day after the issue date as
+its `min`, and the issue date can use the day before the due date as its `max`.
+That makes the relationship strict without inventing an invoice-specific
+variant or hiding application policy inside Date Picker.
+
+<Canvas of={DatePickerStories.InvoiceDates} />
+
+## Related components
+
+- [Calendar](?path=/docs/components-calendar--docs) — an always-visible date surface.
+- [Date Range Picker](?path=/docs/components-date-range-picker--docs) — start and end dates.
+- [Schedule Picker](?path=/docs/components-schedule-picker--docs) — date, time, timezone, and natural language.
+- [Input](?path=/docs/components-input--docs) — a plain text or native date field without a calendar.
+
+<Controls of={DatePickerStories.Playground} />
+
+<Stories title="Examples" includePrimary={false} />

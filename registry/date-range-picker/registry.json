@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "date-range-picker",
+  "description": "A two-boundary date-only field with one contiguous range calendar and native start/end form entries.",
+  "registryDependencies": ["calendar", "input", "popover"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/DateRangePicker.vue",
+      "target": "date-range-picker/DateRangePicker.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/DateRangePicker.jsx",
+      "target": "date-range-picker/DateRangePicker.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/DateRangePicker.svelte",
+      "target": "date-range-picker/DateRangePicker.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

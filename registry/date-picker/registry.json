@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "date-picker",
+  "description": "An editable date field composed with Klean Calendar and native-first Popover, using stable YYYY-MM-DD form values.",
+  "registryDependencies": ["calendar", "input", "popover"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/DatePicker.vue",
+      "target": "date-picker/DatePicker.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/DatePicker.jsx",
+      "target": "date-picker/DatePicker.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/DatePicker.svelte",
+      "target": "date-picker/DatePicker.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

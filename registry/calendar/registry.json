@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema.json",
+  "name": "calendar",
+  "description": "An accessible, locale-aware date-only calendar with native buttons, full keyboard navigation, and caller-owned availability rules.",
+  "frameworks": {
+    "vue": {
+      "files": [
+        { "source": "vue/Calendar.vue", "target": "calendar/Calendar.vue" },
+        { "source": "vue/date.js", "target": "calendar/date.js" }
+      ],
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "files": [
+        { "source": "react/Calendar.jsx", "target": "calendar/Calendar.jsx" },
+        { "source": "react/date.js", "target": "calendar/date.js" }
+      ],
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "files": [
+        {
+          "source": "svelte/Calendar.svelte",
+          "target": "calendar/Calendar.svelte"
+        },
+        { "source": "svelte/date.js", "target": "calendar/date.js" }
+      ],
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

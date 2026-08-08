@@ -47,6 +47,7 @@
   "devDependencies": {
     "@babel/parser": "^7.28.6",
     "@floating-ui/dom": "^1.8.0",
+    "@internationalized/date": "^3.12.3",
     "@rsbuild/core": "^2.1.10",
     "@rsbuild/plugin-react": "^2.1.0",
     "@rsbuild/plugin-tailwindcss": "^2.0.3",
@@ -62,6 +63,7 @@
     "@sveltejs/vite-plugin-svelte": "^7.2.0",
     "@tailwindcss/vite": "^4.3.3",
     "@vue/test-utils": "^2.4.11",
+    "chrono-node": "^2.10.1",
     "happy-dom": "^20.11.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

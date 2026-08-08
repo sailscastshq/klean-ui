@@ -1,9 +1,9 @@
-import { expect, userEvent, within } from 'storybook/test'
-import Input from '../../registry/input/react/Input.jsx'
-import { contract } from '../shared/contract.js'
+import { expect, userEvent, within } from "storybook/test";
+import Input from "../../registry/input/react/Input.jsx";
+import { contract } from "../shared/contract.js";
 
 function InputExample({ invalid = false }) {
-  const errorId = invalid ? 'react-project-name-error' : undefined
+  const errorId = invalid ? "react-project-name-error" : undefined;
 
   return (
     <div className="w-80">
@@ -22,24 +22,24 @@ function InputExample({ invalid = false }) {
         </p>
       ) : null}
     </div>
-  )
+  );
 }
 
 const meta = {
-  title: 'Components/Input',
+  title: "Components/Input",
   component: InputExample,
-  tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  tags: ["autodocs"],
+  parameters: { layout: "centered" },
   args: { invalid: false },
-  argTypes: { invalid: { control: 'boolean' } },
-}
+  argTypes: { invalid: { control: "boolean" } },
+};
 
-export default meta
+export default meta;
 
 export const Playground = {
   play: async ({ canvasElement }) => {
-    const input = within(canvasElement).getByLabelText(contract.inputLabel)
-    await userEvent.type(input, 'Slipway')
-    await expect(input).toHaveValue('Slipway')
+    const input = within(canvasElement).getByLabelText(contract.inputLabel);
+    await userEvent.type(input, "Slipway");
+    await expect(input).toHaveValue("Slipway");
   },
-}
+};

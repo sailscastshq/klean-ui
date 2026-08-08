@@ -192,6 +192,80 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
 }
 
 for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
+  test(`plans the complete native ${framework} date family without configuration`, () => {
+    const root = makeFixture({ framework, tailwindMerge: false });
+    const extension = fixture.extension;
+
+    const calendar = createInstallPlan("calendar", { cwd: root });
+    expect(calendar.registryItems).toEqual(["calendar"]);
+    expect(calendar.files.map((file) => file.displayPath)).toEqual([
+      `calendar/Calendar.${extension}`,
+      "calendar/date.js",
+    ]);
+
+    const datePicker = createInstallPlan("date-picker", { cwd: root });
+    expect(datePicker.registryItems).toEqual([
+      "calendar",
+      "input",
+      "popover",
+      "date-picker",
+    ]);
+    expect(datePicker.files.map((file) => file.displayPath)).toEqual([
+      `calendar/Calendar.${extension}`,
+      "calendar/date.js",
+      `input/Input.${extension}`,
+      `popover/Popover.${extension}`,
+      `date-picker/DatePicker.${extension}`,
+    ]);
+
+    const range = createInstallPlan("date-range-picker", { cwd: root });
+    expect(range.registryItems).toEqual([
+      "calendar",
+      "input",
+      "popover",
+      "date-range-picker",
+    ]);
+    expect(range.files.at(-1).displayPath).toBe(
+      `date-range-picker/DateRangePicker.${extension}`,
+    );
+
+    const schedule = createInstallPlan("schedule-picker", { cwd: root });
+    expect(schedule.registryItems).toEqual([
+      "calendar",
+      "input",
+      "popover",
+      "schedule-picker",
+    ]);
+    expect(schedule.files.map((file) => file.displayPath)).toEqual([
+      `calendar/Calendar.${extension}`,
+      "calendar/date.js",
+      `input/Input.${extension}`,
+      `popover/Popover.${extension}`,
+      `schedule-picker/SchedulePicker.${extension}`,
+      "schedule-picker/schedule.js",
+    ]);
+    expect(schedule.dependencies).toEqual(
+      expect.arrayContaining([
+        {
+          name: "@floating-ui/dom",
+          version: "^1.8.0",
+          missing: true,
+        },
+        {
+          name: "@internationalized/date",
+          version: "^3.12.3",
+          missing: true,
+        },
+        { name: "chrono-node", version: "^2.10.1", missing: true },
+        { name: "tailwind-merge", version: "^3.6.0", missing: true },
+      ]),
+    );
+    expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
+    expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
+  });
+}
+
+for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
   for (const [component, filename] of [
     ["input", "Input"],
     ["textarea", "Textarea"],
