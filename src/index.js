@@ -2,6 +2,7 @@ import "./styles.css";
 
 export { default as Button } from "./vue/button/Button.vue";
 export { default as Calendar } from "./vue/calendar/Calendar.vue";
+export { default as Combobox } from "./vue/combobox/Combobox.vue";
 export { default as DatePicker } from "./vue/date-picker/DatePicker.vue";
 export { default as DateRangePicker } from "./vue/date-range-picker/DateRangePicker.vue";
 export { default as Dialog } from "./vue/dialog/Dialog.vue";
