@@ -134,7 +134,7 @@ test("natural scheduling keeps relative durations exact in the chosen timezone",
   });
 });
 
-test("SchedulePicker requires explicit confirmation before form data changes", async () => {
+test("SchedulePicker commits a valid proposal on Enter", async () => {
   const wrapper = mount(SchedulePicker, {
     attachTo: document.body,
     props: { name: "publishAt", timeZone: "Africa/Lagos" },
@@ -154,6 +154,49 @@ test("SchedulePicker requires explicit confirmation before form data changes", a
     /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:00\.000Z$/,
   );
   expect(wrapper.emitted("update:modelValue")).toHaveLength(1);
+  wrapper.unmount();
+});
+
+test("SchedulePicker commits on true composite blur but not internal focus movement", async () => {
+  const wrapper = mount(SchedulePicker, {
+    attachTo: document.body,
+    props: { name: "publishAt", timeZone: "Africa/Lagos" },
+  });
+  const outside = document.createElement("button");
+  document.body.append(outside);
+  const input = wrapper.get('input[type="text"]');
+  const trigger = wrapper.get('[data-slot="schedule-picker-button"]');
+
+  await input.setValue("tomorrow at 9am");
+  await input.trigger("focusout", { relatedTarget: trigger.element });
+  await settle();
+  expect(wrapper.get('input[type="hidden"]').attributes("value")).toBe("");
+
+  await trigger.trigger("focusout", { relatedTarget: outside });
+  await settle();
+  expect(wrapper.get('input[type="hidden"]').attributes("value")).toMatch(
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:00\.000Z$/,
+  );
+  expect(wrapper.emitted("update:modelValue")).toHaveLength(1);
+
+  outside.remove();
+  wrapper.unmount();
+});
+
+test("SchedulePicker never commits an invalid draft on blur", async () => {
+  const wrapper = mount(SchedulePicker, {
+    attachTo: document.body,
+    props: { name: "publishAt", timeZone: "Africa/Lagos" },
+  });
+  const input = wrapper.get('input[type="text"]');
+
+  await input.setValue("sometime maybe");
+  await input.trigger("focusout");
+  await settle();
+
+  expect(wrapper.get('input[type="hidden"]').attributes("value")).toBe("");
+  expect(wrapper.emitted("update:modelValue")).toBeUndefined();
+  expect(input.attributes("aria-invalid")).toBe("true");
   wrapper.unmount();
 });
 

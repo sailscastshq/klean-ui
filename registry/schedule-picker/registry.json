@@ -1,7 +1,7 @@
 {
   "$schema": "../schema.json",
   "name": "schedule-picker",
-  "description": "A future-only schedule field with natural-language proposals, explicit confirmation, timezone-safe ISO instants, Calendar, and time choices.",
+  "description": "A future-only schedule field with natural-language proposals, Enter and blur commit, timezone-safe ISO instants, Calendar, and time choices.",
   "registryDependencies": ["calendar", "input", "popover"],
   "frameworks": {
     "vue": {

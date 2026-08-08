@@ -16,7 +16,7 @@ import * as SchedulePickerStories from "./SchedulePicker.stories.js";
 
 Schedule Picker turns an intended future wall-clock time into an exact ISO
 instant. Natural language is available by default, but its interpretation stays
-visible and uncommitted until the user confirms it.
+visible until the user presses Enter or leaves the complete picker.
 
 ```sh
 npx klean-ui@latest add schedule-picker
@@ -70,12 +70,12 @@ periods. Use Calendar when the calendar itself is the workspace.
 ```
 
 Typing `Friday at 9am`, `in 5 minutes`, or `in one hour` creates a proposal.
-Press Enter or choose **Use this time** to commit it. Relative durations retain
-their exact seconds and show that precision in the confirmation. The hidden
-named form value remains the last confirmed ISO instant, so incomplete or
-ambiguous drafts cannot silently change a schedule. The default time list uses
-15-minute choices; `minuteStep` changes that list, while typed times may remain
-exact.
+Press Enter, leave the complete picker, or choose **Use this time** to commit
+it. Moving focus between the field, calendar, and time list does not commit
+prematurely. Relative durations retain their exact seconds. The hidden named
+form value remains the last valid ISO instant, so incomplete or ambiguous
+drafts cannot silently change a schedule. The default time list uses 15-minute
+choices; `minuteStep` changes that list, while typed times may remain exact.
 
 ## Related components
 

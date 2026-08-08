@@ -126,8 +126,8 @@
     });
   }
 
-  export function close() {
-    requestOpen(false, { restoreFocus: isOpen });
+  export function close({ restoreFocus = isOpen } = {}) {
+    requestOpen(false, { restoreFocus });
   }
 
   export function show() {
