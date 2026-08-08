@@ -37,10 +37,10 @@ React uses `value` and `onValueChange`; Svelte uses `bind:value`. All three acce
 
 - **Select** chooses one persistent value from a known list.
 - **Menu** invokes actions or visits destinations.
-- **Combobox** owns an editable query, filtered or remote suggestions, loading and empty states, and stale-request cancellation.
+- **Combobox** owns an editable query, local filtering, accessible suggestions, loading and empty states, and a debounced application search event.
 - Native `<select>` remains the cleanest choice when its browser-owned popup and styling are sufficient.
 
-Combobox will be a separate component. Select will not gain `searchable`, `filter`, `async`, or visual variant props.
+Combobox is a separate component. Select will not gain `searchable`, `filter`, `async`, or visual variant props.
 
 ## Option contract
 
@@ -114,4 +114,4 @@ The selected value may be durable when product requirements call for form, serve
 - Menu — actions and navigation.
 - Popover — ordinary floating content in normal Tab order.
 - Dialog — a modal task.
-- Combobox — the separate upcoming component for editable search and async suggestions.
+- Combobox — editable search and application-owned remote suggestions.

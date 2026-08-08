@@ -238,6 +238,53 @@ test("keeps Select typed, native-first, class-first, and ephemeral", () => {
   }
 });
 
+test("keeps the Vue Combobox workbench and installable source identical", () => {
+  expect(registrySource("vue", "Combobox.vue", "combobox")).toBe(
+    readFileSync(resolve("src/vue/combobox/Combobox.vue"), "utf8"),
+  );
+});
+
+test("ships compiler-valid framework-native Combobox source", () => {
+  const reactSource = registrySource("react", "Combobox.jsx", "combobox");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  const svelteSource = registrySource("svelte", "Combobox.svelte", "combobox");
+  const result = compile(svelteSource, {
+    filename: "Combobox.svelte",
+    generate: false,
+  });
+
+  expect(result.warnings).toEqual([]);
+});
+
+test("keeps Combobox editable, native-first, durable, and class-first", () => {
+  for (const [framework, filename] of [
+    ["vue", "Combobox.vue"],
+    ["react", "Combobox.jsx"],
+    ["svelte", "Combobox.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "combobox");
+
+    expect(source).toContain("../popover/Popover");
+    expect(source).toContain('role="combobox"');
+    expect(source).toContain('aria-autocomplete="list"');
+    expect(source).toContain('role="listbox"');
+    expect(source).toContain('role="option"');
+    expect(source).toContain("aria-activedescendant");
+    expect(source).toContain("searchDelay");
+    expect(source).toContain("clearTimeout");
+    expect(source).toContain('type="hidden"');
+    expect(source).toContain('data-slot="combobox-input"');
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
+    expect(source).not.toMatch(/searchUrl|fetch\(/);
+    expect(source).not.toMatch(/\b(?:variant|tone|size)\s*(?::|=(?!=))/i);
+    expect(source).not.toMatch(/ComboboxTrigger|ComboboxItem/);
+    expect(source).not.toMatch(/transition-transform/);
+  }
+});
+
 test("keeps the Vue Dialog workbench and installable source identical", () => {
   expect(registrySource("vue", "Dialog.vue", "dialog")).toBe(
     readFileSync(resolve("src/vue/dialog/Dialog.vue"), "utf8"),

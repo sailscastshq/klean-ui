@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "combobox",
+  "description": "An accessible editable search-and-choose input with local filtering, debounced remote search events, and durable focus behavior.",
+  "registryDependencies": ["popover"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/Combobox.vue",
+      "target": "combobox/Combobox.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Combobox.jsx",
+      "target": "combobox/Combobox.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Combobox.svelte",
+      "target": "combobox/Combobox.svelte",
+      "dependencies": {}
+    }
+  }
+}

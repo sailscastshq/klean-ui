@@ -696,6 +696,29 @@ for (const [framework, extension] of [
   });
 }
 
+for (const [framework, extension] of [
+  ["vue", "vue"],
+  ["react", "jsx"],
+  ["svelte", "svelte"],
+]) {
+  test(`installs the ${framework} Combobox with Popover and no configuration ceremony`, () => {
+    const root = makeFixture({ framework, tailwindMerge: false });
+    const plan = createInstallPlan("combobox", { cwd: root });
+
+    expect(plan.registryItems).toEqual(["popover", "combobox"]);
+    expect(plan.files.map((file) => file.displayPath)).toEqual([
+      `popover/Popover.${extension}`,
+      `combobox/Combobox.${extension}`,
+    ]);
+    expect(plan.dependencies).toEqual([
+      { name: "@floating-ui/dom", version: "^1.8.0", missing: true },
+      { name: "tailwind-merge", version: "^3.6.0", missing: true },
+    ]);
+    expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
+    expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
+  });
+}
+
 test("plans Dialog as one source component with no interaction dependency", () => {
   const root = makeFixture({ framework: "vue", tailwindMerge: false });
   const plan = createInstallPlan("dialog", { cwd: root });
