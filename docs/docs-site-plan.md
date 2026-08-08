@@ -9,9 +9,11 @@ Every component page should provide, in this order:
 1. a concise semantic promise;
 2. the same installation command for Vue, React, and Svelte;
 3. a live isolated preview;
-4. framework-native usage and semantic recipes;
-5. API, accessibility, and applicable Durable UI guarantees;
-6. syntax-highlighted, copyable source.
+4. clear “When to use” and “When not to use” guidance;
+5. framework-native usage and semantic, real-application recipes;
+6. API, accessibility, and applicable Durable UI guarantees;
+7. a Related components section that explains the neighboring choice;
+8. syntax-highlighted, copyable source.
 
 The first Button page implements this in VitePress with Preview and Source tabs. Preview markup is isolated from VitePress theme styles, while the Source view uses VitePress's build-time syntax highlighting and copies the exact text shown.
 

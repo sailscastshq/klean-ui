@@ -1,7 +1,7 @@
-import { expect, userEvent, within } from 'storybook/test'
-import Button from '../../registry/button/react/Button.jsx'
-import Menu from '../../registry/menu/react/Menu.jsx'
-import { contract, menuItemClass } from '../shared/contract.js'
+import { expect, userEvent, within } from "storybook/test";
+import Button from "../../registry/button/react/Button.jsx";
+import Menu from "../../registry/menu/react/Menu.jsx";
+import { contract, menuItemClass } from "../shared/contract.js";
 
 function MenuExample() {
   return (
@@ -22,33 +22,33 @@ function MenuExample() {
         </button>
       </Menu>
     </div>
-  )
+  );
 }
 
 const meta = {
-  title: 'Components/Menu',
+  title: "Components/Menu",
   component: MenuExample,
-  tags: ['autodocs'],
-  parameters: { layout: 'centered', controls: { disable: true } },
-}
+  tags: ["autodocs"],
+  parameters: { layout: "centered", controls: { disable: true } },
+};
 
-export default meta
+export default meta;
 
 export const KeyboardContract = {
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const trigger = canvas.getByRole('button', { name: contract.menuLabel })
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button", { name: contract.menuLabel });
 
-    trigger.focus()
-    await userEvent.keyboard('{ArrowDown}')
+    trigger.focus();
+    await userEvent.keyboard("{ArrowDown}");
     await expect(
-      canvas.getByRole('menuitem', { name: contract.menuItems[0] })
-    ).toHaveFocus()
-    await userEvent.keyboard('{ArrowDown}')
+      canvas.getByRole("menuitem", { name: contract.menuItems[0] }),
+    ).toHaveFocus();
+    await userEvent.keyboard("{ArrowDown}");
     await expect(
-      canvas.getByRole('menuitem', { name: contract.menuItems[1] })
-    ).toHaveFocus()
-    await userEvent.keyboard('{Escape}')
-    await expect(trigger).toHaveFocus()
+      canvas.getByRole("menuitem", { name: contract.menuItems[1] }),
+    ).toHaveFocus();
+    await userEvent.keyboard("{Escape}");
+    await expect(trigger).toHaveFocus();
   },
-}
+};

@@ -1,24 +1,24 @@
-import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { mergeRsbuildConfig } from '@rsbuild/core'
-import { pluginReact } from '@rsbuild/plugin-react'
-import { pluginTailwindcss } from '@rsbuild/plugin-tailwindcss'
-import { NormalModuleReplacementPlugin } from '@rspack/core'
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { mergeRsbuildConfig } from "@rsbuild/core";
+import { pluginReact } from "@rsbuild/plugin-react";
+import { pluginTailwindcss } from "@rsbuild/plugin-tailwindcss";
+import { NormalModuleReplacementPlugin } from "@rspack/core";
 
 function getAbsolutePath(value) {
   return resolve(
     fileURLToPath(
-      new URL(import.meta.resolve(`${value}/package.json`, import.meta.url))
+      new URL(import.meta.resolve(`${value}/package.json`, import.meta.url)),
     ),
-    '..'
-  )
+    "..",
+  );
 }
 
 const config = {
-  stories: ['../stories/react/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: ['@storybook/addon-docs', '@storybook/addon-a11y'],
+  stories: ["../stories/react/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  addons: ["@storybook/addon-docs", "@storybook/addon-a11y"],
   framework: {
-    name: getAbsolutePath('storybook-react-rsbuild'),
+    name: getAbsolutePath("storybook-react-rsbuild"),
     options: {},
   },
   rsbuildFinal(config) {
@@ -29,16 +29,25 @@ const config = {
           plugins: [
             new NormalModuleReplacementPlugin(
               /^\.\.\/popover\/Popover\.jsx$/,
-              resolve(
-                process.cwd(),
-                'registry/popover/react/Popover.jsx'
-              )
+              resolve(process.cwd(), "registry/popover/react/Popover.jsx"),
+            ),
+            new NormalModuleReplacementPlugin(
+              /^\.\.\/calendar\/Calendar\.jsx$/,
+              resolve(process.cwd(), "registry/calendar/react/Calendar.jsx"),
+            ),
+            new NormalModuleReplacementPlugin(
+              /^\.\.\/calendar\/date\.js$/,
+              resolve(process.cwd(), "registry/calendar/react/date.js"),
+            ),
+            new NormalModuleReplacementPlugin(
+              /^\.\.\/input\/Input\.jsx$/,
+              resolve(process.cwd(), "registry/input/react/Input.jsx"),
             ),
           ],
         },
       },
-    })
+    });
   },
-}
+};
 
-export default config
+export default config;

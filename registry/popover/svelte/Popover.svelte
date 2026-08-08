@@ -126,8 +126,12 @@
     });
   }
 
-  function close() {
-    requestOpen(false, { restoreFocus: true });
+  export function close() {
+    requestOpen(false, { restoreFocus: isOpen });
+  }
+
+  export function show() {
+    requestOpen(true);
   }
 
   export function getContent() {

@@ -1,0 +1,56 @@
+{
+  "$schema": "../schema.json",
+  "name": "schedule-picker",
+  "description": "A future-only schedule field with natural-language proposals, explicit confirmation, timezone-safe ISO instants, Calendar, and time choices.",
+  "registryDependencies": ["calendar", "input", "popover"],
+  "frameworks": {
+    "vue": {
+      "files": [
+        {
+          "source": "vue/SchedulePicker.vue",
+          "target": "schedule-picker/SchedulePicker.vue"
+        },
+        { "source": "vue/schedule.js", "target": "schedule-picker/schedule.js" }
+      ],
+      "dependencies": {
+        "@internationalized/date": "^3.12.3",
+        "chrono-node": "^2.10.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "files": [
+        {
+          "source": "react/SchedulePicker.jsx",
+          "target": "schedule-picker/SchedulePicker.jsx"
+        },
+        {
+          "source": "react/schedule.js",
+          "target": "schedule-picker/schedule.js"
+        }
+      ],
+      "dependencies": {
+        "@internationalized/date": "^3.12.3",
+        "chrono-node": "^2.10.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "files": [
+        {
+          "source": "svelte/SchedulePicker.svelte",
+          "target": "schedule-picker/SchedulePicker.svelte"
+        },
+        {
+          "source": "svelte/schedule.js",
+          "target": "schedule-picker/schedule.js"
+        }
+      ],
+      "dependencies": {
+        "@internationalized/date": "^3.12.3",
+        "chrono-node": "^2.10.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

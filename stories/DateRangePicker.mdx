@@ -1,0 +1,74 @@
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Stories,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as DateRangePickerStories from "./DateRangePicker.stories.js";
+
+<Meta of={DateRangePickerStories} />
+
+<Title />
+
+<Description />
+
+Date Range Picker owns one date-only start and end. It submits native
+`name[start]` and `name[end]` entries and shows the contiguous range before it
+closes.
+
+```sh
+npx klean-ui@latest add date-range-picker
+```
+
+<Canvas of={DateRangePickerStories.Playground} />
+
+## When to use
+
+Use Date Range Picker for reports, stays, billing windows, campaigns, and
+filters where two boundaries describe one period.
+
+## When not to use
+
+Use Date Picker for one independent date. Use Schedule Picker when either
+boundary needs a time or timezone. Use two Date Pickers when the dates are
+unrelated rather than one contiguous range.
+
+## Vue
+
+```vue
+<DateRangePicker v-model="period" name="period" label="Report period" />
+```
+
+## React
+
+```jsx
+<DateRangePicker
+  value={period}
+  onValueChange={setPeriod}
+  name="period"
+  label="Report period"
+/>
+```
+
+## Svelte
+
+```svelte
+<DateRangePicker bind:value={period} name="period" label="Report period" />
+```
+
+Values use `{ start: "YYYY-MM-DD", end: "YYYY-MM-DD" }`. Choosing the first
+date keeps the calendar open for the end. Choosing an earlier second date
+orders the two boundaries rather than producing an invalid range.
+
+## Related components
+
+- [Date Picker](?path=/docs/components-date-picker--docs) — one independent form date.
+- [Calendar](?path=/docs/components-calendar--docs) — visible date selection.
+- [Schedule Picker](?path=/docs/components-schedule-picker--docs) — future instants with timezones.
+- [Input](?path=/docs/components-input--docs) — caller-composed start and end fields.
+
+<Controls of={DateRangePickerStories.Playground} />
+
+<Stories title="Examples" includePrimary={false} />
