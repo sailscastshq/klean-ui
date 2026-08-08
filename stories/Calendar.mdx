@@ -64,9 +64,12 @@ attributes.
 
 ## Related components
 
-- [Date Picker](?path=/docs/components-date-picker--docs) — one editable form date.
-- [Date Range Picker](?path=/docs/components-date-range-picker--docs) — two ordered date boundaries.
-- [Schedule Picker](?path=/docs/components-schedule-picker--docs) — a future date, time, and timezone.
+Calendar, Date Picker, and Date Range Picker use date-only `YYYY-MM-DD` values.
+Choose Schedule Picker when time and timezone must resolve to an exact ISO instant.
+
+- [Date Picker](?path=/docs/components-date-picker--docs) — one editable date-only `YYYY-MM-DD` form value.
+- [Date Range Picker](?path=/docs/components-date-range-picker--docs) — two ordered date-only `YYYY-MM-DD` boundaries.
+- [Schedule Picker](?path=/docs/components-schedule-picker--docs) — date, time, and IANA timezone stored as an exact ISO instant.
 - [Popover](?path=/docs/components-popover--docs) — the floating surface used by picker compositions.
 
 <Controls of={CalendarStories.Playground} />

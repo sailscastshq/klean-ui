@@ -87,3 +87,9 @@ or theme provider. Repeated product treatment belongs in an application componen
 - drag progress stays ephemeral and is never stored in browser, URL, cookie, or
   server state;
 - pointer capture, observers, and component-owned work are cleaned up on unmount.
+
+## Related components
+
+- Button — use for ordinary actions that do not need deliberate pointer confirmation.
+- Dialog — use when consequences need explanation, review, or a choice before proceeding.
+- Toast — communicate progress and the final result after confirmation.

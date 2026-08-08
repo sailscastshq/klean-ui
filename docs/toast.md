@@ -88,3 +88,10 @@ preferences collapse entry and exit to 1ms and remove list movement.
 Mount `Toast` before issuing the first notification so assistive technology can
 observe additions. Do not use toast for errors that must remain beside a form field
 or for decisions that require a dialog.
+
+## Related components
+
+- Dialog — use when the person must review information or make a decision.
+- Input and Textarea — keep validation errors beside the field instead of sending them to Toast.
+- Button — use a real action element inside an actionable notification.
+- Slide — pair consequential confirmation with persistent progress updates.

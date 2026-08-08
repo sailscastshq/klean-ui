@@ -79,9 +79,12 @@ variant or hiding application policy inside Date Picker.
 
 ## Related components
 
-- [Calendar](?path=/docs/components-calendar--docs) — an always-visible date surface.
-- [Date Range Picker](?path=/docs/components-date-range-picker--docs) — start and end dates.
-- [Schedule Picker](?path=/docs/components-schedule-picker--docs) — date, time, timezone, and natural language.
+Calendar, Date Picker, and Date Range Picker use date-only `YYYY-MM-DD` values.
+Choose Schedule Picker when time and timezone must resolve to an exact ISO instant.
+
+- [Calendar](?path=/docs/components-calendar--docs) — an always-visible date-only `YYYY-MM-DD` surface.
+- [Date Range Picker](?path=/docs/components-date-range-picker--docs) — ordered date-only `YYYY-MM-DD` start and end values.
+- [Schedule Picker](?path=/docs/components-schedule-picker--docs) — date, time, and IANA timezone stored as an exact ISO instant.
 - [Input](?path=/docs/components-input--docs) — a plain text or native date field without a calendar.
 
 <Controls of={DatePickerStories.Playground} />

@@ -44,7 +44,11 @@ React uses `className`; Svelte uses `class`. Their HTML relationship and behavio
 Use a button when selection performs an action:
 
 ```vue
-<button type="button" class="cursor-pointer ..." @click="redeploy">Redeploy</button>
+<button
+  type="button"
+  class="cursor-pointer ..."
+  @click="redeploy"
+>Redeploy</button>
 ```
 
 Use a native anchor for a destination that performs document navigation:
@@ -66,7 +70,11 @@ Menu does not accept an item-data array because arrays encourage the component t
 A disabled action uses the native attribute:
 
 ```vue
-<button type="button" disabled class="disabled:cursor-not-allowed disabled:opacity-40">
+<button
+  type="button"
+  disabled
+  class="disabled:cursor-not-allowed disabled:opacity-40"
+>
   Stop provisioning
 </button>
 ```
@@ -135,3 +143,10 @@ Both products use the same Menu behavior. Neither selects a theme or visual vari
 ## Durable state boundary
 
 Menu visibility is ephemeral and is never stored in local storage, session storage, cookies, server data, or the URL. Persist the durable decision selected from a menu—such as a filter mode—only when the product needs it. Every listener, observer, and typeahead timer is scoped to a mounted Menu and removed on cleanup.
+
+## Related components
+
+- Button — the truthful native trigger for a Menu.
+- Popover — choose for ordinary forms, filters, help, or previews in normal Tab order.
+- Dialog — choose when the interaction is a modal task rather than a compact action list.
+- Toast — announce the result of a menu action without moving focus.

@@ -30,7 +30,10 @@ application's availability rule says otherwise.
 
 ## Related components
 
-- Calendar — a single always-visible date-selection surface.
-- Date Picker — independent date fields and asymmetric business rules.
-- Schedule Picker — an exact future date and time.
+Calendar, Date Picker, and Date Range Picker use date-only `YYYY-MM-DD` values.
+Choose Schedule Picker when time and timezone must resolve to an exact ISO instant.
+
+- Calendar — a single always-visible date-only `YYYY-MM-DD` surface.
+- Date Picker — independent date-only `YYYY-MM-DD` fields and asymmetric business rules.
+- Schedule Picker — date, time, and IANA timezone stored as an exact ISO instant.
 - Popover — the floating surface used by the compact range picker.

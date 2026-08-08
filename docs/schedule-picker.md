@@ -38,8 +38,11 @@ precise than the `minuteStep` used by the time list. Past proposals are invalid.
 
 ## Related components
 
-- Date Picker — a date without time or timezone.
-- Calendar — the always-visible date-selection surface.
-- Date Range Picker — date-only periods.
+Schedule Picker combines date, time, and IANA timezone as an exact ISO instant.
+Choose the date-only components below when wall-clock time must not exist.
+
+- Date Picker — one date-only `YYYY-MM-DD` value without time or timezone.
+- Calendar — an always-visible date-only `YYYY-MM-DD` surface.
+- Date Range Picker — ordered date-only `YYYY-MM-DD` periods.
 - Popover — the non-modal floating surface.
 - Toast — announce the server result after a schedule is saved.
