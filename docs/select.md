@@ -59,19 +59,19 @@ The placeholder describes an unselected control; it is never inserted as a fake 
 
 ## API
 
-| Input | Default | Purpose |
-| --- | --- | --- |
-| value binding | uncontrolled | Vue `v-model`, React `value` and `onValueChange`, or Svelte `bind:value`. |
-| `defaultValue` | — | Initial value for uncontrolled use. |
-| `options` | `[]` | Fixed choices in the conventional option shape. |
-| `placeholder` | `Select an option` | Text shown only when no option matches the value. |
-| `name` | — | Submits the selected primitive value with an ordinary form. |
-| `required` | `false` | Exposes the control's required relationship. Final validation remains application and server owned. |
-| `disabled` | `false` | Disables opening, selection, and form submission. |
-| `open` binding | uncontrolled | Observe or control visibility only when application behavior needs it. |
-| `placement` | `bottom-start` | Preferred logical placement; collision handling may flip or shift it. |
-| `offset` | `4` | Space in pixels between the trigger and list. |
-| `class` / `className` | — | Ordinary Tailwind classes merged last onto the visible trigger. |
+| Input                 | Default            | Purpose                                                                                             |
+| --------------------- | ------------------ | --------------------------------------------------------------------------------------------------- |
+| value binding         | uncontrolled       | Vue `v-model`, React `value` and `onValueChange`, or Svelte `bind:value`.                           |
+| `defaultValue`        | —                  | Initial value for uncontrolled use.                                                                 |
+| `options`             | `[]`               | Fixed choices in the conventional option shape.                                                     |
+| `placeholder`         | `Select an option` | Text shown only when no option matches the value.                                                   |
+| `name`                | —                  | Submits the selected primitive value with an ordinary form.                                         |
+| `required`            | `false`            | Exposes the control's required relationship. Final validation remains application and server owned. |
+| `disabled`            | `false`            | Disables opening, selection, and form submission.                                                   |
+| `open` binding        | uncontrolled       | Observe or control visibility only when application behavior needs it.                              |
+| `placement`           | `bottom-start`     | Preferred logical placement; collision handling may flip or shift it.                               |
+| `offset`              | `4`                | Space in pixels between the trigger and list.                                                       |
+| `class` / `className` | —                  | Ordinary Tailwind classes merged last onto the visible trigger.                                     |
 
 Vue exposes `value`, `option`, `icon`, and `empty` slots. React exposes equivalent render functions. Svelte exposes equivalent snippets. These hooks change rendering; they do not change semantics or interaction.
 
@@ -94,11 +94,13 @@ Style the visible control directly:
 
 ```vue
 <Select
-  v-model="status"
-  :options="statuses"
-  class="rounded-none border-2 border-black bg-white shadow-[4px_4px_0_0_#000]"
+  v-model="category"
+  :options="categories"
+  class="min-h-10 w-auto max-w-[16rem] rounded-lg border-0 bg-gray-100 px-3.5 py-2 text-sm font-semibold text-gray-950 shadow-none hover:bg-gray-200"
 />
 ```
+
+That compact treatment is grounded in Slipway's feedback composer. Source-app recipes are included only when they map to an interface that actually exists.
 
 There are no `variant`, `tone`, `size`, `radius`, theme, or part-class props. Stable `data-slot` hooks cover the trigger, value, icon, content, listbox, group, option, indicator, and empty state. State hooks include `data-state`, `data-placeholder`, `data-highlighted`, `data-selected`, `data-disabled`, and `data-invalid`. Repeated product treatments belong in application-owned components; the installed source remains the final escape hatch.
 

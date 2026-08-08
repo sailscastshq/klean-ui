@@ -17,6 +17,7 @@ import {
   ReducedMotion as ToastReducedMotion,
 } from "../stories/Toast.stories.js";
 import { Playground as SlidePlayground } from "../stories/Slide.stories.js";
+import { Products as SelectProducts } from "../stories/Select.stories.js";
 import { readFileSync } from "node:fs";
 
 const usefulControls = [
@@ -84,6 +85,19 @@ test("makes Menu recipe cursor and Tab affordances explicit", () => {
   expect(productsTemplate).toContain("cursor-pointer");
   expect(productsTemplate).toContain("cursor-not-allowed");
   expect(MenuSemantics.play).toBeTypeOf("function");
+});
+
+test("grounds the Select source-app recipe in Slipway instead of inventing Hagfish UI", () => {
+  const productsTemplate = SelectProducts.render().template;
+
+  expect(productsTemplate).toContain("Slipway / Bearing feedback");
+  expect(productsTemplate).toContain("min-h-10 w-auto max-w-[16rem]");
+  expect(productsTemplate).toContain("rounded-lg border-0 bg-gray-100");
+  expect(productsTemplate).toContain("rounded-xl");
+  expect(productsTemplate).toContain("shadow-gray-950/10");
+  expect(productsTemplate).not.toContain("Hagfish");
+  expect(productsTemplate).not.toContain("Invoice status");
+  expect(productsTemplate).not.toContain("shadow-[4px_4px_0_0_#000]");
 });
 
 test("keeps full and reduced Toast motion independently reviewable", () => {
