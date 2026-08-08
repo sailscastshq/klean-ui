@@ -143,3 +143,10 @@ ephemeral.
 - [HTML `<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
 - [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API)
 - [WAI-ARIA modal dialog pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)
+
+## Related components
+
+- Button — use native commands to open, close, or submit a Dialog.
+- Popover — choose for non-modal content that should leave the page interactive.
+- Menu — choose for a compact list of actions or destinations instead of a modal task.
+- Toast — report a completed action without interrupting the current task.

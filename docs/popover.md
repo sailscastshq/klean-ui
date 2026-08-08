@@ -104,3 +104,11 @@ Modern browsers provide top-layer rendering, light dismissal, Escape, nested Pop
 Hagfish repeatedly implements share and more-action surfaces with `onClickOutside`, Escape listeners, IDs, and local open refs. Slipway repeats equivalent plumbing in filter, export, environment, actor, and service controls. Popover replaces that shared behavior. The app-specific markup and Tailwind treatment remain in the app.
 
 Menu-shaped cases are not migrated to generic Popover alone. They will use the Menu component built on this positioning and dismissal foundation so keyboard behavior remains complete.
+
+## Related components
+
+- Button — connect the native invoker with `popovertarget`.
+- Menu — add composite semantics for a list of actions and destinations.
+- Dialog — use when content must be modal and the background inert.
+- Date Picker — a date-only `YYYY-MM-DD` composition built with Calendar and Popover.
+- Schedule Picker — a date, time, and timezone composition that commits an exact ISO instant.

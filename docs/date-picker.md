@@ -41,7 +41,10 @@ does not need an invoice-specific mode.
 
 ## Related components
 
-- Calendar — an always-visible date workspace.
-- Date Range Picker — a related start and end date.
-- Schedule Picker — date, time, timezone, and natural-language scheduling.
+Calendar, Date Picker, and Date Range Picker use date-only `YYYY-MM-DD` values.
+Choose Schedule Picker when time and timezone must resolve to an exact ISO instant.
+
+- Calendar — an always-visible date-only `YYYY-MM-DD` workspace.
+- Date Range Picker — ordered date-only `YYYY-MM-DD` start and end values.
+- Schedule Picker — date, time, and IANA timezone stored as an exact ISO instant.
 - Input — a plain field when a calendar would add no value.

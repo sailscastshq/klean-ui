@@ -64,9 +64,12 @@ orders the two boundaries rather than producing an invalid range.
 
 ## Related components
 
-- [Date Picker](?path=/docs/components-date-picker--docs) — one independent form date.
-- [Calendar](?path=/docs/components-calendar--docs) — visible date selection.
-- [Schedule Picker](?path=/docs/components-schedule-picker--docs) — future instants with timezones.
+Calendar, Date Picker, and Date Range Picker use date-only `YYYY-MM-DD` values.
+Choose Schedule Picker when time and timezone must resolve to an exact ISO instant.
+
+- [Date Picker](?path=/docs/components-date-picker--docs) — one independent date-only `YYYY-MM-DD` form value.
+- [Calendar](?path=/docs/components-calendar--docs) — always-visible date-only selection.
+- [Schedule Picker](?path=/docs/components-schedule-picker--docs) — date, time, and IANA timezone stored as an exact ISO instant.
 - [Input](?path=/docs/components-input--docs) — caller-composed start and end fields.
 
 <Controls of={DateRangePickerStories.Playground} />

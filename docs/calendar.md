@@ -31,7 +31,10 @@ Disabled dates remain discoverable but cannot be selected.
 
 ## Related components
 
-- Date Picker — one editable date field with an optional calendar.
-- Date Range Picker — a related start and end date.
-- Schedule Picker — a future date and wall-clock time stored as an instant.
+Calendar, Date Picker, and Date Range Picker use date-only `YYYY-MM-DD` values.
+Choose Schedule Picker when time and timezone must resolve to an exact ISO instant.
+
+- Date Picker — one editable date-only `YYYY-MM-DD` field with an optional calendar.
+- Date Range Picker — two ordered date-only `YYYY-MM-DD` boundaries.
+- Schedule Picker — date, time, and IANA timezone stored as an exact ISO instant.
 - Popover — the floating surface used by the compact pickers.

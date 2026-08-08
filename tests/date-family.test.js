@@ -297,7 +297,27 @@ test("ships matching Vue sources and compiler-valid React and Svelte sources", (
   }
 });
 
-test("date-family docs guide component choice and link related components", () => {
+test("every component docs page guides the next component choice", () => {
+  const componentDocs = [
+    "Button.mdx",
+    "Calendar.mdx",
+    "DatePicker.mdx",
+    "DateRangePicker.mdx",
+    "Dialog.mdx",
+    "Input.mdx",
+    "Menu.mdx",
+    "Popover.mdx",
+    "SchedulePicker.mdx",
+    "Slide.mdx",
+    "Textarea.mdx",
+    "Toast.mdx",
+  ];
+
+  for (const filename of componentDocs) {
+    const source = readFileSync(resolve(`stories/${filename}`), "utf8");
+    expect(source).toContain("## Related components");
+  }
+
   for (const filename of [
     "Calendar.mdx",
     "DatePicker.mdx",
@@ -307,6 +327,36 @@ test("date-family docs guide component choice and link related components", () =
     const source = readFileSync(resolve(`stories/${filename}`), "utf8");
     expect(source).toContain("## When to use");
     expect(source).toContain("## When not to use");
-    expect(source).toContain("## Related components");
+  }
+
+  for (const filename of [
+    "Calendar.mdx",
+    "DatePicker.mdx",
+    "DateRangePicker.mdx",
+  ]) {
+    expect(readFileSync(resolve(`stories/${filename}`), "utf8")).toContain(
+      "date-only `YYYY-MM-DD`",
+    );
+  }
+
+  expect(readFileSync(resolve("stories/SchedulePicker.mdx"), "utf8")).toContain(
+    "exact ISO instant",
+  );
+
+  for (const filename of [
+    "button.md",
+    "calendar.md",
+    "date-picker.md",
+    "date-range-picker.md",
+    "dialog.md",
+    "menu.md",
+    "popover.md",
+    "schedule-picker.md",
+    "slide.md",
+    "toast.md",
+  ]) {
+    expect(readFileSync(resolve(`docs/${filename}`), "utf8")).toContain(
+      "## Related components",
+    );
   }
 });

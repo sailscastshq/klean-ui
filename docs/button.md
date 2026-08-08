@@ -190,3 +190,10 @@ Not every Slipway button is only a Button concern. Tabs, menus, and compound wid
 - Motion is removed when the user prefers reduced motion.
 
 This is the registry contract for Button. Hagfish and Slipway continue to prove application-owned recipes without expanding the primitive into a visual variant API.
+
+## Related components
+
+- Popover — connect Button with native `popovertarget` when it opens non-modal content.
+- Menu — use when a Button opens a keyboard-navigable list of actions or destinations.
+- Dialog — use when the action opens a modal task or confirmation.
+- Slide — reserve for consequential actions that benefit from deliberate pointer confirmation.
