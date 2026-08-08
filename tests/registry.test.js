@@ -194,6 +194,50 @@ test("keeps Menu semantic, class-first, ephemeral, and motion-free", () => {
   }
 });
 
+test("keeps the Vue Select workbench and installable source identical", () => {
+  expect(registrySource("vue", "Select.vue", "select")).toBe(
+    readFileSync(resolve("src/vue/select/Select.vue"), "utf8"),
+  );
+});
+
+test("ships compiler-valid framework-native Select source", () => {
+  const reactSource = registrySource("react", "Select.jsx", "select");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  const svelteSource = registrySource("svelte", "Select.svelte", "select");
+  const result = compile(svelteSource, {
+    filename: "Select.svelte",
+    generate: false,
+  });
+
+  expect(result.warnings).toEqual([]);
+});
+
+test("keeps Select typed, native-first, class-first, and ephemeral", () => {
+  for (const [framework, filename] of [
+    ["vue", "Select.vue"],
+    ["react", "Select.jsx"],
+    ["svelte", "Select.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "select");
+
+    expect(source).toContain("../popover/Popover");
+    expect(source).toContain('role="combobox"');
+    expect(source).toContain('role="listbox"');
+    expect(source).toContain('role="option"');
+    expect(source).toContain("aria-activedescendant");
+    expect(source).toContain("typeahead");
+    expect(source).toContain('type="hidden"');
+    expect(source).toContain('data-slot="select-trigger"');
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
+    expect(source).not.toMatch(/\b(?:variant|tone|size)\s*(?::|=(?!=))/i);
+    expect(source).not.toMatch(/searchable|SelectTrigger|SelectItem/);
+    expect(source).not.toMatch(/transition-transform|animate-/);
+  }
+});
+
 test("keeps the Vue Dialog workbench and installable source identical", () => {
   expect(registrySource("vue", "Dialog.vue", "dialog")).toBe(
     readFileSync(resolve("src/vue/dialog/Dialog.vue"), "utf8"),

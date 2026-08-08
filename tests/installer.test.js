@@ -673,6 +673,29 @@ test("installs Menu with Popover first and no configuration ceremony", () => {
   expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
 });
 
+for (const [framework, extension] of [
+  ["vue", "vue"],
+  ["react", "jsx"],
+  ["svelte", "svelte"],
+]) {
+  test(`installs the ${framework} Select with Popover and no configuration ceremony`, () => {
+    const root = makeFixture({ framework, tailwindMerge: false });
+    const plan = createInstallPlan("select", { cwd: root });
+
+    expect(plan.registryItems).toEqual(["popover", "select"]);
+    expect(plan.files.map((file) => file.displayPath)).toEqual([
+      `popover/Popover.${extension}`,
+      `select/Select.${extension}`,
+    ]);
+    expect(plan.dependencies).toEqual([
+      { name: "@floating-ui/dom", version: "^1.8.0", missing: true },
+      { name: "tailwind-merge", version: "^3.6.0", missing: true },
+    ]);
+    expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
+    expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
+  });
+}
+
 test("plans Dialog as one source component with no interaction dependency", () => {
   const root = makeFixture({ framework: "vue", tailwindMerge: false });
   const plan = createInstallPlan("dialog", { cwd: root });

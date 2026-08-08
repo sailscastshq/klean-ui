@@ -9,6 +9,7 @@ export { default as Input } from "./vue/input/Input.vue";
 export { default as Menu } from "./vue/menu/Menu.vue";
 export { default as Popover } from "./vue/popover/Popover.vue";
 export { default as SchedulePicker } from "./vue/schedule-picker/SchedulePicker.vue";
+export { default as Select } from "./vue/select/Select.vue";
 export { default as Slide } from "./vue/slide/Slide.vue";
 export { default as Textarea } from "./vue/textarea/Textarea.vue";
 export { default as Toast } from "./vue/toast/Toast.vue";

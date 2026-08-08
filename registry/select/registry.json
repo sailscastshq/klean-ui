@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "select",
+  "description": "A native-first fixed-list value picker with typed values, listbox semantics, typeahead, and Klean Popover positioning.",
+  "registryDependencies": ["popover"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/Select.vue",
+      "target": "select/Select.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Select.jsx",
+      "target": "select/Select.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Select.svelte",
+      "target": "select/Select.svelte",
+      "dependencies": {}
+    }
+  }
+}
