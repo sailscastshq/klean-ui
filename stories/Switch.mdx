@@ -1,0 +1,98 @@
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Stories,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as SwitchStories from "./Switch.stories.js";
+
+<Meta of={SwitchStories} />
+
+<Title />
+
+<Description />
+
+```sh
+npx klean-ui@latest add switch
+```
+
+<Canvas of={SwitchStories.Playground} />
+
+## Vue recipe
+
+```vue
+<label class="flex min-h-11 cursor-pointer items-center justify-between gap-6">
+  <span>
+    <span class="block font-medium">Public roadmap</span>
+    <span class="text-sm text-gray-500">Show planned work to customers.</span>
+  </span>
+  <Switch v-model="form.publicRoadmap" name="publicRoadmap" />
+</label>
+```
+
+Switch renders a real `<input type="checkbox" role="switch">`. The browser owns
+focus, Space activation, label activation, form submission, required validation,
+and disabled behavior. The visible checked state comes from the native `checked`
+state, so there is no separate `aria-checked` value to keep synchronized.
+
+## Switch or Checkbox?
+
+Use **Switch** when changing the value takes effect immediately: enable a
+notification channel, publish a roadmap, or turn a release flag on. Use
+**Checkbox** when the value is one choice inside a form that is submitted later,
+or when you need multiple values or an indeterminate parent selection.
+
+Keep the label text stable. “Public roadmap” stays “Public roadmap” in both
+states; the switch itself announces whether it is on or off.
+
+## Saving
+
+The component changes its boolean immediately. Your application decides how to
+persist that change. For a reliable optimistic update, keep the previous value,
+prevent competing requests while one is pending, and restore the previous value
+with visible error feedback if saving fails.
+
+```vue
+<Switch
+  v-model="enabled"
+  :disabled="saving"
+  aria-describedby="setting-status"
+  @change="save($event.target.checked)"
+/>
+<p id="setting-status" role="status">{{ status }}</p>
+```
+
+## Tailwind is the visual API
+
+There are no variant, colour, size, track, or thumb props. Caller classes merge
+after the neutral defaults, including standard pseudo-element utilities. The
+short state transition becomes quicker when the user prefers reduced motion.
+
+```vue
+<Switch
+  v-model="enabled"
+  class="h-5 w-9 bg-stone-300 after:size-4 checked:bg-emerald-600 checked:after:[transform:translate(1rem,-50%)]"
+/>
+```
+
+## API
+
+- Vue uses a boolean `v-model`.
+- React uses native `checked`, `defaultChecked`, and `onChange`.
+- Svelte uses boolean `bind:checked` and native event attributes.
+- Every framework forwards native input attributes and accepts caller `class` or `className`.
+- `data-state` is `checked` or `unchecked`; `data-disabled` and `data-invalid` are available for caller styling.
+- The component intentionally has no array membership, mixed state, true/false mapping, label, description, saving, or error API.
+
+## Related components
+
+- [Checkbox](?path=/docs/components-checkbox--docs) — use for form choices, groups, or indeterminate selection.
+- [Input](?path=/docs/components-input--docs) — use when the user must enter a value rather than turn one boolean on or off.
+- [Button](?path=/docs/components-button--docs) — use for a command; a switch changes persistent state rather than initiating an unrelated action.
+- [Toast](?path=/docs/components-toast--docs) — use for brief save confirmation or rollback feedback when inline context is not better.
+
+<Controls of={SwitchStories.Playground} />
+
+<Stories title="Examples" includePrimary={false} />

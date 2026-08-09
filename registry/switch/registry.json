@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "switch",
+  "description": "A native-first boolean switch for immediate on/off settings.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Switch.vue",
+      "target": "switch/Switch.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Switch.jsx",
+      "target": "switch/Switch.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Switch.svelte",
+      "target": "switch/Switch.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
