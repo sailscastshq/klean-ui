@@ -1,5 +1,6 @@
 export const contract = Object.freeze({
   buttonLabel: 'Continue',
+  checkboxLabel: 'Send deployment notifications',
   inputLabel: 'Project name',
   inputError: 'A project name is required.',
   textareaLabel: 'Internal note',

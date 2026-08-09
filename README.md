@@ -10,6 +10,7 @@ Run the same command in every standard Boring Stack application:
 npx klean-ui add button
 npx klean-ui add input
 npx klean-ui add textarea
+npx klean-ui add checkbox
 npx klean-ui add popover
 npx klean-ui add menu
 npx klean-ui add select
@@ -121,7 +122,7 @@ composes three framework-native Storybooks:
 ```
 
 Open **Vue**, **React**, or **Svelte**, then choose **Components / Button**,
-**Input**, **Textarea**, **Popover**, **Menu**, **Select**, **Combobox**, **Dialog**, or **Toast**. The stories mount the actual
+**Input**, **Textarea**, **Checkbox**, **Popover**, **Menu**, **Select**, **Combobox**, **Dialog**, or **Toast**. The stories mount the actual
 registry source and share behavior expectations without sharing a runtime
 component abstraction. Controls stay limited to useful behavioral inputs;
 interaction stories and the accessibility addon verify the durable contract.
@@ -144,4 +145,4 @@ The package contains the CLI and its versioned registry. It does not publish the
 
 Klean is the canonical implementation of our Durable UI practice. Durable behavior lives in the component, composable, or Boring Stack block that owns it; it does not turn every primitive into a state-management abstraction.
 
-Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), [native form markup contract](./docs/forms.md), [Popover contract](./docs/popover.md), [Menu contract](./docs/menu.md), [Select contract](./docs/select.md), [Combobox contract](./docs/combobox.md), [Dialog contract](./docs/dialog.md), [Toast contract](./docs/toast.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).
+Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), [native form markup contract](./docs/forms.md), [Checkbox contract](./docs/checkbox.md), [Popover contract](./docs/popover.md), [Menu contract](./docs/menu.md), [Select contract](./docs/select.md), [Combobox contract](./docs/combobox.md), [Dialog contract](./docs/dialog.md), [Toast contract](./docs/toast.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).

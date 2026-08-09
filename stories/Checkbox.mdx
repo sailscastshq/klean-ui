@@ -1,0 +1,72 @@
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Stories,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as CheckboxStories from "./Checkbox.stories.js";
+
+<Meta of={CheckboxStories} />
+
+<Title />
+
+<Description />
+
+```sh
+npx klean-ui@latest add checkbox
+```
+
+<Canvas of={CheckboxStories.Playground} />
+
+## Vue recipe
+
+```vue
+<label class="flex cursor-pointer items-start gap-3">
+  <Checkbox v-model="form.notifications" name="notifications" />
+  <span>
+    <span class="block font-medium">Deployment notifications</span>
+    <span class="text-sm text-gray-500">Tell me when a deploy finishes.</span>
+  </span>
+</label>
+```
+
+Checkbox renders the real form control. The application keeps the label,
+description, validation copy, and business effect visible in its own markup.
+Space, label activation, required validation, form data, and disabled behavior
+therefore remain browser behavior.
+
+## Indeterminate selection
+
+Use `indeterminate` for a parent checkbox when only some children are selected.
+It changes the presented state, not the submitted value. Activating the checkbox
+still produces an ordinary checked or unchecked boolean.
+
+```vue
+<Checkbox
+  :model-value="allSelected"
+  :indeterminate="someSelected"
+  aria-controls="row-one row-two row-three"
+  @change="selectAll($event.target.checked)"
+/>
+```
+
+## API
+
+- Vue uses `v-model`; arrays and sets retain Vue's native checkbox membership behavior.
+- React uses native `checked`, `defaultChecked`, and `onChange`.
+- Svelte uses `bind:checked` and native event attributes.
+- Every framework accepts `indeterminate`, native input attributes, and caller `class` or `className`.
+- There is no variant, tone, size, group, label, or indicator API.
+
+## Related components
+
+- [Input](?path=/docs/components-input--docs) — use for free-form text rather than an independent yes/no value.
+- [Select](?path=/docs/components-select--docs) — use for one choice from a longer fixed list.
+- [Button](?path=/docs/components-button--docs) — use for an action; checking a box changes form state and should not impersonate a command.
+- Switch is a separate future component for an immediate on/off setting. Radio Group is a separate future component for one mutually exclusive choice.
+
+<Controls of={CheckboxStories.Playground} />
+
+<Stories title="Examples" includePrimary={false} />

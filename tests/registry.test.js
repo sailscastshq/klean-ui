@@ -60,6 +60,7 @@ test("keeps every Vue form-control source identical to its registry source", () 
   for (const [item, sourcePath, filename] of [
     ["input", "src/vue/input/Input.vue", "Input.vue"],
     ["textarea", "src/vue/textarea/Textarea.vue", "Textarea.vue"],
+    ["checkbox", "src/vue/checkbox/Checkbox.vue", "Checkbox.vue"],
   ]) {
     expect(registrySource("vue", filename, item)).toBe(
       readFileSync(resolve(sourcePath), "utf8"),
@@ -71,6 +72,7 @@ test("ships parseable framework-native React form source", () => {
   for (const [item, filename] of [
     ["input", "Input.jsx"],
     ["textarea", "Textarea.jsx"],
+    ["checkbox", "Checkbox.jsx"],
   ]) {
     expect(() =>
       parse(registrySource("react", filename, item), {
@@ -85,6 +87,7 @@ test("ships compiler-valid Svelte 5 form source", () => {
   for (const [item, filename] of [
     ["input", "Input.svelte"],
     ["textarea", "Textarea.svelte"],
+    ["checkbox", "Checkbox.svelte"],
   ]) {
     const result = compile(registrySource("svelte", filename, item), {
       filename,
@@ -103,12 +106,36 @@ test("keeps form controls native and free of hidden field APIs", () => {
     ["textarea", "react", "Textarea.jsx"],
     ["input", "svelte", "Input.svelte"],
     ["textarea", "svelte", "Textarea.svelte"],
+    ["checkbox", "vue", "Checkbox.vue"],
+    ["checkbox", "react", "Checkbox.jsx"],
+    ["checkbox", "svelte", "Checkbox.svelte"],
   ]) {
     const source = registrySource(framework, filename, item);
     expect(source).not.toMatch(/\bvariant\b/i);
     expect(source).not.toMatch(/\borientation\b/i);
     expect(source).not.toMatch(/field-context/i);
     expect(source).not.toMatch(/useFieldContext|getFieldContext/i);
+  }
+});
+
+test("keeps Checkbox native, mixed-state capable, and class-first", () => {
+  for (const [framework, filename] of [
+    ["vue", "Checkbox.vue"],
+    ["react", "Checkbox.jsx"],
+    ["svelte", "Checkbox.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "checkbox");
+
+    expect(source).toMatch(/type=["']checkbox["']/);
+    expect(source).toContain(".indeterminate");
+    expect(source).toContain('data-slot="checkbox"');
+    expect(source).toContain("data-state");
+    expect(source).toContain("tailwind-merge");
+    expect(source).not.toMatch(/role=["']checkbox["']/);
+    expect(source).not.toContain("aria-checked");
+    expect(source).not.toMatch(/CheckboxIndicator|CheckboxGroup/);
+    expect(source).not.toMatch(/\b(?:variant|tone|size)\s*(?::|=(?!=))/i);
+    expect(source).not.toMatch(/keydown|keyup|Spacebar/);
   }
 });
 
