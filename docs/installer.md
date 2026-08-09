@@ -47,7 +47,7 @@ All configured paths must stay inside the detected application root. Klean does 
 
 The registry source and item manifest are bundled in the installed `klean-ui` package. A specific CLI version therefore installs a specific reviewed component; the command does not fetch mutable component source from a remote endpoint.
 
-Registry items can declare prerequisites and more than one source file for future compound components. The complete set is planned before the installer mutates the application. Today's Button, Input, Textarea, and Popover each install one component source file.
+Registry items can declare prerequisites and more than one source file for future compound components. The complete set is planned before the installer mutates the application. Button, Input, Textarea, Checkbox, and Popover each install one component source file.
 
 The file behavior is deterministic:
 

@@ -269,6 +269,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
   for (const [component, filename] of [
     ["input", "Input"],
     ["textarea", "Textarea"],
+    ["checkbox", "Checkbox"],
   ]) {
     test(`installs only the native ${framework} ${filename}`, () => {
       const root = makeFixture({ framework });

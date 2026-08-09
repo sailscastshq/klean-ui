@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "checkbox",
+  "description": "A native-first checkbox with real form semantics and indeterminate state.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Checkbox.vue",
+      "target": "checkbox/Checkbox.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Checkbox.jsx",
+      "target": "checkbox/Checkbox.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Checkbox.svelte",
+      "target": "checkbox/Checkbox.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

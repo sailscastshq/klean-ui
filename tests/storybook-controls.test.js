@@ -5,6 +5,11 @@ import inputMeta, {
 import textareaMeta, {
   Playground as TextareaPlayground,
 } from "../stories/Textarea.stories.js";
+import {
+  Apps as CheckboxApps,
+  Playground as CheckboxPlayground,
+  States as CheckboxStates,
+} from "../stories/Checkbox.stories.js";
 import { Playground as PopoverPlayground } from "../stories/Popover.stories.js";
 import {
   Playground as MenuPlayground,
@@ -34,6 +39,28 @@ test("keeps form playground controls focused on useful visible state", () => {
   expect(TextareaPlayground.parameters.controls.include).toEqual(
     usefulControls,
   );
+});
+
+test("keeps Checkbox controls useful and its recipes semantic", () => {
+  expect(CheckboxPlayground.parameters.controls.include).toEqual([
+    "label",
+    "checked",
+    "indeterminate",
+    "disabled",
+    "required",
+    "class",
+  ]);
+  expect(CheckboxPlayground.play).toBeTypeOf("function");
+
+  const statesTemplate = CheckboxStates.render().template;
+  const appsTemplate = CheckboxApps.render().template;
+  expect(statesTemplate).toContain("<fieldset");
+  expect(statesTemplate).toContain("<legend");
+  expect(statesTemplate).toContain(':indeterminate="partial"');
+  expect(appsTemplate).toContain("Slipway / Logs");
+  expect(appsTemplate).toContain("Hagfish / Sign in");
+  expect(appsTemplate).toContain("text-red-600");
+  expect(appsTemplate).toContain('class="sr-only"');
 });
 
 test("keeps story composition out of the component-level API", () => {
