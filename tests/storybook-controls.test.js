@@ -10,6 +10,11 @@ import {
   Playground as CheckboxPlayground,
   States as CheckboxStates,
 } from "../stories/Checkbox.stories.js";
+import {
+  Apps as SwitchApps,
+  Playground as SwitchPlayground,
+  States as SwitchStates,
+} from "../stories/Switch.stories.js";
 import { Playground as PopoverPlayground } from "../stories/Popover.stories.js";
 import {
   Playground as MenuPlayground,
@@ -61,6 +66,32 @@ test("keeps Checkbox controls useful and its recipes semantic", () => {
   expect(appsTemplate).toContain("Hagfish / Sign in");
   expect(appsTemplate).toContain("text-red-600");
   expect(appsTemplate).toContain('class="sr-only"');
+});
+
+test("keeps Switch controls boolean-sized and its saving recipe durable", () => {
+  expect(SwitchPlayground.parameters.controls.include).toEqual([
+    "label",
+    "description",
+    "checked",
+    "disabled",
+    "required",
+    "invalid",
+    "class",
+  ]);
+  expect(SwitchPlayground.play).toBeTypeOf("function");
+
+  const statesTemplate = SwitchStates.render().template;
+  const appsTemplate = SwitchApps.render().template;
+  expect(statesTemplate).toContain("min-h-20");
+  expect(statesTemplate).toContain("checked:bg-emerald-600");
+  expect(statesTemplate).toContain('aria-invalid="true"');
+  expect(appsTemplate).toContain("Release flag");
+  expect(appsTemplate).toContain("Durable optimistic setting");
+  expect(SwitchApps.render().setup.toString()).toContain(
+    "previous setting was restored",
+  );
+  expect(appsTemplate).toContain(':disabled="saving"');
+  expect(appsTemplate).not.toContain("Hagfish");
 });
 
 test("keeps story composition out of the component-level API", () => {

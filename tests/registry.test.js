@@ -61,6 +61,7 @@ test("keeps every Vue form-control source identical to its registry source", () 
     ["input", "src/vue/input/Input.vue", "Input.vue"],
     ["textarea", "src/vue/textarea/Textarea.vue", "Textarea.vue"],
     ["checkbox", "src/vue/checkbox/Checkbox.vue", "Checkbox.vue"],
+    ["switch", "src/vue/switch/Switch.vue", "Switch.vue"],
   ]) {
     expect(registrySource("vue", filename, item)).toBe(
       readFileSync(resolve(sourcePath), "utf8"),
@@ -73,6 +74,7 @@ test("ships parseable framework-native React form source", () => {
     ["input", "Input.jsx"],
     ["textarea", "Textarea.jsx"],
     ["checkbox", "Checkbox.jsx"],
+    ["switch", "Switch.jsx"],
   ]) {
     expect(() =>
       parse(registrySource("react", filename, item), {
@@ -88,6 +90,7 @@ test("ships compiler-valid Svelte 5 form source", () => {
     ["input", "Input.svelte"],
     ["textarea", "Textarea.svelte"],
     ["checkbox", "Checkbox.svelte"],
+    ["switch", "Switch.svelte"],
   ]) {
     const result = compile(registrySource("svelte", filename, item), {
       filename,
@@ -109,6 +112,9 @@ test("keeps form controls native and free of hidden field APIs", () => {
     ["checkbox", "vue", "Checkbox.vue"],
     ["checkbox", "react", "Checkbox.jsx"],
     ["checkbox", "svelte", "Checkbox.svelte"],
+    ["switch", "vue", "Switch.vue"],
+    ["switch", "react", "Switch.jsx"],
+    ["switch", "svelte", "Switch.svelte"],
   ]) {
     const source = registrySource(framework, filename, item);
     expect(source).not.toMatch(/\bvariant\b/i);
@@ -136,6 +142,28 @@ test("keeps Checkbox native, mixed-state capable, and class-first", () => {
     expect(source).not.toMatch(/CheckboxIndicator|CheckboxGroup/);
     expect(source).not.toMatch(/\b(?:variant|tone|size)\s*(?::|=(?!=))/i);
     expect(source).not.toMatch(/keydown|keyup|Spacebar/);
+  }
+});
+
+test("keeps Switch native, boolean-only, class-first, and browser-operated", () => {
+  for (const [framework, filename] of [
+    ["vue", "Switch.vue"],
+    ["react", "Switch.jsx"],
+    ["svelte", "Switch.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "switch");
+
+    expect(source).toMatch(/type=["']checkbox["']/);
+    expect(source).toMatch(/role=["']switch["']/);
+    expect(source).toContain('data-slot="switch"');
+    expect(source).toContain("data-state");
+    expect(source).toContain("tailwind-merge");
+    expect(source).toContain("after:content-['']");
+    expect(source).toContain("motion-reduce:after:transition-none");
+    expect(source).not.toMatch(/SwitchThumb|SwitchTrack|SwitchGroup/);
+    expect(source).not.toMatch(/\b(?:variant|tone|size)\s*(?::|=(?!=))/i);
+    expect(source).not.toMatch(/keydown|keyup|Spacebar|Enter/);
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
   }
 });
 
