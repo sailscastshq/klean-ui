@@ -103,12 +103,14 @@ test("forwards form and accessibility attributes while caller Tailwind wins", ()
   );
 });
 
-test("centres the thumb and uses a short reduced-motion-aware settle", () => {
+test("centres the thumb without border or shadow bias and uses a short settle", () => {
   const wrapper = mount(Switch, { props: { modelValue: true } });
 
+  expect(wrapper.classes()).toContain("border-0");
   expect(wrapper.classes()).toContain("after:absolute");
   expect(wrapper.classes()).toContain("after:left-0.5");
-  expect(wrapper.classes()).toContain("after:top-[calc(50%+1px)]");
+  expect(wrapper.classes()).toContain("after:top-1/2");
+  expect(wrapper.classes()).not.toContain("after:shadow-sm");
   expect(wrapper.classes()).toContain("after:[transform:translate(0,-50%)]");
   expect(wrapper.classes()).toContain(
     "checked:after:[transform:translate(1.25rem,-50%)]",
@@ -120,6 +122,7 @@ test("centres the thumb and uses a short reduced-motion-aware settle", () => {
   );
   expect(wrapper.classes()).toContain("motion-reduce:after:duration-100");
   expect(wrapper.classes()).toContain("motion-reduce:after:ease-out");
+  expect(wrapper.classes()).toContain("forced-colors:border");
 });
 
 test("keeps native form reset and the Vue model in agreement", async () => {
