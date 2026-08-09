@@ -72,7 +72,7 @@ test("forwards form and accessibility attributes while caller Tailwind wins", ()
       role: "checkbox",
       type: "radio",
       class:
-        "h-5 w-9 bg-amber-300 checked:bg-emerald-700 checked:after:[transform:translateX(1rem)]",
+        "h-5 w-9 bg-amber-300 checked:bg-emerald-700 checked:after:[transform:translate(1rem,-50%)]",
     },
   });
 
@@ -92,15 +92,34 @@ test("forwards form and accessibility attributes while caller Tailwind wins", ()
   expect(wrapper.classes()).toContain("bg-amber-300");
   expect(wrapper.classes()).toContain("checked:bg-emerald-700");
   expect(wrapper.classes()).toContain(
-    "checked:after:[transform:translateX(1rem)]",
+    "checked:after:[transform:translate(1rem,-50%)]",
   );
   expect(wrapper.classes()).not.toContain("h-6");
   expect(wrapper.classes()).not.toContain("w-11");
   expect(wrapper.classes()).not.toContain("bg-gray-300");
   expect(wrapper.classes()).not.toContain("checked:bg-gray-950");
   expect(wrapper.classes()).not.toContain(
-    "checked:after:[transform:translateX(1.25rem)]",
+    "checked:after:[transform:translate(1.25rem,-50%)]",
   );
+});
+
+test("centres the thumb and uses a short reduced-motion-aware settle", () => {
+  const wrapper = mount(Switch, { props: { modelValue: true } });
+
+  expect(wrapper.classes()).toContain("after:absolute");
+  expect(wrapper.classes()).toContain("after:left-0.5");
+  expect(wrapper.classes()).toContain("after:top-[calc(50%+1px)]");
+  expect(wrapper.classes()).toContain("after:[transform:translate(0,-50%)]");
+  expect(wrapper.classes()).toContain(
+    "checked:after:[transform:translate(1.25rem,-50%)]",
+  );
+  expect(wrapper.classes()).toContain("after:duration-200");
+  expect(wrapper.classes()).toContain("after:[transition-property:transform]");
+  expect(wrapper.classes()).toContain(
+    "after:ease-[cubic-bezier(0.32,0.72,0,1)]",
+  );
+  expect(wrapper.classes()).toContain("motion-reduce:after:duration-100");
+  expect(wrapper.classes()).toContain("motion-reduce:after:ease-out");
 });
 
 test("keeps native form reset and the Vue model in agreement", async () => {

@@ -67,12 +67,13 @@ with visible error feedback if saving fails.
 ## Tailwind is the visual API
 
 There are no variant, colour, size, track, or thumb props. Caller classes merge
-after the neutral defaults, including standard pseudo-element utilities.
+after the neutral defaults, including standard pseudo-element utilities. The
+short state transition becomes quicker when the user prefers reduced motion.
 
 ```vue
 <Switch
   v-model="enabled"
-  class="h-5 w-9 bg-stone-300 p-0.5 after:size-4 checked:bg-emerald-600 checked:after:[transform:translateX(1rem)]"
+  class="h-5 w-9 bg-stone-300 after:size-4 checked:bg-emerald-600 checked:after:[transform:translate(1rem,-50%)]"
 />
 ```
 

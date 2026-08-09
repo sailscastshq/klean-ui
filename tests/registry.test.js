@@ -159,7 +159,7 @@ test("keeps Switch native, boolean-only, class-first, and browser-operated", () 
     expect(source).toContain("data-state");
     expect(source).toContain("tailwind-merge");
     expect(source).toContain("after:content-['']");
-    expect(source).toContain("motion-reduce:after:transition-none");
+    expect(source).toContain("motion-reduce:after:duration-100");
     expect(source).not.toMatch(/SwitchThumb|SwitchTrack|SwitchGroup/);
     expect(source).not.toMatch(/\b(?:variant|tone|size)\s*(?::|=(?!=))/i);
     expect(source).not.toMatch(/keydown|keyup|Spacebar|Enter/);

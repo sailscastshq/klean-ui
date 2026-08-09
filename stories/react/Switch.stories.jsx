@@ -99,6 +99,6 @@ export const Styled = {
     description: "Deploy the main branch after every successful build.",
     defaultChecked: true,
     className:
-      "h-5 w-9 bg-stone-300 p-0.5 after:size-4 checked:bg-emerald-600 checked:after:[transform:translateX(1rem)] dark:bg-stone-700 dark:checked:bg-emerald-400",
+      "h-5 w-9 bg-stone-300 after:size-4 checked:bg-emerald-600 checked:after:[transform:translate(1rem,-50%)] dark:bg-stone-700 dark:checked:bg-emerald-400",
   },
 };

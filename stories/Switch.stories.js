@@ -170,7 +170,7 @@ export const States = {
                 <span class="text-sm font-medium">Compact status</span>
                 <Switch
                   v-model="compact"
-                  class="h-5 w-9 bg-stone-300 p-0.5 after:size-4 checked:bg-emerald-600 checked:after:[transform:translateX(1rem)] dark:bg-stone-700 dark:checked:bg-emerald-400"
+                  class="h-5 w-9 bg-stone-300 after:size-4 checked:bg-emerald-600 checked:after:[transform:translate(1rem,-50%)] dark:bg-stone-700 dark:checked:bg-emerald-400"
                 />
               </label>
               <p class="mt-4 text-sm leading-6 text-gray-500">No size or colour prop. Tailwind changes the source you own.</p>
@@ -240,7 +240,7 @@ export const Apps = {
               <Switch
                 v-model="flag"
                 aria-label="Enable new-checkout"
-                class="h-5 w-9 p-0.5 after:size-4 checked:after:[transform:translateX(1rem)]"
+                class="h-5 w-9 after:size-4 checked:after:[transform:translate(1rem,-50%)]"
               />
               <button type="button" aria-label="Open release flag actions" class="grid size-9 place-items-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900">•••</button>
             </div>
