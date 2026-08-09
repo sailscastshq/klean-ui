@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "radio",
+  "description": "A native-first radio for mutually exclusive form choices.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Radio.vue",
+      "target": "radio/Radio.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Radio.jsx",
+      "target": "radio/Radio.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Radio.svelte",
+      "target": "radio/Radio.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

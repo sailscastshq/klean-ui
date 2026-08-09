@@ -166,4 +166,4 @@ Checkbox preserves native reset and form semantics, but it does not persist arbi
 - Select — one choice from a longer fixed list.
 - Button — an action rather than persistent form state.
 - Switch — an immediate on/off setting; it does not support mixed state.
-- Radio Group — one mutually exclusive choice from a small visible set.
+- Radio — one mutually exclusive choice from a small visible set.
