@@ -61,9 +61,27 @@ value.
 ## Styling choices
 
 The default control intentionally keeps the browser's radio rendering and uses
-`accent-current` for caller-owned colour. Put `sr-only` on `Radio` when a whole
-label becomes the visual card or chip, then style the label with Tailwind's
-`has-[:checked]` selector.
+`accent-current` for caller-owned colour. `Radio` renders only the native input,
+so classes passed to it style the control without styling its label:
+
+```vue
+<div class="flex items-center gap-3">
+  <Radio
+    id="region-lagos"
+    v-model="region"
+    name="region"
+    value="lagos"
+    class="size-5 text-emerald-700"
+  />
+  <label for="region-lagos" class="text-sm text-gray-600">Lagos</label>
+</div>
+```
+
+Keep the `id` and `for` association so the text remains the accessible name and
+click target. Put `sr-only` on `Radio` only when a whole label becomes the
+visual card or chip, then style that label with Tailwind's `has-[:checked]`
+selector. Selected-label styling is optional caller markup, never component
+behaviour.
 
 ## Durable state
 
