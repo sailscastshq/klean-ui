@@ -19,7 +19,6 @@ function TextareaExample() {
 const meta = {
   title: "Components/Textarea",
   component: TextareaExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered", controls: { disable: true } },
 };
 

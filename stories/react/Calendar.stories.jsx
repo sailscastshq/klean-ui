@@ -4,7 +4,6 @@ import Calendar from "../../registry/calendar/react/Calendar.jsx";
 const meta = {
   title: "Components/Calendar",
   component: Calendar,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     defaultValue: "2026-08-12",

@@ -1,5 +1,6 @@
 import { fn } from "storybook/test";
 import Button from "../src/vue/button/Button.vue";
+import Spinner from "../src/vue/spinner/Spinner.vue";
 
 const BoringStackLink = {
   name: "BoringStackLink",
@@ -93,7 +94,7 @@ export const StateSheet = {
   name: "States",
   parameters: { controls: { disable: true } },
   render: () => ({
-    components: { Button },
+    components: { Button, Spinner },
     template: `
       <section class="w-[min(42rem,calc(100vw-2rem))] bg-white p-6 sm:p-10" aria-labelledby="button-states-title">
         <div class="flex items-end justify-between gap-6">
@@ -114,10 +115,7 @@ export const StateSheet = {
           <p class="font-mono text-xs text-klean-muted">processing</p>
           <div>
             <Button disabled aria-busy="true">
-              <svg class="h-4 w-4 motion-safe:animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity=".3" stroke-width="2.5" />
-                <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" />
-              </svg>
+              <Spinner />
               Saving
             </Button>
           </div>
@@ -192,7 +190,7 @@ export const EverydayUses = {
   name: "Recipes",
   parameters: { layout: "fullscreen", controls: { disable: true } },
   render: () => ({
-    components: { Button },
+    components: { Button, Spinner },
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="everyday-uses-title">
         <header class="max-w-3xl">
@@ -207,10 +205,7 @@ export const EverydayUses = {
               <h2 id="submit-recipe-title" class="font-semibold">Processing submit</h2>
               <p class="mt-2 min-h-12 text-sm leading-6 text-klean-muted">Inertia owns request state; the form owns the label.</p>
               <Button type="submit" disabled aria-busy="true" class="mt-7 w-full">
-                <svg class="h-4 w-4 motion-safe:animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity=".3" stroke-width="2.5" />
-                  <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" />
-                </svg>
+                <Spinner />
                 Saving changes
               </Button>
             </article>

@@ -192,6 +192,24 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
 }
 
 for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
+  test(`installs only the native ${framework} Spinner`, () => {
+    const root = makeFixture({ framework });
+    const result = installComponent("spinner", { cwd: root });
+    const destination = resolve(
+      root,
+      `assets/js/components/ui/spinner/Spinner.${fixture.extension}`,
+    );
+
+    expect(result.plan.registryItems).toEqual(["spinner"]);
+    expect(result.plan.files).toHaveLength(1);
+    expect(existsSync(destination)).toBe(true);
+    expect(readFileSync(destination, "utf8")).toBe(
+      readFileSync(result.plan.file.sourcePath, "utf8"),
+    );
+  });
+}
+
+for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
   test(`plans the complete native ${framework} date family without configuration`, () => {
     const root = makeFixture({ framework, tailwindMerge: false });
     const extension = fixture.extension;

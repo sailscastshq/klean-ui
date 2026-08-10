@@ -3,7 +3,6 @@ import SchedulePickerExample from "./SchedulePickerExample.svelte";
 const meta = {
   title: "Components/Schedule Picker",
   component: SchedulePickerExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     name: "publishAt",

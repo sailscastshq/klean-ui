@@ -38,7 +38,6 @@ function RadioExample({ selected: initialSelected, disabled }) {
 const meta = {
   title: "Components/Radio",
   component: RadioExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: { selected: "lagos", disabled: false },
   argTypes: {

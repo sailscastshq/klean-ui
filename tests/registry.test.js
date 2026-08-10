@@ -421,6 +421,56 @@ test("keeps the Vue Slide workbench and installable source identical", () => {
   );
 });
 
+test("keeps the Vue Spinner workbench and installable source identical", () => {
+  expect(registrySource("vue", "Spinner.vue", "spinner")).toBe(
+    readFileSync(resolve("src/vue/spinner/Spinner.vue"), "utf8"),
+  );
+});
+
+test("ships compiler-valid framework-native Spinner source", () => {
+  const reactSource = registrySource("react", "Spinner.jsx", "spinner");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  const svelteSource = registrySource("svelte", "Spinner.svelte", "spinner");
+  const result = compile(svelteSource, {
+    filename: "Spinner.svelte",
+    generate: false,
+  });
+
+  expect(result.warnings).toEqual([]);
+});
+
+test("keeps Spinner decorative, class-first, reduced-motion-safe, and ephemeral", () => {
+  for (const [framework, filename] of [
+    ["vue", "Spinner.vue"],
+    ["react", "Spinner.jsx"],
+    ["svelte", "Spinner.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "spinner");
+
+    expect(source).toMatch(/<span/);
+    expect(source).toMatch(/<svg/);
+    expect(source).toContain('data-slot="spinner"');
+    expect(source).toContain('data-slot="spinner-mark"');
+    expect(source).toContain('aria-hidden="true"');
+    expect(source).toContain('focusable="false"');
+    expect(source).toContain("currentColor");
+    expect(source).toContain("animate-spin");
+    expect(source).toContain("motion-reduce:animate-none");
+    expect(source).toContain("[&>*]:size-full");
+    expect(source).toContain("tailwind-merge");
+    expect(source).not.toMatch(/role=["']status["']/);
+    expect(source).not.toMatch(/aria-live|aria-busy/);
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
+    expect(source).not.toMatch(
+      /\b(?:variant|tone|speed|loading)\s*(?::|=(?!=))/i,
+    );
+    expect(source).not.toMatch(/setTimeout|requestAnimationFrame/);
+  }
+});
+
 test("ships compiler-valid framework-native Slide source", () => {
   const reactSource = registrySource("react", "Slide.jsx", "slide");
   expect(() =>

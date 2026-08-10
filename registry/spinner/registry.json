@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "spinner",
+  "description": "A decorative loading wrapper with a neutral fallback, product-owned mark composition, and application-owned status semantics.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Spinner.vue",
+      "target": "spinner/Spinner.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Spinner.jsx",
+      "target": "spinner/Spinner.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Spinner.svelte",
+      "target": "spinner/Spinner.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

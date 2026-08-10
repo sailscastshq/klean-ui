@@ -5,7 +5,6 @@ import { contract } from "../shared/contract.js";
 const meta = {
   title: "Components/Button",
   component: Button,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     children: contract.buttonLabel,

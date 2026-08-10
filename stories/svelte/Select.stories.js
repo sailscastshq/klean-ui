@@ -4,7 +4,6 @@ import SelectExample from './SelectExample.svelte'
 const meta = {
   title: 'Components/Select',
   component: SelectExample,
-  tags: ['autodocs'],
   parameters: { layout: 'centered', controls: { disable: true } },
 }
 

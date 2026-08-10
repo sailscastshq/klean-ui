@@ -4,7 +4,6 @@ import Slide from "../../registry/slide/react/Slide.jsx";
 const meta = {
   title: "Components/Slide",
   component: Slide,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     children: "Slide to continue",

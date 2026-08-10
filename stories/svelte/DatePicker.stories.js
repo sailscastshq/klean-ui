@@ -3,7 +3,6 @@ import DatePickerExample from "./DatePickerExample.svelte";
 const meta = {
   title: "Components/Date Picker",
   component: DatePickerExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     value: "2026-08-12",

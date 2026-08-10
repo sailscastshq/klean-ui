@@ -3,7 +3,6 @@ import CalendarExample from "./CalendarExample.svelte";
 const meta = {
   title: "Components/Calendar",
   component: CalendarExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     value: "2026-08-12",

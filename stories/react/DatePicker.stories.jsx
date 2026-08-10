@@ -4,7 +4,6 @@ import DatePicker from "../../registry/date-picker/react/DatePicker.jsx";
 const meta = {
   title: "Components/Date Picker",
   component: DatePicker,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     defaultValue: "2026-08-12",

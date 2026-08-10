@@ -46,7 +46,6 @@ function SwitchExample({
 const meta = {
   title: "Components/Switch",
   component: SwitchExample,
-  tags: ["autodocs"],
   parameters: {
     layout: "centered",
     docs: {
