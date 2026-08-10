@@ -202,6 +202,48 @@ test("keeps the Vue Popover workbench and registry source identical", () => {
   );
 });
 
+test("keeps the Vue Tooltip workbench and registry source identical", () => {
+  expect(registrySource("vue", "Tooltip.vue", "tooltip")).toBe(
+    readFileSync(resolve("src/vue/tooltip/Tooltip.vue"), "utf8"),
+  );
+});
+
+test("ships compiler-valid framework-native Tooltip source", () => {
+  const reactSource = registrySource("react", "Tooltip.jsx", "tooltip");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  const svelteSource = registrySource("svelte", "Tooltip.svelte", "tooltip");
+  const result = compile(svelteSource, {
+    filename: "Tooltip.svelte",
+    generate: false,
+  });
+
+  expect(result.warnings).toEqual([]);
+});
+
+test("keeps Tooltip wrapper-clean, class-first, semantic, and ephemeral", () => {
+  for (const [framework, filename] of [
+    ["vue", "Tooltip.vue"],
+    ["react", "Tooltip.jsx"],
+    ["svelte", "Tooltip.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "tooltip");
+
+    expect(source).toContain("@floating-ui/dom");
+    expect(source).toMatch(/popover=["']hint["']/);
+    expect(source).toMatch(/role=["']tooltip["']/);
+    expect(source).toContain("aria-describedby");
+    expect(source).toMatch(/class(?:Name)?=["']contents["']/);
+    expect(source).toContain('data-slot="tooltip-arrow"');
+    expect(source).not.toMatch(/interestfor|interestForElement/);
+    expect(source).not.toMatch(/TooltipTrigger|TooltipContent|TooltipProvider/);
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
+    expect(source).not.toMatch(/\bvariant\b/i);
+  }
+});
+
 test("ships compiler-valid framework-native Popover source", () => {
   const reactSource = registrySource("react", "Popover.jsx", "popover");
   expect(() =>

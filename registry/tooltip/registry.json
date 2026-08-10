@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema.json",
+  "name": "tooltip",
+  "description": "Short supplementary text for one semantic button or link, with accessible hover and focus behavior.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Tooltip.vue",
+      "target": "tooltip/Tooltip.vue",
+      "dependencies": {
+        "@floating-ui/dom": "^1.8.0",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/Tooltip.jsx",
+      "target": "tooltip/Tooltip.jsx",
+      "dependencies": {
+        "@floating-ui/dom": "^1.8.0",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "source": "svelte/Tooltip.svelte",
+      "target": "tooltip/Tooltip.svelte",
+      "dependencies": {
+        "@floating-ui/dom": "^1.8.0",
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}
