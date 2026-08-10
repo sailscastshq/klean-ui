@@ -3,7 +3,6 @@ import DateRangePickerExample from "./DateRangePickerExample.svelte";
 const meta = {
   title: "Components/Date Range Picker",
   component: DateRangePickerExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     name: "period",

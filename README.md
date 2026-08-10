@@ -56,7 +56,7 @@ npx klean-ui add button \
 
 Klean will not silently replace edited source. Re-running an unchanged installation is a no-op; edited files produce a useful conflict and require the deliberate `--overwrite` flag.
 
-Read [the complete installer contract](./docs/installer.md).
+Read [the complete installation guide](https://docs.sailscasts.com/klean-ui/installation).
 
 ## Native form controls
 
@@ -82,7 +82,7 @@ Klean installs Input and Textarea independently. The application writes the real
 </div>
 ```
 
-`aria-invalid="false"` is valid, and the stable empty error contributes no description. When an error appears, the same relationship becomes useful without conditional IDs or a Klean helper. Validation, IDs, messages, and values remain application-owned. Input and Textarea forward native attributes, while visual density, color, shape, and layout remain ordinary caller Tailwind classes. Read [the native form markup contract](./docs/forms.md).
+`aria-invalid="false"` is valid, and the stable empty error contributes no description. When an error appears, the same relationship becomes useful without conditional IDs or a Klean helper. Validation, IDs, messages, and values remain application-owned. Input and Textarea forward native attributes, while visual density, color, shape, and layout remain ordinary caller Tailwind classes. Read the canonical [Input documentation](https://docs.sailscasts.com/klean-ui/components/input).
 
 ## Button contract
 
@@ -124,7 +124,7 @@ composes three framework-native Storybooks:
 ```
 
 Open **Vue**, **React**, or **Svelte**, then choose **Components / Button**,
-**Input**, **Textarea**, **Checkbox**, **Radio**, **Switch**, **Popover**, **Menu**, **Select**, **Combobox**, **Dialog**, or **Toast**. The stories mount the actual
+**Input**, **Textarea**, **Checkbox**, **Radio**, **Switch**, **Spinner**, **Popover**, **Menu**, **Select**, **Combobox**, **Dialog**, **Slide**, or **Toast**. The stories mount the actual
 registry source and share behavior expectations without sharing a runtime
 component abstraction. Controls stay limited to useful behavioral inputs;
 interaction stories and the accessibility addon verify the durable contract.
@@ -147,4 +147,4 @@ The package contains the CLI and its versioned registry. It does not publish the
 
 Klean is the canonical implementation of our Durable UI practice. Durable behavior lives in the component, composable, or Boring Stack block that owns it; it does not turn every primitive into a state-management abstraction.
 
-Read [the design philosophy](./docs/design-philosophy.md), [installer contract](./docs/installer.md), [Durable UI contract](./docs/durable-ui.md), [theming convention](./docs/theming.md), [Button contract](./docs/button.md), [native form markup contract](./docs/forms.md), [Checkbox contract](./docs/checkbox.md), [Popover contract](./docs/popover.md), [Menu contract](./docs/menu.md), [Select contract](./docs/select.md), [Combobox contract](./docs/combobox.md), [Dialog contract](./docs/dialog.md), [Toast contract](./docs/toast.md), and [Sailscasts docs contract](./docs/docs-site-plan.md).
+The canonical documentation lives at [docs.sailscasts.com/klean-ui](https://docs.sailscasts.com/klean-ui/), including the [doctrine](https://docs.sailscasts.com/klean-ui/doctrine), [installation guide](https://docs.sailscasts.com/klean-ui/installation), [Durable UI contract](https://docs.sailscasts.com/klean-ui/durable-ui), [theming convention](https://docs.sailscasts.com/klean-ui/theming), and every [component page](https://docs.sailscasts.com/klean-ui/components/).

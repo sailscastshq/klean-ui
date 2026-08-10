@@ -14,6 +14,7 @@ export { default as Radio } from "./vue/radio/Radio.vue";
 export { default as SchedulePicker } from "./vue/schedule-picker/SchedulePicker.vue";
 export { default as Select } from "./vue/select/Select.vue";
 export { default as Slide } from "./vue/slide/Slide.vue";
+export { default as Spinner } from "./vue/spinner/Spinner.vue";
 export { default as Textarea } from "./vue/textarea/Textarea.vue";
 export { default as Toast } from "./vue/toast/Toast.vue";
 export { createToast, toast } from "./vue/toast/toast.js";

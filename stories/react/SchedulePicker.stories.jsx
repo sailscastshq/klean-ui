@@ -4,7 +4,6 @@ import SchedulePicker from "../../registry/schedule-picker/react/SchedulePicker.
 const meta = {
   title: "Components/Schedule Picker",
   component: SchedulePicker,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     name: "publishAt",

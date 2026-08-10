@@ -5,7 +5,6 @@ import { contract } from "../shared/contract.js";
 const meta = {
   title: "Components/Switch",
   component: SwitchExample,
-  tags: ["autodocs"],
   parameters: {
     layout: "centered",
     docs: {

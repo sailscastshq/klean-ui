@@ -28,7 +28,6 @@ function CheckboxExample({ label, defaultChecked, ...props }) {
 const meta = {
   title: "Components/Checkbox",
   component: CheckboxExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     label: contract.checkboxLabel,

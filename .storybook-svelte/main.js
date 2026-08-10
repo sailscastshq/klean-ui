@@ -15,7 +15,7 @@ function getAbsolutePath(value) {
 
 const config = {
   stories: ["../stories/svelte/**/*.stories.@(js|mjs|ts)"],
-  addons: ["@storybook/addon-docs", "@storybook/addon-a11y"],
+  addons: ["@storybook/addon-a11y"],
   framework: {
     name: getAbsolutePath("@storybook/svelte-vite"),
     options: { docgen: false },

@@ -5,7 +5,6 @@ import { contract } from '../shared/contract.js'
 const meta = {
   title: 'Components/Input',
   component: InputExample,
-  tags: ['autodocs'],
   parameters: { layout: 'centered' },
   args: { invalid: false },
   argTypes: { invalid: { control: 'boolean' } },

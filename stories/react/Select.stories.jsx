@@ -36,7 +36,6 @@ function SelectExample() {
 const meta = {
   title: "Components/Select",
   component: SelectExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered", controls: { disable: true } },
 };
 

@@ -4,7 +4,6 @@ import DateRangePicker from "../../registry/date-range-picker/react/DateRangePic
 const meta = {
   title: "Components/Date Range Picker",
   component: DateRangePicker,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     name: "period",

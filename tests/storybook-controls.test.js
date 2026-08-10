@@ -32,6 +32,11 @@ import {
   ReducedMotion as ToastReducedMotion,
 } from "../stories/Toast.stories.js";
 import { Playground as SlidePlayground } from "../stories/Slide.stories.js";
+import {
+  Apps as SpinnerApps,
+  Playground as SpinnerPlayground,
+  Semantics as SpinnerSemantics,
+} from "../stories/Spinner.stories.js";
 import { Products as SelectProducts } from "../stories/Select.stories.js";
 import { readFileSync } from "node:fs";
 
@@ -157,6 +162,25 @@ test("keeps Slide controls limited to caller-owned action state", () => {
     "pending",
     "class",
   ]);
+});
+
+test("keeps Spinner controls contextual and its recipes truthful", () => {
+  expect(SpinnerPlayground.parameters.controls.include).toEqual([
+    "loading",
+    "label",
+    "class",
+  ]);
+  expect(SpinnerPlayground.play).toBeTypeOf("function");
+
+  const semanticsTemplate = SpinnerSemantics.render().template;
+  const appsTemplate = SpinnerApps.render().template;
+  expect(semanticsTemplate).toContain('role="status"');
+  expect(semanticsTemplate).toContain('aria-busy="true"');
+  expect(semanticsTemplate).toContain("ProductLoader");
+  expect(appsTemplate).toContain("Slipway / Deployment action");
+  expect(appsTemplate).toContain("<ProductLoader />");
+  expect(appsTemplate).toContain("Hagfish / Invoice action");
+  expect(appsTemplate).toContain("Existing rows remain readable");
 });
 
 test("makes Menu recipe cursor and Tab affordances explicit", () => {

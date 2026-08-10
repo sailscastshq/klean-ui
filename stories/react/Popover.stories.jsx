@@ -32,7 +32,6 @@ function PopoverExample() {
 const meta = {
   title: "Components/Popover",
   component: PopoverExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered", controls: { disable: true } },
 };
 

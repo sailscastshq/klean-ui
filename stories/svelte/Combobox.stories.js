@@ -4,7 +4,6 @@ import ComboboxExample from "./ComboboxExample.svelte";
 const meta = {
   title: "Components/Combobox",
   component: ComboboxExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered", controls: { disable: true } },
 };
 

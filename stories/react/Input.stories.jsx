@@ -28,7 +28,6 @@ function InputExample({ invalid = false }) {
 const meta = {
   title: "Components/Input",
   component: InputExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: { invalid: false },
   argTypes: { invalid: { control: "boolean" } },

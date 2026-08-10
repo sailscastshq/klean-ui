@@ -28,7 +28,6 @@ function MenuExample() {
 const meta = {
   title: "Components/Menu",
   component: MenuExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered", controls: { disable: true } },
 };
 

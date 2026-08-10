@@ -4,7 +4,6 @@ import SlideExample from "./SlideExample.svelte";
 const meta = {
   title: "Components/Slide",
   component: SlideExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered" },
   args: {
     label: "Slide to continue",

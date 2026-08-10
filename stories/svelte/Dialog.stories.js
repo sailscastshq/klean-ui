@@ -5,7 +5,6 @@ import { contract } from "../shared/contract.js";
 const meta = {
   title: "Components/Dialog",
   component: DialogExample,
-  tags: ["autodocs"],
   parameters: { layout: "centered", controls: { disable: true } },
 };
 
