@@ -61,6 +61,7 @@ test("keeps every Vue form-control source identical to its registry source", () 
     ["input", "src/vue/input/Input.vue", "Input.vue"],
     ["textarea", "src/vue/textarea/Textarea.vue", "Textarea.vue"],
     ["checkbox", "src/vue/checkbox/Checkbox.vue", "Checkbox.vue"],
+    ["radio", "src/vue/radio/Radio.vue", "Radio.vue"],
     ["switch", "src/vue/switch/Switch.vue", "Switch.vue"],
   ]) {
     expect(registrySource("vue", filename, item)).toBe(
@@ -74,6 +75,7 @@ test("ships parseable framework-native React form source", () => {
     ["input", "Input.jsx"],
     ["textarea", "Textarea.jsx"],
     ["checkbox", "Checkbox.jsx"],
+    ["radio", "Radio.jsx"],
     ["switch", "Switch.jsx"],
   ]) {
     expect(() =>
@@ -90,6 +92,7 @@ test("ships compiler-valid Svelte 5 form source", () => {
     ["input", "Input.svelte"],
     ["textarea", "Textarea.svelte"],
     ["checkbox", "Checkbox.svelte"],
+    ["radio", "Radio.svelte"],
     ["switch", "Switch.svelte"],
   ]) {
     const result = compile(registrySource("svelte", filename, item), {
@@ -112,6 +115,9 @@ test("keeps form controls native and free of hidden field APIs", () => {
     ["checkbox", "vue", "Checkbox.vue"],
     ["checkbox", "react", "Checkbox.jsx"],
     ["checkbox", "svelte", "Checkbox.svelte"],
+    ["radio", "vue", "Radio.vue"],
+    ["radio", "react", "Radio.jsx"],
+    ["radio", "svelte", "Radio.svelte"],
     ["switch", "vue", "Switch.vue"],
     ["switch", "react", "Switch.jsx"],
     ["switch", "svelte", "Switch.svelte"],
@@ -142,6 +148,29 @@ test("keeps Checkbox native, mixed-state capable, and class-first", () => {
     expect(source).not.toMatch(/CheckboxIndicator|CheckboxGroup/);
     expect(source).not.toMatch(/\b(?:variant|tone|size)\s*(?::|=(?!=))/i);
     expect(source).not.toMatch(/keydown|keyup|Spacebar/);
+  }
+});
+
+test("keeps Radio native, group-free, class-first, and browser-operated", () => {
+  for (const [framework, filename] of [
+    ["vue", "Radio.vue"],
+    ["react", "Radio.jsx"],
+    ["svelte", "Radio.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "radio");
+
+    expect(source).toMatch(/type=["']radio["']/);
+    expect(source).toContain('data-slot="radio"');
+    expect(source).toContain("data-state");
+    expect(source).toContain("tailwind-merge");
+    expect(source).toContain("appearance-auto");
+    expect(source).toContain("accent-current");
+    expect(source).not.toMatch(/role=["']radio["']/);
+    expect(source).not.toContain("aria-checked");
+    expect(source).not.toMatch(/RadioGroup|RadioIndicator|RadioItem/);
+    expect(source).not.toMatch(/\b(?:variant|tone|size)\s*(?::|=(?!=))/i);
+    expect(source).not.toMatch(/keydown|keyup|ArrowUp|ArrowDown/);
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
   }
 });
 

@@ -270,6 +270,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     ["input", "Input"],
     ["textarea", "Textarea"],
     ["checkbox", "Checkbox"],
+    ["radio", "Radio"],
     ["switch", "Switch"],
   ]) {
     test(`installs only the native ${framework} ${filename}`, () => {

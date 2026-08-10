@@ -15,6 +15,11 @@ import {
   Playground as SwitchPlayground,
   States as SwitchStates,
 } from "../stories/Switch.stories.js";
+import {
+  Apps as RadioApps,
+  Playground as RadioPlayground,
+  States as RadioStates,
+} from "../stories/Radio.stories.js";
 import { Playground as PopoverPlayground } from "../stories/Popover.stories.js";
 import {
   Playground as MenuPlayground,
@@ -91,6 +96,28 @@ test("keeps Switch controls boolean-sized and its saving recipe durable", () => 
     "previous setting was restored",
   );
   expect(appsTemplate).toContain(':disabled="saving"');
+  expect(appsTemplate).not.toContain("Hagfish");
+});
+
+test("keeps Radio controls scalar-sized and its recipes semantic", () => {
+  expect(RadioPlayground.parameters.controls.include).toEqual([
+    "legend",
+    "selected",
+    "disabled",
+    "required",
+    "invalid",
+    "class",
+  ]);
+  expect(RadioPlayground.play).toBeTypeOf("function");
+
+  const statesTemplate = RadioStates.render().template;
+  const appsTemplate = RadioApps.render().template;
+  expect(statesTemplate).toContain("<fieldset");
+  expect(statesTemplate).toContain("<legend");
+  expect(statesTemplate).toContain('aria-invalid="true"');
+  expect(appsTemplate).toContain("Slipway recipes");
+  expect(appsTemplate).toContain('class="sr-only"');
+  expect(appsTemplate).toContain("has-[:checked]");
   expect(appsTemplate).not.toContain("Hagfish");
 });
 
