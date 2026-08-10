@@ -1,0 +1,95 @@
+import { expect, userEvent, waitFor, within } from "storybook/test";
+import Tooltip from "../../registry/tooltip/react/Tooltip.jsx";
+
+function RefreshIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+    >
+      <path
+        d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+const meta = {
+  title: "Components/Tooltip",
+  component: Tooltip,
+  parameters: { layout: "centered" },
+  args: {
+    text: "Re-run query",
+    placement: "top",
+    className: "",
+  },
+  argTypes: {
+    text: { control: "text" },
+    placement: {
+      control: "select",
+      options: ["top", "right", "bottom", "left"],
+    },
+    className: { control: "text" },
+  },
+};
+
+export default meta;
+
+export const Playground = {
+  render: (args) => (
+    <Tooltip {...args}>
+      <button
+        type="button"
+        aria-label="Re-run query"
+        className="grid size-10 place-items-center rounded-md bg-gray-950 text-white focus-visible:outline-2 focus-visible:outline-offset-2 dark:bg-white dark:text-gray-950"
+      >
+        <RefreshIcon />
+      </button>
+    </Tooltip>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button", { name: "Re-run query" });
+    trigger.focus();
+
+    await waitFor(
+      () => {
+        const tooltip = canvasElement.ownerDocument.getElementById(
+          trigger.getAttribute("aria-describedby"),
+        );
+        expect(tooltip).toHaveAttribute("data-state", "open");
+      },
+      { timeout: 1000 },
+    );
+    await userEvent.keyboard("{Escape}");
+    await expect(trigger).toHaveFocus();
+  },
+};
+
+export const Sides = {
+  render: () => (
+    <div className="grid grid-cols-2 gap-24">
+      {["top", "right", "bottom", "left"].map((placement) => (
+        <Tooltip
+          key={placement}
+          text={placement[0].toUpperCase() + placement.slice(1)}
+          placement={placement}
+        >
+          <button
+            type="button"
+            aria-label={`${placement} tooltip`}
+            className="grid size-12 place-items-center rounded-full border border-gray-300 bg-white text-sm font-semibold uppercase text-gray-950"
+          >
+            {placement[0]}
+          </button>
+        </Tooltip>
+      ))}
+    </div>
+  ),
+};

@@ -37,6 +37,10 @@ import {
   Playground as SpinnerPlayground,
   Semantics as SpinnerSemantics,
 } from "../stories/Spinner.stories.js";
+import {
+  Playground as TooltipPlayground,
+  Products as TooltipProducts,
+} from "../stories/Tooltip.stories.js";
 import { Products as SelectProducts } from "../stories/Select.stories.js";
 import { readFileSync } from "node:fs";
 
@@ -181,6 +185,22 @@ test("keeps Spinner controls contextual and its recipes truthful", () => {
   expect(appsTemplate).toContain("<ProductLoader />");
   expect(appsTemplate).toContain("Hagfish / Invoice action");
   expect(appsTemplate).toContain("Existing rows remain readable");
+});
+
+test("keeps Tooltip controls terse and proves independent product styling", () => {
+  expect(TooltipPlayground.parameters.controls.include).toEqual([
+    "text",
+    "placement",
+    "class",
+  ]);
+  expect(TooltipPlayground.play).toBeTypeOf("function");
+
+  const productsTemplate = TooltipProducts.render().template;
+  expect(productsTemplate).toContain("Slipway / query toolbar");
+  expect(productsTemplate).toContain("Hagfish / invoice action");
+  expect(productsTemplate).toContain('aria-label="Re-run query"');
+  expect(productsTemplate).toContain("[&_[data-slot=tooltip-arrow]]:hidden");
+  expect(productsTemplate).not.toContain("interestfor");
 });
 
 test("makes Menu recipe cursor and Tab affordances explicit", () => {
