@@ -1,0 +1,91 @@
+{
+  "$schema": "../schema.json",
+  "name": "command",
+  "description": "A pragmatic searchable command-list composition with active-descendant keyboard behavior, app-owned actions, and durable focus recipes.",
+  "frameworks": {
+    "vue": {
+      "files": [
+        { "source": "vue/Command.vue", "target": "command/Command.vue" },
+        {
+          "source": "vue/CommandInput.vue",
+          "target": "command/CommandInput.vue"
+        },
+        {
+          "source": "vue/CommandList.vue",
+          "target": "command/CommandList.vue"
+        },
+        {
+          "source": "vue/CommandEmpty.vue",
+          "target": "command/CommandEmpty.vue"
+        },
+        {
+          "source": "vue/CommandGroup.vue",
+          "target": "command/CommandGroup.vue"
+        },
+        {
+          "source": "vue/CommandItem.vue",
+          "target": "command/CommandItem.vue"
+        },
+        {
+          "source": "vue/CommandSeparator.vue",
+          "target": "command/CommandSeparator.vue"
+        },
+        {
+          "source": "vue/CommandShortcut.vue",
+          "target": "command/CommandShortcut.vue"
+        },
+        { "source": "vue/context.js", "target": "command/context.js" }
+      ],
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/Command.jsx",
+      "target": "command/Command.jsx",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "files": [
+        {
+          "source": "svelte/Command.svelte",
+          "target": "command/Command.svelte"
+        },
+        {
+          "source": "svelte/CommandInput.svelte",
+          "target": "command/CommandInput.svelte"
+        },
+        {
+          "source": "svelte/CommandList.svelte",
+          "target": "command/CommandList.svelte"
+        },
+        {
+          "source": "svelte/CommandEmpty.svelte",
+          "target": "command/CommandEmpty.svelte"
+        },
+        {
+          "source": "svelte/CommandGroup.svelte",
+          "target": "command/CommandGroup.svelte"
+        },
+        {
+          "source": "svelte/CommandItem.svelte",
+          "target": "command/CommandItem.svelte"
+        },
+        {
+          "source": "svelte/CommandSeparator.svelte",
+          "target": "command/CommandSeparator.svelte"
+        },
+        {
+          "source": "svelte/CommandShortcut.svelte",
+          "target": "command/CommandShortcut.svelte"
+        },
+        { "source": "svelte/context.js", "target": "command/context.js" }
+      ],
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

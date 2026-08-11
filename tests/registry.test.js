@@ -672,3 +672,94 @@ test("keeps Toast provider-free, class-first, and durable", () => {
     expect(source).not.toMatch(/success.*(?:green|emerald)|error.*red/i);
   }
 });
+
+const COMMAND_PARTS = [
+  "Command.vue",
+  "CommandInput.vue",
+  "CommandList.vue",
+  "CommandEmpty.vue",
+  "CommandGroup.vue",
+  "CommandItem.vue",
+  "CommandSeparator.vue",
+  "CommandShortcut.vue",
+  "context.js",
+];
+
+test("keeps every Vue Command workbench file identical to its installable source", () => {
+  for (const filename of COMMAND_PARTS) {
+    expect(registrySource("vue", filename, "command")).toBe(
+      readFileSync(resolve(`src/vue/command/${filename}`), "utf8"),
+    );
+  }
+});
+
+test("ships compiler-valid framework-native Command source", () => {
+  const reactSource = registrySource("react", "Command.jsx", "command");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  for (const filename of COMMAND_PARTS.filter((name) =>
+    name.endsWith(".vue"),
+  )) {
+    expect(registrySource("vue", filename, "command")).toContain("<template>");
+  }
+
+  for (const filename of [
+    "Command.svelte",
+    "CommandInput.svelte",
+    "CommandList.svelte",
+    "CommandEmpty.svelte",
+    "CommandGroup.svelte",
+    "CommandItem.svelte",
+    "CommandSeparator.svelte",
+    "CommandShortcut.svelte",
+  ]) {
+    const result = compile(registrySource("svelte", filename, "command"), {
+      filename,
+      generate: false,
+    });
+    expect(result.warnings).toEqual([]);
+  }
+});
+
+test("keeps Command accessible, app-owned, class-first, and ephemeral", () => {
+  for (const [framework, filename] of [
+    ["vue", "Command.vue"],
+    ["react", "Command.jsx"],
+    ["svelte", "Command.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "command");
+
+    expect(source).toContain("defaultCommandFilter");
+    expect(source).toContain("activeDescendant");
+    expect(source).toContain("isComposing");
+    expect(source).toContain("scrollIntoView");
+    expect(source).toContain("tailwind-merge");
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
+    expect(source).not.toMatch(/router|navigate|fetch\(|Provider.*Command/);
+    expect(source).not.toMatch(/\bvariant\b|\btone\b|\bsize\b/i);
+    expect(source).not.toMatch(/fuse\.js|cmdk|radix|bits-ui/i);
+  }
+
+  for (const [framework, filename] of [
+    ["vue", "CommandInput.vue"],
+    ["react", "Command.jsx"],
+    ["svelte", "CommandInput.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "command");
+    expect(source).toContain('role="combobox"');
+    expect(source).toContain("aria-activedescendant");
+  }
+
+  for (const [framework, filename] of [
+    ["vue", "CommandItem.vue"],
+    ["react", "Command.jsx"],
+    ["svelte", "CommandItem.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "command");
+    expect(source).toContain('role="option"');
+    expect(source).toContain("cursor-pointer");
+    expect(source).toContain("aria-disabled");
+  }
+});

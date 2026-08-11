@@ -807,6 +807,56 @@ test("plans Dialog as one source component with no interaction dependency", () =
   expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
 });
 
+for (const [framework, extension, expectedFiles] of [
+  [
+    "vue",
+    "vue",
+    [
+      "Command.vue",
+      "CommandInput.vue",
+      "CommandList.vue",
+      "CommandEmpty.vue",
+      "CommandGroup.vue",
+      "CommandItem.vue",
+      "CommandSeparator.vue",
+      "CommandShortcut.vue",
+      "context.js",
+    ],
+  ],
+  ["react", "jsx", ["Command.jsx"]],
+  [
+    "svelte",
+    "svelte",
+    [
+      "Command.svelte",
+      "CommandInput.svelte",
+      "CommandList.svelte",
+      "CommandEmpty.svelte",
+      "CommandGroup.svelte",
+      "CommandItem.svelte",
+      "CommandSeparator.svelte",
+      "CommandShortcut.svelte",
+      "context.js",
+    ],
+  ],
+]) {
+  test(`installs the pragmatic ${framework} Command composition with no configuration`, () => {
+    const root = makeFixture({ framework, tailwindMerge: false });
+    const plan = createInstallPlan("command", { cwd: root });
+
+    expect(plan.registryItems).toEqual(["command"]);
+    expect(plan.files.map((file) => file.displayPath)).toEqual(
+      expectedFiles.map((filename) => `command/${filename}`),
+    );
+    expect(plan.files[0].displayPath).toBe(`command/Command.${extension}`);
+    expect(plan.dependencies).toEqual([
+      { name: "tailwind-merge", version: "^3.6.0", missing: true },
+    ]);
+    expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
+    expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
+  });
+}
+
 for (const [framework, extension] of [
   ["vue", "vue"],
   ["react", "jsx"],
