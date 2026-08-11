@@ -219,11 +219,18 @@ test("keeps Tabs controls behavioral and its dynamic actions outside the tablist
 
   const workspaceTemplate = TabsWorkspace.render().template;
   const overflowTemplate = TabsOverflow.render().template;
+  const playgroundClasses = TabsPlayground.render({}).setup().tabClass;
+  expect(playgroundClasses).toContain("cursor-pointer");
+  expect(playgroundClasses).toContain("disabled:cursor-not-allowed");
   expect(workspaceTemplate).toContain("Slipway-shaped workspace");
   expect(workspaceTemplate).toContain("pointer-events-none absolute");
-  expect(workspaceTemplate).toContain("pointer-events-auto grid size-9");
+  expect(workspaceTemplate).toContain(
+    "pointer-events-auto grid size-9 cursor-pointer",
+  );
+  expect(workspaceTemplate).toContain("shrink-0 cursor-pointer truncate");
   expect(workspaceTemplate).not.toContain("Hagfish");
   expect(overflowTemplate).toContain("overflow-x-auto");
+  expect(overflowTemplate).toContain("shrink-0 cursor-pointer");
   expect(overflowTemplate).toContain("data-value");
 });
 

@@ -9,7 +9,7 @@
   let active = $state();
   const values = ["overview", "activity", "settings"];
   const tabClass = [
-    "min-h-11 shrink-0 border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-500 outline-none",
+    "min-h-11 shrink-0 cursor-pointer border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-500 outline-none",
     "hover:text-gray-950 focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2",
     "data-[state=active]:border-gray-950 data-[state=active]:text-gray-950",
     "disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-400 dark:hover:text-white dark:focus-visible:ring-white dark:data-[state=active]:border-white dark:data-[state=active]:text-white",

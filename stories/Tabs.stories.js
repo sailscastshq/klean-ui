@@ -3,7 +3,7 @@ import { expect, userEvent, within } from "storybook/test";
 import Tabs from "../src/vue/tabs/Tabs.vue";
 
 const tabClass = [
-  "min-h-11 shrink-0 border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-500 outline-none",
+  "min-h-11 shrink-0 cursor-pointer border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-500 outline-none",
   "hover:text-gray-950 focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2",
   "data-[state=active]:border-gray-950 data-[state=active]:text-gray-950",
   "disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-400 dark:hover:text-white dark:focus-visible:ring-white dark:data-[state=active]:border-white dark:data-[state=active]:text-white",
@@ -158,8 +158,8 @@ export const Modes = {
             <p class="text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">Manual · vertical</p>
             <Tabs v-model="manual" aria-label="Report sections" orientation="vertical" activation="manual" class="mt-4 grid grid-cols-[8rem_1fr] gap-5">
               <div class="flex flex-col gap-1 border-r border-gray-200 pr-3 dark:border-gray-800">
-                <button type="button" data-value="summary" class="min-h-11 border-l-2 border-transparent px-3 text-left text-sm text-gray-500 outline-none focus-visible:ring-2 data-[state=active]:border-gray-950 data-[state=active]:font-medium data-[state=active]:text-gray-950 dark:data-[state=active]:border-white dark:data-[state=active]:text-white">Summary</button>
-                <button type="button" data-value="logs" class="min-h-11 border-l-2 border-transparent px-3 text-left text-sm text-gray-500 outline-none focus-visible:ring-2 data-[state=active]:border-gray-950 data-[state=active]:font-medium data-[state=active]:text-gray-950 dark:data-[state=active]:border-white dark:data-[state=active]:text-white">Logs</button>
+                <button type="button" data-value="summary" class="min-h-11 cursor-pointer border-l-2 border-transparent px-3 text-left text-sm text-gray-500 outline-none focus-visible:ring-2 data-[state=active]:border-gray-950 data-[state=active]:font-medium data-[state=active]:text-gray-950 dark:data-[state=active]:border-white dark:data-[state=active]:text-white">Summary</button>
+                <button type="button" data-value="logs" class="min-h-11 cursor-pointer border-l-2 border-transparent px-3 text-left text-sm text-gray-500 outline-none focus-visible:ring-2 data-[state=active]:border-gray-950 data-[state=active]:font-medium data-[state=active]:text-gray-950 dark:data-[state=active]:border-white dark:data-[state=active]:text-white">Logs</button>
               </div>
               <div data-value="summary" class="outline-none"><strong class="text-sm">Summary</strong><p class="mt-2 text-sm text-gray-500">Arrow Down moves focus. Enter opens.</p></div>
               <div data-value="logs" class="outline-none"><strong class="text-sm">Logs</strong><p class="mt-2 text-sm text-gray-500">No request begins on focus alone.</p></div>
@@ -200,11 +200,11 @@ export const Workspace = {
         <div class="mt-12 max-w-5xl border border-gray-300 bg-white shadow-[5px_5px_0_#111] dark:border-gray-700 dark:bg-gray-950 dark:shadow-[5px_5px_0_#fff]">
           <Tabs v-model="active" aria-label="Open workspace results" class="relative">
             <div class="flex max-w-full overflow-x-auto border-b border-gray-300 dark:border-gray-700">
-              <button v-for="item in openTabs" :key="item.value" type="button" :data-value="item.value" class="min-h-11 w-36 shrink-0 truncate border-r border-gray-300 px-4 pr-10 text-left font-mono text-xs text-gray-600 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-950 data-[state=active]:bg-gray-950 data-[state=active]:text-white dark:border-gray-700 dark:text-gray-400 dark:data-[state=active]:bg-white dark:data-[state=active]:text-gray-950">{{ item.label }}</button>
+              <button v-for="item in openTabs" :key="item.value" type="button" :data-value="item.value" class="min-h-11 w-36 shrink-0 cursor-pointer truncate border-r border-gray-300 px-4 pr-10 text-left font-mono text-xs text-gray-600 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-950 data-[state=active]:bg-gray-950 data-[state=active]:text-white dark:border-gray-700 dark:text-gray-400 dark:data-[state=active]:bg-white dark:data-[state=active]:text-gray-950">{{ item.label }}</button>
             </div>
             <div class="pointer-events-none absolute left-0 top-0 flex">
               <span v-for="item in openTabs" :key="item.value" class="flex min-h-11 w-36 shrink-0 items-center justify-end pr-1">
-                <button type="button" :aria-label="'Close ' + item.label" :class="['pointer-events-auto grid size-9 place-items-center outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-600', active === item.value ? 'text-gray-300 hover:text-white dark:text-gray-600 dark:hover:text-black' : 'text-gray-600 hover:bg-red-50 hover:text-red-700 dark:text-gray-400 dark:hover:bg-red-950/30']" @click="close(item.value)">×</button>
+                <button type="button" :aria-label="'Close ' + item.label" :class="['pointer-events-auto grid size-9 cursor-pointer place-items-center outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-600', active === item.value ? 'text-gray-300 hover:text-white dark:text-gray-600 dark:hover:text-black' : 'text-gray-600 hover:bg-red-50 hover:text-red-700 dark:text-gray-400 dark:hover:bg-red-950/30']" @click="close(item.value)">×</button>
               </span>
             </div>
             <div v-for="item in openTabs" :key="item.value" :data-value="item.value" class="min-h-60 p-6 font-mono text-sm outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-950 dark:focus-visible:ring-white">
@@ -255,7 +255,7 @@ export const Overflow = {
     template: `
       <Tabs v-model="active" aria-label="Service views" class="w-[min(34rem,calc(100vw-2rem))]">
         <div class="flex overflow-x-auto border-b border-gray-200 dark:border-gray-800">
-          <button v-for="label in labels" :key="label" type="button" :data-value="label" class="min-h-11 shrink-0 border-b-2 border-transparent px-4 text-sm capitalize text-gray-600 outline-none focus-visible:ring-2 focus-visible:ring-inset data-[state=active]:border-gray-950 data-[state=active]:text-gray-950 dark:text-gray-400 dark:data-[state=active]:border-white dark:data-[state=active]:text-white">{{ label }}</button>
+          <button v-for="label in labels" :key="label" type="button" :data-value="label" class="min-h-11 shrink-0 cursor-pointer border-b-2 border-transparent px-4 text-sm capitalize text-gray-600 outline-none focus-visible:ring-2 focus-visible:ring-inset data-[state=active]:border-gray-950 data-[state=active]:text-gray-950 dark:text-gray-400 dark:data-[state=active]:border-white dark:data-[state=active]:text-white">{{ label }}</button>
         </div>
         <div v-for="label in labels" :key="label" :data-value="label" class="min-h-32 py-6 text-sm capitalize outline-none">{{ label }} view</div>
       </Tabs>

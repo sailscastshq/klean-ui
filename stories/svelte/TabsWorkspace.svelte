@@ -17,7 +17,7 @@
       <button
         type="button"
         data-value={label}
-        class="min-h-11 w-36 shrink-0 truncate border-r border-gray-300 px-4 pr-10 text-left font-mono text-xs text-gray-600 outline-none focus-visible:ring-2 focus-visible:ring-inset data-[state=active]:bg-gray-950 data-[state=active]:text-white dark:border-gray-700 dark:text-gray-400 dark:data-[state=active]:bg-white dark:data-[state=active]:text-gray-950"
+        class="min-h-11 w-36 shrink-0 cursor-pointer truncate border-r border-gray-300 px-4 pr-10 text-left font-mono text-xs text-gray-600 outline-none focus-visible:ring-2 focus-visible:ring-inset data-[state=active]:bg-gray-950 data-[state=active]:text-white dark:border-gray-700 dark:text-gray-400 dark:data-[state=active]:bg-white dark:data-[state=active]:text-gray-950"
       >{label}</button>
     {/each}
   </div>
@@ -29,7 +29,7 @@
         <button
           type="button"
           aria-label={`Close ${label}`}
-          class={`pointer-events-auto grid size-9 place-items-center outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-600 ${active ===
+          class={`pointer-events-auto grid size-9 cursor-pointer place-items-center outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-600 ${active ===
           label
             ? "text-gray-300 hover:text-white dark:text-gray-600 dark:hover:text-black"
             : "text-gray-600 hover:bg-red-50 hover:text-red-700 dark:text-gray-400 dark:hover:bg-red-950/30"}`}

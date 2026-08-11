@@ -4,7 +4,7 @@ import Tabs from "../../registry/tabs/react/Tabs.jsx";
 
 const values = ["overview", "activity", "settings"];
 const tabClass = [
-  "min-h-11 shrink-0 border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-500 outline-none",
+  "min-h-11 shrink-0 cursor-pointer border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-500 outline-none",
   "hover:text-gray-950 focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2",
   "data-[state=active]:border-gray-950 data-[state=active]:text-gray-950",
   "disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-400 dark:hover:text-white dark:focus-visible:ring-white dark:data-[state=active]:border-white dark:data-[state=active]:text-white",
@@ -143,7 +143,7 @@ function DynamicWorkspace() {
             key={label}
             type="button"
             data-value={label}
-            className="min-h-11 w-36 shrink-0 truncate border-r border-gray-300 px-4 pr-10 text-left font-mono text-xs text-gray-600 outline-none focus-visible:ring-2 focus-visible:ring-inset data-[state=active]:bg-gray-950 data-[state=active]:text-white dark:border-gray-700 dark:text-gray-400 dark:data-[state=active]:bg-white dark:data-[state=active]:text-gray-950"
+            className="min-h-11 w-36 shrink-0 cursor-pointer truncate border-r border-gray-300 px-4 pr-10 text-left font-mono text-xs text-gray-600 outline-none focus-visible:ring-2 focus-visible:ring-inset data-[state=active]:bg-gray-950 data-[state=active]:text-white dark:border-gray-700 dark:text-gray-400 dark:data-[state=active]:bg-white dark:data-[state=active]:text-gray-950"
           >
             {label}
           </button>
@@ -158,7 +158,7 @@ function DynamicWorkspace() {
             <button
               type="button"
               aria-label={`Close ${label}`}
-              className={`pointer-events-auto grid size-9 place-items-center outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-600 ${
+              className={`pointer-events-auto grid size-9 cursor-pointer place-items-center outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-600 ${
                 active === label
                   ? "text-gray-300 hover:text-white dark:text-gray-600 dark:hover:text-black"
                   : "text-gray-600 hover:bg-red-50 hover:text-red-700 dark:text-gray-400 dark:hover:bg-red-950/30"
