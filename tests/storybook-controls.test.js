@@ -205,7 +205,7 @@ test("keeps Tooltip controls terse and proves independent product styling", () =
   expect(productsTemplate).toContain("Slipway / query toolbar");
   expect(productsTemplate).toContain("Hagfish / invoice action");
   expect(productsTemplate).toContain('aria-label="Re-run query"');
-  expect(productsTemplate).toContain("**:data-[slot=tooltip-arrow]:hidden");
+  expect(productsTemplate).not.toContain("tooltip-arrow]:hidden");
   expect(productsTemplate).not.toContain("interestfor");
 });
 

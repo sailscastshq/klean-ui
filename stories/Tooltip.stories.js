@@ -97,7 +97,7 @@ export const Boundaries = {
   render: () => ({
     components: { Tooltip },
     template: `
-      <section class="klean-story-canvas grid min-h-136 grid-cols-2 grid-rows-2 p-3" aria-label="Tooltip collision handling">
+      <section class="klean-story-canvas grid min-h-screen grid-cols-2 grid-rows-2 p-3" aria-label="Tooltip collision handling">
         <Tooltip text="A longer tooltip that stays inside the viewport" placement="top" class="max-w-56 whitespace-normal leading-5">
           <button type="button" class="self-start justify-self-start rounded-md border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-950">Top left</button>
         </Tooltip>
@@ -148,7 +148,7 @@ export const Products = {
         <article class="flex items-center justify-center bg-[#f4f0e8] p-8 text-black">
           <div>
             <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-black/50">Hagfish / invoice action</p>
-            <Tooltip text="Copy public invoice link" placement="bottom" class="rounded-none border-2 border-black bg-[#f4f0e8] px-3 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-black shadow-[3px_3px_0_0_#000] **:data-[slot=tooltip-arrow]:hidden">
+            <Tooltip text="Copy public invoice link" placement="bottom" class="rounded-none border-2 border-black bg-[#f4f0e8] px-3 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-black shadow-[3px_3px_0_0_#000]">
               <button type="button" aria-label="Copy public invoice link" class="mt-6 grid size-12 place-items-center border-2 border-black bg-black text-white shadow-[3px_3px_0_0_#9ca3af] transition-colors hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black">
                 <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2M6 8h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z" /></svg>
               </button>

@@ -237,6 +237,10 @@ test("keeps Tooltip wrapper-clean, class-first, semantic, and ephemeral", () => 
     expect(source).toContain("aria-describedby");
     expect(source).toMatch(/class(?:Name)?=["']contents["']/);
     expect(source).toContain('data-slot="tooltip-arrow"');
+    expect(source).toContain("ARROW_CLIP_PATHS");
+    expect(source).toContain("ARROW_OVERHANG");
+    expect(source).toContain("floatingArrow");
+    expect(source).toContain("overflow-visible");
     expect(source).not.toMatch(/interestfor|interestForElement/);
     expect(source).not.toMatch(/TooltipTrigger|TooltipContent|TooltipProvider/);
     expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
