@@ -244,6 +244,50 @@ test("keeps Tooltip wrapper-clean, class-first, semantic, and ephemeral", () => 
   }
 });
 
+test("keeps the Vue Tabs workbench and installable source identical", () => {
+  expect(registrySource("vue", "Tabs.vue", "tabs")).toBe(
+    readFileSync(resolve("src/vue/tabs/Tabs.vue"), "utf8"),
+  );
+});
+
+test("ships compiler-valid framework-native Tabs source", () => {
+  const reactSource = registrySource("react", "Tabs.jsx", "tabs");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  const svelteSource = registrySource("svelte", "Tabs.svelte", "tabs");
+  const result = compile(svelteSource, {
+    filename: "Tabs.svelte",
+    generate: false,
+  });
+
+  expect(result.warnings).toEqual([]);
+});
+
+test("keeps Tabs semantic, class-first, dynamic, and app-state agnostic", () => {
+  for (const [framework, filename] of [
+    ["vue", "Tabs.vue"],
+    ["react", "Tabs.jsx"],
+    ["svelte", "Tabs.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "tabs");
+
+    expect(source).toContain('role", "tablist"');
+    expect(source).toContain('role", "tab"');
+    expect(source).toContain('role", "tabpanel"');
+    expect(source).toContain("aria-selected");
+    expect(source).toContain("aria-controls");
+    expect(source).toContain("aria-labelledby");
+    expect(source).toContain("MutationObserver");
+    expect(source).toContain("scrollIntoView");
+    expect(source).toContain("tailwind-merge");
+    expect(source).not.toMatch(/TabsList|TabsTrigger|TabsContent|TabsProvider/);
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
+    expect(source).not.toMatch(/\b(?:variant|tone|size)\s*(?::|=(?!=))/i);
+  }
+});
+
 test("ships compiler-valid framework-native Popover source", () => {
   const reactSource = registrySource("react", "Popover.jsx", "popover");
   expect(() =>

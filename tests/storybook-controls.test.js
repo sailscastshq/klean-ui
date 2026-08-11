@@ -42,6 +42,11 @@ import {
   Products as TooltipProducts,
 } from "../stories/Tooltip.stories.js";
 import { Products as SelectProducts } from "../stories/Select.stories.js";
+import {
+  Overflow as TabsOverflow,
+  Playground as TabsPlayground,
+  Workspace as TabsWorkspace,
+} from "../stories/Tabs.stories.js";
 import { readFileSync } from "node:fs";
 
 const usefulControls = [
@@ -201,6 +206,32 @@ test("keeps Tooltip controls terse and proves independent product styling", () =
   expect(productsTemplate).toContain('aria-label="Re-run query"');
   expect(productsTemplate).toContain("[&_[data-slot=tooltip-arrow]]:hidden");
   expect(productsTemplate).not.toContain("interestfor");
+});
+
+test("keeps Tabs controls behavioral and its dynamic actions outside the tablist", () => {
+  expect(TabsPlayground.parameters.controls.include).toEqual([
+    "active",
+    "orientation",
+    "activation",
+  ]);
+  expect(TabsPlayground.play).toBeTypeOf("function");
+  expect(TabsWorkspace.play).toBeTypeOf("function");
+
+  const workspaceTemplate = TabsWorkspace.render().template;
+  const overflowTemplate = TabsOverflow.render().template;
+  const playgroundClasses = TabsPlayground.render({}).setup().tabClass;
+  expect(playgroundClasses).toContain("cursor-pointer");
+  expect(playgroundClasses).toContain("disabled:cursor-not-allowed");
+  expect(workspaceTemplate).toContain("Slipway-shaped workspace");
+  expect(workspaceTemplate).toContain("pointer-events-none absolute");
+  expect(workspaceTemplate).toContain(
+    "pointer-events-auto grid size-9 cursor-pointer",
+  );
+  expect(workspaceTemplate).toContain("shrink-0 cursor-pointer truncate");
+  expect(workspaceTemplate).not.toContain("Hagfish");
+  expect(overflowTemplate).toContain("overflow-x-auto");
+  expect(overflowTemplate).toContain("shrink-0 cursor-pointer");
+  expect(overflowTemplate).toContain("data-value");
 });
 
 test("makes Menu recipe cursor and Tab affordances explicit", () => {

@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "tabs",
+  "description": "Accessible peer panels with roving focus, dynamic values, and caller-owned native buttons and Tailwind styling.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Tabs.vue",
+      "target": "tabs/Tabs.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Tabs.jsx",
+      "target": "tabs/Tabs.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Tabs.svelte",
+      "target": "tabs/Tabs.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
