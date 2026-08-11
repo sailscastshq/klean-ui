@@ -673,24 +673,10 @@ test("keeps Toast provider-free, class-first, and durable", () => {
   }
 });
 
-const COMMAND_PARTS = [
-  "Command.vue",
-  "CommandInput.vue",
-  "CommandList.vue",
-  "CommandEmpty.vue",
-  "CommandGroup.vue",
-  "CommandItem.vue",
-  "CommandSeparator.vue",
-  "CommandShortcut.vue",
-  "context.js",
-];
-
-test("keeps every Vue Command workbench file identical to its installable source", () => {
-  for (const filename of COMMAND_PARTS) {
-    expect(registrySource("vue", filename, "command")).toBe(
-      readFileSync(resolve(`src/vue/command/${filename}`), "utf8"),
-    );
-  }
+test("keeps the Vue Command workbench identical to its installable source", () => {
+  expect(registrySource("vue", "Command.vue", "command")).toBe(
+    readFileSync(resolve("src/vue/command/Command.vue"), "utf8"),
+  );
 });
 
 test("ships compiler-valid framework-native Command source", () => {
@@ -699,28 +685,15 @@ test("ships compiler-valid framework-native Command source", () => {
     parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
   ).not.toThrow();
 
-  for (const filename of COMMAND_PARTS.filter((name) =>
-    name.endsWith(".vue"),
-  )) {
-    expect(registrySource("vue", filename, "command")).toContain("<template>");
-  }
+  expect(registrySource("vue", "Command.vue", "command")).toContain(
+    "<template>",
+  );
 
-  for (const filename of [
-    "Command.svelte",
-    "CommandInput.svelte",
-    "CommandList.svelte",
-    "CommandEmpty.svelte",
-    "CommandGroup.svelte",
-    "CommandItem.svelte",
-    "CommandSeparator.svelte",
-    "CommandShortcut.svelte",
-  ]) {
-    const result = compile(registrySource("svelte", filename, "command"), {
-      filename,
-      generate: false,
-    });
-    expect(result.warnings).toEqual([]);
-  }
+  const result = compile(
+    registrySource("svelte", "Command.svelte", "command"),
+    { filename: "Command.svelte", generate: false },
+  );
+  expect(result.warnings).toEqual([]);
 });
 
 test("keeps Command accessible, app-owned, class-first, and ephemeral", () => {
@@ -731,8 +704,10 @@ test("keeps Command accessible, app-owned, class-first, and ephemeral", () => {
   ]) {
     const source = registrySource(framework, filename, "command");
 
-    expect(source).toContain("defaultCommandFilter");
-    expect(source).toContain("activeDescendant");
+    expect(source).toContain("defaultFilter");
+    expect(source).toContain("activeEntry");
+    expect(source).toContain("commands");
+    expect(source).toContain("groups");
     expect(source).toContain("isComposing");
     expect(source).toContain("scrollIntoView");
     expect(source).toContain("tailwind-merge");
@@ -743,9 +718,9 @@ test("keeps Command accessible, app-owned, class-first, and ephemeral", () => {
   }
 
   for (const [framework, filename] of [
-    ["vue", "CommandInput.vue"],
+    ["vue", "Command.vue"],
     ["react", "Command.jsx"],
-    ["svelte", "CommandInput.svelte"],
+    ["svelte", "Command.svelte"],
   ]) {
     const source = registrySource(framework, filename, "command");
     expect(source).toContain('role="combobox"');
@@ -753,9 +728,9 @@ test("keeps Command accessible, app-owned, class-first, and ephemeral", () => {
   }
 
   for (const [framework, filename] of [
-    ["vue", "CommandItem.vue"],
+    ["vue", "Command.vue"],
     ["react", "Command.jsx"],
-    ["svelte", "CommandItem.svelte"],
+    ["svelte", "Command.svelte"],
   ]) {
     const source = registrySource(framework, filename, "command");
     expect(source).toContain('role="option"');
