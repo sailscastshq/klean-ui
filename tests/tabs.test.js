@@ -1,6 +1,6 @@
 import { expect, test } from "@rstest/core";
 import { mount } from "@vue/test-utils";
-import { h, nextTick, ref } from "vue";
+import { defineComponent, h, nextTick, ref } from "vue";
 import Tabs from "../src/vue/tabs/Tabs.vue";
 
 async function settle() {
@@ -58,6 +58,13 @@ function mountTabs(options = {}) {
     slots: { default: options.slot ?? tabMarkup(options) },
   });
 }
+
+const BoringStackLink = defineComponent({
+  inheritAttrs: false,
+  setup(_, { attrs, slots }) {
+    return () => h("a", attrs, slots.default?.());
+  },
+});
 
 test("enhances visible native buttons and panels with the complete tab relationship", async () => {
   const wrapper = mountTabs({ defaultValue: "activity" });
@@ -165,6 +172,147 @@ test("supports controlled values without owning URL or storage policy", async ()
   expect(wrapper.emitted("update:modelValue").at(-1)).toEqual(["settings"]);
   expect(wrapper.emitted("change").at(-1)).toEqual(["settings"]);
   expect(wrapper.html()).not.toMatch(/localStorage|sessionStorage|pushState/);
+  wrapper.unmount();
+});
+
+test("enhances native anchors and framework Links without replacing navigation semantics", async () => {
+  const wrapper = mount(Tabs, {
+    attachTo: document.body,
+    props: { modelValue: "billing", orientation: "vertical" },
+    attrs: { "aria-label": "Account settings" },
+    slots: {
+      default: () => [
+        h("nav", { class: "settings-nav" }, [
+          h(
+            "a",
+            {
+              href: "/settings/profile",
+              "data-value": "profile",
+              class: "profile-link",
+            },
+            "Profile",
+          ),
+          h(
+            BoringStackLink,
+            {
+              href: "/settings/billing",
+              "data-value": "billing",
+              prefetch: "",
+              class: "billing-link",
+            },
+            () => "Billing",
+          ),
+        ]),
+      ],
+    },
+  });
+  await settle();
+
+  const root = wrapper.get('[data-slot="tabs"]');
+  const navigation = wrapper.get("nav");
+  const links = wrapper.findAll("a[data-value]");
+
+  expect(root.attributes("data-mode")).toBe("navigation");
+  expect(navigation.attributes("data-mode")).toBe("navigation");
+  expect(navigation.attributes("aria-label")).toBe("Account settings");
+  expect(navigation.attributes("role")).toBeUndefined();
+  expect(navigation.attributes("aria-orientation")).toBeUndefined();
+  expect(links[0].attributes("href")).toBe("/settings/profile");
+  expect(links[1].attributes("href")).toBe("/settings/billing");
+  expect(links[1].attributes()).toHaveProperty("prefetch");
+  expect(links[0].attributes("data-state")).toBe("inactive");
+  expect(links[1].attributes("data-state")).toBe("active");
+  expect(links[1].attributes("aria-current")).toBe("page");
+  expect(links[0].attributes("role")).toBeUndefined();
+  expect(links[0].attributes("aria-selected")).toBeUndefined();
+  expect(links[0].attributes("tabindex")).toBeUndefined();
+
+  links[0].element.focus();
+  const arrow = new KeyboardEvent("keydown", {
+    key: "ArrowDown",
+    bubbles: true,
+    cancelable: true,
+  });
+  links[0].element.dispatchEvent(arrow);
+  expect(arrow.defaultPrevented).toBe(false);
+  expect(document.activeElement).toBe(links[0].element);
+
+  for (const modifier of [
+    undefined,
+    "metaKey",
+    "ctrlKey",
+    "shiftKey",
+    "altKey",
+  ]) {
+    const click = new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+      ...(modifier ? { [modifier]: true } : {}),
+    });
+    links[0].element.dispatchEvent(click);
+    expect(click.defaultPrevented).toBe(false);
+  }
+  expect(wrapper.emitted("update:modelValue")).toBeUndefined();
+  expect(wrapper.emitted("change")).toBeUndefined();
+  wrapper.unmount();
+});
+
+test("infers an uncontrolled navigation value from caller-owned aria-current", async () => {
+  const wrapper = mount(Tabs, {
+    attachTo: document.body,
+    slots: {
+      default: () => [
+        h("nav", { "aria-label": "Settings destinations" }, [
+          h(
+            "a",
+            {
+              href: "/settings/profile",
+              "data-value": "profile",
+              "aria-current": "page",
+            },
+            "Profile",
+          ),
+          h(
+            "a",
+            { href: "/settings/billing", "data-value": "billing" },
+            "Billing",
+          ),
+        ]),
+      ],
+    },
+  });
+  await settle();
+
+  expect(wrapper.get('a[data-value="profile"]').attributes("data-state")).toBe(
+    "active",
+  );
+  expect(
+    wrapper.get('a[data-value="billing"]').attributes("aria-current"),
+  ).toBeUndefined();
+  expect(wrapper.get("nav").attributes("aria-label")).toBe(
+    "Settings destinations",
+  );
+  wrapper.unmount();
+});
+
+test("does not guess semantics for a mixed button and link group", async () => {
+  const wrapper = mount(Tabs, {
+    attachTo: document.body,
+    slots: {
+      default: () => [
+        h("div", [
+          h("button", { "data-value": "local" }, "Local"),
+          h("a", { href: "/remote", "data-value": "remote" }, "Remote"),
+        ]),
+      ],
+    },
+  });
+  await settle();
+
+  expect(wrapper.attributes("data-mode")).toBe("mixed");
+  expect(wrapper.find('[role="tablist"]').exists()).toBe(false);
+  expect(wrapper.find('[role="tab"]').exists()).toBe(false);
+  expect(wrapper.find("[data-state]").exists()).toBe(false);
   wrapper.unmount();
 });
 

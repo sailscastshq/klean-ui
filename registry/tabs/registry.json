@@ -1,7 +1,7 @@
 {
   "$schema": "../schema.json",
   "name": "tabs",
-  "description": "Accessible peer panels with roving focus, dynamic values, and caller-owned native buttons and Tailwind styling.",
+  "description": "Durable tabs that enhance caller-owned buttons as peer panels and anchors or framework Links as truthful navigation.",
   "frameworks": {
     "vue": {
       "source": "vue/Tabs.vue",

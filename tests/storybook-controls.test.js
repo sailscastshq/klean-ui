@@ -43,6 +43,7 @@ import {
 } from "../stories/Tooltip.stories.js";
 import { Products as SelectProducts } from "../stories/Select.stories.js";
 import {
+  Navigation as TabsNavigation,
   Overflow as TabsOverflow,
   Playground as TabsPlayground,
   Workspace as TabsWorkspace,
@@ -215,13 +216,19 @@ test("keeps Tabs controls behavioral and its dynamic actions outside the tablist
     "activation",
   ]);
   expect(TabsPlayground.play).toBeTypeOf("function");
+  expect(TabsNavigation.play).toBeTypeOf("function");
   expect(TabsWorkspace.play).toBeTypeOf("function");
 
+  const navigationTemplate = TabsNavigation.render().template;
   const workspaceTemplate = TabsWorkspace.render().template;
   const overflowTemplate = TabsOverflow.render().template;
   const playgroundClasses = TabsPlayground.render({}).setup().tabClass;
   expect(playgroundClasses).toContain("cursor-pointer");
   expect(playgroundClasses).toContain("disabled:cursor-not-allowed");
+  expect(navigationTemplate).toContain("BoringStackLink");
+  expect(navigationTemplate).toContain('data-value="section.value"');
+  expect(navigationTemplate).toContain("data-[state=active]");
+  expect(navigationTemplate).not.toContain('role="tab"');
   expect(workspaceTemplate).toContain("Slipway-shaped workspace");
   expect(workspaceTemplate).toContain("pointer-events-none absolute");
   expect(workspaceTemplate).toContain(

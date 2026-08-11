@@ -265,7 +265,7 @@ test("ships compiler-valid framework-native Tabs source", () => {
   expect(result.warnings).toEqual([]);
 });
 
-test("keeps Tabs semantic, class-first, dynamic, and app-state agnostic", () => {
+test("keeps Tabs semantic, durable, class-first, and app-state agnostic", () => {
   for (const [framework, filename] of [
     ["vue", "Tabs.vue"],
     ["react", "Tabs.jsx"],
@@ -279,6 +279,10 @@ test("keeps Tabs semantic, class-first, dynamic, and app-state agnostic", () => 
     expect(source).toContain("aria-selected");
     expect(source).toContain("aria-controls");
     expect(source).toContain("aria-labelledby");
+    expect(source).toContain("a[href][data-value]");
+    expect(source).toContain("aria-current");
+    expect(source).toContain('"navigation"');
+    expect(source).toContain('"panels"');
     expect(source).toContain("MutationObserver");
     expect(source).toContain("scrollIntoView");
     expect(source).toContain("tailwind-merge");

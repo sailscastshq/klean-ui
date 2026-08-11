@@ -3,6 +3,11 @@ import { expect, userEvent, within } from "storybook/test";
 import Tabs from "../../registry/tabs/react/Tabs.jsx";
 
 const values = ["overview", "activity", "settings"];
+const settings = [
+  { value: "profile", label: "Profile", href: "#profile" },
+  { value: "billing", label: "Billing", href: "#billing" },
+  { value: "schedule", label: "Schedule", href: "#schedule" },
+];
 const tabClass = [
   "min-h-11 shrink-0 cursor-pointer border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-500 outline-none",
   "hover:text-gray-950 focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2",
@@ -118,6 +123,57 @@ export const Playground = {
     await expect(next).toHaveFocus();
     if (args.activation === "manual") await userEvent.keyboard("{Enter}");
     await expect(next).toHaveAttribute("aria-selected", "true");
+  },
+};
+
+function FrameworkLink(props) {
+  return <a {...props} />;
+}
+
+function NavigationExample() {
+  const [current, setCurrent] = useState("profile");
+
+  return (
+    <Tabs
+      value={current}
+      orientation="vertical"
+      aria-label="Account settings"
+      className="w-[min(34rem,calc(100vw-2rem))] border-2 border-black bg-white p-6 shadow-[5px_5px_0_#111] dark:border-white dark:bg-gray-950 dark:shadow-[5px_5px_0_#fff]"
+    >
+      <nav className="flex flex-col gap-1">
+        {settings.map((section, index) => {
+          const Link = index === 0 ? "a" : FrameworkLink;
+          return (
+            <Link
+              key={section.value}
+              href={section.href}
+              data-value={section.value}
+              className="min-h-11 cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 outline-none hover:bg-gray-100 hover:text-gray-950 focus-visible:ring-2 data-[state=active]:bg-gray-950 data-[state=active]:text-white dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-white dark:data-[state=active]:bg-white dark:data-[state=active]:text-gray-950"
+              onClick={() => setCurrent(section.value)}
+            >
+              {section.label}
+            </Link>
+          );
+        })}
+      </nav>
+    </Tabs>
+  );
+}
+
+export const Navigation = {
+  render: () => <NavigationExample />,
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const navigation = canvas.getByRole("navigation", {
+      name: "Account settings",
+    });
+    const links = within(navigation).getAllByRole("link");
+
+    await expect(links[0]).toHaveAttribute("aria-current", "page");
+    await expect(links[0]).not.toHaveAttribute("role", "tab");
+    await userEvent.click(links[1]);
+    await expect(links[1]).toHaveAttribute("aria-current", "page");
   },
 };
 
