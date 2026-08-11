@@ -178,31 +178,33 @@ test("supports controlled values without owning URL or storage policy", async ()
 test("enhances native anchors and framework Links without replacing navigation semantics", async () => {
   const wrapper = mount(Tabs, {
     attachTo: document.body,
-    props: { modelValue: "billing", orientation: "vertical" },
+    props: {
+      as: "nav",
+      modelValue: "billing",
+      orientation: "vertical",
+    },
     attrs: { "aria-label": "Account settings" },
     slots: {
       default: () => [
-        h("nav", { class: "settings-nav" }, [
-          h(
-            "a",
-            {
-              href: "/settings/profile",
-              "data-value": "profile",
-              class: "profile-link",
-            },
-            "Profile",
-          ),
-          h(
-            BoringStackLink,
-            {
-              href: "/settings/billing",
-              "data-value": "billing",
-              prefetch: "",
-              class: "billing-link",
-            },
-            () => "Billing",
-          ),
-        ]),
+        h(
+          "a",
+          {
+            href: "/settings/profile",
+            "data-value": "profile",
+            class: "profile-link",
+          },
+          "Profile",
+        ),
+        h(
+          BoringStackLink,
+          {
+            href: "/settings/billing",
+            "data-value": "billing",
+            prefetch: "",
+            class: "billing-link",
+          },
+          () => "Billing",
+        ),
       ],
     },
   });
@@ -212,6 +214,9 @@ test("enhances native anchors and framework Links without replacing navigation s
   const navigation = wrapper.get("nav");
   const links = wrapper.findAll("a[data-value]");
 
+  expect(root.element.tagName).toBe("NAV");
+  expect(wrapper.findAll("nav")).toHaveLength(1);
+  expect(root.attributes("data-slot")).toBe("tabs");
   expect(root.attributes("data-mode")).toBe("navigation");
   expect(navigation.attributes("data-mode")).toBe("navigation");
   expect(navigation.attributes("aria-label")).toBe("Account settings");
@@ -260,24 +265,24 @@ test("enhances native anchors and framework Links without replacing navigation s
 test("infers an uncontrolled navigation value from caller-owned aria-current", async () => {
   const wrapper = mount(Tabs, {
     attachTo: document.body,
+    props: { as: "nav" },
+    attrs: { "aria-label": "Settings destinations" },
     slots: {
       default: () => [
-        h("nav", { "aria-label": "Settings destinations" }, [
-          h(
-            "a",
-            {
-              href: "/settings/profile",
-              "data-value": "profile",
-              "aria-current": "page",
-            },
-            "Profile",
-          ),
-          h(
-            "a",
-            { href: "/settings/billing", "data-value": "billing" },
-            "Billing",
-          ),
-        ]),
+        h(
+          "a",
+          {
+            href: "/settings/profile",
+            "data-value": "profile",
+            "aria-current": "page",
+          },
+          "Profile",
+        ),
+        h(
+          "a",
+          { href: "/settings/billing", "data-value": "billing" },
+          "Billing",
+        ),
       ],
     },
   });
@@ -298,12 +303,11 @@ test("infers an uncontrolled navigation value from caller-owned aria-current", a
 test("does not guess semantics for a mixed button and link group", async () => {
   const wrapper = mount(Tabs, {
     attachTo: document.body,
+    props: { as: "nav" },
     slots: {
       default: () => [
-        h("div", [
-          h("button", { "data-value": "local" }, "Local"),
-          h("a", { href: "/remote", "data-value": "remote" }, "Remote"),
-        ]),
+        h("button", { "data-value": "local" }, "Local"),
+        h("a", { href: "/remote", "data-value": "remote" }, "Remote"),
       ],
     },
   });
@@ -396,6 +400,7 @@ test("keeps framework and visual ceremony out of the public API", () => {
     expect.arrayContaining([
       "modelValue",
       "defaultValue",
+      "as",
       "orientation",
       "activation",
     ]),
@@ -406,4 +411,5 @@ test("keeps framework and visual ceremony out of the public API", () => {
   expect(props).not.toHaveProperty("router");
   expect(props).not.toHaveProperty("listClass");
   expect(props).not.toHaveProperty("triggerClass");
+  expect(props.as.default).toBe("div");
 });

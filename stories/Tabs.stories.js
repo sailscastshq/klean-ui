@@ -204,18 +204,16 @@ export const Navigation = {
             <div><h2 class="font-semibold">Account settings</h2><p class="text-sm text-gray-500">Durable route navigation</p></div>
           </div>
 
-          <Tabs :model-value="current" orientation="vertical" aria-label="Account settings" class="mt-8 md:grid md:grid-cols-[12rem_1fr] md:gap-10">
-            <nav class="flex gap-2 overflow-x-auto md:flex-col" aria-label="Account settings">
-              <BoringStackLink
-                v-for="section in sections"
-                :key="section.value"
-                :href="section.href"
-                :data-value="section.value"
-                prefetch
-                class="min-h-11 shrink-0 cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-black/60 outline-none transition-colors hover:bg-black/5 hover:text-black focus-visible:ring-2 focus-visible:ring-black data-[state=active]:bg-black data-[state=active]:text-white dark:text-white/65 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:ring-white dark:data-[state=active]:bg-white dark:data-[state=active]:text-black"
-                @click="current = section.value"
-              >{{ section.label }}</BoringStackLink>
-            </nav>
+          <Tabs as="nav" :model-value="current" orientation="vertical" aria-label="Account settings" class="mt-8 flex gap-2 overflow-x-auto md:w-48 md:flex-col">
+            <BoringStackLink
+              v-for="section in sections"
+              :key="section.value"
+              :href="section.href"
+              :data-value="section.value"
+              prefetch
+              class="min-h-11 shrink-0 cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-black/60 outline-none transition-colors hover:bg-black/5 hover:text-black focus-visible:ring-2 focus-visible:ring-black data-[state=active]:bg-black data-[state=active]:text-white dark:text-white/65 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:ring-white dark:data-[state=active]:bg-white dark:data-[state=active]:text-black"
+              @click="current = section.value"
+            >{{ section.label }}</BoringStackLink>
           </Tabs>
 
           <div class="mt-8 border-t border-black/10 pt-6 md:ml-[14.5rem] dark:border-white/10">

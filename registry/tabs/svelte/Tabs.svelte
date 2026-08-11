@@ -3,6 +3,7 @@
   import { twMerge } from "tailwind-merge";
 
   let {
+    as = "div",
     value = $bindable(),
     defaultValue,
     onValueChange,
@@ -30,6 +31,7 @@
   let initialized = false;
 
   function listElement() {
+    if (rootElement?.matches("nav")) return rootElement;
     return rootElement?.firstElementChild;
   }
 
@@ -52,6 +54,11 @@
 
   function mode(elements = triggers()) {
     if (!elements.length) return "empty";
+    if (as === "nav") {
+      return elements.every((element) => element.matches("a[href]"))
+        ? "navigation"
+        : "mixed";
+    }
     if (elements.every((element) => element.matches("button"))) return "panels";
     if (elements.every((element) => element.matches("a[href]"))) {
       return "navigation";
@@ -129,11 +136,12 @@
     rootElement.setAttribute("data-mode", currentMode);
 
     if (list) {
-      list.setAttribute("data-slot", "tabs-list");
+      const listIsRoot = list === rootElement;
+      if (!listIsRoot) list.setAttribute("data-slot", "tabs-list");
       list.setAttribute("data-mode", currentMode);
       list.setAttribute("data-orientation", orientation);
-      if (ariaLabel) list.setAttribute("aria-label", ariaLabel);
-      if (ariaLabelledby)
+      if (!listIsRoot && ariaLabel) list.setAttribute("aria-label", ariaLabel);
+      if (!listIsRoot && ariaLabelledby)
         list.setAttribute("aria-labelledby", ariaLabelledby);
     }
 
@@ -335,6 +343,7 @@
   });
 
   $effect(() => {
+    as;
     value;
     orientation;
     activation;
@@ -344,15 +353,18 @@
   });
 </script>
 
-<div
+<svelte:element
+  this={as}
   {...rootProps}
   bind:this={rootElement}
   data-slot="tabs"
   data-orientation={orientation}
+  aria-label={as === "nav" ? ariaLabel : undefined}
+  aria-labelledby={as === "nav" ? ariaLabelledby : undefined}
   class={twMerge(className)}
   onclick={handleClick}
   onfocusin={handleFocusIn}
   onkeydown={handleKeydown}
 >
   {@render children?.()}
-</div>
+</svelte:element>

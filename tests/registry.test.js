@@ -283,6 +283,7 @@ test("keeps Tabs semantic, durable, class-first, and app-state agnostic", () => 
     expect(source).toContain("aria-current");
     expect(source).toContain('"navigation"');
     expect(source).toContain('"panels"');
+    expect(source).toContain('"nav"');
     expect(source).toContain("MutationObserver");
     expect(source).toContain("scrollIntoView");
     expect(source).toContain("tailwind-merge");

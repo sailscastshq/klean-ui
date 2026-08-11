@@ -226,6 +226,8 @@ test("keeps Tabs controls behavioral and its dynamic actions outside the tablist
   expect(playgroundClasses).toContain("cursor-pointer");
   expect(playgroundClasses).toContain("disabled:cursor-not-allowed");
   expect(navigationTemplate).toContain("BoringStackLink");
+  expect(navigationTemplate).toContain('as="nav"');
+  expect(navigationTemplate).not.toContain("<nav");
   expect(navigationTemplate).toContain('data-value="section.value"');
   expect(navigationTemplate).toContain("data-[state=active]");
   expect(navigationTemplate).not.toContain('role="tab"');

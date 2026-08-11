@@ -135,27 +135,26 @@ function NavigationExample() {
 
   return (
     <Tabs
+      as="nav"
       value={current}
       orientation="vertical"
       aria-label="Account settings"
-      className="w-[min(34rem,calc(100vw-2rem))] border-2 border-black bg-white p-6 shadow-[5px_5px_0_#111] dark:border-white dark:bg-gray-950 dark:shadow-[5px_5px_0_#fff]"
+      className="flex w-[min(34rem,calc(100vw-2rem))] flex-col gap-1 border-2 border-black bg-white p-6 shadow-[5px_5px_0_#111] dark:border-white dark:bg-gray-950 dark:shadow-[5px_5px_0_#fff]"
     >
-      <nav className="flex flex-col gap-1">
-        {settings.map((section, index) => {
-          const Link = index === 0 ? "a" : FrameworkLink;
-          return (
-            <Link
-              key={section.value}
-              href={section.href}
-              data-value={section.value}
-              className="min-h-11 cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 outline-none hover:bg-gray-100 hover:text-gray-950 focus-visible:ring-2 data-[state=active]:bg-gray-950 data-[state=active]:text-white dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-white dark:data-[state=active]:bg-white dark:data-[state=active]:text-gray-950"
-              onClick={() => setCurrent(section.value)}
-            >
-              {section.label}
-            </Link>
-          );
-        })}
-      </nav>
+      {settings.map((section, index) => {
+        const Link = index === 0 ? "a" : FrameworkLink;
+        return (
+          <Link
+            key={section.value}
+            href={section.href}
+            data-value={section.value}
+            className="min-h-11 cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 outline-none hover:bg-gray-100 hover:text-gray-950 focus-visible:ring-2 data-[state=active]:bg-gray-950 data-[state=active]:text-white dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-white dark:data-[state=active]:bg-white dark:data-[state=active]:text-gray-950"
+            onClick={() => setCurrent(section.value)}
+          >
+            {section.label}
+          </Link>
+        );
+      })}
     </Tabs>
   );
 }
