@@ -2,6 +2,12 @@ import { ref, watch } from "vue";
 import { expect, userEvent, within } from "storybook/test";
 import Tabs from "../src/vue/tabs/Tabs.vue";
 
+const BoringStackLink = {
+  name: "BoringStackLink",
+  inheritAttrs: false,
+  template: '<a v-bind="$attrs"><slot /></a>',
+};
+
 const tabClass = [
   "min-h-11 shrink-0 cursor-pointer border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-500 outline-none",
   "hover:text-gray-950 focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2",
@@ -135,7 +141,7 @@ export const Modes = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="tabs-modes-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">One contract</p>
-          <h1 id="tabs-modes-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">Fast panels activate. Meaningful work waits.</h1>
+          <h1 id="tabs-modes-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Fast panels activate. Meaningful work waits.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Automatic activation is right when mounted panels are instant. Manual activation lets a person move focus before choosing a panel that starts latency or work.</p>
         </header>
 
@@ -171,6 +177,69 @@ export const Modes = {
   }),
 };
 
+export const Navigation = {
+  parameters: { layout: "fullscreen", controls: { disable: true } },
+  render: () => ({
+    components: { BoringStackLink, Tabs },
+    setup() {
+      const current = ref("profile");
+      const sections = [
+        { value: "profile", label: "Profile", href: "#profile" },
+        { value: "billing", label: "Billing", href: "#billing" },
+        { value: "schedule", label: "Schedule", href: "#schedule" },
+      ];
+      return { current, sections };
+    },
+    template: `
+      <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="tabs-navigation-title">
+        <header class="max-w-3xl">
+          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Hagfish-shaped navigation</p>
+          <h1 id="tabs-navigation-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Links stay links.</h1>
+          <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Pass native anchors or the Boring Stack Link directly. Klean marks the active destination while href, prefetch, history, modified clicks, and open-in-new-tab remain the router and browser's job.</p>
+        </header>
+
+        <div class="mt-12 max-w-4xl border-2 border-black bg-white p-6 shadow-[5px_5px_0_#111] dark:border-white dark:bg-gray-950 dark:shadow-[5px_5px_0_#fff] sm:p-8">
+          <div class="flex items-center gap-3">
+            <div class="grid size-12 place-items-center rounded-xl bg-black text-sm font-bold text-white dark:bg-white dark:text-black">KU</div>
+            <div><h2 class="font-semibold">Account settings</h2><p class="text-sm text-gray-500">Durable route navigation</p></div>
+          </div>
+
+          <Tabs as="nav" :model-value="current" orientation="vertical" aria-label="Account settings" class="mt-8 flex gap-2 overflow-x-auto md:w-48 md:flex-col">
+            <BoringStackLink
+              v-for="section in sections"
+              :key="section.value"
+              :href="section.href"
+              :data-value="section.value"
+              prefetch
+              class="min-h-11 shrink-0 cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-black/60 outline-none transition-colors hover:bg-black/5 hover:text-black focus-visible:ring-2 focus-visible:ring-black data-[state=active]:bg-black data-[state=active]:text-white dark:text-white/65 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:ring-white dark:data-[state=active]:bg-white dark:data-[state=active]:text-black"
+              @click="current = section.value"
+            >{{ section.label }}</BoringStackLink>
+          </Tabs>
+
+          <div class="mt-8 border-t border-black/10 pt-6 md:ml-58 dark:border-white/10">
+            <h3 class="text-lg font-semibold capitalize">{{ current }}</h3>
+            <p class="mt-2 text-sm text-gray-500">The destination owns this page. Tabs only supplies a truthful active-state hook.</p>
+          </div>
+        </div>
+      </section>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const navigation = canvas.getByRole("navigation", {
+      name: "Account settings",
+    });
+    const links = within(navigation).getAllByRole("link");
+
+    await expect(navigation).not.toHaveAttribute("role", "tablist");
+    await expect(links[0]).toHaveAttribute("aria-current", "page");
+    await expect(links[0]).not.toHaveAttribute("role", "tab");
+    await userEvent.click(links[1]);
+    await expect(links[1]).toHaveAttribute("aria-current", "page");
+    await expect(links[0]).not.toHaveAttribute("aria-current");
+  },
+};
+
 export const Workspace = {
   parameters: { layout: "fullscreen", controls: { disable: true } },
   render: () => ({
@@ -193,7 +262,7 @@ export const Workspace = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="tabs-workspace-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Slipway-shaped workspace</p>
-          <h1 id="tabs-workspace-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">Dynamic tabs stay operable.</h1>
+          <h1 id="tabs-workspace-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Dynamic tabs stay operable.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Tabs keep safe adjacent focus when an active result closes. Close actions are real buttons beside—not inside—the semantic tab list.</p>
         </header>
 

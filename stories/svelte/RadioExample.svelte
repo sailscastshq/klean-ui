@@ -15,7 +15,7 @@
   <div class="mt-3 space-y-2">
     {#each contract.radioOptions as label}
       {@const value = label.toLowerCase()}
-      <label class="flex min-h-14 cursor-pointer items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 has-[:checked]:border-gray-950 dark:border-gray-800 dark:bg-gray-950 dark:has-[:checked]:border-white">
+      <label class="flex min-h-14 cursor-pointer items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 has-checked:border-gray-950 dark:border-gray-800 dark:bg-gray-950 dark:has-checked:border-white">
         <Radio bind:group={selected} name="svelte-region" {value} {disabled} />
         <span class="text-sm font-medium">{label}</span>
       </label>

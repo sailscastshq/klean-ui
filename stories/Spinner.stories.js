@@ -77,7 +77,7 @@ export const Semantics = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="spinner-semantics-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Truthful loading</p>
-          <h1 id="spinner-semantics-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">The mark moves. The markup explains why.</h1>
+          <h1 id="spinner-semantics-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The mark moves. The markup explains why.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Spinner is hidden from assistive technology. The owning button or region exposes busy state and a stable status surface announces useful changes.</p>
         </header>
 
@@ -132,7 +132,7 @@ export const Apps = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="spinner-apps-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="spinner-apps-title" class="mt-3 text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">Neutral source. Product-owned context.</h1>
+          <h1 id="spinner-apps-title" class="mt-3 text-4xl font-semibold tracking-tighter sm:text-5xl">Neutral source. Product-owned context.</h1>
         </header>
 
         <div class="mt-12 grid max-w-6xl gap-6 lg:grid-cols-2">

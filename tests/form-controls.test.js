@@ -121,7 +121,7 @@ test("forwards native attributes and lets caller Tailwind win", () => {
   expect(textarea.element.tagName).toBe("TEXTAREA");
   expect(textarea.classes()).toContain("h-40");
   expect(textarea.classes()).toContain("resize-y");
-  expect(textarea.classes()).not.toContain("h-[var(--klean-textarea-height)]");
+  expect(textarea.classes()).not.toContain("h-(--klean-textarea-height)");
   expect(textarea.classes()).not.toContain("resize-none");
 });
 
@@ -151,6 +151,6 @@ test("grows Textarea from its current value without an autoGrow prop", async () 
   expect(
     wrapper.element.style.getPropertyValue("--klean-textarea-height"),
   ).toBe("184px");
-  expect(wrapper.classes()).toContain("h-[var(--klean-textarea-height)]");
+  expect(wrapper.classes()).toContain("h-(--klean-textarea-height)");
   expect(wrapper.classes()).toContain("overflow-y-hidden");
 });

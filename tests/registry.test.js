@@ -237,6 +237,10 @@ test("keeps Tooltip wrapper-clean, class-first, semantic, and ephemeral", () => 
     expect(source).toContain("aria-describedby");
     expect(source).toMatch(/class(?:Name)?=["']contents["']/);
     expect(source).toContain('data-slot="tooltip-arrow"');
+    expect(source).toContain("ARROW_CLIP_PATHS");
+    expect(source).toContain("ARROW_OVERHANG");
+    expect(source).toContain("floatingArrow");
+    expect(source).toContain("overflow-visible");
     expect(source).not.toMatch(/interestfor|interestForElement/);
     expect(source).not.toMatch(/TooltipTrigger|TooltipContent|TooltipProvider/);
     expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
@@ -265,7 +269,7 @@ test("ships compiler-valid framework-native Tabs source", () => {
   expect(result.warnings).toEqual([]);
 });
 
-test("keeps Tabs semantic, class-first, dynamic, and app-state agnostic", () => {
+test("keeps Tabs semantic, durable, class-first, and app-state agnostic", () => {
   for (const [framework, filename] of [
     ["vue", "Tabs.vue"],
     ["react", "Tabs.jsx"],
@@ -279,6 +283,11 @@ test("keeps Tabs semantic, class-first, dynamic, and app-state agnostic", () => 
     expect(source).toContain("aria-selected");
     expect(source).toContain("aria-controls");
     expect(source).toContain("aria-labelledby");
+    expect(source).toContain("a[href][data-value]");
+    expect(source).toContain("aria-current");
+    expect(source).toContain('"navigation"');
+    expect(source).toContain('"panels"');
+    expect(source).toContain('"nav"');
     expect(source).toContain("MutationObserver");
     expect(source).toContain("scrollIntoView");
     expect(source).toContain("tailwind-merge");
@@ -545,7 +554,7 @@ test("keeps Spinner decorative, class-first, reduced-motion-safe, and ephemeral"
     expect(source).toContain("currentColor");
     expect(source).toContain("animate-spin");
     expect(source).toContain("motion-reduce:animate-none");
-    expect(source).toContain("[&>*]:size-full");
+    expect(source).toContain("*:size-full");
     expect(source).toContain("tailwind-merge");
     expect(source).not.toMatch(/role=["']status["']/);
     expect(source).not.toMatch(/aria-live|aria-busy/);

@@ -18,7 +18,7 @@
 </script>
 
 <div class="w-[min(26rem,calc(100vw-2rem))] rounded-xl border border-gray-200 bg-white p-1 shadow-sm dark:border-gray-800 dark:bg-gray-950">
-  <label class="flex min-h-16 cursor-pointer items-center justify-between gap-6 rounded-lg px-4 py-3 has-[:disabled]:cursor-not-allowed">
+  <label class="flex min-h-16 cursor-pointer items-center justify-between gap-6 rounded-lg px-4 py-3 has-disabled:cursor-not-allowed">
     <span class="min-w-0">
       <span class="block text-sm font-medium">{label}</span>
       <span class="mt-1 block text-sm leading-5 text-gray-500">{description}</span>

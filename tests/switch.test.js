@@ -72,7 +72,7 @@ test("forwards form and accessibility attributes while caller Tailwind wins", ()
       role: "checkbox",
       type: "radio",
       class:
-        "h-5 w-9 bg-amber-300 checked:bg-emerald-700 checked:after:[transform:translate(1rem,-50%)]",
+        "h-5 w-9 bg-amber-300 checked:bg-emerald-700 checked:after:transform-[translate(1rem,-50%)]",
     },
   });
 
@@ -92,14 +92,14 @@ test("forwards form and accessibility attributes while caller Tailwind wins", ()
   expect(wrapper.classes()).toContain("bg-amber-300");
   expect(wrapper.classes()).toContain("checked:bg-emerald-700");
   expect(wrapper.classes()).toContain(
-    "checked:after:[transform:translate(1rem,-50%)]",
+    "checked:after:transform-[translate(1rem,-50%)]",
   );
   expect(wrapper.classes()).not.toContain("h-6");
   expect(wrapper.classes()).not.toContain("w-11");
   expect(wrapper.classes()).not.toContain("bg-gray-300");
   expect(wrapper.classes()).not.toContain("checked:bg-gray-950");
   expect(wrapper.classes()).not.toContain(
-    "checked:after:[transform:translate(1.25rem,-50%)]",
+    "checked:after:transform-[translate(1.25rem,-50%)]",
   );
 });
 
@@ -111,9 +111,9 @@ test("centres the thumb without border or shadow bias and uses a short settle", 
   expect(wrapper.classes()).toContain("after:left-0.5");
   expect(wrapper.classes()).toContain("after:top-1/2");
   expect(wrapper.classes()).not.toContain("after:shadow-sm");
-  expect(wrapper.classes()).toContain("after:[transform:translate(0,-50%)]");
+  expect(wrapper.classes()).toContain("after:transform-[translate(0,-50%)]");
   expect(wrapper.classes()).toContain(
-    "checked:after:[transform:translate(1.25rem,-50%)]",
+    "checked:after:transform-[translate(1.25rem,-50%)]",
   );
   expect(wrapper.classes()).toContain("after:duration-200");
   expect(wrapper.classes()).toContain("after:[transition-property:transform]");

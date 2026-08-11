@@ -1,5 +1,6 @@
 import { expect, userEvent, within } from "storybook/test";
 import TabsExample from "./TabsExample.svelte";
+import TabsNavigation from "./TabsNavigation.svelte";
 import TabsWorkspace from "./TabsWorkspace.svelte";
 
 const values = ["overview", "activity", "settings"];
@@ -46,6 +47,23 @@ export const Playground = {
     await expect(next).toHaveFocus();
     if (args.activation === "manual") await userEvent.keyboard("{Enter}");
     await expect(next).toHaveAttribute("aria-selected", "true");
+  },
+};
+
+export const Navigation = {
+  render: () => ({ Component: TabsNavigation }),
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const navigation = canvas.getByRole("navigation", {
+      name: "Account settings",
+    });
+    const links = within(navigation).getAllByRole("link");
+
+    await expect(links[0]).toHaveAttribute("aria-current", "page");
+    await expect(links[0]).not.toHaveAttribute("role", "tab");
+    await userEvent.click(links[1]);
+    await expect(links[1]).toHaveAttribute("aria-current", "page");
   },
 };
 

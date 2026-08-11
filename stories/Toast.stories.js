@@ -214,7 +214,7 @@ export const Deployment = {
       return { advance, notifications, start };
     },
     template: `
-      <main class="klean-toast-motion-preview min-h-[34rem] bg-gray-950 p-8 text-white sm:p-12">
+      <main class="klean-toast-motion-preview min-h-136 bg-gray-950 p-8 text-white sm:p-12">
         <div class="mx-auto max-w-3xl">
           <p class="font-mono text-xs uppercase tracking-[0.18em] text-gray-500">Long-running work</p>
           <h2 class="mt-3 text-3xl font-semibold tracking-tight">One toast, updated in place.</h2>
@@ -286,7 +286,7 @@ export const Products = {
       };
     },
     template: `
-      <div class="klean-toast-motion-preview grid min-h-[34rem] sm:grid-cols-2">
+      <div class="klean-toast-motion-preview grid min-h-136 sm:grid-cols-2">
         <section class="flex items-center justify-center bg-[#f7f3eb] p-8" aria-labelledby="bold-toast-recipe">
           <div class="text-center">
             <h2 id="bold-toast-recipe" class="text-xs font-medium uppercase tracking-[0.18em] text-black/60">Bold product styling</h2>

@@ -142,7 +142,7 @@ export const ProductRecipes = {
   render: () => ({
     components: { Button, Dialog },
     template: `
-      <div class="grid min-h-[38rem] bg-gray-100 p-6 sm:grid-cols-2 sm:p-12">
+      <div class="grid min-h-152 bg-gray-100 p-6 sm:grid-cols-2 sm:p-12">
         <section class="flex items-start justify-center bg-[#f7f3eb] p-8 sm:p-14" aria-labelledby="hagfish-dialog-recipe">
           <div>
             <h2 id="hagfish-dialog-recipe" class="mb-5 text-xs font-medium uppercase tracking-[0.18em] text-black/60">Hagfish / invoice editor</h2>

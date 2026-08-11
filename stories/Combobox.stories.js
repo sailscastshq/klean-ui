@@ -160,7 +160,7 @@ export const Relationship = {
       return { customer, customers };
     },
     template: `
-      <section class="min-h-[34rem] bg-white px-5 py-14 text-gray-950 dark:bg-gray-950 dark:text-white sm:px-10 sm:py-20" aria-labelledby="relationship-title">
+      <section class="min-h-136 bg-white px-5 py-14 text-gray-950 dark:bg-gray-950 dark:text-white sm:px-10 sm:py-20" aria-labelledby="relationship-title">
         <div class="mx-auto max-w-xl">
           <p class="text-xs font-medium uppercase tracking-[0.16em] text-gray-500 dark:text-gray-400">Slipway / relationship field</p>
           <h2 id="relationship-title" class="mt-3 text-2xl font-semibold tracking-tight">Assign an account owner</h2>

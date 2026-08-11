@@ -43,6 +43,7 @@ import {
 } from "../stories/Tooltip.stories.js";
 import { Products as SelectProducts } from "../stories/Select.stories.js";
 import {
+  Navigation as TabsNavigation,
   Overflow as TabsOverflow,
   Playground as TabsPlayground,
   Workspace as TabsWorkspace,
@@ -131,7 +132,7 @@ test("keeps Radio controls scalar-sized and its recipes semantic", () => {
   expect(statesTemplate).toContain('aria-invalid="true"');
   expect(appsTemplate).toContain("Slipway recipes");
   expect(appsTemplate).toContain('class="sr-only"');
-  expect(appsTemplate).toContain("has-[:checked]");
+  expect(appsTemplate).toContain("has-checked");
   expect(appsTemplate).not.toContain("Hagfish");
 });
 
@@ -204,7 +205,7 @@ test("keeps Tooltip controls terse and proves independent product styling", () =
   expect(productsTemplate).toContain("Slipway / query toolbar");
   expect(productsTemplate).toContain("Hagfish / invoice action");
   expect(productsTemplate).toContain('aria-label="Re-run query"');
-  expect(productsTemplate).toContain("[&_[data-slot=tooltip-arrow]]:hidden");
+  expect(productsTemplate).not.toContain("tooltip-arrow]:hidden");
   expect(productsTemplate).not.toContain("interestfor");
 });
 
@@ -215,13 +216,21 @@ test("keeps Tabs controls behavioral and its dynamic actions outside the tablist
     "activation",
   ]);
   expect(TabsPlayground.play).toBeTypeOf("function");
+  expect(TabsNavigation.play).toBeTypeOf("function");
   expect(TabsWorkspace.play).toBeTypeOf("function");
 
+  const navigationTemplate = TabsNavigation.render().template;
   const workspaceTemplate = TabsWorkspace.render().template;
   const overflowTemplate = TabsOverflow.render().template;
   const playgroundClasses = TabsPlayground.render({}).setup().tabClass;
   expect(playgroundClasses).toContain("cursor-pointer");
   expect(playgroundClasses).toContain("disabled:cursor-not-allowed");
+  expect(navigationTemplate).toContain("BoringStackLink");
+  expect(navigationTemplate).toContain('as="nav"');
+  expect(navigationTemplate).not.toContain("<nav");
+  expect(navigationTemplate).toContain('data-value="section.value"');
+  expect(navigationTemplate).toContain("data-[state=active]");
+  expect(navigationTemplate).not.toContain('role="tab"');
   expect(workspaceTemplate).toContain("Slipway-shaped workspace");
   expect(workspaceTemplate).toContain("pointer-events-none absolute");
   expect(workspaceTemplate).toContain(

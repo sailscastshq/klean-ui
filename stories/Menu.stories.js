@@ -209,7 +209,7 @@ export const Products = {
   render: () => ({
     components: { Button, Menu },
     template: `
-      <div class="grid min-h-[38rem] bg-gray-100 sm:grid-cols-2">
+      <div class="grid min-h-152 bg-gray-100 sm:grid-cols-2">
         <section class="flex items-start justify-center bg-[#f4f0e8] p-8 sm:p-14" aria-labelledby="hagfish-menu-title">
           <div>
             <p class="mb-5 font-mono text-xs uppercase tracking-[0.18em] text-gray-600">Hagfish / invoice</p>

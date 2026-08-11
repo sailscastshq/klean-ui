@@ -127,7 +127,7 @@ export const States = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="checkbox-states-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Native checkbox</p>
-          <h1 id="checkbox-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">A small control with honest state.</h1>
+          <h1 id="checkbox-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">A small control with honest state.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">The input remains native. Real labels, groups, error text, and selection logic stay where the application can read and change them.</p>
         </header>
 
@@ -190,7 +190,7 @@ export const Apps = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="checkbox-apps-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="checkbox-apps-title" class="mt-3 text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">One input. Different products.</h1>
+          <h1 id="checkbox-apps-title" class="mt-3 text-4xl font-semibold tracking-tighter sm:text-5xl">One input. Different products.</h1>
         </header>
 
         <div class="mt-12 grid max-w-6xl gap-6 lg:grid-cols-2">
@@ -228,7 +228,7 @@ export const Apps = {
             <fieldset>
               <legend class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / Filter chips</legend>
               <div class="mt-8 flex flex-wrap gap-2">
-                <label v-for="item in ['billing', 'deploys', 'domains']" :key="item" class="has-[:checked]:bg-gray-950 has-[:checked]:text-white dark:has-[:checked]:bg-white dark:has-[:checked]:text-gray-950 cursor-pointer rounded-full bg-gray-100 px-3 py-2 text-xs dark:bg-gray-900">
+                <label v-for="item in ['billing', 'deploys', 'domains']" :key="item" class="has-checked:bg-gray-950 has-checked:text-white dark:has-checked:bg-white dark:has-checked:text-gray-950 cursor-pointer rounded-full bg-gray-100 px-3 py-2 text-xs dark:bg-gray-900">
                   <Checkbox v-model="feedbackIds" :value="item" class="sr-only" />
                   {{ item }}
                 </label>

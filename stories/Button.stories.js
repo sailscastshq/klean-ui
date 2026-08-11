@@ -146,7 +146,7 @@ export const SemanticElements = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="semantic-recipes-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Semantic recipes</p>
-          <h1 id="semantic-recipes-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">Keep the treatment. Render the truthful element.</h1>
+          <h1 id="semantic-recipes-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Keep the treatment. Render the truthful element.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Use a button for an action, a native anchor for a full-page destination, and the Boring Stack Link for internal Inertia navigation. Never put a button inside an anchor.</p>
         </header>
 
@@ -195,7 +195,7 @@ export const EverydayUses = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="everyday-uses-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Hagfish + Slipway audit</p>
-          <h1 id="everyday-uses-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">One lean contract, many real jobs.</h1>
+          <h1 id="everyday-uses-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One lean contract, many real jobs.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">These recipes cover the recurring source-app patterns without turning size, color, density, or loading into Button props.</p>
         </header>
 
@@ -258,7 +258,7 @@ export const ProductRecipes = {
         <section class="flex min-h-[50svh] flex-col justify-between bg-klean-paper p-6 sm:p-10 lg:min-h-svh lg:p-14" aria-labelledby="hagfish-title">
           <header>
             <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Expressive recipe</p>
-            <h2 id="hagfish-title" class="mt-3 text-4xl font-semibold tracking-[-0.05em]">Hagfish</h2>
+            <h2 id="hagfish-title" class="mt-3 text-4xl font-semibold tracking-tighter">Hagfish</h2>
             <p class="mt-3 max-w-sm text-sm leading-6 text-klean-muted">High contrast, generous proportions, and a physical offset-shadow response.</p>
           </header>
           <div class="py-14">
@@ -269,13 +269,13 @@ export const ProductRecipes = {
               </svg>
             </Button>
           </div>
-          <code class="break-words font-mono text-[11px] leading-5 text-klean-muted">class="{{ hagfishRecipe }}"</code>
+          <code class="wrap-break-word font-mono text-[11px] leading-5 text-klean-muted">class="{{ hagfishRecipe }}"</code>
         </section>
 
         <section class="dark flex min-h-[50svh] flex-col justify-between bg-gray-950 p-6 text-white sm:p-10 lg:min-h-svh lg:p-14" aria-labelledby="slipway-title">
           <header>
             <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/45">Compact recipe</p>
-            <h2 id="slipway-title" class="mt-3 text-4xl font-semibold tracking-[-0.05em]">Slipway</h2>
+            <h2 id="slipway-title" class="mt-3 text-4xl font-semibold tracking-tighter">Slipway</h2>
             <p class="mt-3 max-w-sm text-sm leading-6 text-white/55">Quiet geometry for dense operational surfaces, with tonal feedback instead of movement.</p>
           </header>
           <div class="flex flex-wrap items-center gap-2 py-14">
@@ -283,7 +283,7 @@ export const ProductRecipes = {
             <Button class="min-h-9 min-w-0 bg-transparent px-3 py-1.5 text-gray-300 ring-1 ring-inset ring-white/15 hover:bg-white/10 dark:bg-transparent dark:text-gray-300 dark:hover:bg-white/10">Cancel</Button>
             <Button :class="destructiveRecipe">Delete service</Button>
           </div>
-          <code class="break-words font-mono text-[11px] leading-5 text-white/45">class="{{ slipwayRecipe }}"</code>
+          <code class="wrap-break-word font-mono text-[11px] leading-5 text-white/45">class="{{ slipwayRecipe }}"</code>
         </section>
       </div>
     `,
@@ -298,7 +298,7 @@ export const ClassOwnership = {
     template: `
       <section class="w-[min(44rem,calc(100vw-2rem))] bg-gray-200 p-8 sm:p-14" aria-labelledby="ownership-title">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-ink/60">Override proof</p>
-        <h2 id="ownership-title" class="mt-3 max-w-lg text-4xl font-semibold tracking-[-0.05em]">The component does not negotiate with your design.</h2>
+        <h2 id="ownership-title" class="mt-3 max-w-lg text-4xl font-semibold tracking-tighter">The component does not negotiate with your design.</h2>
         <p class="mt-4 max-w-xl text-sm leading-6 text-klean-ink/70">This button replaces the default height, radius, background, text color, spacing, typography, shadow, and motion using one ordinary class attribute.</p>
         <Button class="mt-10 min-h-14 rounded-full bg-white px-8 text-base font-semibold text-gray-950 shadow-[0_8px_0_0_#151512] hover:-translate-y-0.5 hover:bg-white active:translate-y-2 active:shadow-none">
           Make it mine
