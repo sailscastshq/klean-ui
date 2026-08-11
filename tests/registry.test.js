@@ -550,7 +550,7 @@ test("keeps Spinner decorative, class-first, reduced-motion-safe, and ephemeral"
     expect(source).toContain("currentColor");
     expect(source).toContain("animate-spin");
     expect(source).toContain("motion-reduce:animate-none");
-    expect(source).toContain("[&>*]:size-full");
+    expect(source).toContain("*:size-full");
     expect(source).toContain("tailwind-merge");
     expect(source).not.toMatch(/role=["']status["']/);
     expect(source).not.toMatch(/aria-live|aria-busy/);

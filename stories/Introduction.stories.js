@@ -85,7 +85,7 @@ export const Philosophy = {
         <section class="grid gap-12 bg-klean-ink px-5 py-16 text-white sm:px-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:px-12 lg:py-24" aria-labelledby="durable-heading">
           <div class="max-w-xl">
             <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/45">02 / Durable UI</p>
-            <h2 id="durable-heading" class="mt-4 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">State survives. Interactions recover.</h2>
+            <h2 id="durable-heading" class="mt-4 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">State survives. Interactions recover.</h2>
             <p class="mt-6 text-pretty text-base leading-7 text-white/60">
               Klean UI implements our Durable UI patterns across Vue, React, and Svelte. Preferences persist, useful views stay shareable, drafts recover, overlays dismiss correctly, focus returns, and failed optimistic work rolls back.
             </p>

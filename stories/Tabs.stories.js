@@ -141,7 +141,7 @@ export const Modes = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="tabs-modes-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">One contract</p>
-          <h1 id="tabs-modes-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">Fast panels activate. Meaningful work waits.</h1>
+          <h1 id="tabs-modes-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Fast panels activate. Meaningful work waits.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Automatic activation is right when mounted panels are instant. Manual activation lets a person move focus before choosing a panel that starts latency or work.</p>
         </header>
 
@@ -194,7 +194,7 @@ export const Navigation = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="tabs-navigation-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Hagfish-shaped navigation</p>
-          <h1 id="tabs-navigation-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">Links stay links.</h1>
+          <h1 id="tabs-navigation-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Links stay links.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Pass native anchors or the Boring Stack Link directly. Klean marks the active destination while href, prefetch, history, modified clicks, and open-in-new-tab remain the router and browser's job.</p>
         </header>
 
@@ -216,7 +216,7 @@ export const Navigation = {
             >{{ section.label }}</BoringStackLink>
           </Tabs>
 
-          <div class="mt-8 border-t border-black/10 pt-6 md:ml-[14.5rem] dark:border-white/10">
+          <div class="mt-8 border-t border-black/10 pt-6 md:ml-58 dark:border-white/10">
             <h3 class="text-lg font-semibold capitalize">{{ current }}</h3>
             <p class="mt-2 text-sm text-gray-500">The destination owns this page. Tabs only supplies a truthful active-state hook.</p>
           </div>
@@ -262,7 +262,7 @@ export const Workspace = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="tabs-workspace-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Slipway-shaped workspace</p>
-          <h1 id="tabs-workspace-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">Dynamic tabs stay operable.</h1>
+          <h1 id="tabs-workspace-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Dynamic tabs stay operable.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Tabs keep safe adjacent focus when an active result closes. Close actions are real buttons beside—not inside—the semantic tab list.</p>
         </header>
 

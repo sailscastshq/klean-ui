@@ -85,7 +85,7 @@ export const Playground = {
       <fieldset class="w-[min(26rem,calc(100vw-2rem))] text-gray-950 dark:text-white" :aria-describedby="args.invalid ? 'region-error' : undefined">
         <legend class="text-sm font-semibold">{{ args.legend }}</legend>
         <div class="mt-3 space-y-2">
-          <label v-for="region in regions" :key="region.value" class="flex min-h-14 cursor-pointer items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 has-[:checked]:border-gray-950 dark:border-gray-800 dark:bg-gray-950 dark:has-[:checked]:border-white">
+          <label v-for="region in regions" :key="region.value" class="flex min-h-14 cursor-pointer items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 has-checked:border-gray-950 dark:border-gray-800 dark:bg-gray-950 dark:has-checked:border-white">
             <Radio
               v-model="selected"
               name="playground-region"
@@ -143,7 +143,7 @@ export const States = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="radio-states-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Native radio</p>
-          <h1 id="radio-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">One choice, kept honest by the browser.</h1>
+          <h1 id="radio-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One choice, kept honest by the browser.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">A shared name creates the group. Fieldset and legend give it meaning. Arrow keys, required validation, submission, and reset remain native.</p>
         </header>
 
@@ -249,7 +249,7 @@ export const Apps = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="radio-apps-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Slipway recipes</p>
-          <h1 id="radio-apps-title" class="mt-3 text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">The radio can disappear. Its semantics cannot.</h1>
+          <h1 id="radio-apps-title" class="mt-3 text-4xl font-semibold tracking-tighter sm:text-5xl">The radio can disappear. Its semantics cannot.</h1>
           <p class="mt-5 max-w-2xl text-base leading-7 text-klean-muted">These patterns come from Slipway: a conventional provider list, large participation cards, and compact filters. The caller owns every visual treatment.</p>
         </header>
 
@@ -274,12 +274,12 @@ export const Apps = {
               <legend class="text-sm font-semibold">Participation</legend>
               <p class="mt-1 text-sm leading-6 text-gray-500">Choose who can submit and vote.</p>
               <div class="mt-5 grid gap-3 sm:grid-cols-2">
-                <label class="cursor-pointer rounded-xl bg-gray-50 p-4 text-gray-950 transition has-[:checked]:bg-gray-950 has-[:checked]:text-white dark:bg-gray-900 dark:text-white dark:has-[:checked]:bg-white dark:has-[:checked]:text-gray-950">
+                <label class="cursor-pointer rounded-xl bg-gray-50 p-4 text-gray-950 transition has-checked:bg-gray-950 has-checked:text-white dark:bg-gray-900 dark:text-white dark:has-checked:bg-white dark:has-checked:text-gray-950">
                   <Radio v-model="participation" class="sr-only" name="participation" :value="false" />
                   <span class="block text-sm font-medium">Logged-in users only</span>
                   <span class="mt-2 block text-sm opacity-70">Every vote has a person behind it.</span>
                 </label>
-                <label class="cursor-pointer rounded-xl bg-gray-50 p-4 text-gray-950 transition has-[:checked]:bg-gray-950 has-[:checked]:text-white dark:bg-gray-900 dark:text-white dark:has-[:checked]:bg-white dark:has-[:checked]:text-gray-950">
+                <label class="cursor-pointer rounded-xl bg-gray-50 p-4 text-gray-950 transition has-checked:bg-gray-950 has-checked:text-white dark:bg-gray-900 dark:text-white dark:has-checked:bg-white dark:has-checked:text-gray-950">
                   <Radio v-model="participation" class="sr-only" name="participation" :value="true" />
                   <span class="block text-sm font-medium">Anyone</span>
                   <span class="mt-2 block text-sm opacity-70">Anonymous participation is allowed.</span>
@@ -292,7 +292,7 @@ export const Apps = {
             <fieldset>
               <legend class="text-xs font-medium text-gray-500">Category</legend>
               <div class="mt-3 flex flex-wrap gap-2">
-                <label v-for="item in ['all', 'billing', 'deploys', 'domains']" :key="item" class="min-h-11 cursor-pointer rounded-xl bg-gray-50 px-4 py-3 text-sm font-medium text-gray-500 transition has-[:checked]:bg-gray-950 has-[:checked]:text-white dark:bg-gray-900 dark:text-gray-400 dark:has-[:checked]:bg-white dark:has-[:checked]:text-gray-950">
+                <label v-for="item in ['all', 'billing', 'deploys', 'domains']" :key="item" class="min-h-11 cursor-pointer rounded-xl bg-gray-50 px-4 py-3 text-sm font-medium text-gray-500 transition has-checked:bg-gray-950 has-checked:text-white dark:bg-gray-900 dark:text-gray-400 dark:has-checked:bg-white dark:has-checked:text-gray-950">
                   <Radio v-model="category" class="sr-only" name="category" :value="item" />
                   {{ item === 'all' ? 'All categories' : item }}
                 </label>

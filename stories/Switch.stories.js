@@ -78,7 +78,7 @@ export const Playground = {
     },
     template: `
       <div class="w-[min(26rem,calc(100vw-2rem))] rounded-xl border border-gray-200 bg-white p-1 text-gray-950 shadow-sm dark:border-gray-800 dark:bg-gray-950 dark:text-white">
-        <label class="flex min-h-16 cursor-pointer items-center justify-between gap-6 rounded-lg px-4 py-3 has-[:disabled]:cursor-not-allowed">
+        <label class="flex min-h-16 cursor-pointer items-center justify-between gap-6 rounded-lg px-4 py-3 has-disabled:cursor-not-allowed">
           <span class="min-w-0">
             <span class="block text-sm font-medium">{{ args.label }}</span>
             <span class="mt-1 block text-sm leading-5 text-gray-500 dark:text-gray-400">{{ args.description }}</span>
@@ -128,7 +128,7 @@ export const States = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="switch-states-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Native boolean</p>
-          <h1 id="switch-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">Immediate, honest settings.</h1>
+          <h1 id="switch-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Immediate, honest settings.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">The visible state is the real checked state. The full labelled row is easy to tap, while disabled and invalid settings stay unmistakable.</p>
         </header>
 
@@ -170,7 +170,7 @@ export const States = {
                 <span class="text-sm font-medium">Compact status</span>
                 <Switch
                   v-model="compact"
-                  class="h-5 w-9 bg-stone-300 after:size-4 checked:bg-emerald-600 checked:after:[transform:translate(1rem,-50%)] dark:bg-stone-700 dark:checked:bg-emerald-400"
+                  class="h-5 w-9 bg-stone-300 after:size-4 checked:bg-emerald-600 checked:after:transform-[translate(1rem,-50%)] dark:bg-stone-700 dark:checked:bg-emerald-400"
                 />
               </label>
               <p class="mt-4 text-sm leading-6 text-gray-500">No size or colour prop. Tailwind changes the source you own.</p>
@@ -223,7 +223,7 @@ export const Apps = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="switch-apps-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="switch-apps-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">The switch stays lean. The product stays yours.</h1>
+          <h1 id="switch-apps-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The switch stays lean. The product stays yours.</h1>
         </header>
 
         <div class="mt-12 grid max-w-6xl gap-6 lg:grid-cols-2">
@@ -240,7 +240,7 @@ export const Apps = {
               <Switch
                 v-model="flag"
                 aria-label="Enable new-checkout"
-                class="h-5 w-9 after:size-4 checked:after:[transform:translate(1rem,-50%)]"
+                class="h-5 w-9 after:size-4 checked:after:transform-[translate(1rem,-50%)]"
               />
               <button type="button" aria-label="Open release flag actions" class="grid size-9 place-items-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900">•••</button>
             </div>

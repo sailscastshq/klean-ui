@@ -24,7 +24,7 @@ test("uses currentColor and respects reduced motion without JavaScript", () => {
   expect(wrapper.find("path").attributes("stroke")).toBe("currentColor");
   expect(wrapper.classes()).toContain("animate-spin");
   expect(wrapper.classes()).toContain("motion-reduce:animate-none!");
-  expect(wrapper.classes()).toContain("motion-reduce:[&_*]:animate-none!");
+  expect(wrapper.classes()).toContain("motion-reduce:**:animate-none!");
 });
 
 test("keeps accessibility semantics fixed while forwarding ordinary attributes", () => {
@@ -73,7 +73,7 @@ test("lets a product-owned mark fill the wrapper without adding a second animati
 
   expect(wrapper.classes()).toContain("size-5");
   expect(wrapper.classes()).toContain("text-white");
-  expect(wrapper.classes()).toContain("[&>*]:size-full");
+  expect(wrapper.classes()).toContain("*:size-full");
   expect(wrapper.classes()).not.toContain("animate-spin");
   expect(wrapper.get('[data-product-loader="slippy"]').exists()).toBe(true);
   expect(wrapper.find('[data-slot="spinner-mark"]').exists()).toBe(false);

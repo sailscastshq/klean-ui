@@ -107,7 +107,7 @@ export const States = {
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="input-states-title">
         <header class="max-w-3xl">
           <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Native input</p>
-          <h1 id="input-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">The relationship stays in the markup.</h1>
+          <h1 id="input-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The relationship stays in the markup.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Klean styles and forwards the control. The application writes the real label, IDs, help, error, and Tailwind layout where everyone can see them.</p>
         </header>
 

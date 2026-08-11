@@ -16,7 +16,7 @@ function SwitchExample({
 
   return (
     <div className="w-[min(26rem,calc(100vw-2rem))] rounded-xl border border-gray-200 bg-white p-1 shadow-sm dark:border-gray-800 dark:bg-gray-950">
-      <label className="flex min-h-16 cursor-pointer items-center justify-between gap-6 rounded-lg px-4 py-3 has-[:disabled]:cursor-not-allowed">
+      <label className="flex min-h-16 cursor-pointer items-center justify-between gap-6 rounded-lg px-4 py-3 has-disabled:cursor-not-allowed">
         <span className="min-w-0">
           <span className="block text-sm font-medium">{label}</span>
           <span className="mt-1 block text-sm leading-5 text-gray-500">
@@ -98,6 +98,6 @@ export const Styled = {
     description: "Deploy the main branch after every successful build.",
     defaultChecked: true,
     className:
-      "h-5 w-9 bg-stone-300 after:size-4 checked:bg-emerald-600 checked:after:[transform:translate(1rem,-50%)] dark:bg-stone-700 dark:checked:bg-emerald-400",
+      "h-5 w-9 bg-stone-300 after:size-4 checked:bg-emerald-600 checked:after:transform-[translate(1rem,-50%)] dark:bg-stone-700 dark:checked:bg-emerald-400",
   },
 };

@@ -79,7 +79,7 @@ export const Sides = {
     components: { Tooltip },
     data: () => ({ sides: ["top", "right", "bottom", "left"] }),
     template: `
-      <section class="klean-story-canvas grid min-h-[34rem] place-items-center px-8 py-16" aria-label="Tooltip placement">
+      <section class="klean-story-canvas grid min-h-136 place-items-center px-8 py-16" aria-label="Tooltip placement">
         <div class="grid grid-cols-2 gap-24">
           <Tooltip v-for="side in sides" :key="side" :text="side[0].toUpperCase() + side.slice(1)" :placement="side">
             <button type="button" :aria-label="side + ' tooltip'" class="grid size-12 place-items-center rounded-full border border-gray-300 bg-white text-sm font-semibold uppercase text-gray-950 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-gray-700 dark:bg-gray-950 dark:text-white">
@@ -97,7 +97,7 @@ export const Boundaries = {
   render: () => ({
     components: { Tooltip },
     template: `
-      <section class="klean-story-canvas grid min-h-[34rem] grid-cols-2 grid-rows-2 p-3" aria-label="Tooltip collision handling">
+      <section class="klean-story-canvas grid min-h-136 grid-cols-2 grid-rows-2 p-3" aria-label="Tooltip collision handling">
         <Tooltip text="A longer tooltip that stays inside the viewport" placement="top" class="max-w-56 whitespace-normal leading-5">
           <button type="button" class="self-start justify-self-start rounded-md border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-950">Top left</button>
         </Tooltip>
@@ -120,7 +120,7 @@ export const Products = {
   render: () => ({
     components: { Tooltip },
     template: `
-      <section class="grid min-h-[34rem] lg:grid-cols-2" aria-label="Application tooltip recipes">
+      <section class="grid min-h-136 lg:grid-cols-2" aria-label="Application tooltip recipes">
         <article class="flex items-center justify-center bg-gray-950 p-8 text-white">
           <div>
             <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / query toolbar</p>
@@ -148,7 +148,7 @@ export const Products = {
         <article class="flex items-center justify-center bg-[#f4f0e8] p-8 text-black">
           <div>
             <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-black/50">Hagfish / invoice action</p>
-            <Tooltip text="Copy public invoice link" placement="bottom" class="rounded-none border-2 border-black bg-[#f4f0e8] px-3 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-black shadow-[3px_3px_0_0_#000] [&_[data-slot=tooltip-arrow]]:hidden">
+            <Tooltip text="Copy public invoice link" placement="bottom" class="rounded-none border-2 border-black bg-[#f4f0e8] px-3 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-black shadow-[3px_3px_0_0_#000] **:data-[slot=tooltip-arrow]:hidden">
               <button type="button" aria-label="Copy public invoice link" class="mt-6 grid size-12 place-items-center border-2 border-black bg-black text-white shadow-[3px_3px_0_0_#9ca3af] transition-colors hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black">
                 <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2M6 8h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z" /></svg>
               </button>

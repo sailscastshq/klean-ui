@@ -132,7 +132,7 @@ test("keeps Radio controls scalar-sized and its recipes semantic", () => {
   expect(statesTemplate).toContain('aria-invalid="true"');
   expect(appsTemplate).toContain("Slipway recipes");
   expect(appsTemplate).toContain('class="sr-only"');
-  expect(appsTemplate).toContain("has-[:checked]");
+  expect(appsTemplate).toContain("has-checked");
   expect(appsTemplate).not.toContain("Hagfish");
 });
 
@@ -205,7 +205,7 @@ test("keeps Tooltip controls terse and proves independent product styling", () =
   expect(productsTemplate).toContain("Slipway / query toolbar");
   expect(productsTemplate).toContain("Hagfish / invoice action");
   expect(productsTemplate).toContain('aria-label="Re-run query"');
-  expect(productsTemplate).toContain("[&_[data-slot=tooltip-arrow]]:hidden");
+  expect(productsTemplate).toContain("**:data-[slot=tooltip-arrow]:hidden");
   expect(productsTemplate).not.toContain("interestfor");
 });
 

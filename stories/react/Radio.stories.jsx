@@ -17,7 +17,7 @@ function RadioExample({ selected: initialSelected, disabled }) {
           return (
             <label
               key={value}
-              className="flex min-h-14 cursor-pointer items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 has-[:checked]:border-gray-950 dark:border-gray-800 dark:bg-gray-950 dark:has-[:checked]:border-white"
+              className="flex min-h-14 cursor-pointer items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 has-checked:border-gray-950 dark:border-gray-800 dark:bg-gray-950 dark:has-checked:border-white"
             >
               <Radio
                 name="react-region"
@@ -118,7 +118,7 @@ export const Card = {
           {["personal", "project"].map((value) => (
             <label
               key={value}
-              className="cursor-pointer rounded-lg border border-gray-200 px-3 py-3 capitalize has-[:checked]:border-gray-950 has-[:checked]:bg-gray-50 dark:border-gray-800 dark:has-[:checked]:border-white dark:has-[:checked]:bg-gray-900"
+              className="cursor-pointer rounded-lg border border-gray-200 px-3 py-3 capitalize has-checked:border-gray-950 has-checked:bg-gray-50 dark:border-gray-800 dark:has-checked:border-white dark:has-checked:bg-gray-900"
             >
               <Radio
                 className="sr-only"
