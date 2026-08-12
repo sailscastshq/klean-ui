@@ -241,6 +241,11 @@ test("keeps Tooltip wrapper-clean, class-first, semantic, and ephemeral", () => 
     expect(source).toContain("ARROW_OVERHANG");
     expect(source).toContain("floatingArrow");
     expect(source).toContain("overflow-visible");
+    expect(source).toContain("bg-gray-950");
+    expect(source).toContain("text-white");
+    expect(source).toContain("dark:bg-white");
+    expect(source).toContain("dark:text-gray-950");
+    expect(source).toContain("bg-inherit");
     expect(source).not.toMatch(/interestfor|interestForElement/);
     expect(source).not.toMatch(/TooltipTrigger|TooltipContent|TooltipProvider/);
     expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);

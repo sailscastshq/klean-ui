@@ -1,6 +1,7 @@
 import { expect, userEvent, waitFor, within } from "storybook/test";
 import TooltipExample from "./TooltipExample.svelte";
 import TooltipSides from "./TooltipSides.svelte";
+import TooltipThemes from "./TooltipThemes.svelte";
 
 const meta = {
   title: "Components/Tooltip",
@@ -45,4 +46,9 @@ export const Playground = {
 
 export const Sides = {
   render: () => ({ Component: TooltipSides }),
+};
+
+export const Themes = {
+  parameters: { layout: "fullscreen", controls: { disable: true } },
+  render: () => ({ Component: TooltipThemes }),
 };

@@ -70,6 +70,10 @@ test("wraps one semantic trigger without imposing visible trigger styling", asyn
   expect(content().getAttribute("popover")).toBe("hint");
   expect(content().getAttribute("data-slot")).toBe("tooltip");
   expect(content().textContent).toContain("Re-run query");
+  expect(content().classList).toContain("bg-gray-950");
+  expect(content().classList).toContain("text-white");
+  expect(content().classList).toContain("dark:bg-white");
+  expect(content().classList).toContain("dark:text-gray-950");
   cleanup();
 });
 
@@ -166,7 +170,8 @@ test("opens for a mouse pointer but does not synthesize sticky touch hover", asy
 test("lets ordinary classes restyle only the floating surface", async () => {
   const { trigger, content, cleanup } = mountTooltip({
     attrs: {
-      class: "rounded-none border-2 bg-amber-100 px-4 text-black shadow-none",
+      class:
+        "rounded-none border-2 border-amber-200 bg-amber-100 px-4 text-black shadow-none dark:border-amber-900 dark:bg-amber-950 dark:text-amber-50",
     },
   });
   await settle();
@@ -174,9 +179,12 @@ test("lets ordinary classes restyle only the floating surface", async () => {
   expect(content().classList).toContain("rounded-none");
   expect(content().classList).toContain("border-2");
   expect(content().classList).toContain("bg-amber-100");
+  expect(content().classList).toContain("dark:bg-amber-950");
+  expect(content().classList).toContain("dark:text-amber-50");
   expect(content().classList).toContain("shadow-none");
   expect(content().classList).not.toContain("rounded-md");
   expect(content().classList).not.toContain("bg-gray-950");
+  expect(content().classList).not.toContain("dark:bg-white");
   expect([...trigger.classList]).toEqual(
     expect.arrayContaining(["size-9", "rounded-lg"]),
   );
