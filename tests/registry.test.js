@@ -672,3 +672,80 @@ test("keeps Toast provider-free, class-first, and durable", () => {
     expect(source).not.toMatch(/success.*(?:green|emerald)|error.*red/i);
   }
 });
+
+test("keeps the Vue Command workbench identical to its installable source", () => {
+  expect(registrySource("vue", "Command.vue", "command")).toBe(
+    readFileSync(resolve("src/vue/command/Command.vue"), "utf8"),
+  );
+});
+
+test("ships compiler-valid framework-native Command source", () => {
+  const reactSource = registrySource("react", "Command.jsx", "command");
+  expect(() =>
+    parse(reactSource, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+
+  expect(registrySource("vue", "Command.vue", "command")).toContain(
+    "<template>",
+  );
+
+  const result = compile(
+    registrySource("svelte", "Command.svelte", "command"),
+    { filename: "Command.svelte", generate: false },
+  );
+  expect(result.warnings).toEqual([]);
+});
+
+test("keeps Command accessible, app-owned, class-first, and ephemeral", () => {
+  for (const [framework, filename] of [
+    ["vue", "Command.vue"],
+    ["react", "Command.jsx"],
+    ["svelte", "Command.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "command");
+
+    expect(source).toContain("defaultFilter");
+    expect(source).toContain("activeEntry");
+    expect(source).toContain("commands");
+    expect(source).toContain("groups");
+    expect(source).toContain("isComposing");
+    expect(source).toContain("scrollIntoView");
+    expect(source).toContain("tailwind-merge");
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
+    expect(source).not.toMatch(/router|navigate|fetch\(|Provider.*Command/);
+    expect(source).not.toMatch(/\bvariant\b|\btone\b|\bsize\b/i);
+    expect(source).not.toMatch(/fuse\.js|cmdk|radix|bits-ui/i);
+  }
+
+  for (const [framework, filename] of [
+    ["vue", "Command.vue"],
+    ["react", "Command.jsx"],
+    ["svelte", "Command.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "command");
+    expect(source).toContain('role="combobox"');
+    expect(source).toContain("aria-activedescendant");
+  }
+
+  for (const [framework, filename] of [
+    ["vue", "Command.vue"],
+    ["react", "Command.jsx"],
+    ["svelte", "Command.svelte"],
+  ]) {
+    const source = registrySource(framework, filename, "command");
+    expect(source).toContain('role="option"');
+    expect(source).toContain("cursor-pointer");
+    expect(source).toContain("aria-disabled");
+    expect(source).toContain('role="status"');
+    expect(source).toContain('aria-atomic="true"');
+    const beforeMarker =
+      framework === "vue"
+        ? '<slot name="before" />'
+        : framework === "react"
+          ? "{before}"
+          : "{@render before?.()}";
+    expect(source.indexOf(beforeMarker)).toBeLessThan(
+      source.indexOf('role="listbox"'),
+    );
+  }
+});

@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "name": "command",
+  "description": "A single-component searchable command surface with grouped results, active-descendant keyboard behavior, app-owned actions, and durable focus.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Command.vue",
+      "target": "command/Command.vue",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/Command.jsx",
+      "target": "command/Command.jsx",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "source": "svelte/Command.svelte",
+      "target": "command/Command.svelte",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

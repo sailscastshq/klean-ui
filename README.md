@@ -126,10 +126,10 @@ composes three framework-native Storybooks:
 Open **Vue**, **React**, or **Svelte**, then choose **Components / Button**,
 **Input**, **Textarea**, **Checkbox**, **Radio**, **Switch**, **Spinner**,
 **Tooltip**, **Tabs**, **Popover**, **Menu**, **Select**, **Combobox**,
-**Dialog**, **Slide**, or **Toast**. The stories mount the actual registry
-source and share behavior expectations without sharing a runtime component
-abstraction. Controls stay limited to useful behavioral inputs; interaction
-stories and the accessibility addon verify the durable contract.
+**Command**, **Dialog**, **Slide**, or **Toast**. The stories mount the actual
+registry source and share behavior expectations without sharing a runtime
+component abstraction. Controls stay limited to useful behavioral inputs;
+interaction stories and the accessibility addon verify the durable contract.
 
 `npm run build-storybook` produces the same composition as one static artifact:
 the neutral shell at `storybook-static`, with each renderer nested below it.
