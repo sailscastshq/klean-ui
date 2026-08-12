@@ -83,7 +83,11 @@ async function mountCommand({ filter, groups } = {}) {
           @escape="handleEscape"
           @back="handleBack"
           @select="selected = $event"
-        />
+        >
+          <template #before>
+            <button type="button" data-testid="before-action">Back</button>
+          </template>
+        </Command>
       `,
     },
     { attachTo: host },
@@ -122,6 +126,26 @@ test("renders one accessible combobox/listbox surface from command records", asy
   expect(input.attributes("aria-activedescendant")).toBe(
     wrapper.get("[data-highlighted]").attributes("id"),
   );
+  const beforeAction = wrapper.get('[data-testid="before-action"]');
+  expect(list.element.contains(beforeAction.element)).toBe(false);
+  const status = wrapper.get('[role="status"]');
+  expect(list.element.contains(status.element)).toBe(false);
+  expect(status.attributes("aria-atomic")).toBe("true");
+  expect(status.text()).toBe("");
+  expect(status.classes()).toContain("sr-only");
+  cleanup();
+});
+
+test("updates an already-mounted status region when results become empty", async () => {
+  const { wrapper, input, cleanup } = await mountCommand();
+  const status = wrapper.get('[role="status"]');
+
+  await input.setValue("no command can match this");
+  await settle();
+
+  expect(wrapper.findAll('[role="option"]')).toHaveLength(0);
+  expect(status.text()).toBe("No matching command.");
+  expect(status.classes()).not.toContain("sr-only");
   cleanup();
 });
 

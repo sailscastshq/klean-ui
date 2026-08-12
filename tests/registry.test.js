@@ -736,5 +736,16 @@ test("keeps Command accessible, app-owned, class-first, and ephemeral", () => {
     expect(source).toContain('role="option"');
     expect(source).toContain("cursor-pointer");
     expect(source).toContain("aria-disabled");
+    expect(source).toContain('role="status"');
+    expect(source).toContain('aria-atomic="true"');
+    const beforeMarker =
+      framework === "vue"
+        ? '<slot name="before" />'
+        : framework === "react"
+          ? "{before}"
+          : "{@render before?.()}";
+    expect(source.indexOf(beforeMarker)).toBeLessThan(
+      source.indexOf('role="listbox"'),
+    );
   }
 });
