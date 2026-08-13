@@ -210,6 +210,31 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
 }
 
 for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
+  test(`installs only the native ${framework} Alert`, () => {
+    const root = makeFixture({ framework, tailwindMerge: false });
+    const dependencyCalls = [];
+    const result = installComponent("alert", {
+      cwd: root,
+      dependencyInstaller: recordingDependencyInstaller(dependencyCalls),
+    });
+    const destination = resolve(
+      root,
+      `assets/js/components/ui/alert/Alert.${fixture.extension}`,
+    );
+
+    expect(result.plan.registryItems).toEqual(["alert"]);
+    expect(result.plan.files).toHaveLength(1);
+    expect(existsSync(destination)).toBe(true);
+    expect(readFileSync(destination, "utf8")).toBe(
+      readFileSync(result.plan.file.sourcePath, "utf8"),
+    );
+    expect(dependencyCalls[0].dependencies).toEqual([
+      { name: "tailwind-merge", version: "^3.6.0", missing: true },
+    ]);
+  });
+}
+
+for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
   test(`installs only the native ${framework} Tooltip`, () => {
     const root = makeFixture({ framework, tailwindMerge: false });
     const dependencyCalls = [];

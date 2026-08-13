@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "alert",
+  "description": "A shallow notice surface with caller-owned semantics, native content, and Tailwind classes.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Alert.vue",
+      "target": "alert/Alert.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Alert.jsx",
+      "target": "alert/Alert.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Alert.svelte",
+      "target": "alert/Alert.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
