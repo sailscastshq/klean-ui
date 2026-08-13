@@ -17,6 +17,7 @@ export { default as SchedulePicker } from "./vue/schedule-picker/SchedulePicker.
 export { default as Select } from "./vue/select/Select.vue";
 export { default as Slide } from "./vue/slide/Slide.vue";
 export { default as Spinner } from "./vue/spinner/Spinner.vue";
+export { default as Table } from "./vue/table/Table.vue";
 export { default as Textarea } from "./vue/textarea/Textarea.vue";
 export { default as Tooltip } from "./vue/tooltip/Tooltip.vue";
 export { default as Tabs } from "./vue/tabs/Tabs.vue";

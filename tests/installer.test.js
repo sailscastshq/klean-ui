@@ -235,6 +235,34 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
 }
 
 for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
+  test(`installs only the native ${framework} Table`, () => {
+    const root = makeFixture({ framework, tailwindMerge: false });
+    const dependencyCalls = [];
+    const result = installComponent("table", {
+      cwd: root,
+      dependencyInstaller: recordingDependencyInstaller(dependencyCalls),
+    });
+    const destination = resolve(
+      root,
+      `assets/js/components/ui/table/Table.${fixture.extension}`,
+    );
+
+    expect(result.plan.registryItems).toEqual(["table"]);
+    expect(result.plan.files).toHaveLength(1);
+    expect(existsSync(destination)).toBe(true);
+    expect(readdirSync(dirname(destination))).toEqual([
+      `Table.${fixture.extension}`,
+    ]);
+    expect(readFileSync(destination, "utf8")).toBe(
+      readFileSync(result.plan.file.sourcePath, "utf8"),
+    );
+    expect(dependencyCalls[0].dependencies).toEqual([
+      { name: "tailwind-merge", version: "^3.6.0", missing: true },
+    ]);
+  });
+}
+
+for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
   test(`installs only the native ${framework} Tooltip`, () => {
     const root = makeFixture({ framework, tailwindMerge: false });
     const dependencyCalls = [];
