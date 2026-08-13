@@ -1,5 +1,5 @@
 import { expect, userEvent, within } from "storybook/test";
-import { ref, watch } from "vue";
+import { reactive, ref, watch } from "vue";
 import Pagination from "../src/vue/pagination/Pagination.vue";
 
 function interactive(args) {
@@ -122,17 +122,16 @@ export const Apps = {
   render: () => ({
     components: { Pagination },
     setup() {
-      const bridgePage = ref(7);
-      const invoicePage = ref(2);
+      const pages = reactive({ bridge: 7, invoice: 2 });
 
-      function navigate(event, state) {
+      function navigate(event, list) {
         const link = event.target.closest?.("a[data-page]");
         if (!link) return;
         event.preventDefault();
-        state.value = Number(link.dataset.page);
+        pages[list] = Number(link.dataset.page);
       }
 
-      return { bridgePage, invoicePage, navigate };
+      return { navigate, pages };
     },
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="pagination-apps-title">
@@ -143,15 +142,15 @@ export const Apps = {
         </header>
 
         <div class="mt-12 grid max-w-6xl gap-8 xl:grid-cols-2">
-          <article class="dark rounded-lg border border-gray-800 bg-gray-950 p-6 text-white shadow-xl" @click.capture="navigate($event, bridgePage)">
+          <article class="dark rounded-lg border border-gray-800 bg-gray-950 p-6 text-white shadow-xl" @click.capture="navigate($event, 'bridge')">
             <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / Bridge resources</p>
             <div class="my-8 space-y-3">
               <div v-for="name in ['users', 'sessions', 'payments']" :key="name" class="rounded-md border border-gray-800 px-4 py-3 font-mono text-sm text-gray-300">{{ name }}</div>
             </div>
-            <Pagination :page="bridgePage" :pages="24" :only="['records', 'pagination', 'filters']" aria-label="Bridge result pages" />
+            <Pagination :page="pages.bridge" :pages="24" :only="['records', 'pagination', 'filters']" aria-label="Bridge result pages" />
           </article>
 
-          <article class="border-2 border-black bg-[#f7f3eb] p-6 text-black shadow-[6px_6px_0_0_#000] sm:p-8" @click.capture="navigate($event, invoicePage)">
+          <article class="border-2 border-black bg-[#f7f3eb] p-6 text-black shadow-[6px_6px_0_0_#000] sm:p-8" @click.capture="navigate($event, 'invoice')">
             <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-black/55">Hagfish / invoice archive</p>
             <div class="my-8 divide-y divide-black/20 border-y-2 border-black">
               <div v-for="invoice in ['INV-1042', 'INV-1041', 'INV-1040']" :key="invoice" class="flex justify-between py-4 font-medium">
@@ -159,7 +158,7 @@ export const Apps = {
               </div>
             </div>
             <Pagination
-              :page="invoicePage"
+              :page="pages.invoice"
               :pages="8"
               aria-label="Invoice archive pages"
               class="**:data-[slot=page]:rounded-none **:data-[slot=page]:border-black **:data-[slot=page]:text-black [&_[data-slot=page][data-state=current]]:bg-black [&_[data-slot=page][data-state=current]]:text-white"

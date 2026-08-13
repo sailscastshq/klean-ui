@@ -265,9 +265,27 @@ test("keeps Pagination controls server-sized and proves app-owned styling", () =
   expect(statesTemplate).toContain(':pages="1"');
   expect(appsTemplate).toContain("Slipway / Bridge resources");
   expect(appsTemplate).toContain("Hagfish / invoice archive");
+  expect(appsTemplate).toContain("navigate($event, 'bridge')");
+  expect(appsTemplate).toContain("navigate($event, 'invoice')");
   expect(appsTemplate).toContain(":only=\"['records', 'pagination', 'filters']\"");
   expect(appsTemplate).toContain("**:data-[slot=page]:rounded-none");
   expect(narrowTemplate).toContain(':pages="100"');
+
+  const appsSetup = PaginationApps.render().setup();
+  let prevented = false;
+  appsSetup.navigate(
+    {
+      target: {
+        closest: () => ({ dataset: { page: "3" } }),
+      },
+      preventDefault: () => {
+        prevented = true;
+      },
+    },
+    "invoice",
+  );
+  expect(prevented).toBe(true);
+  expect(appsSetup.pages.invoice).toBe(3);
 });
 
 test("makes Menu recipe cursor and Tab affordances explicit", () => {
