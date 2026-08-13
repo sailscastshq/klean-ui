@@ -11,6 +11,7 @@ export { default as DateRangePicker } from "./vue/date-range-picker/DateRangePic
 export { default as Dialog } from "./vue/dialog/Dialog.vue";
 export { default as Input } from "./vue/input/Input.vue";
 export { default as Menu } from "./vue/menu/Menu.vue";
+export { default as Pagination } from "./vue/pagination/Pagination.vue";
 export { default as Popover } from "./vue/popover/Popover.vue";
 export { default as Radio } from "./vue/radio/Radio.vue";
 export { default as SchedulePicker } from "./vue/schedule-picker/SchedulePicker.vue";

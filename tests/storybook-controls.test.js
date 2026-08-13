@@ -48,6 +48,12 @@ import {
   Playground as TabsPlayground,
   Workspace as TabsWorkspace,
 } from "../stories/Tabs.stories.js";
+import {
+  Apps as PaginationApps,
+  Narrow as PaginationNarrow,
+  Playground as PaginationPlayground,
+  States as PaginationStates,
+} from "../stories/Pagination.stories.js";
 import { readFileSync } from "node:fs";
 
 const usefulControls = [
@@ -241,6 +247,27 @@ test("keeps Tabs controls behavioral and its dynamic actions outside the tablist
   expect(overflowTemplate).toContain("overflow-x-auto");
   expect(overflowTemplate).toContain("shrink-0 cursor-pointer");
   expect(overflowTemplate).toContain("data-value");
+});
+
+test("keeps Pagination controls server-sized and proves app-owned styling", () => {
+  expect(PaginationPlayground.parameters.controls.include).toEqual([
+    "page",
+    "pages",
+  ]);
+  expect(PaginationPlayground.play).toBeTypeOf("function");
+
+  const statesTemplate = PaginationStates.render().template;
+  const appsTemplate = PaginationApps.render().template;
+  const narrowTemplate = PaginationNarrow.render().template;
+
+  expect(statesTemplate).toContain("Edges tell the truth");
+  expect(statesTemplate).toContain(':pages="36"');
+  expect(statesTemplate).toContain(':pages="1"');
+  expect(appsTemplate).toContain("Slipway / Bridge resources");
+  expect(appsTemplate).toContain("Hagfish / invoice archive");
+  expect(appsTemplate).toContain(":only=\"['records', 'pagination', 'filters']\"");
+  expect(appsTemplate).toContain("**:data-[slot=page]:rounded-none");
+  expect(narrowTemplate).toContain(':pages="100"');
 });
 
 test("makes Menu recipe cursor and Tab affordances explicit", () => {
