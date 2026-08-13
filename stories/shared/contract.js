@@ -15,6 +15,8 @@ export const contract = Object.freeze({
   dialogId: "framework-dialog",
   dialogLabel: "Delete project",
   dialogTitle: "Delete this project?",
+  paginationPage: 4,
+  paginationPages: 12,
 });
 
 export const menuItemClass = [
