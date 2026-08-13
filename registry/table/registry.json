@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "table",
+  "description": "One native table with a neutral baseline and application-owned semantic children and Tailwind.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Table.vue",
+      "target": "table/Table.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Table.jsx",
+      "target": "table/Table.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Table.svelte",
+      "target": "table/Table.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
