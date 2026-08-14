@@ -16,7 +16,7 @@ function getAbsolutePath(value) {
 
 const config = {
   stories: ["../stories/react/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: ["@storybook/addon-a11y"],
+  addons: ["@storybook/addon-a11y", "@storybook/addon-docs"],
   framework: {
     name: getAbsolutePath("storybook-react-rsbuild"),
     options: {},
