@@ -15,6 +15,19 @@ export const contract = Object.freeze({
   dialogId: "framework-dialog",
   dialogLabel: "Delete project",
   dialogTitle: "Delete this project?",
+  breadcrumbItems: [
+    { label: "Projects", href: "/" },
+    { label: "Slipway", href: "/projects/slipway" },
+    {
+      label: "Production",
+      href: "/projects/slipway/environments/production",
+    },
+    {
+      label: "API",
+      href: "/projects/slipway/environments/production/apps/api",
+    },
+    { label: "Settings" },
+  ],
   paginationPage: 4,
   paginationPages: 12,
 });

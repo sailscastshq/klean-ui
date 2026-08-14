@@ -14,6 +14,7 @@ const config = {
   stories: ["../stories/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@storybook/addon-a11y",
+    "@storybook/addon-docs",
     { name: getAbsolutePath("storybook-addon-rslib") },
   ],
   framework: {
