@@ -69,7 +69,7 @@ test("uses unavailable edge semantics without fake links", () => {
 test("recovers focus after the activated edge link disappears", async () => {
   setUrl("/projects?page=4");
   const visit = router.visit;
-  router.visit = () => {};
+  router.visit = (_href, options) => options.onStart?.({});
   const wrapper = mount(Pagination, {
     attachTo: document.body,
     props: { page: 4, pages: 5 },
@@ -80,7 +80,8 @@ test("recovers focus after the activated edge link disappears", async () => {
     next.element.focus();
     await next.trigger("click", { button: 0 });
     await wrapper.setProps({ page: 5 });
-    document.dispatchEvent(new CustomEvent("inertia:finish"));
+    document.dispatchEvent(new CustomEvent("inertia:navigate"));
+    await wrapper.vm.$nextTick();
     await Promise.resolve();
 
     expect(document.activeElement).toBe(

@@ -87,36 +87,19 @@ const rootAttrs = computed(() => {
   return rest;
 });
 
-function isPlainActivation(event) {
-  return (
-    (event.button === undefined || event.button === 0) &&
-    !event.metaKey &&
-    !event.ctrlKey &&
-    !event.shiftKey &&
-    !event.altKey
-  );
-}
-
-function rememberIntent(event, target) {
-  if (!isPlainActivation(event)) return;
-  if (pendingPage.value === target) {
-    event.preventDefault();
-    return;
-  }
-  lastIntent.value = target;
-}
-
 function start(target) {
   pendingPage.value = target;
+  lastIntent.value = target;
 }
 
 async function settleIntent() {
   const target = lastIntent.value;
   pendingPage.value = undefined;
   lastIntent.value = undefined;
-  if (!target || currentPage.value !== target) return;
+  if (!target) return;
 
   await nextTick();
+  if (currentPage.value !== target) return;
   if (!root.value?.contains(document.activeElement)) {
     root.value
       ?.querySelector(`[data-slot="page"][data-page="${target}"]`)
@@ -124,8 +107,18 @@ async function settleIntent() {
   }
 }
 
-const stopListening = router.on("finish", settleIntent);
-onBeforeUnmount(stopListening);
+function clearInterrupted(event) {
+  if (event.detail.visit.completed) return;
+  pendingPage.value = undefined;
+  lastIntent.value = undefined;
+}
+
+const stopListeningForNavigation = router.on("navigate", settleIntent);
+const stopListeningForFinish = router.on("finish", clearInterrupted);
+onBeforeUnmount(() => {
+  stopListeningForNavigation();
+  stopListeningForFinish();
+});
 
 function linkProps(target) {
   return {
@@ -157,7 +150,6 @@ function linkProps(target) {
           :data-pending="pendingPage === currentPage - 1 ? '' : undefined"
           :aria-label="`Go to page ${currentPage - 1}`"
           :class="LINK_CLASSES"
-          @click="rememberIntent($event, currentPage - 1)"
           @start="start(currentPage - 1)"
         >
           <svg
@@ -239,7 +231,6 @@ function linkProps(target) {
           :class="
             twMerge(LINK_CLASSES, item === currentPage && CURRENT_CLASSES)
           "
-          @click="rememberIntent($event, item)"
           @start="start(item)"
         >
           {{ item }}
@@ -255,7 +246,6 @@ function linkProps(target) {
           :data-pending="pendingPage === currentPage + 1 ? '' : undefined"
           :aria-label="`Go to page ${currentPage + 1}`"
           :class="LINK_CLASSES"
-          @click="rememberIntent($event, currentPage + 1)"
           @start="start(currentPage + 1)"
         >
           <span class="hidden sm:inline">Next</span>
