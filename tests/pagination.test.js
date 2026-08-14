@@ -1,5 +1,6 @@
 import { expect, test } from "@rstest/core";
 import { mount } from "@vue/test-utils";
+import { router } from "@inertiajs/vue3";
 import { parse } from "@babel/parser";
 import { compile } from "svelte/compiler";
 import { readFileSync } from "node:fs";
@@ -63,6 +64,33 @@ test("uses unavailable edge semantics without fake links", () => {
   expect(next.element.tagName).toBe("SPAN");
   expect(next.attributes("aria-disabled")).toBe("true");
   expect(next.attributes("href")).toBeUndefined();
+});
+
+test("recovers focus after the activated edge link disappears", async () => {
+  setUrl("/projects?page=4");
+  const visit = router.visit;
+  router.visit = () => {};
+  const wrapper = mount(Pagination, {
+    attachTo: document.body,
+    props: { page: 4, pages: 5 },
+  });
+
+  try {
+    const next = wrapper.get('[data-slot="next"]');
+    next.element.focus();
+    await next.trigger("click", { button: 0 });
+    await wrapper.setProps({ page: 5 });
+    document.dispatchEvent(new CustomEvent("inertia:finish"));
+    await Promise.resolve();
+
+    expect(document.activeElement).toBe(
+      wrapper.get('[data-slot="page"][data-page="5"]').element,
+    );
+    expect(wrapper.attributes("aria-busy")).toBeUndefined();
+  } finally {
+    wrapper.unmount();
+    router.visit = visit;
+  }
 });
 
 test("keeps mobile compact and desktop page discovery automatic", () => {

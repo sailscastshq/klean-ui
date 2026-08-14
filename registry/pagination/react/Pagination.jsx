@@ -1,5 +1,5 @@
-import { Link, usePage } from "@inertiajs/react";
-import { forwardRef, useLayoutEffect, useRef, useState } from "react";
+import { Link, router, usePage } from "@inertiajs/react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 const LINK_CLASSES =
@@ -86,20 +86,28 @@ const Pagination = forwardRef(function Pagination(
   const currentPage = Math.min(positiveInteger(page), totalPages);
   const items = pageWindow(currentPage, totalPages);
   const currentUrl = inertiaUrl || browserUrl();
+  const currentPageRef = useRef(currentPage);
+  currentPageRef.current = currentPage;
 
-  useLayoutEffect(() => {
-    if (lastIntentRef.current !== currentPage) return;
+  useEffect(
+    () =>
+      router.on("finish", () => {
+        const target = lastIntentRef.current;
+        setPendingPage(undefined);
+        lastIntentRef.current = undefined;
+        if (!target) return;
 
-    if (!rootRef.current?.contains(document.activeElement)) {
-      rootRef.current
-        ?.querySelector(
-          `[data-slot="page"][data-page="${currentPage}"]`,
-        )
-        ?.focus({ preventScroll: true });
-    }
-
-    lastIntentRef.current = undefined;
-  }, [currentPage]);
+        queueMicrotask(() => {
+          if (currentPageRef.current !== target) return;
+          if (!rootRef.current?.contains(document.activeElement)) {
+            rootRef.current
+              ?.querySelector(`[data-slot="page"][data-page="${target}"]`)
+              ?.focus({ preventScroll: true });
+          }
+        });
+      }),
+    [],
+  );
 
   if (totalPages <= 1) return null;
 
@@ -127,10 +135,6 @@ const Pagination = forwardRef(function Pagination(
     lastIntentRef.current = target;
   }
 
-  function finish(target) {
-    setPendingPage((pending) => (pending === target ? undefined : pending));
-  }
-
   function linkProps(target) {
     return {
       href: hrefFor(currentUrl, target),
@@ -139,16 +143,19 @@ const Pagination = forwardRef(function Pagination(
       preserveState: true,
       onClick: (event) => rememberIntent(event, target),
       onStart: () => setPendingPage(target),
-      onFinish: () => finish(target),
-      onCancel: () => finish(target),
-      onError: () => finish(target),
     };
   }
 
   function Chevron({ direction }) {
-    const path = direction === "previous" ? "m12.5 15-5-5 5-5" : "m7.5 5 5 5-5 5";
+    const path =
+      direction === "previous" ? "m12.5 15-5-5 5-5" : "m7.5 5 5 5-5 5";
     return (
-      <svg aria-hidden="true" className="size-4" viewBox="0 0 20 20" fill="none">
+      <svg
+        aria-hidden="true"
+        className="size-4"
+        viewBox="0 0 20 20"
+        fill="none"
+      >
         <path
           d={path}
           stroke="currentColor"
@@ -184,7 +191,11 @@ const Pagination = forwardRef(function Pagination(
               <span className="hidden sm:inline">Previous</span>
             </Link>
           ) : (
-            <span data-slot="previous" aria-disabled="true" className={DISABLED_CLASSES}>
+            <span
+              data-slot="previous"
+              aria-disabled="true"
+              className={DISABLED_CLASSES}
+            >
               <Chevron direction="previous" />
               <span className="hidden sm:inline">Previous</span>
             </span>
@@ -249,7 +260,11 @@ const Pagination = forwardRef(function Pagination(
               <Chevron direction="next" />
             </Link>
           ) : (
-            <span data-slot="next" aria-disabled="true" className={DISABLED_CLASSES}>
+            <span
+              data-slot="next"
+              aria-disabled="true"
+              className={DISABLED_CLASSES}
+            >
               <span className="hidden sm:inline">Next</span>
               <Chevron direction="next" />
             </span>
