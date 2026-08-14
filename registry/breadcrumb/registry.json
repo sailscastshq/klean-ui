@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema.json",
+  "name": "breadcrumb",
+  "description": "Durable location hierarchy with framework-native Inertia links, truthful current-page semantics, and automatic responsive condensation.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Breadcrumb.vue",
+      "target": "breadcrumb/Breadcrumb.vue",
+      "dependencies": {
+        "@inertiajs/vue3": "^3.6.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/Breadcrumb.jsx",
+      "target": "breadcrumb/Breadcrumb.jsx",
+      "dependencies": {
+        "@inertiajs/react": "^3.6.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "source": "svelte/Breadcrumb.svelte",
+      "target": "breadcrumb/Breadcrumb.svelte",
+      "dependencies": {
+        "@inertiajs/svelte": "^3.6.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

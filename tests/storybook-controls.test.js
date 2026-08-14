@@ -54,6 +54,12 @@ import {
   Playground as PaginationPlayground,
   States as PaginationStates,
 } from "../stories/Pagination.stories.js";
+import {
+  Apps as BreadcrumbApps,
+  Narrow as BreadcrumbNarrow,
+  Playground as BreadcrumbPlayground,
+  States as BreadcrumbStates,
+} from "../stories/Breadcrumb.stories.js";
 import { readFileSync } from "node:fs";
 
 const usefulControls = [
@@ -286,6 +292,28 @@ test("keeps Pagination controls server-sized and proves app-owned styling", () =
   );
   expect(prevented).toBe(true);
   expect(appsSetup.pages.invoice).toBe(3);
+});
+
+test("keeps Breadcrumb controls terse and proves one responsive product trail", () => {
+  expect(BreadcrumbPlayground.parameters.controls.include).toEqual(["items"]);
+  expect(BreadcrumbPlayground.play).toBeTypeOf("function");
+  expect(BreadcrumbNarrow.play).toBeTypeOf("function");
+
+  const statesTemplate = BreadcrumbStates.render().template;
+  const appsTemplate = BreadcrumbApps.render().template;
+  const narrowTemplate = BreadcrumbNarrow.render().template;
+
+  expect(statesTemplate).toContain("One truthful trail");
+  expect(statesTemplate).toContain("Long resource names");
+  expect(appsTemplate).toContain("Slipway / deployment");
+  expect(appsTemplate).toContain("Hagfish / invoice");
+  expect(appsTemplate).toContain("**:data-[slot=link]:text-gray-400");
+  expect(appsTemplate).toContain("**:data-[slot=current]:font-bold");
+  expect(narrowTemplate).toContain("w-72");
+  expect(narrowTemplate).toContain("**:data-[slot=current]:max-w-28");
+  expect(statesTemplate.match(/<Breadcrumb/g)?.length).toBe(4);
+  expect(statesTemplate).not.toContain("<BreadcrumbItem");
+  expect(statesTemplate).not.toContain("<BreadcrumbSeparator");
 });
 
 test("makes Menu recipe cursor and Tab affordances explicit", () => {

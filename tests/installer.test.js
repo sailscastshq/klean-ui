@@ -352,6 +352,42 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
 }
 
 for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
+  test(`installs the native ${framework} Breadcrumb and its Inertia Link`, () => {
+    const root = makeFixture({ framework, tailwindMerge: false });
+    const dependencyCalls = [];
+    const result = installComponent("breadcrumb", {
+      cwd: root,
+      dependencyInstaller: recordingDependencyInstaller(dependencyCalls),
+    });
+    const destination = resolve(
+      root,
+      `assets/js/components/ui/breadcrumb/Breadcrumb.${fixture.extension}`,
+    );
+    const adapter = {
+      vue: "@inertiajs/vue3",
+      react: "@inertiajs/react",
+      svelte: "@inertiajs/svelte",
+    }[framework];
+
+    expect(result.plan.registryItems).toEqual(["breadcrumb"]);
+    expect(result.plan.files).toHaveLength(1);
+    expect(existsSync(destination)).toBe(true);
+    expect(readdirSync(dirname(destination))).toEqual([
+      `Breadcrumb.${fixture.extension}`,
+    ]);
+    expect(readFileSync(destination, "utf8")).toBe(
+      readFileSync(result.plan.file.sourcePath, "utf8"),
+    );
+    expect(dependencyCalls[0].dependencies).toEqual([
+      { name: adapter, version: "^3.6.1", missing: true },
+      { name: "tailwind-merge", version: "^3.6.0", missing: true },
+    ]);
+    expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
+    expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
+  });
+}
+
+for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
   test(`plans the complete native ${framework} date family without configuration`, () => {
     const root = makeFixture({ framework, tailwindMerge: false });
     const extension = fixture.extension;
