@@ -89,25 +89,33 @@ const Pagination = forwardRef(function Pagination(
   const currentPageRef = useRef(currentPage);
   currentPageRef.current = currentPage;
 
-  useEffect(
-    () =>
-      router.on("finish", () => {
-        const target = lastIntentRef.current;
-        setPendingPage(undefined);
-        lastIntentRef.current = undefined;
-        if (!target) return;
+  useEffect(() => {
+    const stopListeningForNavigation = router.on("navigate", () => {
+      const target = lastIntentRef.current;
+      setPendingPage(undefined);
+      lastIntentRef.current = undefined;
+      if (!target) return;
 
-        queueMicrotask(() => {
-          if (currentPageRef.current !== target) return;
-          if (!rootRef.current?.contains(document.activeElement)) {
-            rootRef.current
-              ?.querySelector(`[data-slot="page"][data-page="${target}"]`)
-              ?.focus({ preventScroll: true });
-          }
-        });
-      }),
-    [],
-  );
+      queueMicrotask(() => {
+        if (currentPageRef.current !== target) return;
+        if (!rootRef.current?.contains(document.activeElement)) {
+          rootRef.current
+            ?.querySelector(`[data-slot="page"][data-page="${target}"]`)
+            ?.focus({ preventScroll: true });
+        }
+      });
+    });
+    const stopListeningForFinish = router.on("finish", (event) => {
+      if (event.detail.visit.completed) return;
+      setPendingPage(undefined);
+      lastIntentRef.current = undefined;
+    });
+
+    return () => {
+      stopListeningForNavigation();
+      stopListeningForFinish();
+    };
+  }, []);
 
   if (totalPages <= 1) return null;
 
@@ -116,33 +124,16 @@ const Pagination = forwardRef(function Pagination(
     assignRef(forwardedRef, node);
   }
 
-  function isPlainActivation(event) {
-    return (
-      (event.button === undefined || event.button === 0) &&
-      !event.metaKey &&
-      !event.ctrlKey &&
-      !event.shiftKey &&
-      !event.altKey
-    );
-  }
-
-  function rememberIntent(event, target) {
-    if (!isPlainActivation(event)) return;
-    if (pendingPage === target) {
-      event.preventDefault();
-      return;
-    }
-    lastIntentRef.current = target;
-  }
-
   function linkProps(target) {
     return {
       href: hrefFor(currentUrl, target),
       only,
       preserveScroll: true,
       preserveState: true,
-      onClick: (event) => rememberIntent(event, target),
-      onStart: () => setPendingPage(target),
+      onStart: () => {
+        setPendingPage(target);
+        lastIntentRef.current = target;
+      },
     };
   }
 

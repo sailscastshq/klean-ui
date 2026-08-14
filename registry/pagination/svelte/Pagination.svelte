@@ -73,22 +73,8 @@
   let items = $derived(pageWindow(currentPage, totalPages));
   let currentUrl = $derived(inertiaPage.url || browserUrl());
 
-  function isPlainActivation(event) {
-    return (
-      (event.button === undefined || event.button === 0) &&
-      !event.metaKey &&
-      !event.ctrlKey &&
-      !event.shiftKey &&
-      !event.altKey
-    );
-  }
-
-  function rememberIntent(event, target) {
-    if (!isPlainActivation(event)) return;
-    if (pendingPage === target) {
-      event.preventDefault();
-      return;
-    }
+  function start(target) {
+    pendingPage = target;
     lastIntent = target;
   }
 
@@ -101,7 +87,7 @@
     };
   }
 
-  const stopListening = router.on("finish", () => {
+  const stopListeningForNavigation = router.on("navigate", () => {
     const target = lastIntent;
     pendingPage = undefined;
     lastIntent = undefined;
@@ -116,7 +102,15 @@
       }
     });
   });
-  onDestroy(stopListening);
+  const stopListeningForFinish = router.on("finish", (event) => {
+    if (event.detail.visit.completed) return;
+    pendingPage = undefined;
+    lastIntent = undefined;
+  });
+  onDestroy(() => {
+    stopListeningForNavigation();
+    stopListeningForFinish();
+  });
 </script>
 
 {#snippet Chevron(direction)}
@@ -150,8 +144,7 @@
             data-pending={pendingPage === currentPage - 1 ? "" : undefined}
             aria-label={`Go to page ${currentPage - 1}`}
             class={LINK_CLASSES}
-            onclick={(event) => rememberIntent(event, currentPage - 1)}
-            onstart={() => (pendingPage = currentPage - 1)}
+            onstart={() => start(currentPage - 1)}
           >
             {@render Chevron("previous")}
             <span class="hidden sm:inline">Previous</span>
@@ -194,8 +187,7 @@
               aria-current={item === currentPage ? "page" : undefined}
               aria-label={item === currentPage ? `Page ${item}, current page` : `Go to page ${item}`}
               class={twMerge(LINK_CLASSES, item === currentPage && CURRENT_CLASSES)}
-            onclick={(event) => rememberIntent(event, item)}
-            onstart={() => (pendingPage = item)}
+              onstart={() => start(item)}
             >
               {item}
             </Link>
@@ -212,8 +204,7 @@
             data-pending={pendingPage === currentPage + 1 ? "" : undefined}
             aria-label={`Go to page ${currentPage + 1}`}
             class={LINK_CLASSES}
-            onclick={(event) => rememberIntent(event, currentPage + 1)}
-            onstart={() => (pendingPage = currentPage + 1)}
+            onstart={() => start(currentPage + 1)}
           >
             <span class="hidden sm:inline">Next</span>
             {@render Chevron("next")}
