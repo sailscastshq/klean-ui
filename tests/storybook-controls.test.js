@@ -60,6 +60,11 @@ import {
   Playground as BreadcrumbPlayground,
   States as BreadcrumbStates,
 } from "../stories/Breadcrumb.stories.js";
+import {
+  Apps as CardApps,
+  Playground as CardPlayground,
+  Semantics as CardSemantics,
+} from "../stories/Card.stories.js";
 import { readFileSync } from "node:fs";
 
 const usefulControls = [
@@ -273,7 +278,9 @@ test("keeps Pagination controls server-sized and proves app-owned styling", () =
   expect(appsTemplate).toContain("Hagfish / invoice archive");
   expect(appsTemplate).toContain("navigate($event, 'bridge')");
   expect(appsTemplate).toContain("navigate($event, 'invoice')");
-  expect(appsTemplate).toContain(":only=\"['records', 'pagination', 'filters']\"");
+  expect(appsTemplate).toContain(
+    ":only=\"['records', 'pagination', 'filters']\"",
+  );
   expect(appsTemplate).toContain("**:data-[slot=page]:rounded-none");
   expect(narrowTemplate).toContain(':pages="100"');
 
@@ -314,6 +321,34 @@ test("keeps Breadcrumb controls terse and proves one responsive product trail", 
   expect(statesTemplate.match(/<Breadcrumb/g)?.length).toBe(4);
   expect(statesTemplate).not.toContain("<BreadcrumbItem");
   expect(statesTemplate).not.toContain("<BreadcrumbSeparator");
+});
+
+test("keeps Card controls terse and interaction semantics visible", () => {
+  expect(CardPlayground.parameters.controls.include).toEqual([
+    "as",
+    "title",
+    "description",
+  ]);
+  expect(CardPlayground.play).toBeTypeOf("function");
+  expect(CardSemantics.play).toBeTypeOf("function");
+  expect(CardApps.play).toBeTypeOf("function");
+
+  const semanticsTemplate = CardSemantics.render().template;
+  const appsTemplate = CardApps.render({
+    onCurrency() {},
+    onDeploy() {},
+  }).template;
+
+  expect(semanticsTemplate).toContain('as="a"');
+  expect(semanticsTemplate).toContain(':as="Link"');
+  expect(semanticsTemplate).toContain('as="button"');
+  expect(appsTemplate).toContain("Hagfish / financial summary");
+  expect(appsTemplate).toContain("Slipway / service panel");
+  expect(appsTemplate).toContain('Card as="article"');
+  expect(appsTemplate).toContain(':as="Link"');
+  expect(appsTemplate).not.toMatch(
+    /<Card[^>]*(?:variant|tone|clickable|interactive)=/,
+  );
 });
 
 test("makes Menu recipe cursor and Tab affordances explicit", () => {
