@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "card",
+  "description": "One shallow semantic surface with caller-owned native content, navigation, actions, and Tailwind styling.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Card.vue",
+      "target": "card/Card.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Card.jsx",
+      "target": "card/Card.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Card.svelte",
+      "target": "card/Card.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
