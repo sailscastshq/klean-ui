@@ -1,6 +1,6 @@
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
-import { computed, nextTick, ref, useAttrs, watch } from "vue";
+import { Link, router, usePage } from "@inertiajs/vue3";
+import { computed, nextTick, onBeforeUnmount, ref, useAttrs } from "vue";
 import { twMerge } from "tailwind-merge";
 
 defineOptions({ inheritAttrs: false });
@@ -110,9 +110,22 @@ function start(target) {
   pendingPage.value = target;
 }
 
-function finish(target) {
-  if (pendingPage.value === target) pendingPage.value = undefined;
+async function settleIntent() {
+  const target = lastIntent.value;
+  pendingPage.value = undefined;
+  lastIntent.value = undefined;
+  if (!target || currentPage.value !== target) return;
+
+  await nextTick();
+  if (!root.value?.contains(document.activeElement)) {
+    root.value
+      ?.querySelector(`[data-slot="page"][data-page="${target}"]`)
+      ?.focus({ preventScroll: true });
+  }
 }
+
+const stopListening = router.on("finish", settleIntent);
+onBeforeUnmount(stopListening);
 
 function linkProps(target) {
   return {
@@ -122,19 +135,6 @@ function linkProps(target) {
     preserveState: true,
   };
 }
-
-watch(currentPage, async (nextPage, previousPage) => {
-  if (nextPage === previousPage || lastIntent.value !== nextPage) return;
-  await nextTick();
-
-  if (!root.value?.contains(document.activeElement)) {
-    root.value
-      ?.querySelector(`[data-slot="page"][data-page="${nextPage}"]`)
-      ?.focus({ preventScroll: true });
-  }
-
-  lastIntent.value = undefined;
-});
 </script>
 
 <template>
@@ -159,25 +159,53 @@ watch(currentPage, async (nextPage, previousPage) => {
           :class="LINK_CLASSES"
           @click="rememberIntent($event, currentPage - 1)"
           @start="start(currentPage - 1)"
-          @finish="finish(currentPage - 1)"
-          @cancel="finish(currentPage - 1)"
-          @error="finish(currentPage - 1)"
         >
-          <svg aria-hidden="true" class="size-4" viewBox="0 0 20 20" fill="none">
-            <path d="m12.5 15-5-5 5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+          <svg
+            aria-hidden="true"
+            class="size-4"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              d="m12.5 15-5-5 5-5"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
           <span class="hidden sm:inline">Previous</span>
         </Link>
-        <span v-else data-slot="previous" aria-disabled="true" :class="DISABLED_CLASSES">
-          <svg aria-hidden="true" class="size-4" viewBox="0 0 20 20" fill="none">
-            <path d="m12.5 15-5-5 5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+        <span
+          v-else
+          data-slot="previous"
+          aria-disabled="true"
+          :class="DISABLED_CLASSES"
+        >
+          <svg
+            aria-hidden="true"
+            class="size-4"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              d="m12.5 15-5-5 5-5"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
           <span class="hidden sm:inline">Previous</span>
         </span>
       </li>
 
       <li class="sm:hidden">
-        <span data-slot="summary" aria-current="page" class="px-2 text-sm text-gray-600 tabular-nums dark:text-gray-300">
+        <span
+          data-slot="summary"
+          aria-current="page"
+          class="px-2 text-sm text-gray-600 tabular-nums dark:text-gray-300"
+        >
           Page {{ currentPage }} of {{ totalPages }}
         </span>
       </li>
@@ -203,13 +231,16 @@ watch(currentPage, async (nextPage, previousPage) => {
           :data-state="item === currentPage ? 'current' : undefined"
           :data-pending="pendingPage === item ? '' : undefined"
           :aria-current="item === currentPage ? 'page' : undefined"
-          :aria-label="item === currentPage ? `Page ${item}, current page` : `Go to page ${item}`"
-          :class="twMerge(LINK_CLASSES, item === currentPage && CURRENT_CLASSES)"
+          :aria-label="
+            item === currentPage
+              ? `Page ${item}, current page`
+              : `Go to page ${item}`
+          "
+          :class="
+            twMerge(LINK_CLASSES, item === currentPage && CURRENT_CLASSES)
+          "
           @click="rememberIntent($event, item)"
           @start="start(item)"
-          @finish="finish(item)"
-          @cancel="finish(item)"
-          @error="finish(item)"
         >
           {{ item }}
         </Link>
@@ -226,19 +257,43 @@ watch(currentPage, async (nextPage, previousPage) => {
           :class="LINK_CLASSES"
           @click="rememberIntent($event, currentPage + 1)"
           @start="start(currentPage + 1)"
-          @finish="finish(currentPage + 1)"
-          @cancel="finish(currentPage + 1)"
-          @error="finish(currentPage + 1)"
         >
           <span class="hidden sm:inline">Next</span>
-          <svg aria-hidden="true" class="size-4" viewBox="0 0 20 20" fill="none">
-            <path d="m7.5 5 5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+          <svg
+            aria-hidden="true"
+            class="size-4"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              d="m7.5 5 5 5-5 5"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </Link>
-        <span v-else data-slot="next" aria-disabled="true" :class="DISABLED_CLASSES">
+        <span
+          v-else
+          data-slot="next"
+          aria-disabled="true"
+          :class="DISABLED_CLASSES"
+        >
           <span class="hidden sm:inline">Next</span>
-          <svg aria-hidden="true" class="size-4" viewBox="0 0 20 20" fill="none">
-            <path d="m7.5 5 5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+          <svg
+            aria-hidden="true"
+            class="size-4"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              d="m7.5 5 5 5-5 5"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </span>
       </li>

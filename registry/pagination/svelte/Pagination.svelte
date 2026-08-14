@@ -1,5 +1,6 @@
 <script>
-  import { Link, usePage } from "@inertiajs/svelte";
+  import { Link, router, usePage } from "@inertiajs/svelte";
+  import { onDestroy } from "svelte";
   import { twMerge } from "tailwind-merge";
 
   let {
@@ -24,7 +25,6 @@
   let rootElement = $state();
   let pendingPage = $state();
   let lastIntent;
-  let previousPage;
 
   function positiveInteger(value, fallback = 1) {
     const number = Math.trunc(Number(value));
@@ -92,10 +92,6 @@
     lastIntent = target;
   }
 
-  function finish(target) {
-    if (pendingPage === target) pendingPage = undefined;
-  }
-
   function linkProps(target) {
     return {
       href: hrefFor(currentUrl, target),
@@ -105,21 +101,22 @@
     };
   }
 
-  $effect(() => {
-    const nextPage = currentPage;
-    if (previousPage !== undefined && previousPage !== nextPage && lastIntent === nextPage) {
-      queueMicrotask(() => {
-        if (typeof document === "undefined") return;
-        if (!rootElement?.contains(document.activeElement)) {
-          rootElement
-            ?.querySelector(`[data-slot="page"][data-page="${nextPage}"]`)
-            ?.focus({ preventScroll: true });
-        }
-        lastIntent = undefined;
-      });
-    }
-    previousPage = nextPage;
+  const stopListening = router.on("finish", () => {
+    const target = lastIntent;
+    pendingPage = undefined;
+    lastIntent = undefined;
+    if (!target) return;
+
+    queueMicrotask(() => {
+      if (typeof document === "undefined" || currentPage !== target) return;
+      if (!rootElement?.contains(document.activeElement)) {
+        rootElement
+          ?.querySelector(`[data-slot="page"][data-page="${target}"]`)
+          ?.focus({ preventScroll: true });
+      }
+    });
   });
+  onDestroy(stopListening);
 </script>
 
 {#snippet Chevron(direction)}
@@ -155,9 +152,6 @@
             class={LINK_CLASSES}
             onclick={(event) => rememberIntent(event, currentPage - 1)}
             onstart={() => (pendingPage = currentPage - 1)}
-            onfinish={() => finish(currentPage - 1)}
-            oncancel={() => finish(currentPage - 1)}
-            onerror={() => finish(currentPage - 1)}
           >
             {@render Chevron("previous")}
             <span class="hidden sm:inline">Previous</span>
@@ -200,11 +194,8 @@
               aria-current={item === currentPage ? "page" : undefined}
               aria-label={item === currentPage ? `Page ${item}, current page` : `Go to page ${item}`}
               class={twMerge(LINK_CLASSES, item === currentPage && CURRENT_CLASSES)}
-              onclick={(event) => rememberIntent(event, item)}
-              onstart={() => (pendingPage = item)}
-              onfinish={() => finish(item)}
-              oncancel={() => finish(item)}
-              onerror={() => finish(item)}
+            onclick={(event) => rememberIntent(event, item)}
+            onstart={() => (pendingPage = item)}
             >
               {item}
             </Link>
@@ -223,9 +214,6 @@
             class={LINK_CLASSES}
             onclick={(event) => rememberIntent(event, currentPage + 1)}
             onstart={() => (pendingPage = currentPage + 1)}
-            onfinish={() => finish(currentPage + 1)}
-            oncancel={() => finish(currentPage + 1)}
-            onerror={() => finish(currentPage + 1)}
           >
             <span class="hidden sm:inline">Next</span>
             {@render Chevron("next")}
