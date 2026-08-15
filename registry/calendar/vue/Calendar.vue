@@ -232,7 +232,7 @@ onMounted(() => {
 
 defineExpose({
   root,
-  focus: () => focus(focusedDate.value),
+  focus: (value = focusedDate.value) => focus(value),
   focusedDate,
 });
 </script>

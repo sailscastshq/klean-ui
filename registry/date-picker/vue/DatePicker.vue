@@ -48,6 +48,7 @@ const value = computed(() =>
 const draft = ref(value.value ?? "");
 const input = ref();
 const popover = ref();
+const calendar = ref();
 const locale = computed(() => resolveLocale(props.locale));
 const invalid = computed(() => {
   if (!draft.value) return false;
@@ -117,8 +118,18 @@ function handleCalendarChange(nextValue) {
   popover.value?.close();
 }
 
-function handleOpenUpdate(nextOpen) {
+async function handleOpenUpdate(nextOpen) {
   emit("update:open", nextOpen);
+  if (!nextOpen) return;
+
+  await nextTick();
+  calendar.value?.focus(
+    parseIsoDate(value.value)
+      ? value.value
+      : parseIsoDate(draft.value)
+        ? draft.value
+        : undefined,
+  );
 }
 
 watch(value, (nextValue) => {
@@ -213,6 +224,7 @@ defineExpose({
       @update:open="handleOpenUpdate"
     >
       <Calendar
+        ref="calendar"
         :model-value="parseIsoDate(value) ? value : undefined"
         :default-value="parseIsoDate(draft) ? draft : undefined"
         :min="min"

@@ -177,8 +177,8 @@
     viewMonth = monthValue(next);
   });
 
-  export function focus() {
-    focusDate(focusedDate);
+  export function focus(value = focusedDate) {
+    focusDate(value);
   }
 </script>
 

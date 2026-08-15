@@ -187,7 +187,7 @@ const Calendar = forwardRef(function Calendar(
 
   useImperativeHandle(forwardedRef, () => ({
     element: root.current,
-    focus: () => focusDate(focusedDate),
+    focus: (value = focusedDate) => focusDate(value),
     focusedDate,
   }));
 
