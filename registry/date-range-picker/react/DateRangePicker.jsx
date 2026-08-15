@@ -416,6 +416,7 @@ const DateRangePicker = forwardRef(function DateRangePicker(
       <Popover
         ref={popoverRef}
         id={popoverId}
+        anchor={activePart === "end" ? endId : startId}
         open={open}
         defaultOpen={defaultOpen}
         onOpenChange={handleOpenChange}

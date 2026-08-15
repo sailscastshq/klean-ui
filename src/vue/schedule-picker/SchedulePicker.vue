@@ -390,6 +390,7 @@ defineExpose({
     <Popover
       ref="popover"
       :id="popoverId"
+      :anchor="inputId"
       :open="open"
       :default-open="defaultOpen"
       placement="bottom-start"

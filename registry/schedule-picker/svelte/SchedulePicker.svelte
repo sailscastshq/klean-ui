@@ -331,6 +331,7 @@
     bind:this={popover}
     bind:open
     id={popoverId}
+    anchor={inputId}
     {defaultOpen}
     onOpenChange={handleOpenChange}
     placement="bottom-start"
