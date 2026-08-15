@@ -65,6 +65,11 @@ import {
   Playground as CardPlayground,
   Semantics as CardSemantics,
 } from "../stories/Card.stories.js";
+import {
+  Apps as BadgeApps,
+  Playground as BadgePlayground,
+  Semantics as BadgeSemantics,
+} from "../stories/Badge.stories.js";
 import { readFileSync } from "node:fs";
 
 const usefulControls = [
@@ -348,6 +353,32 @@ test("keeps Card controls terse and interaction semantics visible", () => {
   expect(appsTemplate).toContain(':as="Link"');
   expect(appsTemplate).not.toMatch(
     /<Card[^>]*(?:variant|tone|clickable|interactive)=/,
+  );
+});
+
+test("keeps Badge static while application controls own interaction", () => {
+  expect(BadgePlayground.parameters.controls.include).toEqual([
+    "label",
+    "class",
+  ]);
+  expect(BadgePlayground.play).toBeTypeOf("function");
+  expect(BadgeSemantics.play).toBeTypeOf("function");
+
+  const semanticsTemplate = BadgeSemantics.render({
+    onNotifications() {},
+    onDeployment() {},
+  }).template;
+  const appsTemplate = BadgeApps.render().template;
+
+  expect(semanticsTemplate).toContain('aria-label="Notifications, 3 unread"');
+  expect(semanticsTemplate).toContain('<Badge aria-hidden="true"');
+  expect(semanticsTemplate).toContain('role="status"');
+  expect(semanticsTemplate).toContain('aria-live="polite"');
+  expect(appsTemplate).toContain("Hagfish / invoices");
+  expect(appsTemplate).toContain("Slipway / services");
+  expect(appsTemplate).toContain("invoiceStatuses");
+  expect(appsTemplate).not.toMatch(
+    /<Badge[^>]*(?:variant|severity|tone|status|color|size|pill|removable|as)=/,
   );
 });
 
