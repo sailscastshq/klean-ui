@@ -11,6 +11,9 @@ async function settle() {
 async function mountPopover(options = {}) {
   const host = document.createElement("div");
   const trigger = document.createElement("button");
+  const anchor = options.anchorId
+    ? document.createElement("input")
+    : undefined;
   const id = options.id ?? "test-popover";
   let cleanupRoot = host;
 
@@ -19,6 +22,10 @@ async function mountPopover(options = {}) {
   trigger.setAttribute("popovertarget", id);
   if (options.action)
     trigger.setAttribute("popovertargetaction", options.action);
+  if (anchor) {
+    anchor.id = options.anchorId;
+    host.append(anchor);
+  }
   host.append(trigger);
 
   if (options.shadow) {
@@ -41,6 +48,7 @@ async function mountPopover(options = {}) {
 
   return {
     wrapper,
+    anchor,
     trigger,
     cleanup() {
       wrapper.unmount();
@@ -48,6 +56,24 @@ async function mountPopover(options = {}) {
     },
   };
 }
+
+test("can position from a field without replacing the native invoker", async () => {
+  const { wrapper, anchor, trigger, cleanup } = await mountPopover({
+    anchorId: "filter-field",
+    props: { anchor: "filter-field", defaultOpen: true },
+  });
+
+  expect(wrapper.props("anchor")).toBe("filter-field");
+  expect(trigger.getAttribute("aria-expanded")).toBe("true");
+
+  anchor.dispatchEvent(
+    new PointerEvent("pointerdown", { bubbles: true, composed: true }),
+  );
+  await settle();
+
+  expect(trigger.getAttribute("aria-expanded")).toBe("true");
+  cleanup();
+});
 
 test("uses native invoker semantics and a generic non-modal surface", async () => {
   const { wrapper, trigger, cleanup } = await mountPopover();

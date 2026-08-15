@@ -420,6 +420,7 @@
     bind:this={popover}
     bind:open
     id={popoverId}
+    anchor={activePart === "end" ? endId : startId}
     {defaultOpen}
     onOpenChange={handleOpenChange}
     placement="bottom-start"

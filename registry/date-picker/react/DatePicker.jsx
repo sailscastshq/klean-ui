@@ -187,6 +187,7 @@ const DatePicker = forwardRef(function DatePicker(
       <Popover
         ref={popoverRef}
         id={popoverId}
+        anchor={inputId}
         open={open}
         defaultOpen={defaultOpen}
         onOpenChange={onOpenChange}

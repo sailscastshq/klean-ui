@@ -18,6 +18,7 @@
     id,
     open = $bindable(),
     defaultOpen = false,
+    anchor,
     onOpenChange,
     placement = "bottom-start",
     offset = 8,
@@ -34,7 +35,12 @@
   let activeInvoker = $state();
   let supportsNative = $state(false);
   let resolvedPlacement = $state(untrack(() => placement));
-  let positionStyle = $state({ position: "fixed", left: "0px", top: "0px" });
+  let positionStyle = $state({
+    position: "fixed",
+    inset: "auto",
+    left: "0px",
+    top: "0px",
+  });
   let isOpen = $derived(open ?? internalOpen);
   let contentId = $derived(id ?? generatedId);
   let mergedStyle = $derived(
@@ -75,6 +81,20 @@
 
     if (!activeInvoker?.isConnected) activeInvoker = invokers()[0];
     return activeInvoker;
+  }
+
+  function resolveAnchor() {
+    if (typeof anchor === "string") {
+      const root = contentElement?.getRootNode?.() ?? document;
+      const element =
+        root.getElementById?.(anchor) ?? document.getElementById(anchor);
+
+      if (element?.isConnected) return element;
+    } else if (anchor?.isConnected) {
+      return anchor;
+    }
+
+    return resolveInvoker();
   }
 
   function syncInvokerAria() {
@@ -193,11 +213,11 @@
     syncInvokerAria();
     syncNativePopover();
 
-    const invoker = resolveInvoker();
-    if (!isOpen || !invoker || !contentElement) return;
+    const anchorElement = resolveAnchor();
+    if (!isOpen || !anchorElement || !contentElement) return;
 
     const updatePosition = async () => {
-      const result = await computePosition(invoker, contentElement, {
+      const result = await computePosition(anchorElement, contentElement, {
         placement,
         strategy: "fixed",
         middleware: [
@@ -210,12 +230,13 @@
       resolvedPlacement = result.placement;
       positionStyle = {
         position: "fixed",
+        inset: "auto",
         left: `${result.x}px`,
         top: `${result.y}px`,
       };
     };
 
-    return autoUpdate(invoker, contentElement, updatePosition);
+    return autoUpdate(anchorElement, contentElement, updatePosition);
   });
 
   $effect(() => {
@@ -223,12 +244,16 @@
 
     function handleOutsidePointer(event) {
       const path = eventPath(event);
-      const reference = resolveInvoker();
+      const invoker = resolveInvoker();
+      const anchorElement = resolveAnchor();
 
       if (
         path.includes(contentElement) ||
-        (reference &&
-          (path.includes(reference) || reference.contains?.(event.target))) ||
+        (invoker &&
+          (path.includes(invoker) || invoker.contains?.(event.target))) ||
+        (anchorElement &&
+          (path.includes(anchorElement) ||
+            anchorElement.contains?.(event.target))) ||
         invokers().some(
           (invoker) => path.includes(invoker) || invoker.contains(event.target),
         )

@@ -14,6 +14,7 @@ import {
 } from "../src/vue/calendar/date.js";
 import DatePicker from "../src/vue/date-picker/DatePicker.vue";
 import DateRangePicker from "../src/vue/date-range-picker/DateRangePicker.vue";
+import Popover from "../src/vue/popover/Popover.vue";
 import SchedulePicker from "../src/vue/schedule-picker/SchedulePicker.vue";
 import {
   instantToWallClock,
@@ -83,6 +84,40 @@ test("DatePicker leaves an incomplete draft out of the value contract", async ()
   expect(wrapper.emitted("update:modelValue").at(-1)).toEqual(["2026-08-14"]);
   expect(input.attributes("name")).toBe("dueAt");
   wrapper.unmount();
+});
+
+test("date pickers position from their full fields instead of icon invokers", async () => {
+  const datePicker = mount(DatePicker, { attachTo: document.body });
+  const dateInput = datePicker.get('input[type="text"]');
+
+  expect(datePicker.getComponent(Popover).props("anchor")).toBe(
+    dateInput.attributes("id"),
+  );
+  datePicker.unmount();
+
+  const schedulePicker = mount(SchedulePicker, { attachTo: document.body });
+  const scheduleInput = schedulePicker.get('input[type="text"]');
+
+  expect(schedulePicker.getComponent(Popover).props("anchor")).toBe(
+    scheduleInput.attributes("id"),
+  );
+  schedulePicker.unmount();
+
+  const rangePicker = mount(DateRangePicker, {
+    attachTo: document.body,
+    props: { defaultValue: { start: "2026-08-08", end: "2026-08-12" } },
+  });
+  const [start, end] = rangePicker.findAll("input");
+
+  expect(rangePicker.getComponent(Popover).props("anchor")).toBe(
+    start.attributes("id"),
+  );
+  await end.trigger("click");
+  await settle();
+  expect(rangePicker.getComponent(Popover).props("anchor")).toBe(
+    end.attributes("id"),
+  );
+  rangePicker.unmount();
 });
 
 test("natural scheduling resolves against the supplied IANA timezone", () => {

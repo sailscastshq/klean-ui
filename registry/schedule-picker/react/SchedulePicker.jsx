@@ -325,6 +325,7 @@ const SchedulePicker = forwardRef(function SchedulePicker(
       <Popover
         ref={popoverRef}
         id={popoverId}
+        anchor={inputId}
         open={open}
         defaultOpen={defaultOpen}
         onOpenChange={handleOpenChange}

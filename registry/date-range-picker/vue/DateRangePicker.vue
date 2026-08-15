@@ -465,6 +465,7 @@ defineExpose({
     <Popover
       ref="popover"
       :id="popoverId"
+      :anchor="activePart === 'end' ? endId : startId"
       :open="open"
       :default-open="defaultOpen"
       placement="bottom-start"
