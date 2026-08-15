@@ -70,6 +70,11 @@ import {
   Playground as BadgePlayground,
   Semantics as BadgeSemantics,
 } from "../stories/Badge.stories.js";
+import {
+  Apps as AvatarApps,
+  Playground as AvatarPlayground,
+  States as AvatarStates,
+} from "../stories/Avatar.stories.js";
 import { readFileSync } from "node:fs";
 
 const usefulControls = [
@@ -379,6 +384,32 @@ test("keeps Badge static while application controls own interaction", () => {
   expect(appsTemplate).toContain("invoiceStatuses");
   expect(appsTemplate).not.toMatch(
     /<Badge[^>]*(?:variant|severity|tone|status|color|size|pill|removable|as)=/,
+  );
+});
+
+test("keeps Avatar controls lean and proves both product identity seams", () => {
+  expect(AvatarPlayground.parameters.controls.include).toEqual([
+    "image",
+    "alt",
+    "fallback",
+    "class",
+  ]);
+  expect(AvatarPlayground.play).toBeTypeOf("function");
+  expect(AvatarApps.play).toBeTypeOf("function");
+
+  const statesTemplate = AvatarStates.render().template;
+  const appsTemplate = AvatarApps.render().template;
+
+  expect(statesTemplate).toContain("The face arrives. Identity remains.");
+  expect(statesTemplate).toContain('src="/missing-avatar.webp"');
+  expect(statesTemplate).toContain('alt=""');
+  expect(statesTemplate).toContain("object-contain");
+  expect(appsTemplate).toContain("Hagfish / invoice discussion");
+  expect(appsTemplate).toContain("Slipway / team identity");
+  expect(appsTemplate).toContain('role="status"');
+  expect(appsTemplate).toContain('class="sr-only">Uploading team logo');
+  expect(appsTemplate).not.toMatch(
+    /<Avatar[^>]*(?:variant|tone|color|size|shape|radius|status|presence)=/,
   );
 });
 

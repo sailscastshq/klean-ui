@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "avatar",
+  "description": "One resilient identity image with an accessible caller-owned fallback and Tailwind styling.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Avatar.vue",
+      "target": "avatar/Avatar.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Avatar.jsx",
+      "target": "avatar/Avatar.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Avatar.svelte",
+      "target": "avatar/Avatar.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
