@@ -86,6 +86,36 @@ test("DatePicker leaves an incomplete draft out of the value contract", async ()
   wrapper.unmount();
 });
 
+test("DatePicker restores the committed date as its roving focus on reopen", async () => {
+  const wrapper = mount(DatePicker, {
+    attachTo: document.body,
+    props: { defaultValue: "2026-08-12" },
+  });
+
+  wrapper.vm.open();
+  await settle();
+  await settle();
+
+  const selected = wrapper.get('[data-date="2026-08-12"]');
+  expect(selected.attributes("tabindex")).toBe("0");
+  await selected.trigger("keydown", { key: "PageDown" });
+  await settle();
+  expect(wrapper.get('[data-date="2026-09-12"]').attributes("tabindex")).toBe(
+    "0",
+  );
+
+  wrapper.vm.close();
+  await settle();
+  wrapper.vm.open();
+  await settle();
+  await settle();
+
+  expect(wrapper.get('[data-date="2026-08-12"]').attributes("tabindex")).toBe(
+    "0",
+  );
+  wrapper.unmount();
+});
+
 test("date pickers position from their full fields instead of icon invokers", async () => {
   const datePicker = mount(DatePicker, { attachTo: document.body });
   const dateInput = datePicker.get('input[type="text"]');

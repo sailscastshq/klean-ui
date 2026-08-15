@@ -1,5 +1,5 @@
 <script>
-  import { untrack } from "svelte";
+  import { tick, untrack } from "svelte";
   import { twMerge } from "tailwind-merge";
   import Calendar from "../calendar/Calendar.svelte";
   import {
@@ -41,6 +41,7 @@
   let descriptionId = $derived(`${inputId}-description`);
   let input;
   let popover;
+  let calendar;
   let locale = $derived(resolveLocale(localeProp));
   const initialDraft = untrack(() =>
     parseIsoDate(value)
@@ -92,6 +93,20 @@
   function chooseDate(nextValue) {
     commit(nextValue);
     popover?.close();
+  }
+
+  async function handleOpenChange(nextOpen) {
+    onopenchange?.(nextOpen);
+    if (!nextOpen) return;
+
+    await tick();
+    calendar?.focus(
+      parseIsoDate(value)
+        ? value
+        : parseIsoDate(draft)
+          ? draft
+          : undefined,
+    );
   }
 
   $effect(() => {
@@ -198,12 +213,13 @@
     id={popoverId}
     anchor={inputId}
     {defaultOpen}
-    onOpenChange={onopenchange}
+    onOpenChange={handleOpenChange}
     placement="bottom-start"
     data-slot="date-picker-popover"
     class="w-[min(22rem,calc(100vw-1rem))] p-0"
   >
     <Calendar
+      bind:this={calendar}
       value={parseIsoDate(value) ? value : undefined}
       defaultValue={parseIsoDate(draft) ? draft : undefined}
       {min}

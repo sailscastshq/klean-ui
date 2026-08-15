@@ -54,6 +54,7 @@ const DatePicker = forwardRef(function DatePicker(
   const [draft, setDraft] = useState(selected ?? "");
   const inputRef = useRef(null);
   const popoverRef = useRef(null);
+  const calendarRef = useRef(null);
   const locale = resolveLocale(localeProp);
   const invalid = Boolean(
     draft &&
@@ -95,6 +96,21 @@ const DatePicker = forwardRef(function DatePicker(
   function handleCalendarChange(nextValue) {
     commit(nextValue);
     popoverRef.current?.close();
+  }
+
+  function handleOpenChange(nextOpen) {
+    onOpenChange?.(nextOpen);
+    if (!nextOpen) return;
+
+    queueMicrotask(() =>
+      calendarRef.current?.focus(
+        parseIsoDate(selected)
+          ? selected
+          : parseIsoDate(draft)
+            ? draft
+            : undefined,
+      ),
+    );
   }
 
   useEffect(() => setDraft(selected ?? ""), [selected]);
@@ -190,12 +206,13 @@ const DatePicker = forwardRef(function DatePicker(
         anchor={inputId}
         open={open}
         defaultOpen={defaultOpen}
-        onOpenChange={onOpenChange}
+        onOpenChange={handleOpenChange}
         placement="bottom-start"
         data-slot="date-picker-popover"
         className="w-[min(22rem,calc(100vw-1rem))] p-0"
       >
         <Calendar
+          ref={calendarRef}
           value={parseIsoDate(selected) ? selected : undefined}
           defaultValue={parseIsoDate(draft) ? draft : undefined}
           min={min}
