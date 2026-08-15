@@ -1,6 +1,7 @@
 import "./styles.css";
 
 export { default as Alert } from "./vue/alert/Alert.vue";
+export { default as Badge } from "./vue/badge/Badge.vue";
 export { default as Breadcrumb } from "./vue/breadcrumb/Breadcrumb.vue";
 export { default as Button } from "./vue/button/Button.vue";
 export { default as Card } from "./vue/card/Card.vue";

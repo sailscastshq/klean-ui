@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "badge",
+  "description": "One static inline metadata span with caller-owned meaning, accessibility attributes, and Tailwind styling.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Badge.vue",
+      "target": "badge/Badge.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Badge.jsx",
+      "target": "badge/Badge.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Badge.svelte",
+      "target": "badge/Badge.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
