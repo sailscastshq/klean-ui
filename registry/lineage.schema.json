@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://klean-ui.sailscasts.com/registry/lineage.schema.json",
+  "title": "Klean UI registry lineage",
+  "type": "object",
+  "required": ["schemaVersion", "items"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "items": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/item" }
+    }
+  },
+  "$defs": {
+    "item": {
+      "type": "object",
+      "required": ["vue", "react", "svelte"],
+      "additionalProperties": false,
+      "properties": {
+        "vue": { "$ref": "#/$defs/revisions" },
+        "react": { "$ref": "#/$defs/revisions" },
+        "svelte": { "$ref": "#/$defs/revisions" }
+      }
+    },
+    "revisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/revision" }
+    },
+    "revision": {
+      "type": "object",
+      "required": ["revision", "files", "dependencies", "migrationNotes"],
+      "additionalProperties": false,
+      "properties": {
+        "revision": { "type": "integer", "minimum": 1 },
+        "files": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          }
+        },
+        "dependencies": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "migrationNotes": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -9,7 +9,15 @@ const VALUE_OPTIONS = new Map([
 const BOOLEAN_OPTIONS = new Map([
   ["--dry-run", "dryRun"],
   ["--overwrite", "overwrite"],
+  ["--all", "all"],
 ]);
+
+const COMMAND_OPTIONS = {
+  add: new Set(["dryRun", "overwrite"]),
+  check: new Set(),
+  diff: new Set(),
+  update: new Set(["all", "dryRun", "overwrite"]),
+};
 
 function readOptionValue(argv, index, option) {
   const equalsIndex = option.indexOf("=");
@@ -41,18 +49,32 @@ export function parseArguments(argv) {
     return { command: "version" };
   }
 
-  const [command, component, ...rest] = argv;
+  const [command, ...commandArguments] = argv;
 
-  if (command !== "add") {
+  if (!COMMAND_OPTIONS[command]) {
     throw new KleanInstallerError(
       `Unknown command \`${command}\`. Run \`klean-ui --help\` for usage.`,
       { code: "INVALID_ARGUMENTS" },
     );
   }
 
-  if (!component || component.startsWith("--")) {
+  const rest = [...commandArguments];
+  let component;
+
+  if (rest[0] && !rest[0].startsWith("--")) {
+    component = rest.shift();
+  }
+
+  if (["add", "diff"].includes(command) && !component) {
     throw new KleanInstallerError(
-      "The add command needs a component name, for example `klean-ui add button`.",
+      `The ${command} command needs a component name, for example \`klean-ui ${command} button\`.`,
+      { code: "INVALID_ARGUMENTS" },
+    );
+  }
+
+  if (command === "check" && component) {
+    throw new KleanInstallerError(
+      "The check command inspects every installed component and does not accept a component name.",
       { code: "INVALID_ARGUMENTS" },
     );
   }
@@ -88,6 +110,25 @@ export function parseArguments(argv) {
 
     throw new KleanInstallerError(
       `Unknown option \`${rawOption}\`. Run \`klean-ui --help\` for usage.`,
+      { code: "INVALID_ARGUMENTS" },
+    );
+  }
+
+  for (const option of Object.keys(options)) {
+    if (
+      !COMMAND_OPTIONS[command].has(option) &&
+      !["componentsDirectory", "cssPath", "framework"].includes(option)
+    ) {
+      throw new KleanInstallerError(
+        `The ${command} command does not accept --${option.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}.`,
+        { code: "INVALID_ARGUMENTS" },
+      );
+    }
+  }
+
+  if (command === "update" && Boolean(component) === Boolean(options.all)) {
+    throw new KleanInstallerError(
+      "The update command needs one component name or `--all`, but not both.",
       { code: "INVALID_ARGUMENTS" },
     );
   }

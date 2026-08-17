@@ -619,6 +619,7 @@ export function createInstallPlan(component, options = {}) {
       sourcePath,
       targetPath,
       displayPath: displayRelativePath(componentsDirectory, targetPath),
+      currentSource,
       registrySource,
       difference,
     };
@@ -636,6 +637,7 @@ export function createInstallPlan(component, options = {}) {
   );
 
   return {
+    operation: "add",
     component,
     root: application.root,
     packagePath: application.packagePath,
@@ -766,13 +768,18 @@ function writeFileAtomically(path, source) {
 
 function verifyInstalledDependencies(plan) {
   const packageJson = readJson(plan.packagePath, plan.packagePath);
-  const missing = plan.missingDependencies.filter(
-    ({ name }) => !hasDirectDependency(packageJson, name),
+  const expectedDependencies =
+    plan.dependenciesToInstall ?? plan.missingDependencies;
+  const dependencies = dependencyMap(packageJson);
+  const missing = expectedDependencies.filter(
+    ({ name, version }) => dependencies[name] !== version,
   );
 
   if (missing.length) {
     throw new Error(
-      `The package manager did not record ${missing.map(({ name }) => name).join(", ")} as a direct dependency.`,
+      `The package manager did not record ${missing
+        .map(({ name, version }) => `${name}@${version}`)
+        .join(", ")} as direct dependencies.`,
     );
   }
 }
@@ -809,16 +816,19 @@ export function applyInstallPlan(plan, options = {}) {
 
   try {
     for (const file of plan.files) {
-      if (["create", "overwrite"].includes(file.action)) {
+      if (["create", "overwrite", "update"].includes(file.action)) {
         writeFileAtomically(file.targetPath, file.registrySource);
       }
     }
 
-    if (plan.missingDependencies.length) {
+    const dependenciesToInstall =
+      plan.dependenciesToInstall ?? plan.missingDependencies;
+
+    if (dependenciesToInstall.length) {
       dependencyInstaller({
         root: plan.root,
         packageManager: plan.packageManager,
-        dependencies: plan.missingDependencies,
+        dependencies: dependenciesToInstall,
       });
       verifyInstalledDependencies(plan);
     }
@@ -829,7 +839,7 @@ export function applyInstallPlan(plan, options = {}) {
     }
 
     throw new KleanInstallerError(
-      `Klean UI could not add ${plan.component}; changes to component and package files were rolled back. ${error.message}`,
+      `Klean UI could not ${plan.operation ?? "add"} ${plan.component}; changes to component and package files were rolled back. ${error.message}`,
       { code: "APPLY_FAILED", plan, cause: error },
     );
   }
@@ -838,8 +848,8 @@ export function applyInstallPlan(plan, options = {}) {
     plan,
     changed:
       plan.files.some((file) =>
-        ["create", "overwrite"].includes(file.action),
-      ) || plan.missingDependencies.length > 0,
+        ["create", "overwrite", "update"].includes(file.action),
+      ) || (plan.dependenciesToInstall ?? plan.missingDependencies).length > 0,
     dryRun: false,
   };
 }
@@ -893,6 +903,7 @@ export function formatActions(result) {
       {
         create: `✓ Added ${file.displayPath}`,
         overwrite: `✓ Replaced ${file.displayPath}`,
+        update: `✓ Updated ${file.displayPath}`,
         unchanged: `– ${file.displayPath} already matches`,
       }[file.action],
     );

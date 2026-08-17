@@ -9,6 +9,16 @@ import {
   formatDetection,
   KleanInstallerError,
 } from "./installer.js";
+import {
+  applyUpdatePlan,
+  createCheckReport,
+  createDiffReport,
+  createUpdateAllPlan,
+  createUpdatePlan,
+  formatCheckReport,
+  formatDiffReport,
+  formatUpdateResult,
+} from "./updater.js";
 
 const CLI_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 
@@ -16,6 +26,10 @@ export const HELP = `Klean UI — source-owned components for the Boring Stack
 
 Usage:
   klean-ui add <component> [options]
+  klean-ui check [options]
+  klean-ui diff <component> [options]
+  klean-ui update <component> [options]
+  klean-ui update --all [options]
 
 Examples:
   klean-ui add button
@@ -28,10 +42,15 @@ Examples:
   klean-ui add toast
   klean-ui add button --dry-run
   klean-ui add button --components-dir assets/js/components/ui
+  klean-ui check
+  klean-ui diff button
+  klean-ui update button
+  klean-ui update --all
 
 Options:
   --dry-run                 Show the resolved changes without writing files
   --overwrite               Replace conflicting application-owned source
+  --all                     Update every safely replaceable installed item
   --components-dir <path>   Override assets/js/components/ui
   --css <path>              Override assets/css/app.css
   --framework <name>        Resolve intentional ambiguous evidence
@@ -65,17 +84,50 @@ export function runCli(argv, options = {}) {
       return 0;
     }
 
-    const installOptions = {
+    const commandOptions = {
       ...parsed.options,
       cwd: options.cwd,
       registryDirectory: options.registryDirectory,
       dependencyInstaller: options.dependencyInstaller,
     };
-    const plan = createInstallPlan(parsed.component, installOptions);
+
+    if (parsed.command === "check") {
+      const report = createCheckReport(commandOptions);
+      stdout.write(`${formatDetection(report.detectionPlan)}\n\n`);
+      stdout.write(`${formatCheckReport(report)}\n`);
+      return report.exitCode;
+    }
+
+    if (parsed.command === "diff") {
+      const report = createDiffReport(parsed.component, commandOptions);
+      stdout.write(`${formatDetection(report.plan)}\n\n`);
+      stdout.write(`${formatDiffReport(report)}\n`);
+      return report.exitCode;
+    }
+
+    if (parsed.command === "update") {
+      const update = parsed.options.all
+        ? createUpdateAllPlan(commandOptions)
+        : {
+            plan: createUpdatePlan(parsed.component, commandOptions),
+            skipped: [],
+          };
+      const plan = update.plan;
+
+      stdout.write(`${formatDetection(plan)}\n\n`);
+      detectionPrinted = true;
+      const result = applyUpdatePlan(plan, commandOptions);
+      stdout.write(
+        `${formatUpdateResult(result, { skipped: update.skipped })}\n`,
+      );
+      return update.skipped.length ? 2 : 0;
+    }
+
+    const plan = createInstallPlan(parsed.component, commandOptions);
 
     stdout.write(`${formatDetection(plan)}\n\n`);
     detectionPrinted = true;
-    const result = applyInstallPlan(plan, installOptions);
+    const result = applyInstallPlan(plan, commandOptions);
     stdout.write(`${formatActions(result)}\n`);
     return 0;
   } catch (error) {

@@ -78,6 +78,10 @@ test("shows terse command help", () => {
   expect(stdout.value()).toContain("klean-ui add menu");
   expect(stdout.value()).toContain("klean-ui add dialog");
   expect(stdout.value()).toContain("klean-ui add toast");
+  expect(stdout.value()).toContain("klean-ui check");
+  expect(stdout.value()).toContain("klean-ui diff button");
+  expect(stdout.value()).toContain("klean-ui update button");
+  expect(stdout.value()).toContain("klean-ui update --all");
   expect(stdout.value()).not.toContain("klean-ui add field");
   expect(stdout.value()).not.toContain("klean-ui init");
 });
@@ -137,4 +141,102 @@ test("returns a non-zero exit code with useful evidence on conflict", () => {
   expect(stderr.value()).toContain("has local changes");
   expect(stderr.value()).toContain("First difference at line 1");
   expect(stderr.value()).toContain("--overwrite");
+});
+
+test("checks and diffs installed source without writing", () => {
+  const root = makeApp();
+  runCli(["add", "button"], { cwd: root, stdout: outputBuffer().stream });
+  const current = outputBuffer();
+
+  expect(
+    runCli(["check"], {
+      cwd: root,
+      stdout: current.stream,
+      stderr: outputBuffer().stream,
+    }),
+  ).toBe(0);
+  expect(current.value()).toContain("✓ button is current");
+
+  const diff = outputBuffer();
+  expect(
+    runCli(["diff", "button"], {
+      cwd: root,
+      stdout: diff.stream,
+      stderr: outputBuffer().stream,
+    }),
+  ).toBe(0);
+  expect(diff.value()).toContain("there is no upstream diff");
+});
+
+test("reports modified source and refuses to update it implicitly", () => {
+  const root = makeApp();
+  runCli(["add", "button"], { cwd: root, stdout: outputBuffer().stream });
+  const target = resolve(root, "assets/js/components/ui/button/Button.vue");
+  write(target, "<!-- application-owned -->\n");
+
+  const check = outputBuffer();
+  expect(
+    runCli(["check"], {
+      cwd: root,
+      stdout: check.stream,
+      stderr: outputBuffer().stream,
+    }),
+  ).toBe(2);
+  expect(check.value()).toContain("! button has local changes");
+
+  const diff = outputBuffer();
+  expect(
+    runCli(["diff", "button"], {
+      cwd: root,
+      stdout: diff.stream,
+      stderr: outputBuffer().stream,
+    }),
+  ).toBe(2);
+  expect(diff.value()).toContain("--- application/button/Button.vue");
+  expect(diff.value()).toContain("+++ registry/button/Button.vue");
+
+  const stderr = outputBuffer();
+  expect(
+    runCli(["update", "button"], {
+      cwd: root,
+      stdout: outputBuffer().stream,
+      stderr: stderr.stream,
+    }),
+  ).toBe(1);
+  expect(stderr.value()).toContain("has local changes");
+  expect(stderr.value()).toContain("--overwrite");
+  expect(existsSync(target)).toBe(true);
+});
+
+test("supports a no-op update --all without configuration", () => {
+  const root = makeApp();
+  runCli(["add", "button"], { cwd: root, stdout: outputBuffer().stream });
+  const stdout = outputBuffer();
+
+  expect(
+    runCli(["update", "--all"], {
+      cwd: root,
+      stdout: stdout.stream,
+      stderr: outputBuffer().stream,
+    }),
+  ).toBe(0);
+  expect(stdout.value()).toContain("Everything is already current.");
+});
+
+test("rejects ambiguous update targets and component-scoped check", () => {
+  for (const argv of [
+    ["update"],
+    ["update", "button", "--all"],
+    ["check", "button"],
+  ]) {
+    const stderr = outputBuffer();
+    expect(
+      runCli(argv, {
+        cwd: makeApp(),
+        stdout: outputBuffer().stream,
+        stderr: stderr.stream,
+      }),
+    ).toBe(1);
+    expect(stderr.value()).toContain("✗");
+  }
 });
