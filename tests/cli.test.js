@@ -73,6 +73,7 @@ test("shows terse command help", () => {
   expect(stdout.value()).toContain("klean-ui add button");
   expect(stdout.value()).toContain("klean-ui add input");
   expect(stdout.value()).toContain("klean-ui add textarea");
+  expect(stdout.value()).toContain("klean-ui add separator");
   expect(stdout.value()).toContain("klean-ui add popover");
   expect(stdout.value()).toContain("klean-ui add menu");
   expect(stdout.value()).toContain("klean-ui add dialog");

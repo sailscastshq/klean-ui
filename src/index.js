@@ -20,6 +20,7 @@ export { default as Popover } from "./vue/popover/Popover.vue";
 export { default as Radio } from "./vue/radio/Radio.vue";
 export { default as SchedulePicker } from "./vue/schedule-picker/SchedulePicker.vue";
 export { default as Select } from "./vue/select/Select.vue";
+export { default as Separator } from "./vue/separator/Separator.vue";
 export { default as Slide } from "./vue/slide/Slide.vue";
 export { default as Spinner } from "./vue/spinner/Spinner.vue";
 export { default as Table } from "./vue/table/Table.vue";

@@ -13,6 +13,7 @@ npx klean-ui add textarea
 npx klean-ui add checkbox
 npx klean-ui add radio
 npx klean-ui add switch
+npx klean-ui add separator
 npx klean-ui add popover
 npx klean-ui add menu
 npx klean-ui add select
@@ -126,7 +127,7 @@ composes three framework-native Storybooks:
 Open **Vue**, **React**, or **Svelte**, then choose **Components / Button**,
 **Input**, **Textarea**, **Checkbox**, **Radio**, **Switch**, **Spinner**,
 **Tooltip**, **Tabs**, **Popover**, **Menu**, **Select**, **Combobox**,
-**Command**, **Dialog**, **Slide**, or **Toast**. The stories mount the actual
+**Command**, **Dialog**, **Separator**, **Slide**, or **Toast**. The stories mount the actual
 registry source and share behavior expectations without sharing a runtime
 component abstraction. Controls stay limited to useful behavioral inputs;
 interaction stories and the accessibility addon verify the durable contract.

@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "separator",
+  "description": "One native-first thematic break with an explicit vertical semantic when a real boundary needs it.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Separator.vue",
+      "target": "separator/Separator.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Separator.jsx",
+      "target": "separator/Separator.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Separator.svelte",
+      "target": "separator/Separator.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

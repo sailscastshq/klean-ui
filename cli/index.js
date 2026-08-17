@@ -21,6 +21,7 @@ Examples:
   klean-ui add button
   klean-ui add input
   klean-ui add textarea
+  klean-ui add separator
   klean-ui add popover
   klean-ui add menu
   klean-ui add dialog
