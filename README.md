@@ -59,6 +59,21 @@ Klean will not silently replace edited source. Re-running an unchanged installat
 
 Read [the complete installation guide](https://docs.sailscasts.com/klean-ui/installation).
 
+## Update owned source safely
+
+Copied source still belongs to the application. Klean therefore inspects before it writes:
+
+```bash
+npx klean-ui check
+npx klean-ui diff button
+npx klean-ui update button
+npx klean-ui update --all
+```
+
+`check` distinguishes current source, safely replaceable historical Klean source, local edits, and untracked files. `diff` is read-only. `update` replaces only an exact known Klean revision and applies component files, direct dependency changes, and lockfile changes as one rollback-safe transaction. Locally edited or unknown source is never replaced unless the caller deliberately passes `--overwrite`.
+
+No application manifest is created. Revision hashes and migration notes stay inside the versioned CLI registry. Read [the update guide](https://docs.sailscasts.com/klean-ui/update).
+
 ## Native form controls
 
 Klean installs Input and Textarea independently. The application writes the real label, help, and error elements so the form remains obvious HTML instead of a configuration API.

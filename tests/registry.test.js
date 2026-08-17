@@ -1,8 +1,22 @@
 import { expect, test } from "@rstest/core";
+import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { parse } from "@babel/parser";
 import { compile } from "svelte/compiler";
+
+test("keeps registry lineage synchronized with every framework source", () => {
+  const result = spawnSync(
+    process.execPath,
+    ["scripts/update-registry-lineage.mjs", "--check"],
+    { cwd: process.cwd(), encoding: "utf8" },
+  );
+
+  expect(result.status).toBe(0);
+  expect(result.stdout).toContain(
+    "Registry lineage matches every current source.",
+  );
+});
 
 function registrySource(framework, filename, item = "button") {
   return readFileSync(

@@ -1,0 +1,1117 @@
+{
+  "$schema": "./lineage.schema.json",
+  "schemaVersion": 1,
+  "items": {
+    "alert": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "alert/Alert.vue": "sha256:c41fe191b4846bba352ceab1a7a61c444d90398cdc3f273840c9cd41564a51d9"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "alert/Alert.jsx": "sha256:abd1abf198411f31055fe17d895903d8631e31477e52a75893b5597f246a523a"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "alert/Alert.svelte": "sha256:a9628f9bd47783310f9a9a2043722c3d3bd83b9680510f580b92290a497aa9f8"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "avatar": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "avatar/Avatar.vue": "sha256:ddfbe541e7d229a9027fd725add95df1327247dd437af9eff1ddccd36da2263d"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "avatar/Avatar.jsx": "sha256:82c4f025d063357055ff7ebfba419251e3a500e7fa33faa1d4fbf1b0019f506d"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "avatar/Avatar.svelte": "sha256:0d0da245d08f748c285a7d790229075ea20a6205bfd724a56d6f2846f9e42f8a"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "badge": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "badge/Badge.vue": "sha256:9cf7ed8b4977238994bb806a3b5fcce1a57c4effe59387f2277533eccb11349e"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "badge/Badge.jsx": "sha256:09dd4438a803e146b7bfcc93c0190ac4d38e2fa3acb62f4a710c020ab7fdc246"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "badge/Badge.svelte": "sha256:63fba4f077faed0b280efbb8a68ed6aa02d5e75d321beeb6b3dab486518fbc1b"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "breadcrumb": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "breadcrumb/Breadcrumb.vue": "sha256:3a180315e837edb061d6d53a152de50e5983c3d329b1f9ca3aae009dcd429272"
+          },
+          "dependencies": {
+            "@inertiajs/vue3": "^3.6.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "breadcrumb/Breadcrumb.jsx": "sha256:a6443bd27954396be1321086f5400e060fcda97586f2fa1c4009427b01d8e475"
+          },
+          "dependencies": {
+            "@inertiajs/react": "^3.6.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "breadcrumb/Breadcrumb.svelte": "sha256:1c77978fc6570892498cbd232888a788db295a31def2bf141baea67d64ad6c76"
+          },
+          "dependencies": {
+            "@inertiajs/svelte": "^3.6.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "button": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "button/Button.vue": "sha256:7bfd1538e88924349ea8d1fd52715c640ccc825c74c2335d38089eb5b6bb61d9"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "button/Button.jsx": "sha256:07823a5ee7a77e1ae68d9e7549aa1a0e154125a29aad06ca7e04c722e906ed0e"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "button/Button.svelte": "sha256:11da8b0e3bbf05de3d811c2d36581854fe1aed86e9d64cfc086613dd0c7a7fc8"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "calendar": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "calendar/Calendar.vue": "sha256:2d99a4d47b3e2ed5b647f738f6c3bc0484ae2c76c7145c4a83e2eafc41403faf",
+            "calendar/date.js": "sha256:9803a26fc36db7f3cc9a0729dec61b5cb86154faad15d6c7e42966637a54ffd9"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "calendar/Calendar.jsx": "sha256:2e8d8cfd883a6d491debd22214caa3b0be0a34f6fb23ae1484ae8276c69966f4",
+            "calendar/date.js": "sha256:9803a26fc36db7f3cc9a0729dec61b5cb86154faad15d6c7e42966637a54ffd9"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "calendar/Calendar.svelte": "sha256:a3a37bc57b4d2fc0032c542260b3a39f419a952a807c6c07d199c6c234701162",
+            "calendar/date.js": "sha256:9803a26fc36db7f3cc9a0729dec61b5cb86154faad15d6c7e42966637a54ffd9"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "card": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "card/Card.vue": "sha256:d6b445c9795ceb7f983bfa48c3b0cb661f0c8865f8654402ad2f4c10751d5e7f"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "card/Card.jsx": "sha256:8cd0bf27e5d9298c47fe2b72bec8ad69ec52efd292adc9d4020d2eab260637c0"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "card/Card.svelte": "sha256:61bbfb1716a04128fb108dc8dd642abcbc35d50ca2c7e6468ac4f7b0271e8f65"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "checkbox": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "checkbox/Checkbox.vue": "sha256:7317b95cb1a3ab7c9a69ea9869413611d22cc438911a1ec0a641cfc5b8021bb2"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "checkbox/Checkbox.jsx": "sha256:dec45eadd83e82eb3040fa0b9e93022497fe8b493bf82ecf0dddc89172e0eeec"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "checkbox/Checkbox.svelte": "sha256:8727061a997d09e23340ccb67caaa10abbc7dfe7da400309df948d713b01b8dd"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "combobox": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "combobox/Combobox.vue": "sha256:8870c23244a47ff82862b59775a1963317918440d055c3b83440f81a7c79bbc6"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "combobox/Combobox.jsx": "sha256:5a250bb5aeb8ae488b8cbd10c5b951bbc0980173b1d7633dd15dc51eaa6aa23e"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "combobox/Combobox.svelte": "sha256:fbdc446ffef54c7b5cb495ac0e14faa5c0ab509e542cfd7599f1ebd94b8ca2e5"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "command": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "command/Command.vue": "sha256:07e6fecec2f468bef766f9334e40594684ced645b31944b5a4d9b28d69883737"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "command/Command.jsx": "sha256:2dbd25efe10509c91d07eecf1897683cb0ecad224fabe6c180a484c18fb63b36"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "command/Command.svelte": "sha256:baf78bc88ee35997d3633081b964f6d66a1256359419c1653865f45bf6ec08d8"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "date-picker": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "date-picker/DatePicker.vue": "sha256:c48726bbb2f9d7a0560fe0dc7a6fc5031de725078c0c87fc1b31c19e761d2098"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "date-picker/DatePicker.jsx": "sha256:a1ab8f2f93b50c08fad48a78073c26fd90411389a794b44b7051655755b42bf3"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "date-picker/DatePicker.svelte": "sha256:53a02bdfcb8f3f2c94abae13d332d957aaf3ec732b3e65844880a2bef21bb5c1"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "date-range-picker": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "date-range-picker/DateRangePicker.vue": "sha256:004d7942f5001b70c97d17aa36da54b707a5df30fa9feba6d8f86f04025c3b56"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "date-range-picker/DateRangePicker.jsx": "sha256:feac6bee692c6423ca42839ff4b12160f302b86963cf2b027e9b81b9b1d9c9a7"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "date-range-picker/DateRangePicker.svelte": "sha256:6367a63ad6b339871f5904e0b83de5baffbf3b8fb5feb619582372646ec79274"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "dialog": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "dialog/Dialog.vue": "sha256:df25dc270871eb265570ce67cc08adff39f0719abf7bb4aa78e3c2ad3178513b"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "dialog/Dialog.jsx": "sha256:bc7d7af8093a4a33e89376eb004644f33f0c29eec4548c6b550479d3fc760246"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "dialog/Dialog.svelte": "sha256:6b735744968fe80a43f84a2d9aa8e46c96f353e8d132731ffaed71406516af97"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "input": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "input/Input.vue": "sha256:6b89070f69cb1c7cfdc70d3737f85c21560d9c323d419d1f65b07493824e0f30"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "input/Input.jsx": "sha256:b63707ec56b2b2b906f3958906056e01ec6b8975a18c3ffac00cc037bcbb2301"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "input/Input.svelte": "sha256:4c1155caa89b8e9719b49abb0053b800fa21056347b1be726a296eac1b1ceb88"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "menu": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "menu/Menu.vue": "sha256:318d79da903edac117e1a39267a6a5e2c72d8e8e6fe33b1498c0ed5ef6390a09"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "menu/Menu.jsx": "sha256:29c87b5d56b23cb47ff1e8771ec44d4f7a87ff21632d41e97ca5fd88d2bfdac9"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "menu/Menu.svelte": "sha256:6a7a49f5670b32daac70fcbb3c3fa9435150d31f1bf7548c26ed90124dabb056"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "pagination": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "pagination/Pagination.vue": "sha256:4a32d1edbcf09d71abf5d88fe0571abe36c1ff433874fa95bbd1959d81ad7f2a"
+          },
+          "dependencies": {
+            "@inertiajs/vue3": "^3.6.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "pagination/Pagination.jsx": "sha256:b78db14029652d2fac050348f86159294d0fd1df94aa38f309cefdbd684591dc"
+          },
+          "dependencies": {
+            "@inertiajs/react": "^3.6.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "pagination/Pagination.svelte": "sha256:3ddfebf71d198be58c6208727b3d5039e5db78769bf8718314d8398711968221"
+          },
+          "dependencies": {
+            "@inertiajs/svelte": "^3.6.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "popover": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "popover/Popover.vue": "sha256:b8480b0f71e8447a910a09b2811c339feac3bfdcf2ee8d28e2dca7b92fe45702"
+          },
+          "dependencies": {
+            "@floating-ui/dom": "^1.8.0",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "popover/Popover.jsx": "sha256:3816ad1c4418b72ebed3fc3b8a3f1a323527a4e11442263f2a2ac916c84dbadd"
+          },
+          "dependencies": {
+            "@floating-ui/dom": "^1.8.0",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "popover/Popover.svelte": "sha256:c90141f22c81b7dc89abcaa5d7c17bc82401fd4a4e0aad797d24dd057a088f2d"
+          },
+          "dependencies": {
+            "@floating-ui/dom": "^1.8.0",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "radio": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "radio/Radio.vue": "sha256:607938f9f210daaaa5065e664fd234b7dd22eefb9e381be20d52121c78493b54"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "radio/Radio.jsx": "sha256:114276a52db6f68da8debe250fcdc47a2e92fcb4dc5f52dba6ceebb88b57b978"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "radio/Radio.svelte": "sha256:06e78686e7f22a565ce20747355b59510636ed9a813882bc659be031713da032"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "schedule-picker": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "schedule-picker/SchedulePicker.vue": "sha256:965ed44e69d66d9e9539ad4a0aa5cea6d6c71cd5439b8b6ccbdc324a2bd265c6",
+            "schedule-picker/schedule.js": "sha256:6253a8ce64cd77da4364a3d58fe457e62f11ae34771c3a31caedda8ee9b81867"
+          },
+          "dependencies": {
+            "@internationalized/date": "^3.12.3",
+            "chrono-node": "^2.10.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "schedule-picker/SchedulePicker.jsx": "sha256:6b752a46d3a8997e1672aa42888b1a6fc8106d37552f903cc856f2b3b8cdc474",
+            "schedule-picker/schedule.js": "sha256:6253a8ce64cd77da4364a3d58fe457e62f11ae34771c3a31caedda8ee9b81867"
+          },
+          "dependencies": {
+            "@internationalized/date": "^3.12.3",
+            "chrono-node": "^2.10.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "schedule-picker/SchedulePicker.svelte": "sha256:5a5049fa9ef70e47336abef78ef2648a53e914b0a9eaf90de43f5d5645c47baa",
+            "schedule-picker/schedule.js": "sha256:6253a8ce64cd77da4364a3d58fe457e62f11ae34771c3a31caedda8ee9b81867"
+          },
+          "dependencies": {
+            "@internationalized/date": "^3.12.3",
+            "chrono-node": "^2.10.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "select": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "select/Select.vue": "sha256:fc9dc70baedef3671b5508d5e57a6e7f556c038d6c53c69416bb54cc98bcb1d1"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "select/Select.jsx": "sha256:ade692dc837c46dacc5ca92ce9bbb36e506994ce82cad400d67b251c95828834"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "select/Select.svelte": "sha256:af2f92a5ceb95abcb603b81215a9f463dc7026a3d55ba7b0c5d602c6aa1b5b12"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "separator": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "separator/Separator.vue": "sha256:ac09755818b42ceb1576469609b35168881780513a110e67f2f23680255bfbbc"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "separator/Separator.jsx": "sha256:8d689c03ead852c4d9bb7642d0a123f1d17424e6f940c26d19f0e210fb4e106e"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "separator/Separator.svelte": "sha256:af93f284b96e3c72c92af7f9e876876f4935140f30c52ba5353dc812a56b472f"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "slide": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "slide/Slide.vue": "sha256:79eefb0d479ff5d95d4132bd18abc036ced80bf0a6c4081a020fa651223ad291"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "slide/Slide.jsx": "sha256:263c6d4ab7ee2cc64a82690e61d751e62f5daa45c907579aec144e2f80d2ec86"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "slide/Slide.svelte": "sha256:847124fe0666675557eeae551405047c40c68a1c0751b76def61b9ad94af8d4d"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "spinner": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "spinner/Spinner.vue": "sha256:2822b55da2814a4b90e035ec706f98746398ccbbfbb23cbbc4b8e4e622a374c9"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "spinner/Spinner.jsx": "sha256:d5a4f01a6d065b3ba63c3f358f441b2c806dac3860b7441c2626afc88ef5b5c4"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "spinner/Spinner.svelte": "sha256:5b2e2dbd45a3f645ab85cab44874b031ee065d62a557ed3f500a1ada46856b4e"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "switch": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "switch/Switch.vue": "sha256:67df74b5248f8cf2e6e29efcaec7bed7dbba71cf71a515ea82a63961f20c78d7"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "switch/Switch.jsx": "sha256:a7ae7ac4bfa78720a40dc406f5968d08d803c5069ef97412daca20d49e4f5bc8"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "switch/Switch.svelte": "sha256:b6f04ae6f8e7d8588925356b85ed5971d22251ec8e9fcecc3870f9a57d75361c"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "table": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "table/Table.vue": "sha256:e779b81555c6e6b56882749bd255af132540ac1be638ad44f3978963e1ac8520"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "table/Table.jsx": "sha256:52592b4121869f9ff1c6a54486f9a02829c437bfa6cc0eb3d0ee5d183dbc2009"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "table/Table.svelte": "sha256:63d9ac8580aff9103ed75fbcf9801a627d44183640768225980820e4ada2ac42"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "tabs": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "tabs/Tabs.vue": "sha256:0843cd223dbf410d8ce7c0ff8e738f80d62188a79ba8b0a82106219f12c6bf3b"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "tabs/Tabs.jsx": "sha256:b3814608779afb4ec78166870908ef920695ae4a5bc9b6655e7667380ae90565"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "tabs/Tabs.svelte": "sha256:696f74f3fe985be49392944357163e1fdef2a52a00f12289bf2e03e79f37c3ea"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "textarea": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "textarea/Textarea.vue": "sha256:60986b2691186f445b1fe4ae508ad2d7a549d377ced42442692d0e4715869d5f"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "textarea/Textarea.jsx": "sha256:5bff1e0e5dcdb5852df959e7c0a917d5c782edfb18781a3a67c4e56977e3cbf2"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "textarea/Textarea.svelte": "sha256:22e670473bdb9676ea19bf2d4dc800fbbac304bb064edd9a8dbcef72280c86ea"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "toast": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "toast/toast.js": "sha256:89fb41b345517de309bbcfaac41c45f8af4213948c32b3e62ede12629120702a",
+            "toast/Toast.vue": "sha256:46ac144f1f43cd1bd3d25327ce1d0e8759fcc9c1b266d8ebbf5601a3e065f6ff"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "toast/toast.js": "sha256:89fb41b345517de309bbcfaac41c45f8af4213948c32b3e62ede12629120702a",
+            "toast/Toast.jsx": "sha256:8da8e9b1bfc631accab5fe640a8fef6a762f08917e188d5ed27a7162f8413f1f"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "toast/toast.js": "sha256:89fb41b345517de309bbcfaac41c45f8af4213948c32b3e62ede12629120702a",
+            "toast/Toast.svelte": "sha256:c49e582d50212dd00203fb8aeb4102e3066d1ae0a87f325f3e29bd12c4f9501f"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    },
+    "tooltip": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "tooltip/Tooltip.vue": "sha256:183f4ba78705f4b138f5ce4f0d14171dd9b3a053e72a2cbdfacb55a96445b5c6"
+          },
+          "dependencies": {
+            "@floating-ui/dom": "^1.8.0",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "tooltip/Tooltip.jsx": "sha256:7c571bbefe3580c5a0712aafac582c88f3e99e1fd91e94376ad6c509ef182ad1"
+          },
+          "dependencies": {
+            "@floating-ui/dom": "^1.8.0",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "tooltip/Tooltip.svelte": "sha256:7f878d3927689d8655a08cde69ce889831a98b1ed3edb823c5a927a06ae2a668"
+          },
+          "dependencies": {
+            "@floating-ui/dom": "^1.8.0",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
+    }
+  }
+}
