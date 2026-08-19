@@ -75,6 +75,11 @@ import {
   Playground as AvatarPlayground,
   States as AvatarStates,
 } from "../stories/Avatar.stories.js";
+import {
+  Apps as TagsInputApps,
+  Playground as TagsInputPlayground,
+  States as TagsInputStates,
+} from "../stories/TagsInput.stories.js";
 import { readFileSync } from "node:fs";
 
 const usefulControls = [
@@ -91,6 +96,26 @@ test("keeps form playground controls focused on useful visible state", () => {
   expect(TextareaPlayground.parameters.controls.include).toEqual(
     usefulControls,
   );
+});
+
+test("keeps Tags Input controls small and proves app and durable recipes", () => {
+  expect(TagsInputPlayground.parameters.controls.include).toEqual([
+    "placeholder",
+    "disabled",
+    "readonly",
+    "required",
+    "max",
+    "class",
+  ]);
+  expect(TagsInputPlayground.play).toBeTypeOf("function");
+
+  const statesTemplate = TagsInputStates.render().template;
+  const appsTemplate = TagsInputApps.render().template;
+  expect(statesTemplate).toContain("data-[part=tag]");
+  expect(statesTemplate).toContain('aria-invalid="true"');
+  expect(appsTemplate).toContain("Hagfish / Expense");
+  expect(appsTemplate).toContain("Slipway / Log filters");
+  expect(appsTemplate).toContain("v-model:draft");
 });
 
 test("keeps Checkbox controls useful and its recipes semantic", () => {

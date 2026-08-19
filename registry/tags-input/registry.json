@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "tags-input",
+  "description": "A pragmatic tags field with caller-owned values and draft, native form participation, bulk paste, validation, and durable keyboard focus.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/TagsInput.vue",
+      "target": "tags-input/TagsInput.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/TagsInput.jsx",
+      "target": "tags-input/TagsInput.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/TagsInput.svelte",
+      "target": "tags-input/TagsInput.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
