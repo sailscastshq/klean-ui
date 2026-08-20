@@ -1112,6 +1112,44 @@
           "migrationNotes": []
         }
       ]
+    },
+    "tags-input": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "tags-input/TagsInput.vue": "sha256:171fe45f7c61d11ec4b2a95f40ad4742d62a5c0dd923f4c2fd15dfae254afeb0"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "tags-input/TagsInput.jsx": "sha256:49e89fa86ba2c1b809000dcc9a2867773e7090b0e9096834d4b0bb3ffd02f452"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "tags-input/TagsInput.svelte": "sha256:8257202ea6bc18dcc8dd54f825896d042a3f9e7d5288f1cb3df1bc29795b407b"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
     }
   }
 }
