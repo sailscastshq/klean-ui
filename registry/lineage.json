@@ -1150,6 +1150,44 @@
           "migrationNotes": []
         }
       ]
+    },
+    "sheet": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "sheet/Sheet.vue": "sha256:f03ac3c83406e3dfe27ab940447c8f523613dfdefc4c89cc9b1196834d9a7bb5"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "sheet/Sheet.jsx": "sha256:9c668208024a1a74a932e58b1f35a521bd091440185ab18a43b38675dd9a7a7d"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "sheet/Sheet.svelte": "sha256:37d4f4d2292f9affffaafb74ebca11d1b6dbfefd7e1652114859d525de0bc3a8"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
     }
   }
 }

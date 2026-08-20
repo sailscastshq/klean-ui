@@ -15,6 +15,9 @@ export const contract = Object.freeze({
   dialogId: "framework-dialog",
   dialogLabel: "Delete project",
   dialogTitle: "Delete this project?",
+  sheetId: "framework-sheet",
+  sheetLabel: "Open project details",
+  sheetTitle: "Project details",
   breadcrumbItems: [
     { label: "Projects", href: "/" },
     { label: "Slipway", href: "/projects/slipway" },
