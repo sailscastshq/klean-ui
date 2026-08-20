@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "sheet",
+  "description": "A native off-canvas dialog with durable dismissal, focus return, controlled state, and caller-owned placement.",
+  "registryDependencies": ["dialog"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/Sheet.vue",
+      "target": "sheet/Sheet.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Sheet.jsx",
+      "target": "sheet/Sheet.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Sheet.svelte",
+      "target": "sheet/Sheet.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
