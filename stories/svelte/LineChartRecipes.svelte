@@ -32,6 +32,14 @@
     <LineChart data={cpu} caption="CPU — last hour" class="mt-8 h-56 text-emerald-400 **:data-[slot=line-chart-caption]:text-white **:data-[slot=line-chart-labels]:text-gray-400" />
   </article>
   <article class="border-2 border-gray-950 bg-[#f7f3eb] p-6 text-gray-950 shadow-[6px_6px_0_0_#111]">
-    <LineChart data={signups} caption="Signups — last 7 days" class="h-72 text-gray-950 dark:text-gray-950 **:data-[slot=line-chart-caption]:text-lg **:data-[slot=line-chart-labels]:text-gray-600" />
+    <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-600">Klean / minimal report</p>
+    <div class="mt-6 flex items-end justify-between gap-6">
+      <div>
+        <p class="text-sm text-gray-600">Last 7 days</p>
+        <p class="mt-1 text-4xl font-semibold tracking-tight tabular-nums">38</p>
+      </div>
+      <p class="pb-1 text-right text-sm text-gray-600">+8 from<br />the week before</p>
+    </div>
+    <LineChart data={signups} caption="Daily signups" class="mt-8 h-56 text-gray-950 dark:text-gray-950 **:data-[slot=line-chart-caption]:text-base **:data-[slot=line-chart-labels]:text-gray-600 **:data-[slot=line-chart-scale]:text-gray-600" />
   </article>
 </section>

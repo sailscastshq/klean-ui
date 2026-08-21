@@ -40,7 +40,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A labelled single-series trend built from native figure, figcaption, SVG, and an exact data list. It uses currentColor, accepts ordinary Tailwind, and has no chart configuration language or animation runtime.",
+          "A calm single-series trend with a visible scale, exact accessible values, resilient data states, and ordinary Tailwind styling.",
       },
     },
   },
@@ -91,7 +91,12 @@ export const Playground = {
       canvasElement.querySelector('[data-slot="line-chart-graphic"]'),
     ).toHaveAttribute("aria-hidden", "true");
     await expect(
-      canvasElement.querySelectorAll('[data-slot="line-chart-values"] li'),
+      canvasElement.querySelectorAll(
+        '[data-slot="line-chart-values"] [role="listitem"]',
+      ),
+    ).toHaveLength(7);
+    await expect(
+      canvasElement.querySelectorAll('[data-slot="line-chart-hit"]'),
     ).toHaveLength(7);
   },
 };
@@ -133,8 +138,12 @@ export const Apps = {
 
           <article class="border-2 border-gray-950 bg-[#f7f3eb] p-6 text-gray-950 shadow-[6px_6px_0_0_#111] sm:p-8">
             <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-600">Klean / minimal report</p>
-            <LineChart :data="signups" caption="Signups — last 7 days" class="mt-7 h-72 text-gray-950 dark:text-gray-950 **:data-[slot=line-chart-caption]:text-lg **:data-[slot=line-chart-labels]:text-gray-600" />
-            <p class="mt-6 text-sm leading-6 text-gray-600">No provider. No theme object. The exact seven values remain available from the same source data.</p>
+            <div class="mt-6 flex items-end justify-between gap-6">
+              <div><p class="text-sm text-gray-600">Last 7 days</p><p class="mt-1 text-4xl font-semibold tracking-tight tabular-nums">38</p></div>
+              <p class="pb-1 text-right text-sm text-gray-600">+8 from<br />the week before</p>
+            </div>
+            <LineChart :data="signups" caption="Daily signups" class="mt-8 h-56 text-gray-950 dark:text-gray-950 **:data-[slot=line-chart-caption]:text-base **:data-[slot=line-chart-labels]:text-gray-600 **:data-[slot=line-chart-scale]:text-gray-600" />
+            <p class="mt-5 text-sm leading-6 text-gray-600">The scale, sample points, and exact values all come from the same seven records.</p>
           </article>
         </section>
       </main>

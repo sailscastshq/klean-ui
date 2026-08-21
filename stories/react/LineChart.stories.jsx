@@ -70,10 +70,26 @@ export const Apps = {
         />
       </article>
       <article className="border-2 border-gray-950 bg-[#f7f3eb] p-6 text-gray-950 shadow-[6px_6px_0_0_#111]">
+        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-600">
+          Klean / minimal report
+        </p>
+        <div className="mt-6 flex items-end justify-between gap-6">
+          <div>
+            <p className="text-sm text-gray-600">Last 7 days</p>
+            <p className="mt-1 text-4xl font-semibold tracking-tight tabular-nums">
+              38
+            </p>
+          </div>
+          <p className="pb-1 text-right text-sm text-gray-600">
+            +8 from
+            <br />
+            the week before
+          </p>
+        </div>
         <LineChart
           data={signups}
-          caption="Signups — last 7 days"
-          className="h-72 text-gray-950 dark:text-gray-950 **:data-[slot=line-chart-caption]:text-lg **:data-[slot=line-chart-labels]:text-gray-600"
+          caption="Daily signups"
+          className="mt-8 h-56 text-gray-950 dark:text-gray-950 **:data-[slot=line-chart-caption]:text-base **:data-[slot=line-chart-labels]:text-gray-600 **:data-[slot=line-chart-scale]:text-gray-600"
         />
       </article>
     </section>

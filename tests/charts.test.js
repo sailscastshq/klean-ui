@@ -63,17 +63,44 @@ test("renders a captioned line chart with an exact data alternative", () => {
   expect(wrapper.attributes("data-slot")).toBe("line-chart");
   expect(wrapper.get("figcaption").text()).toBe("Signups — last 7 days");
   expect(wrapper.get("svg").attributes("aria-hidden")).toBe("true");
-  expect(wrapper.get("polyline").attributes("stroke")).toBe("currentColor");
+  expect(wrapper.get('[data-slot="line-chart-line"]').element.tagName).toBe(
+    "path",
+  );
+  expect(
+    wrapper.get('[data-slot="line-chart-line"]').attributes("d"),
+  ).toContain("Q");
+  expect(
+    wrapper.get('[data-slot="line-chart-line"]').attributes("stroke"),
+  ).toBe("currentColor");
+  expect(wrapper.findAll('[data-slot="line-chart-guide"]')).toHaveLength(3);
+  expect(wrapper.get('[data-slot="line-chart-scale"]').text()).toContain("9");
+  expect(wrapper.get('[data-slot="line-chart-scale"]').text()).toContain("4");
+  expect(wrapper.find('[data-slot="line-chart-current"]').exists()).toBe(true);
   expect(wrapper.get('[data-slot="line-chart-labels"]').text()).toContain(
     "Fri",
+  );
+  expect(wrapper.get('[data-slot="line-chart-labels"]').text()).toContain(
+    "Mon",
   );
   expect(wrapper.get('[data-slot="line-chart-labels"]').text()).toContain(
     "Thu",
   );
   expect(wrapper.get('[data-slot="line-chart-values"]').text()).toContain(
-    "Fri: Friday, 4 signups",
+    "Friday, 4 signups",
   );
-  expect(wrapper.findAll('[data-slot="line-chart-values"] li')).toHaveLength(7);
+  expect(
+    wrapper.findAll('[data-slot="line-chart-values"] [role="listitem"]'),
+  ).toHaveLength(7);
+  expect(wrapper.findAll('[data-slot="line-chart-hit"]')).toHaveLength(7);
+  expect(wrapper.get('[data-slot="line-chart-hit"]').attributes("type")).toBe(
+    "button",
+  );
+  expect(
+    wrapper.get('[data-slot="line-chart-hit"]').attributes("aria-label"),
+  ).toBe("Inspect Friday, 4 signups");
+  expect(wrapper.get('[data-slot="line-chart-tip"]').text()).toBe(
+    "Friday, 4 signups",
+  );
 });
 
 test("uses caller formatting without assuming a locale", () => {
@@ -128,7 +155,7 @@ test("merges ordinary Tailwind on the chart roots", () => {
 
   expect(line.classes()).toContain("h-80");
   expect(line.classes()).toContain("text-blue-700");
-  expect(line.classes()).not.toContain("h-64");
+  expect(line.classes()).not.toContain("h-56");
   expect(line.classes()).not.toContain("text-gray-950");
 });
 
