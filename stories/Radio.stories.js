@@ -142,8 +142,7 @@ export const States = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="radio-states-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Native radio</p>
-          <h1 id="radio-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One choice, kept honest by the browser.</h1>
+          <h1 id="radio-states-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One choice, kept honest by the browser.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">A shared name creates the group. Fieldset and legend give it meaning. Arrow keys, required validation, submission, and reset remain native.</p>
         </header>
 
@@ -248,8 +247,7 @@ export const Apps = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="radio-apps-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Slipway recipes</p>
-          <h1 id="radio-apps-title" class="mt-3 text-4xl font-semibold tracking-tighter sm:text-5xl">The radio can disappear. Its semantics cannot.</h1>
+          <h1 id="radio-apps-title" class="text-4xl font-semibold tracking-tighter sm:text-5xl">The radio can disappear. Its semantics cannot.</h1>
           <p class="mt-5 max-w-2xl text-base leading-7 text-klean-muted">These patterns come from Slipway: a conventional provider list, large participation cards, and compact filters. The caller owns every visual treatment.</p>
         </header>
 

@@ -121,8 +121,7 @@ export const Apps = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="table-apps-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="table-apps-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Tabular truth. Product-owned rhythm.</h1>
+          <h1 id="table-apps-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Tabular truth. Product-owned rhythm.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Slipway proves dense operational results. Hagfish proves an invoice report can keep its editorial voice. Its editable invoice form remains a responsive list, because it is not a data table.</p>
         </header>
 
@@ -130,7 +129,6 @@ export const Apps = {
           <article class="dark overflow-hidden rounded-lg border border-gray-800 bg-gray-950 text-white shadow-xl">
             <div class="flex items-center justify-between gap-4 px-5 py-4">
               <div>
-                <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / SQL result</p>
                 <h2 class="mt-1 text-lg font-semibold">customers · 3 rows</h2>
               </div>
               <button type="button" class="cursor-pointer rounded-md border border-gray-700 px-3 py-2 text-xs font-medium text-gray-200 hover:bg-gray-800">Copy JSON</button>
@@ -159,8 +157,7 @@ export const Apps = {
           </article>
 
           <article class="overflow-hidden border-2 border-black bg-[#f7f3eb] p-6 text-black shadow-[6px_6px_0_0_#000] sm:p-8">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-black/55">Hagfish / report ledger</p>
-            <h2 class="mt-2 text-2xl font-semibold tracking-tight">Invoice INV-1042</h2>
+            <h2 class="text-2xl font-semibold tracking-tight">Invoice INV-1042</h2>
             <div class="mt-6 overflow-x-auto">
               <Table class="min-w-xl border-separate border-spacing-0 text-black dark:text-black">
                 <caption class="sr-only">Invoice INV-1042 line item report</caption>

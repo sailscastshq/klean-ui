@@ -1188,6 +1188,118 @@
           "migrationNotes": []
         }
       ]
+    },
+    "line-chart": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "line-chart/LineChart.vue": "sha256:f4d23d87f26fb6ee4a763fc5a27673c384219821468c0a4ff87bc304feb26a8b"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "line-chart/LineChart.vue": "sha256:992372dd11fceb3612685d3641f2041a77328bc797a13001413f74a3fbe2ab73"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Refine LineChart with compact scaling, rounded joins, exact sample markers, and zero-configuration point inspection."
+          ]
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "line-chart/LineChart.jsx": "sha256:99b7ca7569487340ca193974f60d475ceffe02bd4616cfb47291a074c2fe29e8"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "line-chart/LineChart.jsx": "sha256:0dafdda95ef2e4996dace382b791561268c8cde81f02661d64c31dee5e1b8851"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Refine LineChart with compact scaling, rounded joins, exact sample markers, and zero-configuration point inspection."
+          ]
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "line-chart/LineChart.svelte": "sha256:d82088100453eb15f890899b2e196fff4a89c2d1e912aa1e7593a188bd50052a"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "line-chart/LineChart.svelte": "sha256:05421c4bcadf785e5a11eb6911f523b43f72989b2a1b38dbca6c88266e67751c"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Refine LineChart with compact scaling, rounded joins, exact sample markers, and zero-configuration point inspection."
+          ]
+        }
+      ]
+    },
+    "sparkline": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "sparkline/Sparkline.vue": "sha256:5933c3a5d20b77c7c8f271ae504132ca03865351f719e4679a181b62b6e175b0"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "sparkline/Sparkline.jsx": "sha256:39b756c95b8cde017e3dc256ae1f767f6bae928153c3e104dafac40af172056c"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "sparkline/Sparkline.svelte": "sha256:0a53a3cc3e0c2b78fb979ca6dc5e40831bcd8df2eb82c68223582189d0646bad"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
     }
   }
 }

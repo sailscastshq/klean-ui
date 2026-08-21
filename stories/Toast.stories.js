@@ -216,8 +216,7 @@ export const Deployment = {
     template: `
       <main class="klean-toast-motion-preview min-h-136 bg-gray-950 p-8 text-white sm:p-12">
         <div class="mx-auto max-w-3xl">
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-gray-500">Long-running work</p>
-          <h2 class="mt-3 text-3xl font-semibold tracking-tight">One toast, updated in place.</h2>
+          <h2 class="text-3xl font-semibold tracking-tight">One toast, updated in place.</h2>
           <p class="mt-3 max-w-xl text-sm leading-6 text-gray-400">The app still owns SSE, deployment language, progress, and terminal-state rules. Klean owns notification timing and motion.</p>
           <div class="mt-6 flex gap-2">
             <button type="button" class="min-h-10 cursor-pointer rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-950 hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950" @click="start">Deploy</button>
@@ -289,14 +288,14 @@ export const Products = {
       <div class="klean-toast-motion-preview grid min-h-136 sm:grid-cols-2">
         <section class="flex items-center justify-center bg-[#f7f3eb] p-8" aria-labelledby="bold-toast-recipe">
           <div class="text-center">
-            <h2 id="bold-toast-recipe" class="text-xs font-medium uppercase tracking-[0.18em] text-black/60">Bold product styling</h2>
+            <h2 id="bold-toast-recipe" class="text-base font-semibold text-black">Bold product styling</h2>
             <button type="button" class="mt-4 min-h-11 cursor-pointer rounded-lg border-2 border-black bg-black px-4 py-2 font-medium text-white hover:bg-white hover:text-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2" @click="showInvoice">Send invoice</button>
           </div>
           <Toast :controller="invoiceNotifications" position="top-left" from="left" to="left" />
         </section>
         <section class="dark flex items-center justify-center bg-gray-950 p-8 text-white" aria-labelledby="quiet-toast-recipe">
           <div class="text-center">
-            <h2 id="quiet-toast-recipe" class="font-mono text-xs uppercase tracking-[0.18em] text-gray-500">Quiet product styling</h2>
+            <h2 id="quiet-toast-recipe" class="text-base font-semibold text-white">Quiet product styling</h2>
             <button type="button" class="mt-4 min-h-10 cursor-pointer rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" @click="showService">Restart service</button>
           </div>
           <Toast :controller="serviceNotifications" position="top-right" />

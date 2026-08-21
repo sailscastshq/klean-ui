@@ -63,8 +63,7 @@ export const Intent = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="separator-intent-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Use only with intent</p>
-          <h1 id="separator-intent-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Spacing first. A line when the boundary matters.</h1>
+          <h1 id="separator-intent-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Spacing first. A line when the boundary matters.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Separator is not a layout primitive. Use it for a real thematic break or a dense control boundary; keep ordinary groups clean with spacing.</p>
         </header>
 
@@ -104,14 +103,12 @@ export const Apps = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="separator-apps-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="separator-apps-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One semantic seam. Each product keeps its voice.</h1>
+          <h1 id="separator-apps-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One semantic seam. Each product keeps its voice.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Hagfish can replace its Divider dependency without flattening its contrast. Slipway can keep compact operational grouping. Neither app turns every border into a component.</p>
         </header>
 
         <div class="mt-12 grid max-w-7xl gap-10 xl:grid-cols-2">
           <article class="space-y-4">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Hagfish / account menu</p>
             <div class="border-2 border-black bg-white p-2 shadow-[6px_6px_0_0_#000] dark:border-white dark:bg-gray-950 dark:shadow-[6px_6px_0_0_#fff]">
               <a href="#profile" class="block px-4 py-3 font-medium no-underline">Profile</a>
               <a href="#billing" class="block px-4 py-3 font-medium no-underline">Billing</a>
@@ -121,7 +118,6 @@ export const Apps = {
           </article>
 
           <article class="space-y-4">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / command surface</p>
             <div class="overflow-hidden rounded-xl bg-white shadow-sm dark:bg-gray-950">
               <div class="p-4"><p class="text-sm font-medium">Deploy production</p><p class="mt-1 text-xs text-gray-500 dark:text-gray-400">main · Lagos · 3 replicas</p></div>
               <Separator aria-hidden="true" class="bg-gray-100 dark:bg-gray-800" />

@@ -99,8 +99,7 @@ export const StateSheet = {
       <section class="w-[min(42rem,calc(100vw-2rem))] bg-white p-6 sm:p-10" aria-labelledby="button-states-title">
         <div class="flex items-end justify-between gap-6">
           <div>
-            <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Button / state sheet</p>
-            <h2 id="button-states-title" class="mt-2 text-2xl font-semibold tracking-[-0.03em]">One primitive, honest states</h2>
+            <h2 id="button-states-title" class="text-2xl font-semibold tracking-[-0.03em]">One primitive, honest states</h2>
           </div>
           <span class="font-mono text-xs text-klean-muted">44px default target</span>
         </div>
@@ -145,16 +144,14 @@ export const SemanticElements = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="semantic-recipes-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Semantic recipes</p>
-          <h1 id="semantic-recipes-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Keep the treatment. Render the truthful element.</h1>
+          <h1 id="semantic-recipes-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Keep the treatment. Render the truthful element.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Use a button for an action, a native anchor for a full-page destination, and the Boring Stack Link for internal Inertia navigation. Never put a button inside an anchor.</p>
         </header>
 
         <ul class="mt-12 grid gap-4 lg:grid-cols-3" role="list">
           <li>
             <article class="flex h-full flex-col bg-white p-6 sm:p-8" aria-labelledby="action-recipe-title">
-              <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-klean-muted">Action</p>
-              <h2 id="action-recipe-title" class="mt-2 text-xl font-semibold">Native button</h2>
+              <h2 id="action-recipe-title" class="text-xl font-semibold">Native button</h2>
               <p class="mt-2 text-sm leading-6 text-klean-muted">Opens UI, submits a form, or changes state on the current page.</p>
               <div class="mt-8"><Button type="button">Open command menu</Button></div>
               <code class="mt-auto block pt-10 font-mono text-xs text-klean-muted">&lt;Button type="button"&gt;</code>
@@ -162,8 +159,7 @@ export const SemanticElements = {
           </li>
           <li>
             <article class="flex h-full flex-col bg-white p-6 sm:p-8" aria-labelledby="anchor-recipe-title">
-              <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-klean-muted">Full-page navigation</p>
-              <h2 id="anchor-recipe-title" class="mt-2 text-xl font-semibold">Native anchor</h2>
+              <h2 id="anchor-recipe-title" class="text-xl font-semibold">Native anchor</h2>
               <p class="mt-2 text-sm leading-6 text-klean-muted">External sites, OAuth redirects, downloads, and destinations that require a document load.</p>
               <div class="mt-8"><Button as="a" href="#semantic-recipes-title">Read the guide</Button></div>
               <code class="mt-auto block pt-10 font-mono text-xs text-klean-muted">&lt;Button as="a" href="..."&gt;</code>
@@ -171,8 +167,7 @@ export const SemanticElements = {
           </li>
           <li>
             <article class="flex h-full flex-col bg-klean-ink p-6 text-white sm:p-8" aria-labelledby="inertia-recipe-title">
-              <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-white/45">Boring Stack navigation</p>
-              <h2 id="inertia-recipe-title" class="mt-2 text-xl font-semibold">Inertia Link</h2>
+              <h2 id="inertia-recipe-title" class="text-xl font-semibold">Inertia Link</h2>
               <p class="mt-2 text-sm leading-6 text-white/55">Pass the framework component directly. Button supplies treatment while Link keeps client-side navigation semantics.</p>
               <div class="mt-8">
                 <Button :as="BoringStackLink" href="#semantic-recipes-title" class="bg-white text-gray-950 hover:bg-gray-100 dark:bg-white dark:text-gray-950 dark:hover:bg-gray-100">View projects</Button>
@@ -194,8 +189,7 @@ export const EverydayUses = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="everyday-uses-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Hagfish + Slipway audit</p>
-          <h1 id="everyday-uses-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One lean contract, many real jobs.</h1>
+          <h1 id="everyday-uses-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One lean contract, many real jobs.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">These recipes cover the recurring source-app patterns without turning size, color, density, or loading into Button props.</p>
         </header>
 
@@ -257,8 +251,7 @@ export const ProductRecipes = {
       <div class="grid min-h-svh lg:grid-cols-2">
         <section class="flex min-h-[50svh] flex-col justify-between bg-klean-paper p-6 sm:p-10 lg:min-h-svh lg:p-14" aria-labelledby="hagfish-title">
           <header>
-            <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Expressive recipe</p>
-            <h2 id="hagfish-title" class="mt-3 text-4xl font-semibold tracking-tighter">Hagfish</h2>
+            <h2 id="hagfish-title" class="text-4xl font-semibold tracking-tighter">Hagfish</h2>
             <p class="mt-3 max-w-sm text-sm leading-6 text-klean-muted">High contrast, generous proportions, and a physical offset-shadow response.</p>
           </header>
           <div class="py-14">
@@ -274,8 +267,7 @@ export const ProductRecipes = {
 
         <section class="dark flex min-h-[50svh] flex-col justify-between bg-gray-950 p-6 text-white sm:p-10 lg:min-h-svh lg:p-14" aria-labelledby="slipway-title">
           <header>
-            <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/45">Compact recipe</p>
-            <h2 id="slipway-title" class="mt-3 text-4xl font-semibold tracking-tighter">Slipway</h2>
+            <h2 id="slipway-title" class="text-4xl font-semibold tracking-tighter">Slipway</h2>
             <p class="mt-3 max-w-sm text-sm leading-6 text-white/55">Quiet geometry for dense operational surfaces, with tonal feedback instead of movement.</p>
           </header>
           <div class="flex flex-wrap items-center gap-2 py-14">
@@ -297,8 +289,7 @@ export const ClassOwnership = {
     components: { Button },
     template: `
       <section class="w-[min(44rem,calc(100vw-2rem))] bg-gray-200 p-8 sm:p-14" aria-labelledby="ownership-title">
-        <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-ink/60">Override proof</p>
-        <h2 id="ownership-title" class="mt-3 max-w-lg text-4xl font-semibold tracking-tighter">The component does not negotiate with your design.</h2>
+        <h2 id="ownership-title" class="max-w-lg text-4xl font-semibold tracking-tighter">The component does not negotiate with your design.</h2>
         <p class="mt-4 max-w-xl text-sm leading-6 text-klean-ink/70">This button replaces the default height, radius, background, text color, spacing, typography, shadow, and motion using one ordinary class attribute.</p>
         <Button class="mt-10 min-h-14 rounded-full bg-white px-8 text-base font-semibold text-gray-950 shadow-[0_8px_0_0_#151512] hover:-translate-y-0.5 hover:bg-white active:translate-y-2 active:shadow-none">
           Make it mine

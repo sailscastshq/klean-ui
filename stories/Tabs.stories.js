@@ -140,14 +140,14 @@ export const Modes = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="tabs-modes-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">One contract</p>
-          <h1 id="tabs-modes-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Fast panels activate. Meaningful work waits.</h1>
+          <h1 id="tabs-modes-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Fast panels activate. Meaningful work waits.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Automatic activation is right when mounted panels are instant. Manual activation lets a person move focus before choosing a panel that starts latency or work.</p>
         </header>
 
         <div class="mt-12 grid max-w-5xl gap-8 lg:grid-cols-2">
           <article class="bg-white p-6 dark:bg-gray-950">
-            <p class="text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">Automatic · disabled skip</p>
+            <h2 class="text-base font-semibold">Automatic activation</h2>
+            <p class="mt-1 text-sm text-gray-500">Disabled tabs are skipped.</p>
             <Tabs v-model="automatic" aria-label="Deploy state" class="mt-4">
               <div class="flex gap-5 overflow-x-auto border-b border-gray-200 dark:border-gray-800">
                 <button type="button" data-value="ready" :class="tabClass">Ready</button>
@@ -161,7 +161,8 @@ export const Modes = {
           </article>
 
           <article class="bg-white p-6 dark:bg-gray-950">
-            <p class="text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">Manual · vertical</p>
+            <h2 class="text-base font-semibold">Manual activation</h2>
+            <p class="mt-1 text-sm text-gray-500">Vertical navigation activates on command.</p>
             <Tabs v-model="manual" aria-label="Report sections" orientation="vertical" activation="manual" class="mt-4 grid grid-cols-[8rem_1fr] gap-5">
               <div class="flex flex-col gap-1 border-r border-gray-200 pr-3 dark:border-gray-800">
                 <button type="button" data-value="summary" class="min-h-11 cursor-pointer border-l-2 border-transparent px-3 text-left text-sm text-gray-500 outline-none focus-visible:ring-2 data-[state=active]:border-gray-950 data-[state=active]:font-medium data-[state=active]:text-gray-950 dark:data-[state=active]:border-white dark:data-[state=active]:text-white">Summary</button>
@@ -193,8 +194,7 @@ export const Navigation = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="tabs-navigation-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Hagfish-shaped navigation</p>
-          <h1 id="tabs-navigation-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Links stay links.</h1>
+          <h1 id="tabs-navigation-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Links stay links.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Pass native anchors or the Boring Stack Link directly. Klean marks the active destination while href, prefetch, history, modified clicks, and open-in-new-tab remain the router and browser's job.</p>
         </header>
 
@@ -261,8 +261,7 @@ export const Workspace = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="tabs-workspace-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Slipway-shaped workspace</p>
-          <h1 id="tabs-workspace-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Dynamic tabs stay operable.</h1>
+          <h1 id="tabs-workspace-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Dynamic tabs stay operable.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Tabs keep safe adjacent focus when an active result closes. Close actions are real buttons beside—not inside—the semantic tab list.</p>
         </header>
 
@@ -277,7 +276,7 @@ export const Workspace = {
               </span>
             </div>
             <div v-for="item in openTabs" :key="item.value" :data-value="item.value" class="min-h-60 p-6 font-mono text-sm outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-950 dark:focus-visible:ring-white">
-              <p class="text-xs uppercase tracking-[0.14em] text-gray-600 dark:text-gray-400">Active result</p>
+              <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Active result</p>
               <p class="mt-5">{{ item.label }}</p>
               <p class="mt-2 text-gray-500">Caller-owned content stays mounted while Klean manages only visibility and interaction.</p>
             </div>

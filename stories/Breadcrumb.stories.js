@@ -50,13 +50,12 @@ export const Playground = {
     const navigation = canvas.getByRole("navigation", { name: "Breadcrumb" });
 
     await expect(navigation.querySelectorAll(":scope > ol")).toHaveLength(1);
-    await expect(canvas.getByRole("link", { name: "Projects" })).toHaveAttribute(
-      "href",
-      "/",
-    );
-    await expect(navigation.querySelector('[aria-current="page"]')).toHaveTextContent(
-      "Settings",
-    );
+    await expect(
+      canvas.getByRole("link", { name: "Projects" }),
+    ).toHaveAttribute("href", "/");
+    await expect(
+      navigation.querySelector('[aria-current="page"]'),
+    ).toHaveTextContent("Settings");
   },
 };
 
@@ -70,26 +69,25 @@ export const States = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="breadcrumb-states-title" @click.capture="stopNavigation">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Location, not history</p>
-          <h1 id="breadcrumb-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One truthful trail.</h1>
+          <h1 id="breadcrumb-states-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One truthful trail.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Ancestors stay real links, the current page stays text, and narrow containers retain the useful edges without adding another landmark.</p>
         </header>
 
         <div class="mt-12 grid max-w-5xl gap-5 lg:grid-cols-2">
           <article class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
-            <p class="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500">One page</p>
+            <h2 class="mb-3 text-sm font-semibold text-gray-700">One page</h2>
             <Breadcrumb :items="[{ label: 'Projects' }]" />
           </article>
           <article class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
-            <p class="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500">Parent and current</p>
+            <h2 class="mb-3 text-sm font-semibold text-gray-700">Parent and current</h2>
             <Breadcrumb :items="[{ label: 'Projects', href: '/' }, { label: 'Slipway' }]" />
           </article>
           <article class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950 lg:col-span-2">
-            <p class="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500">Deep hierarchy</p>
+            <h2 class="mb-3 text-sm font-semibold text-gray-700">Deep hierarchy</h2>
             <Breadcrumb :items="items" />
           </article>
           <article class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950 lg:col-span-2">
-            <p class="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500">Long resource names</p>
+            <h2 class="mb-3 text-sm font-semibold text-gray-700">Long resource names</h2>
             <Breadcrumb :items="[
               { label: 'Projects', href: '/' },
               { label: 'Customer communications infrastructure', href: '/projects/customer-communications-infrastructure', title: 'Customer communications infrastructure' },
@@ -113,8 +111,7 @@ export const Apps = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="breadcrumb-apps-title" @click.capture="stopNavigation">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="breadcrumb-apps-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Behavior stays. The finish belongs to the app.</h1>
+          <h1 id="breadcrumb-apps-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Behavior stays. The finish belongs to the app.</h1>
         </header>
 
         <div class="mt-12 grid max-w-6xl gap-8 xl:grid-cols-2">
@@ -133,8 +130,7 @@ export const Apps = {
               />
             </div>
             <div class="p-6">
-              <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / deployment</p>
-              <h2 class="mt-4 text-2xl font-semibold tracking-tight">Deploy #824</h2>
+              <h2 class="text-2xl font-semibold tracking-tight">Deploy #824</h2>
               <p class="mt-2 text-sm text-gray-400">Production is healthy and serving traffic.</p>
             </div>
           </article>
@@ -151,8 +147,7 @@ export const Apps = {
               />
             </div>
             <div class="p-6 sm:p-8">
-              <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-black/55">Hagfish / invoice</p>
-              <h2 class="mt-4 text-3xl font-black tracking-tight">INV-1042</h2>
+              <h2 class="text-3xl font-black tracking-tight">INV-1042</h2>
               <p class="mt-2 text-sm text-black/60">Paid on August 12, 2026.</p>
             </div>
           </article>

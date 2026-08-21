@@ -162,8 +162,7 @@ export const Relationship = {
     template: `
       <section class="min-h-136 bg-white px-5 py-14 text-gray-950 dark:bg-gray-950 dark:text-white sm:px-10 sm:py-20" aria-labelledby="relationship-title">
         <div class="mx-auto max-w-xl">
-          <p class="text-xs font-medium uppercase tracking-[0.16em] text-gray-500 dark:text-gray-400">Slipway / relationship field</p>
-          <h2 id="relationship-title" class="mt-3 text-2xl font-semibold tracking-tight">Assign an account owner</h2>
+          <h2 id="relationship-title" class="text-2xl font-semibold tracking-tight">Assign an account owner</h2>
           <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">Search by name or email without losing the existing relationship until a new person is chosen.</p>
 
           <div class="mt-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
@@ -248,8 +247,7 @@ export const States = {
     template: `
       <section class="klean-story-canvas px-5 py-12 sm:px-10" aria-labelledby="combobox-states-title">
         <header class="max-w-2xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Combobox / state sheet</p>
-          <h1 id="combobox-states-title" class="mt-3 text-3xl font-semibold tracking-[-0.04em]">Search is temporary. Selection is durable.</h1>
+          <h1 id="combobox-states-title" class="text-3xl font-semibold tracking-[-0.04em]">Search is temporary. Selection is durable.</h1>
         </header>
         <div class="mt-10 grid max-w-4xl gap-7 sm:grid-cols-2">
           <div class="grid gap-2">

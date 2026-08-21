@@ -89,8 +89,7 @@ export const PublishingWorkflow = {
     template: `
       <main class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12">
         <form class="mx-auto max-w-2xl bg-white p-6 sm:p-10" @submit.prevent>
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Publishing</p>
-          <h1 class="mt-2 text-3xl font-semibold tracking-[-0.04em]">Schedule this announcement</h1>
+          <h1 class="text-3xl font-semibold tracking-[-0.04em]">Schedule this announcement</h1>
           <p class="mt-3 text-gray-600">A valid interpretation saves on Enter or when focus leaves the complete picker.</p>
           <div class="mt-8 grid gap-2">
             <label for="publish-at" class="text-sm font-medium">Publish at</label>
