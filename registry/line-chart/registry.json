@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "line-chart",
+  "description": "An accessible single-series native-SVG trend with a visible caption and exact data alternative.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/LineChart.vue",
+      "target": "line-chart/LineChart.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/LineChart.jsx",
+      "target": "line-chart/LineChart.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/LineChart.svelte",
+      "target": "line-chart/LineChart.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

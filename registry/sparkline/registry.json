@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "sparkline",
+  "description": "A calm native-SVG trend beside an exact value, decorative by default and informative when labelled.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Sparkline.vue",
+      "target": "sparkline/Sparkline.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/Sparkline.jsx",
+      "target": "sparkline/Sparkline.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/Sparkline.svelte",
+      "target": "sparkline/Sparkline.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
