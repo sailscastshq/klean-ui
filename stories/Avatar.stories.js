@@ -71,8 +71,7 @@ export const States = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="avatar-states-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">One resilient identity mark</p>
-          <h1 id="avatar-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The face arrives. Identity remains.</h1>
+          <h1 id="avatar-states-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The face arrives. Identity remains.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">An image can be present, absent, late, or broken. The occupied space and accessible identity stay honest while application classes change every visual detail.</p>
         </header>
 
@@ -128,22 +127,30 @@ export const Apps = {
         { name: "Boring Stack", initials: "BS", src: avatarImages.maya },
       ];
       const comments = [
-        { name: "Kelvin Omereshone", initials: "KO", src: avatarImages.kelvin, message: "The schedule is ready to send." },
-        { name: "Ada Okafor", initials: "AO", src: "", message: "Perfect. I checked the invoice dates." },
+        {
+          name: "Kelvin Omereshone",
+          initials: "KO",
+          src: avatarImages.kelvin,
+          message: "The schedule is ready to send.",
+        },
+        {
+          name: "Ada Okafor",
+          initials: "AO",
+          src: "",
+          message: "Perfect. I checked the invoice dates.",
+        },
       ];
       return { avatarImages, teams, comments };
     },
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="avatar-apps-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="avatar-apps-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Same primitive. Unmistakably each app.</h1>
+          <h1 id="avatar-apps-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Same primitive. Unmistakably each app.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Hagfish keeps expressive creator identity and dense comments. Slipway keeps quiet team navigation and an honest upload preview. Avatar only carries identity between them.</p>
         </header>
 
         <div class="mt-12 grid max-w-7xl gap-10 xl:grid-cols-2">
           <article class="space-y-4">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Hagfish / invoice discussion</p>
             <div class="border-2 border-black bg-[#f7f3eb] p-5 shadow-[6px_6px_0_0_#000] dark:border-white dark:bg-gray-950 dark:shadow-[6px_6px_0_0_#fff]">
               <a href="#creator" class="flex w-full items-center gap-3 border-b-2 border-black pb-4 no-underline dark:border-white">
                 <span class="relative inline-flex">
@@ -163,7 +170,6 @@ export const Apps = {
           </article>
 
           <article class="space-y-4">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / team identity</p>
             <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-950">
               <Button type="button" class="flex min-h-0 w-full justify-start gap-3 rounded-none border-0 bg-gray-50 px-4 py-3 text-gray-950 shadow-none hover:bg-gray-100 active:bg-gray-100 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 dark:active:bg-gray-800">
                 <Avatar :src="avatarImages.kelvin" alt="" class="size-7 rounded-md">SW</Avatar>

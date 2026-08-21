@@ -154,7 +154,6 @@ export const Products = {
       <section class="grid min-h-136 lg:grid-cols-2" aria-label="Application tooltip recipes">
         <article class="flex items-center justify-center bg-gray-950 p-8 text-white">
           <div>
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / query toolbar</p>
             <div class="mt-6 flex items-center gap-1 rounded-lg border border-gray-800 bg-gray-900 p-1.5 shadow-xl">
               <Tooltip text="Table view" placement="bottom" class="border-gray-700 bg-gray-800 text-gray-100">
                 <button type="button" aria-label="Table view" class="grid size-9 place-items-center rounded-md bg-white/10 text-white hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
@@ -178,7 +177,6 @@ export const Products = {
 
         <article class="flex items-center justify-center bg-[#f4f0e8] p-8 text-black">
           <div>
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-black/50">Hagfish / invoice action</p>
             <Tooltip text="Copy public invoice link" placement="bottom" class="rounded-none border-2 border-black bg-[#f4f0e8] px-3 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-black shadow-[3px_3px_0_0_#000]">
               <button type="button" aria-label="Copy public invoice link" class="mt-6 grid size-12 place-items-center border-2 border-black bg-black text-white shadow-[3px_3px_0_0_#9ca3af] transition-colors hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black">
                 <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2M6 8h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z" /></svg>

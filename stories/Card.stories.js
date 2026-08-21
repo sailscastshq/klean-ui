@@ -66,8 +66,7 @@ export const Semantics = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="card-semantics-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Meaning comes from HTML</p>
-          <h1 id="card-semantics-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">A surface does not decide what it is.</h1>
+          <h1 id="card-semantics-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">A surface does not decide what it is.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Card adds one visual seam. The application chooses an article, section, anchor, Boring Stack Link, or button from the content and the action.</p>
         </header>
 
@@ -131,14 +130,12 @@ export const Apps = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="card-apps-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="card-apps-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One boundary. Two products.</h1>
+          <h1 id="card-apps-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One boundary. Two products.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Hagfish keeps its offset-shadow voice. Slipway stays compact and operational. Both use the same one-element Card.</p>
         </header>
 
         <div class="mt-12 grid max-w-7xl gap-10 xl:grid-cols-2">
           <article class="space-y-4">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Hagfish / financial summary</p>
             <Card as="article" aria-labelledby="hagfish-revenue-title" class="flex min-h-64 flex-col justify-between gap-8 rounded-lg border-2 border-black bg-black p-6 text-white shadow-[4px_4px_0_0_rgba(0,0,0,0.3)] dark:border-white dark:bg-white dark:text-black">
               <header class="flex items-start justify-between gap-4">
                 <h2 id="hagfish-revenue-title" class="text-sm font-medium text-white/60 dark:text-black/60">Revenue</h2>
@@ -150,7 +147,6 @@ export const Apps = {
           </article>
 
           <article class="space-y-4">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / service panel</p>
             <Card as="section" aria-labelledby="slipway-api-title" class="p-4">
               <header class="flex items-center justify-between gap-4">
                 <div class="min-w-0">

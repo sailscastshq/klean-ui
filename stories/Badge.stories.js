@@ -66,8 +66,7 @@ export const Semantics = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="badge-semantics-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Static by design</p>
-          <h1 id="badge-semantics-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Small metadata. Honest semantics.</h1>
+          <h1 id="badge-semantics-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Small metadata. Honest semantics.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Badge never becomes a control. Give terse text more context, let the parent control own notifications, and opt into live semantics only when a changing message truly needs announcement.</p>
         </header>
 
@@ -147,14 +146,12 @@ export const Apps = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="badge-apps-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="badge-apps-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One seam. Both product voices.</h1>
+          <h1 id="badge-apps-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">One seam. Both product voices.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Hagfish keeps strong invoice labels. Slipway stays compact and operational. Their visual meaning is visible where each app owns it.</p>
         </header>
 
         <div class="mt-12 grid max-w-7xl gap-10 xl:grid-cols-2">
           <article class="space-y-4">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Hagfish / invoices</p>
             <div class="border-2 border-black bg-white p-6 shadow-[6px_6px_0_0_#000] dark:border-white dark:bg-gray-950 dark:shadow-[6px_6px_0_0_#fff]">
               <div class="flex items-center justify-between gap-4">
                 <div><h2 class="font-semibold">August invoices</h2><p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Three customer records</p></div>
@@ -170,7 +167,6 @@ export const Apps = {
           </article>
 
           <article class="space-y-4">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / services</p>
             <div class="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
               <div class="flex items-center justify-between gap-4">
                 <div><h2 class="text-sm font-medium">api</h2><p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Production · Lagos</p></div>

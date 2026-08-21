@@ -100,8 +100,7 @@ export const ExplicitCompletion = {
       <div>
         <Button commandfor="provisioning-dialog" command="show-modal">View deployment</Button>
         <Dialog id="provisioning-dialog" :dismissible="false" aria-labelledby="provisioning-title" class="max-w-md">
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-gray-500">Deployment in progress</p>
-          <h2 id="provisioning-title" class="mt-2 text-xl font-semibold">Provisioning production</h2>
+          <h2 id="provisioning-title" class="text-xl font-semibold">Provisioning production</h2>
           <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">Ambient dismissal is paused while this operation owns the workflow. A real completion button remains keyboard operable.</p>
           <form method="dialog" class="mt-6 flex justify-end">
             <Button type="submit" value="done" autofocus>Done</Button>
@@ -145,12 +144,12 @@ export const ProductRecipes = {
       <div class="grid min-h-152 bg-gray-100 p-6 sm:grid-cols-2 sm:p-12">
         <section class="flex items-start justify-center bg-[#f7f3eb] p-8 sm:p-14" aria-labelledby="hagfish-dialog-recipe">
           <div>
-            <h2 id="hagfish-dialog-recipe" class="mb-5 text-xs font-medium uppercase tracking-[0.18em] text-black/60">Hagfish / invoice editor</h2>
+            <h2 id="hagfish-dialog-recipe" class="mb-5 text-base font-semibold text-black">Invoice editor</h2>
             <Button commandfor="hagfish-delete-dialog" command="show-modal" class="rounded-lg border-2 border-black bg-black px-4 py-2 text-sm text-white hover:bg-white hover:text-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none">
               Delete draft
             </Button>
             <Dialog id="hagfish-delete-dialog" aria-labelledby="hagfish-delete-title" aria-describedby="hagfish-delete-description" class="max-w-md rounded-2xl border-2 border-black bg-white p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:p-6">
-              <p class="text-xs font-medium uppercase tracking-wider text-red-700">Permanent action</p>
+              <p class="text-sm font-semibold text-red-700">Permanent action</p>
               <h3 id="hagfish-delete-title" class="mt-1 text-xl font-semibold tracking-tight">Delete this draft invoice?</h3>
               <div id="hagfish-delete-description" class="mt-5 space-y-3 text-sm leading-6 text-black/60">
                 <p><strong class="text-black">INV-1042</strong> and its items, comments, and public link will be permanently removed.</p>
@@ -166,7 +165,7 @@ export const ProductRecipes = {
 
         <section class="dark flex items-start justify-center bg-gray-950 p-8 text-white sm:p-14" aria-labelledby="slipway-dialog-recipe">
           <div>
-            <h2 id="slipway-dialog-recipe" class="mb-5 font-mono text-xs uppercase tracking-[0.18em] text-gray-400">Slipway / project settings</h2>
+            <h2 id="slipway-dialog-recipe" class="mb-5 text-base font-semibold text-white">Project settings</h2>
             <Button commandfor="slipway-delete-dialog" command="show-modal" class="min-h-9 min-w-0 bg-red-600 px-3 py-1.5 text-sm text-white hover:bg-red-700 dark:bg-red-600 dark:text-white dark:hover:bg-red-700">Delete project</Button>
             <Dialog id="slipway-delete-dialog" aria-labelledby="slipway-delete-title" aria-describedby="slipway-delete-description" class="max-w-sm rounded-lg border border-gray-700 bg-gray-900 p-6 text-white shadow-xl">
               <h3 id="slipway-delete-title" class="text-lg font-semibold">Delete project?</h3>

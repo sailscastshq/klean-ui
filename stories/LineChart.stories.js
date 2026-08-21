@@ -112,8 +112,7 @@ export const Apps = {
     template: `
       <main class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Data display / application evidence</p>
-          <h1 class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The trend stays quiet. The value stays exact.</h1>
+          <h1 class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The trend stays quiet. The value stays exact.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Slipway proves operational metrics. Klean removes product colours, hover-only truth, and page-coupled SVG math while preserving the two shapes the application actually needs.</p>
         </header>
 
@@ -121,8 +120,7 @@ export const Apps = {
           <article class="dark rounded-xl bg-gray-950 p-6 text-white shadow-xl sm:p-8">
             <div class="flex flex-wrap items-start justify-between gap-6">
               <div>
-                <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400">Slipway / Lookout</p>
-                <h2 class="mt-2 text-xl font-semibold">Production API</h2>
+                <h2 class="text-xl font-semibold">Production API</h2>
               </div>
               <dl class="flex gap-8">
                 <div><dt class="text-xs text-gray-400">CPU</dt><dd class="mt-1 flex items-end gap-3 text-xl font-semibold tabular-nums">42% <Sparkline :data="cpu" class="mb-1 h-6 w-24 text-emerald-400" /></dd></div>
@@ -137,7 +135,6 @@ export const Apps = {
           </article>
 
           <article class="border-2 border-gray-950 bg-[#f7f3eb] p-6 text-gray-950 shadow-[6px_6px_0_0_#111] sm:p-8">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-600">Klean / minimal report</p>
             <div class="mt-6 flex items-end justify-between gap-6">
               <div><p class="text-sm text-gray-600">Last 7 days</p><p class="mt-1 text-4xl font-semibold tracking-tight tabular-nums">38</p></div>
               <p class="pb-1 text-right text-sm text-gray-600">+8 from<br />the week before</p>

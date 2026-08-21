@@ -127,8 +127,7 @@ export const States = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="switch-states-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Native boolean</p>
-          <h1 id="switch-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Immediate, honest settings.</h1>
+          <h1 id="switch-states-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Immediate, honest settings.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">The visible state is the real checked state. The full labelled row is easy to tap, while disabled and invalid settings stay unmistakable.</p>
         </header>
 
@@ -165,7 +164,6 @@ export const States = {
 
           <div class="grid gap-6">
             <article class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
-              <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Caller classes</p>
               <label class="mt-6 flex min-h-11 cursor-pointer items-center justify-between gap-4">
                 <span class="text-sm font-medium">Compact status</span>
                 <Switch
@@ -222,13 +220,11 @@ export const Apps = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="switch-apps-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="switch-apps-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The switch stays lean. The product stays yours.</h1>
+          <h1 id="switch-apps-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The switch stays lean. The product stays yours.</h1>
         </header>
 
         <div class="mt-12 grid max-w-6xl gap-6 lg:grid-cols-2">
           <article class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Release flag</p>
             <div class="mt-7 flex items-center gap-3 border-t border-gray-100 pt-4 dark:border-gray-900">
               <div class="min-w-0 flex-1">
                 <div class="flex items-baseline gap-2">
@@ -247,7 +243,6 @@ export const Apps = {
           </article>
 
           <article class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Product availability</p>
             <label class="mt-7 flex min-h-20 cursor-pointer items-center justify-between gap-6 rounded-xl bg-gray-50 px-4 py-4 dark:bg-gray-900">
               <span>
                 <span class="block text-sm font-medium">Customer feedback</span>
@@ -275,7 +270,6 @@ export const Apps = {
           </article>
 
           <article class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Durable optimistic setting</p>
             <label class="mt-7 flex min-h-16 cursor-pointer items-center justify-between gap-6">
               <span>
                 <span class="block text-sm font-medium">Automatic deploys</span>

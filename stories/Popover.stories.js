@@ -151,7 +151,7 @@ export const SourceAppRecipes = {
       <div class="grid min-h-152 bg-gray-100 p-6 sm:grid-cols-2 sm:p-12">
         <section class="flex items-start justify-center bg-white p-8 sm:p-14" aria-labelledby="hagfish-popover-title">
           <div>
-            <h2 id="hagfish-popover-title" class="mb-5 text-xs font-medium uppercase tracking-[0.18em] text-black/60">Hagfish / invoice editor</h2>
+            <h2 id="hagfish-popover-title" class="mb-5 text-base font-semibold text-black">Invoice editor</h2>
             <Button
               popovertarget="hagfish-share"
               class="rounded-lg border-2 border-black bg-black px-4 py-2 text-sm text-white hover:bg-white hover:text-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none"
@@ -203,13 +203,12 @@ export const SourceAppRecipes = {
 
         <section class="dark flex items-start justify-center bg-gray-950 p-8 text-white sm:p-14" aria-labelledby="slipway-popover-title">
           <div>
-            <p class="mb-5 font-mono text-xs uppercase tracking-[0.18em] text-gray-400">Slipway / filter</p>
             <Button popovertarget="slipway-filter" class="min-h-9 min-w-0 bg-gray-800 px-3 py-1.5 text-sm hover:bg-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
               Environment
             </Button>
             <Popover id="slipway-filter" class="w-64 border-gray-700 bg-gray-900 p-3 text-white shadow-xl">
               <section aria-labelledby="slipway-popover-title">
-                <h2 id="slipway-popover-title" class="px-2 py-1 text-xs font-medium uppercase tracking-wide text-gray-400">Environment</h2>
+                <h2 id="slipway-popover-title" class="px-2 py-1 text-sm font-semibold text-gray-300">Environment</h2>
                 <label class="mt-2 flex items-center gap-3 rounded px-2 py-2 text-sm hover:bg-white/10">
                   <input type="checkbox" checked class="size-4" /> Production
                 </label>

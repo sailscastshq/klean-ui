@@ -76,14 +76,12 @@ export const Semantics = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="spinner-semantics-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Truthful loading</p>
-          <h1 id="spinner-semantics-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The mark moves. The markup explains why.</h1>
+          <h1 id="spinner-semantics-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The mark moves. The markup explains why.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Spinner is hidden from assistive technology. The owning button or region exposes busy state and a stable status surface announces useful changes.</p>
         </header>
 
         <div class="mt-12 grid max-w-6xl gap-6 lg:grid-cols-2">
           <article class="bg-white p-6 dark:bg-gray-950">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Inside a button</p>
             <Button type="button" disabled aria-busy="true" class="mt-8 min-h-10 min-w-0 px-4 py-2 opacity-70">
               <Spinner class="size-4">
                 <ProductLoader />
@@ -93,7 +91,6 @@ export const Semantics = {
           </article>
 
           <article aria-busy="true" aria-describedby="spinner-region-status" class="bg-white p-6 dark:bg-gray-950">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Busy region</p>
             <div id="spinner-region-status" role="status" class="mt-8 flex min-h-24 items-center justify-center gap-3 text-sm text-gray-600 dark:text-gray-300">
               <Spinner class="size-5" />
               Loading recent deployments…
@@ -101,7 +98,6 @@ export const Semantics = {
           </article>
 
           <article class="bg-white p-6 dark:bg-gray-950">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Compact status</p>
             <span role="status" class="mt-8 inline-flex size-10 items-center justify-center rounded-full bg-gray-100 text-gray-950 dark:bg-gray-900 dark:text-white">
               <Spinner class="size-5" />
               <span class="sr-only">Checking service health…</span>
@@ -109,7 +105,6 @@ export const Semantics = {
           </article>
 
           <article class="bg-white p-6 dark:bg-gray-950">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Default and product marks</p>
             <div class="mt-8 flex items-center gap-6">
               <Spinner class="size-3 text-gray-500" />
               <Spinner class="size-6 text-sky-600" />
@@ -131,13 +126,11 @@ export const Apps = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="spinner-apps-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="spinner-apps-title" class="mt-3 text-4xl font-semibold tracking-tighter sm:text-5xl">Neutral source. Product-owned context.</h1>
+          <h1 id="spinner-apps-title" class="text-4xl font-semibold tracking-tighter sm:text-5xl">Neutral source. Product-owned context.</h1>
         </header>
 
         <div class="mt-12 grid max-w-6xl gap-6 lg:grid-cols-2">
           <article class="bg-gray-950 p-6 text-white">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / Deployment action</p>
             <Button type="button" disabled aria-busy="true" class="mt-8 min-h-10 min-w-0 bg-white px-4 py-2 text-gray-950 opacity-80 hover:bg-white dark:bg-white dark:text-gray-950">
               <Spinner class="size-4">
                 <ProductLoader />
@@ -147,7 +140,6 @@ export const Apps = {
           </article>
 
           <article class="border-2 border-black bg-[#f4f0e8] p-6 text-black shadow-[4px_4px_0_0_#000]">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-black/50">Hagfish / Invoice action</p>
             <Button type="button" disabled aria-busy="true" class="mt-8 min-h-11 min-w-0 rounded-none border-2 border-black bg-black px-5 font-semibold text-white opacity-80 dark:bg-black dark:text-white">
               <Spinner class="size-4" />
               Marking as paid…

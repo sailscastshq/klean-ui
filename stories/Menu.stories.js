@@ -140,8 +140,7 @@ export const Semantics = {
     },
     template: `
       <section id="menu-semantics" class="w-[min(42rem,calc(100vw-2rem))] bg-white p-6 sm:p-10" aria-labelledby="menu-semantics-title">
-        <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Truthful elements</p>
-        <h2 id="menu-semantics-title" class="mt-2 text-2xl font-semibold tracking-[-0.03em]">One menu, three honest destinations</h2>
+        <h2 id="menu-semantics-title" class="text-2xl font-semibold tracking-[-0.03em]">One menu, three honest destinations</h2>
         <p class="mt-3 max-w-xl text-sm leading-6 text-klean-muted">Menu adds the composite keyboard contract. Each child remains the element its job requires.</p>
 
         <div class="mt-8">
@@ -184,8 +183,7 @@ export const States = {
     template: `
       <section class="klean-story-canvas px-5 py-12 sm:px-10" aria-labelledby="menu-states-title">
         <header class="max-w-2xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Menu / state sheet</p>
-          <h1 id="menu-states-title" class="mt-3 text-3xl font-semibold tracking-[-0.04em]">Content stays application-shaped.</h1>
+          <h1 id="menu-states-title" class="text-3xl font-semibold tracking-[-0.04em]">Content stays application-shaped.</h1>
           <p class="mt-4 text-sm leading-6 text-klean-muted">Disabled actions, long labels, icons, and compact targets need no Menu prop.</p>
         </header>
 
@@ -212,10 +210,9 @@ export const Products = {
       <div class="grid min-h-152 bg-gray-100 sm:grid-cols-2">
         <section class="flex items-start justify-center bg-[#f4f0e8] p-8 sm:p-14" aria-labelledby="hagfish-menu-title">
           <div>
-            <p class="mb-5 font-mono text-xs uppercase tracking-[0.18em] text-gray-600">Hagfish / invoice</p>
             <Button popovertarget="hagfish-actions" class="rounded-none border-2 border-black bg-black text-white hover:bg-white hover:text-black dark:border-black dark:bg-black dark:text-white">Invoice actions</Button>
             <Menu id="hagfish-actions" aria-labelledby="hagfish-menu-title" class="w-64 rounded-none border-2 border-black p-2 shadow-[6px_6px_0_0_#000]">
-              <p id="hagfish-menu-title" class="px-3 pb-2 pt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-gray-500">Invoice actions</p>
+              <p id="hagfish-menu-title" class="px-3 pb-2 pt-1 text-sm font-semibold text-gray-700">Invoice actions</p>
               <a href="#menu-docs" class="flex w-full border-2 border-transparent px-3 py-2 text-sm font-medium text-black no-underline outline-none hover:border-black focus:border-black">Preview invoice</a>
               <button type="button" class="flex w-full cursor-pointer border-2 border-transparent px-3 py-2 text-left text-sm font-medium text-black outline-none hover:border-black focus:border-black">Duplicate invoice</button>
               <button type="button" class="flex w-full cursor-pointer border-2 border-transparent px-3 py-2 text-left text-sm font-medium text-red-700 outline-none hover:border-red-700 focus:border-red-700">Void invoice</button>
@@ -225,7 +222,6 @@ export const Products = {
 
         <section class="dark flex items-start justify-center bg-gray-950 p-8 text-white sm:p-14" aria-labelledby="slipway-menu-title">
           <div>
-            <p class="mb-5 font-mono text-xs uppercase tracking-[0.18em] text-gray-400">Slipway / deploy</p>
             <Button popovertarget="slipway-actions" class="min-h-9 min-w-0 bg-gray-800 px-3 py-1.5 text-sm hover:bg-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">Actions</Button>
             <Menu id="slipway-actions" aria-labelledby="slipway-menu-title" class="w-52 border-gray-700 bg-gray-900 p-1 text-white shadow-xl">
               <p id="slipway-menu-title" class="px-2 py-1.5 text-xs font-medium text-gray-400">Deployment</p>

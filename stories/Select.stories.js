@@ -117,8 +117,7 @@ export const States = {
     template: `
       <section class="klean-story-canvas px-5 py-12 sm:px-10" aria-labelledby="select-states-title">
         <header class="max-w-2xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Select / state sheet</p>
-          <h1 id="select-states-title" class="mt-3 text-3xl font-semibold tracking-[-0.04em]">Fixed choices stay fixed—and typed.</h1>
+          <h1 id="select-states-title" class="text-3xl font-semibold tracking-[-0.04em]">Fixed choices stay fixed—and typed.</h1>
           <p class="mt-4 text-sm leading-6 text-klean-muted">Placeholders, booleans, groups, disabled options, empty data, and invalid relationships use one API.</p>
         </header>
 
@@ -214,8 +213,7 @@ export const Products = {
         aria-labelledby="slipway-select-title"
       >
         <div class="mx-auto max-w-2xl">
-          <p class="text-xs font-medium uppercase tracking-[0.16em] text-gray-500 dark:text-gray-400">Slipway / Bearing feedback</p>
-          <h2 id="slipway-select-title" class="mt-3 text-2xl font-semibold tracking-tight">Share feedback</h2>
+          <h2 id="slipway-select-title" class="text-2xl font-semibold tracking-tight">Share feedback</h2>
           <p class="mt-2 max-w-xl text-sm leading-6 text-gray-500 dark:text-gray-400">
             Choose a fixed feedback category without turning the compact composer header into a form field.
           </p>

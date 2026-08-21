@@ -113,8 +113,8 @@ test("keeps Tags Input controls small and proves app and durable recipes", () =>
   const appsTemplate = TagsInputApps.render().template;
   expect(statesTemplate).toContain("data-[part=tag]");
   expect(statesTemplate).toContain('aria-invalid="true"');
-  expect(appsTemplate).toContain("Hagfish / Expense");
-  expect(appsTemplate).toContain("Slipway / Log filters");
+  expect(appsTemplate).toContain("Examples: software, travel, office.");
+  expect(appsTemplate).toContain("Match labels");
   expect(appsTemplate).toContain("v-model:draft");
 });
 
@@ -134,8 +134,8 @@ test("keeps Checkbox controls useful and its recipes semantic", () => {
   expect(statesTemplate).toContain("<fieldset");
   expect(statesTemplate).toContain("<legend");
   expect(statesTemplate).toContain(':indeterminate="partial"');
-  expect(appsTemplate).toContain("Slipway / Logs");
-  expect(appsTemplate).toContain("Hagfish / Sign in");
+  expect(appsTemplate).toContain("Auto-scroll");
+  expect(appsTemplate).toContain("Remember me");
   expect(appsTemplate).toContain("text-red-600");
   expect(appsTemplate).toContain('class="sr-only"');
 });
@@ -157,8 +157,8 @@ test("keeps Switch controls boolean-sized and its saving recipe durable", () => 
   expect(statesTemplate).toContain("min-h-20");
   expect(statesTemplate).toContain("checked:bg-emerald-600");
   expect(statesTemplate).toContain('aria-invalid="true"');
-  expect(appsTemplate).toContain("Release flag");
-  expect(appsTemplate).toContain("Durable optimistic setting");
+  expect(appsTemplate).toContain("new-checkout");
+  expect(appsTemplate).toContain("Automatic deploys");
   expect(SwitchApps.render().setup.toString()).toContain(
     "previous setting was restored",
   );
@@ -182,7 +182,7 @@ test("keeps Radio controls scalar-sized and its recipes semantic", () => {
   expect(statesTemplate).toContain("<fieldset");
   expect(statesTemplate).toContain("<legend");
   expect(statesTemplate).toContain('aria-invalid="true"');
-  expect(appsTemplate).toContain("Slipway recipes");
+  expect(appsTemplate).toContain("Storage provider");
   expect(appsTemplate).toContain('class="sr-only"');
   expect(appsTemplate).toContain("has-checked");
   expect(appsTemplate).not.toContain("Hagfish");
@@ -239,9 +239,9 @@ test("keeps Spinner controls contextual and its recipes truthful", () => {
   expect(semanticsTemplate).toContain('role="status"');
   expect(semanticsTemplate).toContain('aria-busy="true"');
   expect(semanticsTemplate).toContain("ProductLoader");
-  expect(appsTemplate).toContain("Slipway / Deployment action");
+  expect(appsTemplate).toContain("Deploying service…");
   expect(appsTemplate).toContain("<ProductLoader />");
-  expect(appsTemplate).toContain("Hagfish / Invoice action");
+  expect(appsTemplate).toContain("Marking as paid…");
   expect(appsTemplate).toContain("Existing rows remain readable");
 });
 
@@ -254,8 +254,8 @@ test("keeps Tooltip controls terse and proves independent product styling", () =
   expect(TooltipPlayground.play).toBeTypeOf("function");
 
   const productsTemplate = TooltipProducts.render().template;
-  expect(productsTemplate).toContain("Slipway / query toolbar");
-  expect(productsTemplate).toContain("Hagfish / invoice action");
+  expect(productsTemplate).toContain('aria-label="Re-run query"');
+  expect(productsTemplate).toContain("Copy public invoice link");
   expect(productsTemplate).toContain('aria-label="Re-run query"');
   expect(productsTemplate).not.toContain("tooltip-arrow]:hidden");
   expect(productsTemplate).not.toContain("interestfor");
@@ -283,7 +283,7 @@ test("keeps Tabs controls behavioral and its dynamic actions outside the tablist
   expect(navigationTemplate).toContain('data-value="section.value"');
   expect(navigationTemplate).toContain("data-[state=active]");
   expect(navigationTemplate).not.toContain('role="tab"');
-  expect(workspaceTemplate).toContain("Slipway-shaped workspace");
+  expect(workspaceTemplate).toContain("Dynamic tabs stay operable.");
   expect(workspaceTemplate).toContain("pointer-events-none absolute");
   expect(workspaceTemplate).toContain(
     "pointer-events-auto grid size-9 cursor-pointer",
@@ -309,8 +309,8 @@ test("keeps Pagination controls server-sized and proves app-owned styling", () =
   expect(statesTemplate).toContain("Edges tell the truth");
   expect(statesTemplate).toContain(':pages="36"');
   expect(statesTemplate).toContain(':pages="1"');
-  expect(appsTemplate).toContain("Slipway / Bridge resources");
-  expect(appsTemplate).toContain("Hagfish / invoice archive");
+  expect(appsTemplate).toContain('aria-label="Bridge result pages"');
+  expect(appsTemplate).toContain('aria-label="Invoice archive pages"');
   expect(appsTemplate).toContain("navigate($event, 'bridge')");
   expect(appsTemplate).toContain("navigate($event, 'invoice')");
   expect(appsTemplate).toContain(
@@ -347,8 +347,8 @@ test("keeps Breadcrumb controls terse and proves one responsive product trail", 
 
   expect(statesTemplate).toContain("One truthful trail");
   expect(statesTemplate).toContain("Long resource names");
-  expect(appsTemplate).toContain("Slipway / deployment");
-  expect(appsTemplate).toContain("Hagfish / invoice");
+  expect(appsTemplate).toContain('aria-label="Slipway location"');
+  expect(appsTemplate).toContain('aria-label="Hagfish location"');
   expect(appsTemplate).toContain("**:data-[slot=link]:text-gray-400");
   expect(appsTemplate).toContain("**:data-[slot=current]:font-bold");
   expect(narrowTemplate).toContain("w-72");
@@ -377,8 +377,8 @@ test("keeps Card controls terse and interaction semantics visible", () => {
   expect(semanticsTemplate).toContain('as="a"');
   expect(semanticsTemplate).toContain(':as="Link"');
   expect(semanticsTemplate).toContain('as="button"');
-  expect(appsTemplate).toContain("Hagfish / financial summary");
-  expect(appsTemplate).toContain("Slipway / service panel");
+  expect(appsTemplate).toContain("$128,420.00");
+  expect(appsTemplate).toContain("Production · Lagos");
   expect(appsTemplate).toContain('Card as="article"');
   expect(appsTemplate).toContain(':as="Link"');
   expect(appsTemplate).not.toMatch(
@@ -404,8 +404,8 @@ test("keeps Badge static while application controls own interaction", () => {
   expect(semanticsTemplate).toContain('<Badge aria-hidden="true"');
   expect(semanticsTemplate).toContain('role="status"');
   expect(semanticsTemplate).toContain('aria-live="polite"');
-  expect(appsTemplate).toContain("Hagfish / invoices");
-  expect(appsTemplate).toContain("Slipway / services");
+  expect(appsTemplate).toContain("August invoices");
+  expect(appsTemplate).toContain("Deployment logs");
   expect(appsTemplate).toContain("invoiceStatuses");
   expect(appsTemplate).not.toMatch(
     /<Badge[^>]*(?:variant|severity|tone|status|color|size|pill|removable|as)=/,
@@ -429,8 +429,8 @@ test("keeps Avatar controls lean and proves both product identity seams", () => 
   expect(statesTemplate).toContain('src="/missing-avatar.webp"');
   expect(statesTemplate).toContain('alt=""');
   expect(statesTemplate).toContain("object-contain");
-  expect(appsTemplate).toContain("Hagfish / invoice discussion");
-  expect(appsTemplate).toContain("Slipway / team identity");
+  expect(appsTemplate).toContain("Invoice creator");
+  expect(appsTemplate).toContain("Current team");
   expect(appsTemplate).toContain('role="status"');
   expect(appsTemplate).toContain('class="sr-only">Uploading team logo');
   expect(appsTemplate).not.toMatch(
@@ -454,7 +454,7 @@ test("makes Menu recipe cursor and Tab affordances explicit", () => {
 test("grounds the Select source-app recipe in Slipway instead of inventing Hagfish UI", () => {
   const productsTemplate = SelectProducts.render().template;
 
-  expect(productsTemplate).toContain("Slipway / Bearing feedback");
+  expect(productsTemplate).toContain("Share feedback");
   expect(productsTemplate).toContain("min-h-10 w-auto max-w-[16rem]");
   expect(productsTemplate).toContain("rounded-lg border-0 bg-gray-100");
   expect(productsTemplate).toContain("rounded-xl");

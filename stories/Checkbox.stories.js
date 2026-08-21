@@ -126,8 +126,7 @@ export const States = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="checkbox-states-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Native checkbox</p>
-          <h1 id="checkbox-states-title" class="mt-3 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">A small control with honest state.</h1>
+          <h1 id="checkbox-states-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">A small control with honest state.</h1>
           <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">The input remains native. Real labels, groups, error text, and selection logic stay where the application can read and change them.</p>
         </header>
 
@@ -189,13 +188,11 @@ export const Apps = {
     template: `
       <section class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="checkbox-apps-title">
         <header class="max-w-3xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Application recipes</p>
-          <h1 id="checkbox-apps-title" class="mt-3 text-4xl font-semibold tracking-tighter sm:text-5xl">One input. Different products.</h1>
+          <h1 id="checkbox-apps-title" class="text-4xl font-semibold tracking-tighter sm:text-5xl">One input. Different products.</h1>
         </header>
 
         <div class="mt-12 grid max-w-6xl gap-6 lg:grid-cols-2">
           <article class="bg-gray-950 p-6 text-white">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / Logs</p>
             <div class="mt-8 flex items-center justify-between border-t border-gray-800 pt-4">
               <code class="text-sm text-gray-400">service: web · live</code>
               <label class="flex cursor-pointer items-center gap-2 text-xs text-gray-400">
@@ -206,7 +203,6 @@ export const Apps = {
           </article>
 
           <article class="border border-black bg-[#f4f0e8] p-6 text-black shadow-[4px_4px_0_0_#000]">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-black/50">Hagfish / Sign in</p>
             <label class="mt-8 flex cursor-pointer items-center gap-2 text-sm text-black/60">
               <Checkbox v-model="rememberMe" class="cursor-pointer text-black focus-visible:outline-black" />
               Remember me
@@ -214,7 +210,6 @@ export const Apps = {
           </article>
 
           <article class="bg-white p-6 dark:bg-gray-950">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / Destructive confirmation</p>
             <label class="mt-8 flex cursor-pointer items-start gap-3">
               <Checkbox v-model="purgeData" required class="mt-0.5 text-red-600 focus-visible:outline-red-600 dark:text-red-500" />
               <span>
@@ -226,7 +221,7 @@ export const Apps = {
 
           <article class="bg-white p-6 dark:bg-gray-950">
             <fieldset>
-              <legend class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Slipway / Filter chips</legend>
+              <legend class="text-sm font-semibold text-gray-700">Filter logs</legend>
               <div class="mt-8 flex flex-wrap gap-2">
                 <label v-for="item in ['billing', 'deploys', 'domains']" :key="item" class="has-checked:bg-gray-950 has-checked:text-white dark:has-checked:bg-white dark:has-checked:text-gray-950 cursor-pointer rounded-full bg-gray-100 px-3 py-2 text-xs dark:bg-gray-900">
                   <Checkbox v-model="feedbackIds" :value="item" class="sr-only" />

@@ -102,8 +102,7 @@ export const States = {
     template: `
       <section class="klean-story-canvas px-5 py-12 sm:px-10" aria-labelledby="tags-states-title">
         <header class="max-w-2xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Tags Input / state sheet</p>
-          <h1 id="tags-states-title" class="mt-3 text-3xl font-semibold tracking-[-0.04em]">Small API. Complete form behavior.</h1>
+          <h1 id="tags-states-title" class="text-3xl font-semibold tracking-[-0.04em]">Small API. Complete form behavior.</h1>
           <p class="mt-4 text-sm leading-6 text-klean-muted">Caller Tailwind, native labels and errors, durable pending text, limits, and read-only data all use the same component.</p>
         </header>
 
@@ -166,13 +165,11 @@ export const Apps = {
     template: `
       <section class="klean-story-canvas px-5 py-12 sm:px-10" aria-labelledby="tags-apps-title">
         <header class="max-w-2xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Tags Input / real applications</p>
-          <h1 id="tags-apps-title" class="mt-3 text-3xl font-semibold tracking-[-0.04em]">Hagfish entry. Slipway filtering. Restored work.</h1>
+          <h1 id="tags-apps-title" class="text-3xl font-semibold tracking-[-0.04em]">Hagfish entry. Slipway filtering. Restored work.</h1>
         </header>
 
         <div class="mt-10 grid max-w-6xl gap-8 lg:grid-cols-3">
           <article class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-klean-muted">Hagfish / Expense</p>
             <label for="expense-tags" class="mt-5 block text-sm font-semibold">Tags</label>
             <TagsInput
               id="expense-tags"
@@ -186,7 +183,6 @@ export const Apps = {
           </article>
 
           <article class="rounded-xl bg-gray-950 p-6 text-white shadow-sm">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400">Slipway / Log filters</p>
             <label for="filter-tags" class="mt-5 block text-sm font-semibold">Match labels</label>
             <TagsInput
               id="filter-tags"
@@ -198,7 +194,6 @@ export const Apps = {
           </article>
 
           <article class="rounded-xl border border-dashed border-gray-300 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-950">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-klean-muted">Restored form draft</p>
             <label for="restored-tags" class="mt-5 block text-sm font-semibold">Customer labels</label>
             <TagsInput
               id="restored-tags"

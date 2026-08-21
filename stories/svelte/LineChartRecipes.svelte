@@ -24,7 +24,6 @@
 
 <section class="grid w-[min(92vw,64rem)] gap-8 lg:grid-cols-2">
   <article class="dark rounded-xl bg-gray-950 p-6 text-white shadow-xl">
-    <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400">Slipway / Lookout</p>
     <div class="mt-4 flex items-end gap-4">
       <strong class="text-3xl tabular-nums">42%</strong>
       <Sparkline data={cpu} class="mb-1 h-7 w-32 text-emerald-400" />
@@ -32,7 +31,6 @@
     <LineChart data={cpu} caption="CPU — last hour" class="mt-8 h-56 text-emerald-400 **:data-[slot=line-chart-caption]:text-white **:data-[slot=line-chart-labels]:text-gray-400" />
   </article>
   <article class="border-2 border-gray-950 bg-[#f7f3eb] p-6 text-gray-950 shadow-[6px_6px_0_0_#111]">
-    <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-600">Klean / minimal report</p>
     <div class="mt-6 flex items-end justify-between gap-6">
       <div>
         <p class="text-sm text-gray-600">Last 7 days</p>

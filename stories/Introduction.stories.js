@@ -17,14 +17,8 @@ export const Philosophy = {
     components: { Button, Dialog },
     template: `
       <main class="klean-story-canvas min-h-svh overflow-hidden">
-        <header class="flex items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
-          <p class="font-mono text-xs font-semibold uppercase tracking-[0.22em]">Klean UI</p>
-          <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-klean-muted">Boring Stack · Source owned</p>
-        </header>
-
         <section class="grid items-end gap-12 px-5 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:grid-cols-[minmax(0,1.25fr)_minmax(20rem,0.75fr)] lg:px-12 lg:pb-24 lg:pt-24">
           <div class="max-w-4xl">
-            <p class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-klean-muted">Kelvin's Lean UI</p>
             <h1 class="max-w-4xl text-balance text-[clamp(3.2rem,7vw,7.5rem)] font-semibold leading-[0.88] tracking-[-0.065em]">
               UI you<br />own.
             </h1>
@@ -34,7 +28,7 @@ export const Philosophy = {
           </div>
 
           <aside class="bg-klean-ink p-6 text-white sm:p-8 lg:mb-2" aria-labelledby="semantic-contract-title">
-            <h2 id="semantic-contract-title" class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/55">Semantics before style</h2>
+            <h2 id="semantic-contract-title" class="text-base font-semibold text-white">Semantics before style</h2>
             <dl class="mt-10 grid grid-cols-[auto_1fr] gap-x-6 gap-y-4 text-sm">
               <dt class="text-white/45">Action</dt>
               <dd class="font-mono">&lt;button&gt;</dd>
@@ -52,7 +46,6 @@ export const Philosophy = {
           </aside>
 
           <Dialog id="introduction-dialog" aria-labelledby="introduction-dialog-title" class="max-w-md">
-            <p class="font-mono text-xs uppercase tracking-[0.18em] text-gray-500">Native underneath</p>
             <h2 id="introduction-dialog-title" class="mt-2 text-2xl font-semibold tracking-tight">The platform does the hard part.</h2>
             <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">This is a real dialog opened by a real button. The browser owns the top layer, modality, focus containment, Escape, and focus return.</p>
             <form method="dialog" class="mt-6 flex justify-end">
@@ -63,8 +56,7 @@ export const Philosophy = {
 
         <section class="grid gap-10 bg-white px-5 py-16 sm:px-8 lg:grid-cols-3 lg:px-12 lg:py-24" aria-labelledby="doctrine-heading">
           <div>
-            <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">01 / Doctrine</p>
-            <h2 id="doctrine-heading" class="mt-4 text-3xl font-semibold tracking-[-0.04em]">Small API. Full ownership.</h2>
+            <h2 id="doctrine-heading" class="text-3xl font-semibold tracking-[-0.04em]">Small API. Full ownership.</h2>
           </div>
           <dl class="space-y-8 lg:col-span-2 lg:grid lg:grid-cols-3 lg:gap-x-10 lg:space-y-0">
             <div>
@@ -84,8 +76,7 @@ export const Philosophy = {
 
         <section class="grid gap-12 bg-klean-ink px-5 py-16 text-white sm:px-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:px-12 lg:py-24" aria-labelledby="durable-heading">
           <div class="max-w-xl">
-            <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/45">02 / Durable UI</p>
-            <h2 id="durable-heading" class="mt-4 text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">State survives. Interactions recover.</h2>
+            <h2 id="durable-heading" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">State survives. Interactions recover.</h2>
             <p class="mt-6 text-pretty text-base leading-7 text-white/60">
               Klean UI implements our Durable UI patterns across Vue, React, and Svelte. Preferences persist, useful views stay shareable, drafts recover, overlays dismiss correctly, focus returns, and failed optimistic work rolls back.
             </p>

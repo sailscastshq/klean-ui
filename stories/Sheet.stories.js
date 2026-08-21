@@ -46,8 +46,7 @@ export const Playground = {
     template: `
       <main class="klean-story-canvas grid min-h-136 place-items-center px-5 py-14 sm:px-10">
         <div class="max-w-md text-center">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Sheet / playground</p>
-          <h1 class="mt-3 text-3xl font-semibold tracking-[-0.04em]">One native surface. Any edge.</h1>
+          <h1 class="text-3xl font-semibold tracking-[-0.04em]">One native surface. Any edge.</h1>
           <p class="mt-4 text-sm leading-6 text-klean-muted">The component owns no product anatomy. Put real headers, navigation, forms, and scroll regions inside it.</p>
           <Button class="mt-7" :commandfor="contract.sheetId" command="show-modal">
             {{ contract.sheetLabel }}
@@ -66,7 +65,6 @@ export const Playground = {
           <article class="grid h-full grid-rows-[auto_minmax(0,1fr)_auto]">
             <header class="flex items-start justify-between gap-4 border-b border-gray-200 px-5 py-5 dark:border-gray-800">
               <div>
-                <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Production</p>
                 <h2 id="playground-sheet-title" class="mt-1 text-xl font-semibold tracking-tight">{{ contract.sheetTitle }}</h2>
               </div>
               <Button
@@ -125,8 +123,7 @@ export const Edges = {
     template: `
       <main class="klean-story-canvas min-h-152 px-5 py-12 sm:px-10">
         <header class="max-w-2xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Sheet / placement</p>
-          <h1 class="mt-3 text-3xl font-semibold tracking-[-0.04em]">Placement is Tailwind, not component configuration.</h1>
+          <h1 class="text-3xl font-semibold tracking-[-0.04em]">Placement is Tailwind, not component configuration.</h1>
           <p class="mt-4 text-sm leading-6 text-klean-muted">The default arrives from the right. A few ordinary layout and transform classes make the same semantic component a left drawer or bottom sheet.</p>
         </header>
 
@@ -189,29 +186,25 @@ export const Apps = {
     template: `
       <main class="klean-story-canvas min-h-168 px-5 py-12 sm:px-10">
         <header class="max-w-2xl">
-          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-klean-muted">Sheet / real applications</p>
-          <h1 class="mt-3 text-3xl font-semibold tracking-[-0.04em]">Slipway navigation. Hagfish comments. Bearing feedback.</h1>
+          <h1 class="text-3xl font-semibold tracking-[-0.04em]">Slipway navigation. Hagfish comments. Bearing feedback.</h1>
           <p class="mt-4 text-sm leading-6 text-klean-muted">One native contract keeps the three product treatments recognizable without baking any of them into Klean UI.</p>
         </header>
 
         <div class="mt-10 grid max-w-5xl gap-6 md:grid-cols-3">
           <article class="rounded-xl bg-gray-950 p-6 text-white shadow-sm">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-400">Slipway</p>
-            <h2 class="mt-3 text-lg font-semibold">Mobile navigation</h2>
+            <h2 class="text-lg font-semibold">Mobile navigation</h2>
             <p class="mt-2 min-h-12 text-sm leading-6 text-gray-400">Team switcher and primary project routes from the left edge.</p>
             <Button commandfor="slipway-sheet" command="show-modal" class="mt-6 bg-white text-gray-950 hover:bg-gray-200">Open navigation</Button>
           </article>
 
           <article class="rounded-none border-2 border-gray-950 bg-[#f7f3eb] p-6 text-gray-950 shadow-[5px_5px_0_#111]">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-600">Hagfish</p>
-            <h2 class="mt-3 text-lg font-semibold">Invoice comments</h2>
+            <h2 class="text-lg font-semibold">Invoice comments</h2>
             <p class="mt-2 min-h-12 text-sm leading-6 text-gray-600">A compact thread slides up without replacing the invoice.</p>
             <Button commandfor="hagfish-sheet" command="show-modal" class="mt-6 rounded-none border-2 border-gray-950 bg-gray-950 text-white hover:bg-white hover:text-gray-950">Open comments</Button>
           </article>
 
           <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
-            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Bearing</p>
-            <h2 class="mt-3 text-lg font-semibold">Feedback panel</h2>
+            <h2 class="text-lg font-semibold">Feedback panel</h2>
             <p class="mt-2 min-h-12 text-sm leading-6 text-gray-600">A full-height mobile sheet and contained desktop panel.</p>
             <Button commandfor="bearing-sheet" command="show-modal" class="mt-6">Send feedback</Button>
           </article>
