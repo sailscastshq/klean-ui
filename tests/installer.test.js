@@ -263,6 +263,49 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
 }
 
 for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
+  test(`installs the ${framework} DataTable block and its native Table`, () => {
+    const root = makeFixture({ framework, tailwindMerge: false });
+    const dependencyCalls = [];
+    const result = installComponent("data-table", {
+      cwd: root,
+      dependencyInstaller: recordingDependencyInstaller(dependencyCalls),
+    });
+    const component = resolve(
+      root,
+      `assets/js/components/ui/data-table/DataTable.${fixture.extension}`,
+    );
+    const query = resolve(
+      root,
+      `assets/js/components/ui/data-table/${
+        framework === "svelte"
+          ? "dataTableQuery.svelte.js"
+          : "useDataTableQuery.js"
+      }`,
+    );
+    const table = resolve(
+      root,
+      `assets/js/components/ui/table/Table.${fixture.extension}`,
+    );
+
+    expect(result.plan.registryItems).toEqual(["table", "data-table"]);
+    expect(result.plan.files).toHaveLength(3);
+    expect(existsSync(component)).toBe(true);
+    expect(existsSync(query)).toBe(true);
+    expect(existsSync(table)).toBe(true);
+    expect(
+      dependencyCalls[0].dependencies.map(({ name }) => name).sort(),
+    ).toEqual(
+      [
+        `@inertiajs/${framework === "vue" ? "vue3" : framework}`,
+        "tailwind-merge",
+      ].sort(),
+    );
+    expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
+    expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
+  });
+}
+
+for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
   test(`installs only the native ${framework} Avatar`, () => {
     const root = makeFixture({ framework, tailwindMerge: false });
     const dependencyCalls = [];

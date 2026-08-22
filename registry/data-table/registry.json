@@ -1,0 +1,56 @@
+{
+  "$schema": "../schema.json",
+  "name": "data-table",
+  "description": "A server-driven table block with native table composition, page-scoped selection, durable URL queries, and truthful pending state.",
+  "registryDependencies": ["table"],
+  "frameworks": {
+    "vue": {
+      "files": [
+        {
+          "source": "vue/DataTable.vue",
+          "target": "data-table/DataTable.vue"
+        },
+        {
+          "source": "vue/useDataTableQuery.js",
+          "target": "data-table/useDataTableQuery.js"
+        }
+      ],
+      "dependencies": {
+        "@inertiajs/vue3": "^3.6.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "files": [
+        {
+          "source": "react/DataTable.jsx",
+          "target": "data-table/DataTable.jsx"
+        },
+        {
+          "source": "react/useDataTableQuery.js",
+          "target": "data-table/useDataTableQuery.js"
+        }
+      ],
+      "dependencies": {
+        "@inertiajs/react": "^3.6.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "files": [
+        {
+          "source": "svelte/DataTable.svelte",
+          "target": "data-table/DataTable.svelte"
+        },
+        {
+          "source": "svelte/dataTableQuery.svelte.js",
+          "target": "data-table/dataTableQuery.svelte.js"
+        }
+      ],
+      "dependencies": {
+        "@inertiajs/svelte": "^3.6.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

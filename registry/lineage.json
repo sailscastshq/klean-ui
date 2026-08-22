@@ -1300,6 +1300,50 @@
           "migrationNotes": []
         }
       ]
+    },
+    "data-table": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "data-table/DataTable.vue": "sha256:afc4c25e2ad27d94f356ecf55dcb18724e02b462bd470aca18bbe7199e14dce4",
+            "data-table/useDataTableQuery.js": "sha256:19058958ec8cc568ffdf19f35acfb7408284243b79e5e8570dd9cd4fabef14ac"
+          },
+          "dependencies": {
+            "@inertiajs/vue3": "^3.6.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "data-table/DataTable.jsx": "sha256:205ad4b2f2832433b3b6e189278c43cf32cd256c6d3574d446b4efccae3e8681",
+            "data-table/useDataTableQuery.js": "sha256:1d31bda3a791f9467c1b073637c8ff7b4fdfee7ac100e571c000b083d0aaecca"
+          },
+          "dependencies": {
+            "@inertiajs/react": "^3.6.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "data-table/DataTable.svelte": "sha256:8b08eb654fe2f8656e822f9b1c71c4c9a8944aeac629e90afb30f28c57745687",
+            "data-table/dataTableQuery.svelte.js": "sha256:35407aa28df5a8afe55fbca6e149554847bfc9f98f6847b9020943cb872260ea"
+          },
+          "dependencies": {
+            "@inertiajs/svelte": "^3.6.1",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
     }
   }
 }
