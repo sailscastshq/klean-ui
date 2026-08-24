@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "empty-state",
+  "description": "One shallow empty-result layout with caller-owned semantic content, actions, reasons, and Tailwind styling.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/EmptyState.vue",
+      "target": "empty-state/EmptyState.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/EmptyState.jsx",
+      "target": "empty-state/EmptyState.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/EmptyState.svelte",
+      "target": "empty-state/EmptyState.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
