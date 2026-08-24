@@ -1656,6 +1656,44 @@
           "migrationNotes": []
         }
       ]
+    },
+    "error-state": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "error-state/ErrorState.vue": "sha256:1f8a0cbf38db60ce0404138f5e84292edd0dc969943d99b86d00d7f00f029f74"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "error-state/ErrorState.jsx": "sha256:f04c97242d19e585a581ead6506dede4b89adb5d61ec08e6a314fffe3d021988"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "error-state/ErrorState.svelte": "sha256:cf80fa60208d48945ba270db587a2b8866ba04617856e9df5471ed5d9c26b30f"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
     }
   }
 }
