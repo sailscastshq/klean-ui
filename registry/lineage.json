@@ -826,6 +826,18 @@
           "migrationNotes": [
             "Add framework-native product-owned Slide thumb content with the default arrow preserved."
           ]
+        },
+        {
+          "revision": 3,
+          "files": {
+            "slide/Slide.vue": "sha256:bb5b7250e29170e21ef6147a2c5a49afbddc618037d6a4108aeb6ff81d00c11d"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Keep pending Slide controls focusable with aria-disabled while blocking duplicate activation."
+          ]
         }
       ],
       "react": [
@@ -850,6 +862,18 @@
           "migrationNotes": [
             "Add framework-native product-owned Slide thumb content with the default arrow preserved."
           ]
+        },
+        {
+          "revision": 3,
+          "files": {
+            "slide/Slide.jsx": "sha256:5035f18dfd1fccee8f66e74f222e6277a2e6b2874997119adc083ab1efb5a9e3"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Keep pending Slide controls focusable with aria-disabled while blocking duplicate activation."
+          ]
         }
       ],
       "svelte": [
@@ -873,6 +897,18 @@
           },
           "migrationNotes": [
             "Add framework-native product-owned Slide thumb content with the default arrow preserved."
+          ]
+        },
+        {
+          "revision": 3,
+          "files": {
+            "slide/Slide.svelte": "sha256:9e7b5ba18c0516996b8b2d13024d0b419df3921e5cd1bbaa1ddbac74a452d99d"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Keep pending Slide controls focusable with aria-disabled while blocking duplicate activation."
           ]
         }
       ]
