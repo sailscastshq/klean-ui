@@ -1451,6 +1451,19 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "filter-bar/FilterBar.vue": "sha256:0e400b8832c90ef50588698135e2c2edcd67f83554376a9e14b5a1f23da61f82",
+            "filter-bar/filterState.js": "sha256:1dd1d33915ae3e1a0303b0e2b00c92d28c305ad671be6bbe168c4795ce9317f5"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Expose Vue setDraft parity before 0.0.1"
+          ]
         }
       ],
       "react": [
