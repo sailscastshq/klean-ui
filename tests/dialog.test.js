@@ -139,12 +139,13 @@ test("falls back to durable backdrop dismissal when closedby is unavailable", as
   await cleanup();
 });
 
-test("observes controlled state and restores the previous scroll style", async () => {
+test("controlled state restores scroll and the exact external invoker", async () => {
   document.documentElement.style.overflow = "clip";
-  const { wrapper, dialog, cleanup } = await mountDialog({
+  const { wrapper, trigger, dialog, cleanup } = await mountDialog({
     props: { open: false },
   });
 
+  trigger.focus();
   await wrapper.setProps({ open: true });
   await settle();
   expect(dialog.element.open).toBe(true);
@@ -154,6 +155,7 @@ test("observes controlled state and restores the previous scroll style", async (
   await settle();
   expect(dialog.element.open).toBe(false);
   expect(document.documentElement.style.overflow).toBe("clip");
+  expect(document.activeElement).toBe(trigger);
 
   document.documentElement.style.overflow = "";
   await cleanup();
