@@ -469,6 +469,18 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "dialog/Dialog.vue": "sha256:1a3eb6b1cd435d1ab45b79c4ece3a586a1a3ac4002ba7b8a96b752e0e947aff2"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Controlled dialogs now restore focus to the exact external element that opened them."
+          ]
         }
       ],
       "react": [
@@ -481,6 +493,18 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "dialog/Dialog.jsx": "sha256:4c0cc575cd1e48b8c1d4224ab5b1baf4426fb85baadf9f051ae935416b750c8e"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Controlled dialogs now restore focus to the exact external element that opened them."
+          ]
         }
       ],
       "svelte": [
@@ -493,6 +517,18 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "dialog/Dialog.svelte": "sha256:c194135178b9920cbd6e01ee3687464b99e0cb39cd1af1439fac20e2cc8cc815"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Controlled dialogs now restore focus to the exact external element that opened them."
+          ]
         }
       ]
     },

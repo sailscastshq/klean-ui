@@ -515,6 +515,8 @@ test("keeps Dialog native, class-first, durable, and free of product APIs", () =
     expect(source).toMatch(/<dialog/);
     expect(source).toContain("showModal");
     expect(source).toContain("requestClose");
+    expect(source).toContain("document.activeElement");
+    expect(source).toContain("element.contains(candidate)");
     expect(source).toContain("commandfor");
     expect(source).toContain("closedby");
     expect(source).toContain('data-slot="dialog"');
