@@ -48,6 +48,12 @@ export const Pending = {
   args: { label: "Working…", pending: true },
 };
 
+export const ProductThumb = {
+  name: "Product thumb",
+  parameters: { controls: { disable: true } },
+  args: { label: "Working…", pending: true, productThumb: true },
+};
+
 export const Rtl = {
   name: "RTL",
   parameters: { controls: { disable: true } },

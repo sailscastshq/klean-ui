@@ -627,6 +627,22 @@ test("keeps Slide a native-button enhancement with ordinary styling", () => {
   }
 });
 
+test("gives every Slide port idiomatic product-owned thumb content", () => {
+  const vue = registrySource("vue", "Slide.vue", "slide");
+  const react = registrySource("react", "Slide.jsx", "slide");
+  const svelte = registrySource("svelte", "Slide.svelte", "slide");
+
+  expect(vue).toContain('<slot name="thumb"');
+  expect(vue).toContain(':progress="progressState"');
+  expect(react).toContain("thumb({ pending, progress: progressState })");
+  expect(svelte).toContain("thumb({ pending, progress: progressState })");
+
+  for (const source of [vue, react, svelte]) {
+    expect(source).toContain('data-slot="slide-thumb"');
+    expect(source).toMatch(/class(?:Name)?="size-4 rtl:rotate-180"/);
+  }
+});
+
 test("ships compiler-valid Toast source for Vue, React, and Svelte", () => {
   const reactSource = registrySource("react", "Toast.jsx", "toast");
   expect(() =>
