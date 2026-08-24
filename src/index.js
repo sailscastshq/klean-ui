@@ -30,6 +30,7 @@ export {
 } from "./vue/filter-bar/filterState.js";
 export { default as Input } from "./vue/input/Input.vue";
 export { default as LineChart } from "./vue/line-chart/LineChart.vue";
+export { default as LoadingState } from "./vue/loading-state/LoadingState.vue";
 export { default as Menu } from "./vue/menu/Menu.vue";
 export { default as Pagination } from "./vue/pagination/Pagination.vue";
 export { default as Popover } from "./vue/popover/Popover.vue";

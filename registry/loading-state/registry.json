@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "loading-state",
+  "description": "One polite loading status layout with caller-owned Spinner, copy, skeleton markup, request state, and Tailwind styling.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/LoadingState.vue",
+      "target": "loading-state/LoadingState.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/LoadingState.jsx",
+      "target": "loading-state/LoadingState.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/LoadingState.svelte",
+      "target": "loading-state/LoadingState.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
