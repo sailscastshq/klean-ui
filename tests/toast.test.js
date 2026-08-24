@@ -208,7 +208,7 @@ test("renders a persistent, named live region with caller-owned Tailwind", async
   controller.destroy();
 });
 
-test("opens the persistent viewport in the native top layer and closes it on teardown", () => {
+test("promotes each new notification above open top-layer surfaces", async () => {
   const showDescriptor = Object.getOwnPropertyDescriptor(
     HTMLElement.prototype,
     "showPopover",
@@ -237,8 +237,24 @@ test("opens the persistent viewport in the native top layer and closes it on tea
     const controller = createToast({ duration: false });
     const wrapper = mount(Toast, { props: { controller } });
     expect(opened).toBe(1);
-    wrapper.unmount();
+
+    const first = controller("First");
+    await nextTick();
+    expect(opened).toBe(2);
     expect(closed).toBe(1);
+
+    controller.update(first, { message: "First updated" });
+    await nextTick();
+    expect(opened).toBe(2);
+    expect(closed).toBe(1);
+
+    controller("Second");
+    await nextTick();
+    expect(opened).toBe(3);
+    expect(closed).toBe(2);
+
+    wrapper.unmount();
+    expect(closed).toBe(3);
     controller.destroy();
   } finally {
     if (showDescriptor) {

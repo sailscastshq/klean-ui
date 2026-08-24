@@ -1164,6 +1164,19 @@
           "migrationNotes": [
             "Keep the Toast viewport above native top-layer surfaces."
           ]
+        },
+        {
+          "revision": 3,
+          "files": {
+            "toast/toast.js": "sha256:89fb41b345517de309bbcfaac41c45f8af4213948c32b3e62ede12629120702a",
+            "toast/Toast.vue": "sha256:1115900ebac4e638589a0d68f503a44a3db9ac435c1930bea94a90bf1758fdd9"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Toast viewports promote each new notification above currently open top-layer surfaces; the public API is unchanged."
+          ]
         }
       ],
       "react": [
@@ -1189,6 +1202,19 @@
           },
           "migrationNotes": [
             "Keep the Toast viewport above native top-layer surfaces."
+          ]
+        },
+        {
+          "revision": 3,
+          "files": {
+            "toast/toast.js": "sha256:89fb41b345517de309bbcfaac41c45f8af4213948c32b3e62ede12629120702a",
+            "toast/Toast.jsx": "sha256:7e77aa33ccbc407162cece8a3dd4b033f7bf7f8efb8d93297504c0c4531798f6"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Toast viewports promote each new notification above currently open top-layer surfaces; the public API is unchanged."
           ]
         }
       ],
@@ -1216,6 +1242,19 @@
           "migrationNotes": [
             "Keep the Toast viewport above native top-layer surfaces."
           ]
+        },
+        {
+          "revision": 3,
+          "files": {
+            "toast/toast.js": "sha256:89fb41b345517de309bbcfaac41c45f8af4213948c32b3e62ede12629120702a",
+            "toast/Toast.svelte": "sha256:ce8ccc8c06599432f4f07ddeec5f0a4d46c435ae7d506cc06814ca732aaaeff4"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Toast viewports promote each new notification above currently open top-layer surfaces; the public API is unchanged."
+          ]
         }
       ]
     },
@@ -1231,6 +1270,19 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "tooltip/Tooltip.vue": "sha256:7042b00bbd5ad686774389510baafd0a12d2200681cce6626a694911d8bf4fd4"
+          },
+          "dependencies": {
+            "@floating-ui/dom": "^1.8.0",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Tooltip surfaces no longer intercept pointer actions; interactive floating content belongs in Popover."
+          ]
         }
       ],
       "react": [
@@ -1244,6 +1296,19 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "tooltip/Tooltip.jsx": "sha256:3909d99546d4905b9c6022dedf124b4fded057215528b5b309287de889c4dd71"
+          },
+          "dependencies": {
+            "@floating-ui/dom": "^1.8.0",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Tooltip surfaces no longer intercept pointer actions; interactive floating content belongs in Popover."
+          ]
         }
       ],
       "svelte": [
@@ -1257,6 +1322,19 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "tooltip/Tooltip.svelte": "sha256:d23aedd7f50d99c67000a45468ad7e33425483f5d8d4c9b6357313a07d6035da"
+          },
+          "dependencies": {
+            "@floating-ui/dom": "^1.8.0",
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Tooltip surfaces no longer intercept pointer actions; interactive floating content belongs in Popover."
+          ]
         }
       ]
     },

@@ -1,6 +1,8 @@
 import { expect, test } from "@rstest/core";
 import { mount } from "@vue/test-utils";
 import { h, nextTick } from "vue";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import Tooltip from "../src/vue/tooltip/Tooltip.vue";
 
 function wait(milliseconds) {
@@ -74,7 +76,21 @@ test("wraps one semantic trigger without imposing visible trigger styling", asyn
   expect(content().classList).toContain("text-white");
   expect(content().classList).toContain("dark:bg-white");
   expect(content().classList).toContain("dark:text-gray-950");
+  expect(content().classList).toContain("pointer-events-none");
   cleanup();
+});
+
+test("never lets supplementary text intercept an application action", () => {
+  for (const file of [
+    "registry/tooltip/vue/Tooltip.vue",
+    "registry/tooltip/react/Tooltip.jsx",
+    "registry/tooltip/svelte/Tooltip.svelte",
+  ]) {
+    const source = readFileSync(resolve(file), "utf8");
+    expect(source).toContain("pointer-events-none z-50");
+    expect(source).not.toMatch(/@pointerenter|onPointerEnter|onpointerenter/);
+    expect(source).not.toMatch(/@pointerleave|onPointerLeave|onpointerleave/);
+  }
 });
 
 test("generates and cleans up a supplementary aria description", async () => {
