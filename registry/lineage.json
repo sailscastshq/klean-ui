@@ -1151,6 +1151,19 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "toast/toast.js": "sha256:89fb41b345517de309bbcfaac41c45f8af4213948c32b3e62ede12629120702a",
+            "toast/Toast.vue": "sha256:3db14f60d1600167534cf88610c0a70cbf5182340c15998754dff5f595ad4834"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Keep the Toast viewport above native top-layer surfaces."
+          ]
         }
       ],
       "react": [
@@ -1164,6 +1177,19 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "toast/toast.js": "sha256:89fb41b345517de309bbcfaac41c45f8af4213948c32b3e62ede12629120702a",
+            "toast/Toast.jsx": "sha256:1339977f92178b28d0c5075448d4737a60dc22bc2b77a2ae11958fb697209c39"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Keep the Toast viewport above native top-layer surfaces."
+          ]
         }
       ],
       "svelte": [
@@ -1177,6 +1203,19 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "toast/toast.js": "sha256:89fb41b345517de309bbcfaac41c45f8af4213948c32b3e62ede12629120702a",
+            "toast/Toast.svelte": "sha256:36c170083d2e9ff8275ce8fc8fd9aa050fc449e94e8312d174fe206f31a55f28"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Keep the Toast viewport above native top-layer surfaces."
+          ]
         }
       ]
     },

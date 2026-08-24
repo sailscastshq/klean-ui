@@ -1,6 +1,8 @@
 import { afterEach, beforeEach, expect, test } from "@rstest/core";
 import { mount } from "@vue/test-utils";
 import { h, nextTick } from "vue";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import Toast from "../src/vue/toast/Toast.vue";
 import { createToast } from "../src/vue/toast/toast.js";
 
@@ -165,6 +167,8 @@ test("renders a persistent, named live region with caller-owned Tailwind", async
   const viewport = wrapper.get('[data-slot="toast-viewport"]');
   const item = wrapper.get('[data-slot="toast"]');
   expect(viewport.element.tagName).toBe("SECTION");
+  expect(viewport.attributes("popover")).toBe("manual");
+  expect(viewport.classes()).toContain("inset-auto");
   expect(viewport.attributes("aria-label")).toBe("Notifications");
   expect(viewport.attributes("aria-live")).toBe("polite");
   expect(viewport.attributes("data-position")).toBe("bottom-left");
@@ -202,6 +206,74 @@ test("renders a persistent, named live region with caller-owned Tailwind", async
 
   wrapper.unmount();
   controller.destroy();
+});
+
+test("opens the persistent viewport in the native top layer and closes it on teardown", () => {
+  const showDescriptor = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    "showPopover",
+  );
+  const hideDescriptor = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    "hidePopover",
+  );
+  let opened = 0;
+  let closed = 0;
+
+  Object.defineProperty(HTMLElement.prototype, "showPopover", {
+    configurable: true,
+    value() {
+      opened += 1;
+    },
+  });
+  Object.defineProperty(HTMLElement.prototype, "hidePopover", {
+    configurable: true,
+    value() {
+      closed += 1;
+    },
+  });
+
+  try {
+    const controller = createToast({ duration: false });
+    const wrapper = mount(Toast, { props: { controller } });
+    expect(opened).toBe(1);
+    wrapper.unmount();
+    expect(closed).toBe(1);
+    controller.destroy();
+  } finally {
+    if (showDescriptor) {
+      Object.defineProperty(
+        HTMLElement.prototype,
+        "showPopover",
+        showDescriptor,
+      );
+    } else {
+      delete HTMLElement.prototype.showPopover;
+    }
+    if (hideDescriptor) {
+      Object.defineProperty(
+        HTMLElement.prototype,
+        "hidePopover",
+        hideDescriptor,
+      );
+    } else {
+      delete HTMLElement.prototype.hidePopover;
+    }
+  }
+});
+
+test("keeps the native top-layer contract aligned across frameworks", () => {
+  for (const file of [
+    "registry/toast/vue/Toast.vue",
+    "registry/toast/react/Toast.jsx",
+    "registry/toast/svelte/Toast.svelte",
+  ]) {
+    const source = readFileSync(resolve(file), "utf8");
+    expect(source).toContain('popover="manual"');
+    expect(source).toContain("showPopover");
+    expect(source).toContain("hidePopover");
+    expect(source).toContain("inset-auto");
+  }
 });
 
 test("keeps default motion on the nearest horizontal edge", () => {
