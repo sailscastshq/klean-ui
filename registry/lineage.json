@@ -1438,6 +1438,47 @@
           ]
         }
       ]
+    },
+    "filter-bar": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "filter-bar/FilterBar.vue": "sha256:73dadd54d069cb6a7649a2268dcdf6180ebdbc919f7599c71c391b50b9d407b6",
+            "filter-bar/filterState.js": "sha256:1dd1d33915ae3e1a0303b0e2b00c92d28c305ad671be6bbe168c4795ce9317f5"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "filter-bar/FilterBar.jsx": "sha256:6b3a6d0ef687621f23dc38b7d4829bf0cea7dbdbd67694f6912300132966813d",
+            "filter-bar/filterState.js": "sha256:d61922fa9dae95888ebeeed96529d392bedbfa4b626aa771e6a2d96573722d2f"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "filter-bar/FilterBar.svelte": "sha256:dff2c567867dfccb9c6a90270e99b18aad9666a01cd9406e226ec4df17262d6c",
+            "filter-bar/filterState.js": "sha256:d61922fa9dae95888ebeeed96529d392bedbfa4b626aa771e6a2d96573722d2f"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
     }
   }
 }

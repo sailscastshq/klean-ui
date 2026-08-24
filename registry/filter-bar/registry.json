@@ -1,0 +1,46 @@
+{
+  "$schema": "../schema.json",
+  "name": "filter-bar",
+  "description": "A durable filter form with separate draft and committed state, native apply/cancel behavior, removable active filters, and deterministic URL helpers.",
+  "frameworks": {
+    "vue": {
+      "files": [
+        {
+          "source": "vue/FilterBar.vue",
+          "target": "filter-bar/FilterBar.vue"
+        },
+        {
+          "source": "vue/filterState.js",
+          "target": "filter-bar/filterState.js"
+        }
+      ],
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "files": [
+        {
+          "source": "react/FilterBar.jsx",
+          "target": "filter-bar/FilterBar.jsx"
+        },
+        {
+          "source": "react/filterState.js",
+          "target": "filter-bar/filterState.js"
+        }
+      ],
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "files": [
+        {
+          "source": "svelte/FilterBar.svelte",
+          "target": "filter-bar/FilterBar.svelte"
+        },
+        {
+          "source": "svelte/filterState.js",
+          "target": "filter-bar/filterState.js"
+        }
+      ],
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

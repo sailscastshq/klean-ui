@@ -19,6 +19,13 @@ export {
 } from "./vue/data-table/useDataTableQuery.js";
 export { default as Dialog } from "./vue/dialog/Dialog.vue";
 export { default as FileUpload } from "./vue/file-upload/FileUpload.vue";
+export { default as FilterBar } from "./vue/filter-bar/FilterBar.vue";
+export {
+  filterUrl,
+  filtersEqual,
+  filtersFromUrl,
+  stableFilters,
+} from "./vue/filter-bar/filterState.js";
 export { default as Input } from "./vue/input/Input.vue";
 export { default as LineChart } from "./vue/line-chart/LineChart.vue";
 export { default as Menu } from "./vue/menu/Menu.vue";
