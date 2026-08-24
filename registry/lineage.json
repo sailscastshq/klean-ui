@@ -1492,6 +1492,44 @@
           "migrationNotes": []
         }
       ]
+    },
+    "row-actions": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "row-actions/RowActions.vue": "sha256:e048b59d5ac3b2839241bbdfb40ca9b1bfc606e150412e62452c3966b939045a"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "row-actions/RowActions.jsx": "sha256:87884f978db3b24e36b9c7b1034684ba856040d94de218086ed74b5df41dee43"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "row-actions/RowActions.svelte": "sha256:47d17a521c8bebc4ca8862e4110a3267ed9df357c4be15dc2ed7774c3bd755f0"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
     }
   }
 }

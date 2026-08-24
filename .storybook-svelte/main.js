@@ -26,6 +26,13 @@ const config = {
       resolve: {
         alias: [
           {
+            find: /^\.\.\/menu\/Menu\.svelte$/,
+            replacement: resolve(
+              process.cwd(),
+              "registry/menu/svelte/Menu.svelte",
+            ),
+          },
+          {
             find: /^\.\.\/popover\/Popover\.svelte$/,
             replacement: resolve(
               process.cwd(),
