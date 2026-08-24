@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "file-upload",
+  "description": "One native file selection bridge with caller-owned validation, previews, dropzones, transport, and Tailwind markup.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/FileUpload.vue",
+      "target": "file-upload/FileUpload.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/FileUpload.jsx",
+      "target": "file-upload/FileUpload.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/FileUpload.svelte",
+      "target": "file-upload/FileUpload.svelte",
+      "dependencies": {}
+    }
+  }
+}
