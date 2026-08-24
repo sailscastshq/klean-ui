@@ -614,6 +614,7 @@ test("keeps Slide a native-button enhancement with ordinary styling", () => {
     expect(source).toContain("ResizeObserver");
     expect(source).toContain("CONFIRM_THRESHOLD = 0.85");
     expect(source).toContain('data-slot="slide-status"');
+    expect(source).toContain("aria-disabled");
     expect(source).toContain("motion-reduce:transition-none");
     expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
     expect(source).not.toMatch(/role=["']slider["']/);
@@ -624,6 +625,7 @@ test("keeps Slide a native-button enhancement with ordinary styling", () => {
       /mousedown|touchstart|document\.addEventListener/,
     );
     expect(source).not.toMatch(/vibrat|confetti|sound/i);
+    expect(source).not.toMatch(/disabled=\{?disabled \|\| pending/);
   }
 });
 

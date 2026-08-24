@@ -180,21 +180,31 @@ test("native keyboard and assistive activation confirms without sliding", async 
   wrapper.unmount();
 });
 
-test("pending is caller-owned, busy, disabled, and resets truthfully", async () => {
-  const { wrapper } = mountSlide({ props: { pending: true } });
+test("pending is caller-owned, busy, aria-disabled, and resets truthfully", async () => {
+  let clicks = 0;
+  const { wrapper } = mountSlide({
+    props: { pending: true },
+    attrs: { onClick: () => (clicks += 1) },
+  });
 
-  expect(wrapper.attributes("disabled")).toBe("");
+  wrapper.element.focus();
+  expect(wrapper.attributes("disabled")).toBeUndefined();
   expect(wrapper.attributes("aria-busy")).toBe("true");
+  expect(wrapper.attributes("aria-disabled")).toBe("true");
   expect(wrapper.attributes("data-state")).toBe("pending");
   expect(wrapper.attributes("data-progress")).toBe("complete");
 
   wrapper.element.click();
   expect(wrapper.emitted("confirm")).toBeUndefined();
+  expect(clicks).toBe(0);
+  expect(document.activeElement).toBe(wrapper.element);
 
   await wrapper.setProps({ pending: false });
   expect(wrapper.attributes("disabled")).toBeUndefined();
+  expect(wrapper.attributes("aria-disabled")).toBeUndefined();
   expect(wrapper.attributes("data-state")).toBe("idle");
   expect(wrapper.attributes("data-progress")).toBe("start");
+  expect(document.activeElement).toBe(wrapper.element);
   wrapper.unmount();
 });
 
