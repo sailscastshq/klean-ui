@@ -28,6 +28,10 @@ const config = {
         rspack: {
           plugins: [
             new NormalModuleReplacementPlugin(
+              /^\.\.\/menu\/Menu\.jsx$/,
+              resolve(process.cwd(), "registry/menu/react/Menu.jsx"),
+            ),
+            new NormalModuleReplacementPlugin(
               /^\.\.\/popover\/Popover\.jsx$/,
               resolve(process.cwd(), "registry/popover/react/Popover.jsx"),
             ),

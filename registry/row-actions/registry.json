@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json",
+  "name": "row-actions",
+  "description": "A durable row action group with caller-authored links and buttons, optional Klean Menu overflow, busy truth, focus return, and row-click isolation.",
+  "registryDependencies": ["menu"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/RowActions.vue",
+      "target": "row-actions/RowActions.vue",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/RowActions.jsx",
+      "target": "row-actions/RowActions.jsx",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "source": "svelte/RowActions.svelte",
+      "target": "row-actions/RowActions.svelte",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}
