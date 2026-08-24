@@ -1618,6 +1618,44 @@
           "migrationNotes": []
         }
       ]
+    },
+    "loading-state": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "loading-state/LoadingState.vue": "sha256:c4557bed58cc66febd9c6b30d087c7d4acf92806dbe12afc2c4b73665f4a36fc"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "loading-state/LoadingState.jsx": "sha256:5a250a1ff16ebf46085e3bc348918c0954625cef57fea54a79598fd27a3a7acc"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "loading-state/LoadingState.svelte": "sha256:bb939bec3fb7f358f6b1b68cfb35cbf0b8af0e42fc2d0fe0b9cc016c476ac4ba"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
     }
   }
 }
