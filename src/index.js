@@ -12,6 +12,11 @@ export { default as Combobox } from "./vue/combobox/Combobox.vue";
 export { default as Command } from "./vue/command/Command.vue";
 export { default as DatePicker } from "./vue/date-picker/DatePicker.vue";
 export { default as DateRangePicker } from "./vue/date-range-picker/DateRangePicker.vue";
+export { default as DataTable } from "./vue/data-table/DataTable.vue";
+export {
+  dataTableUrl,
+  useDataTableQuery,
+} from "./vue/data-table/useDataTableQuery.js";
 export { default as Dialog } from "./vue/dialog/Dialog.vue";
 export { default as Input } from "./vue/input/Input.vue";
 export { default as LineChart } from "./vue/line-chart/LineChart.vue";

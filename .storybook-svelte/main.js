@@ -53,6 +53,13 @@ const config = {
               "registry/input/svelte/Input.svelte",
             ),
           },
+          {
+            find: /^\.\.\/table\/Table\.svelte$/,
+            replacement: resolve(
+              process.cwd(),
+              "registry/table/svelte/Table.svelte",
+            ),
+          },
         ],
       },
     });

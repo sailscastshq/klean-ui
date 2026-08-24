@@ -40,6 +40,7 @@ Examples:
   klean-ui add menu
   klean-ui add dialog
   klean-ui add toast
+  klean-ui add data-table
   klean-ui add button --dry-run
   klean-ui add button --components-dir assets/js/components/ui
   klean-ui check

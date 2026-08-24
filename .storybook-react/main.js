@@ -43,6 +43,10 @@ const config = {
               /^\.\.\/input\/Input\.jsx$/,
               resolve(process.cwd(), "registry/input/react/Input.jsx"),
             ),
+            new NormalModuleReplacementPlugin(
+              /^\.\.\/table\/Table\.jsx$/,
+              resolve(process.cwd(), "registry/table/react/Table.jsx"),
+            ),
           ],
         },
       },
