@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "name": "error-state",
+  "description": "One shallow failed-content layout with caller-owned semantics, recovery controls, safe copy, diagnostics, and Tailwind styling.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ErrorState.vue",
+      "target": "error-state/ErrorState.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/ErrorState.jsx",
+      "target": "error-state/ErrorState.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/ErrorState.svelte",
+      "target": "error-state/ErrorState.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
