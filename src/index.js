@@ -18,6 +18,7 @@ export {
   useDataTableQuery,
 } from "./vue/data-table/useDataTableQuery.js";
 export { default as Dialog } from "./vue/dialog/Dialog.vue";
+export { default as FileUpload } from "./vue/file-upload/FileUpload.vue";
 export { default as Input } from "./vue/input/Input.vue";
 export { default as LineChart } from "./vue/line-chart/LineChart.vue";
 export { default as Menu } from "./vue/menu/Menu.vue";

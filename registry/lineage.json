@@ -1344,6 +1344,38 @@
           "migrationNotes": []
         }
       ]
+    },
+    "file-upload": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "file-upload/FileUpload.vue": "sha256:b1b7c7190297b55965983807623cd6ad07a4446ccada804ea052db7f7ed602eb"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "file-upload/FileUpload.jsx": "sha256:d432bf40abc337fbbeb174d7170c3de6b1fed69695375f50fce0e62de42fffaa"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "file-upload/FileUpload.svelte": "sha256:a75ff7d9a8aab017484a4520296f6f18ce17b3baeccaad16b689bb2ae3e02c43"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
     }
   }
 }
