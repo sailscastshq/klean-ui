@@ -814,6 +814,18 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "slide/Slide.vue": "sha256:90aea70e3b558e6302e87a720414369fa4a73e8dd5e9f5574a218abb5f10cc4e"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Add framework-native product-owned Slide thumb content with the default arrow preserved."
+          ]
         }
       ],
       "react": [
@@ -826,6 +838,18 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "slide/Slide.jsx": "sha256:5ec0e9f98e4e477d34ae0887bf8c470eb5aa68fc1a250375a6fac7b3bce7c323"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Add framework-native product-owned Slide thumb content with the default arrow preserved."
+          ]
         }
       ],
       "svelte": [
@@ -838,6 +862,18 @@
             "tailwind-merge": "^3.6.0"
           },
           "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "slide/Slide.svelte": "sha256:16beabae43af76f18c49df4556f02b3045a21da62d1f56d607c34132b97469e2"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Add framework-native product-owned Slide thumb content with the default arrow preserved."
+          ]
         }
       ]
     },

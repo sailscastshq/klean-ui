@@ -1,6 +1,6 @@
 import { expect, test } from "@rstest/core";
 import { mount } from "@vue/test-utils";
-import { nextTick } from "vue";
+import { h, nextTick } from "vue";
 import Slide from "../src/vue/slide/Slide.vue";
 
 function setGeometry(wrapper, width = 224, thumbWidth = 36) {
@@ -42,13 +42,45 @@ function mountSlide(options = {}) {
   const wrapper = mount(Slide, {
     props: options.props,
     attrs: options.attrs,
-    slots: { default: options.label ?? "Slide to continue" },
+    slots: {
+      default: options.label ?? "Slide to continue",
+      ...options.slots,
+    },
     attachTo: document.body,
   });
   setGeometry(wrapper, options.width, options.thumbWidth);
   const captured = installPointerCapture(wrapper.element);
   return { wrapper, captured };
 }
+
+test("keeps the arrow by default and supports product-owned thumb content", async () => {
+  const standard = mountSlide();
+  expect(standard.wrapper.get('[data-slot="slide-thumb"] svg').exists()).toBe(
+    true,
+  );
+  standard.wrapper.unmount();
+
+  const states = [];
+  const custom = mountSlide({
+    props: { pending: true },
+    slots: {
+      thumb: ({ pending, progress }) => {
+        states.push({ pending, progress });
+        return h("span", { "data-product-mark": "true" }, "Working");
+      },
+    },
+  });
+
+  expect(custom.wrapper.find('[data-slot="slide-thumb"] svg').exists()).toBe(
+    false,
+  );
+  expect(custom.wrapper.get("[data-product-mark]").text()).toBe("Working");
+  expect(states.at(-1)).toEqual({ pending: true, progress: "complete" });
+
+  await custom.wrapper.setProps({ pending: false });
+  expect(states.at(-1)).toEqual({ pending: false, progress: "start" });
+  custom.wrapper.unmount();
+});
 
 async function drag(wrapper, from, to, type = "pointerup") {
   wrapper.element.dispatchEvent(pointer("pointerdown", { clientX: from }));

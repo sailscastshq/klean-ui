@@ -21,7 +21,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "An action-confirmation button with an optional pointer slide. Keyboard and assistive activation remain native button activation; ordinary Tailwind owns product styling.",
+          "An action-confirmation button with an optional pointer slide. Keyboard and assistive activation remain native button activation; ordinary Tailwind owns product styling, and the thumb can carry a product-owned pending indicator.",
       },
     },
   },
@@ -135,6 +135,25 @@ export const States = {
           <Slide class="rounded-md border-2 border-gray-950 bg-white shadow-none">Slide to approve</Slide>
         </div>
       </div>
+    `,
+  }),
+};
+
+export const ProductThumb = {
+  name: "Product thumb",
+  parameters: { controls: { disable: true } },
+  render: () => ({
+    components: { Slide },
+    template: `
+      <Slide pending>
+        Working…
+        <template #thumb="{ pending }">
+          <span
+            v-if="pending"
+            class="size-4 animate-spin rounded-full border-2 border-current border-e-transparent motion-reduce:animate-none"
+          />
+        </template>
+      </Slide>
     `,
   }),
 };

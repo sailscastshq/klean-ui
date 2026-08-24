@@ -50,6 +50,23 @@ export const Pending = {
   args: { children: "Working…", pending: true },
 };
 
+export const ProductThumb = {
+  name: "Product thumb",
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <Slide
+      pending
+      thumb={({ pending }) =>
+        pending ? (
+          <span className="size-4 animate-spin rounded-full border-2 border-current border-e-transparent motion-reduce:animate-none" />
+        ) : null
+      }
+    >
+      Working…
+    </Slide>
+  ),
+};
+
 export const Rtl = {
   name: "RTL",
   parameters: { controls: { disable: true } },
