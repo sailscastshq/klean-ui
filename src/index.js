@@ -4,6 +4,7 @@ export { default as Alert } from "./vue/alert/Alert.vue";
 export { default as Avatar } from "./vue/avatar/Avatar.vue";
 export { default as Badge } from "./vue/badge/Badge.vue";
 export { default as Breadcrumb } from "./vue/breadcrumb/Breadcrumb.vue";
+export { default as BulkActions } from "./vue/bulk-actions/BulkActions.vue";
 export { default as Button } from "./vue/button/Button.vue";
 export { default as Card } from "./vue/card/Card.vue";
 export { default as Calendar } from "./vue/calendar/Calendar.vue";
