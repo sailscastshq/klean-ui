@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "name": "bulk-actions",
+  "description": "A durable selected-record action region with a polite count, default clear control, busy truth, focus recovery, and caller-authored actions.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/BulkActions.vue",
+      "target": "bulk-actions/BulkActions.vue",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/BulkActions.jsx",
+      "target": "bulk-actions/BulkActions.jsx",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "source": "svelte/BulkActions.svelte",
+      "target": "bulk-actions/BulkActions.svelte",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}
