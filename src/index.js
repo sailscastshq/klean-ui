@@ -19,6 +19,7 @@ export {
   useDataTableQuery,
 } from "./vue/data-table/useDataTableQuery.js";
 export { default as Dialog } from "./vue/dialog/Dialog.vue";
+export { default as EmptyState } from "./vue/empty-state/EmptyState.vue";
 export { default as FileUpload } from "./vue/file-upload/FileUpload.vue";
 export { default as FilterBar } from "./vue/filter-bar/FilterBar.vue";
 export {

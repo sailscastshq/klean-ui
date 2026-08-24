@@ -1580,6 +1580,44 @@
           "migrationNotes": []
         }
       ]
+    },
+    "empty-state": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "empty-state/EmptyState.vue": "sha256:5988639fb9ad18beed10b1e9effbdb1de448742b35d2e7d9097b13f2000bb348"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "empty-state/EmptyState.jsx": "sha256:9030abe9e7dd95c855465d09bde1c55b7ad65e42c202b20577792cec18b6f3ed"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "empty-state/EmptyState.svelte": "sha256:36c937436ea93e92ac6a8a7e4969ce15c8b5c7b8386af71e4562555c71970ebb"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ]
     }
   }
 }
