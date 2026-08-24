@@ -40,6 +40,17 @@ function mountFilterBar({ initial = { status: "active" }, busy = false } = {}) {
         <button v-bind="filter.cancelAttrs">Cancel</button>
         <button v-bind="filter.clearAttrs">Clear all</button>
         <button
+          type="button"
+          data-test="replace-draft"
+          @click="filter.setDraft((current) => ({
+            ...current,
+            region: 'lag',
+            status: 'review'
+          }))"
+        >
+          Replace draft
+        </button>
+        <button
           v-for="([key, entry]) in filter.entries"
           :key="key"
           v-bind="filter.removeAttrs(key, 'Remove ' + key)"
@@ -75,6 +86,21 @@ test("uses native reset to cancel a draft without changing committed state", asy
 
   expect(value.value).toEqual({ status: "active" });
   expect(wrapper.get("input").element.value).toBe("active");
+  wrapper.unmount();
+});
+
+test("replaces the whole Vue draft without committing caller-owned state", async () => {
+  const initial = { status: "active" };
+  const { value, wrapper } = mountFilterBar({ initial });
+
+  await wrapper.get('[data-test="replace-draft"]').trigger("click");
+
+  expect(value.value).toEqual({ status: "active" });
+  expect(initial).toEqual({ status: "active" });
+  expect(wrapper.get("input").element.value).toBe("review");
+
+  await wrapper.get('button[type="submit"]').trigger("submit");
+  expect(value.value).toEqual({ region: "lag", status: "review" });
   wrapper.unmount();
 });
 
