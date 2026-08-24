@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "name": "sidebar",
+  "description": "A durable native application sidebar with remembered visibility and caller-owned navigation, links, and Tailwind styling.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Sidebar.vue",
+      "target": "sidebar/Sidebar.vue",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/Sidebar.jsx",
+      "target": "sidebar/Sidebar.jsx",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "source": "svelte/Sidebar.svelte",
+      "target": "sidebar/Sidebar.svelte",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

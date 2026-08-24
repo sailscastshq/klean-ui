@@ -1376,6 +1376,68 @@
           "migrationNotes": []
         }
       ]
+    },
+    "sidebar": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "sidebar/Sidebar.vue": "sha256:a78d8bb2ec411408888eb972962ac7c9ac032a566c38738a7042ff5d0735936c"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "sidebar/Sidebar.jsx": "sha256:e230e4126b116e93005788107dbe070c47efc89ee3ad3b18848a361f67e45927"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "sidebar/Sidebar.jsx": "sha256:3d8042e6be0398994dc622f5dfd751e8beae7f67089a9af6298ecebae8382a7a"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Keep React callbacks stable across consumer renders"
+          ]
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "sidebar/Sidebar.svelte": "sha256:c783ae0fd968314a3ff4c9601458545855f6d1613db6f1fb644393666b006d53"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": []
+        },
+        {
+          "revision": 2,
+          "files": {
+            "sidebar/Sidebar.svelte": "sha256:1b1fd855cc239f725df54f26b7f60dafffee9766d08c685b5f840e0bc037abfc"
+          },
+          "dependencies": {
+            "tailwind-merge": "^3.6.0"
+          },
+          "migrationNotes": [
+            "Keep current Svelte initialization compiler-clean"
+          ]
+        }
+      ]
     }
   }
 }
