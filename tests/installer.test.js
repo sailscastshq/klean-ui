@@ -153,6 +153,12 @@ function allFiles(directory) {
   });
 }
 
+function expectApplicationSource(root, file) {
+  expect(readFileSync(file.targetPath, "utf8")).toBe(
+    createSourceFormatter(root).format(file.registrySource, file.targetPath),
+  );
+}
+
 for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
   test(`installs only the native ${framework} Button in a canonical app`, () => {
     const root = makeFixture({ framework });
@@ -168,9 +174,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(readdirSync(dirname(destination))).toEqual([
       `Button.${fixture.extension}`,
     ]);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
   });
 }
 
@@ -186,9 +190,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(result.plan.registryItems).toEqual(["slide"]);
     expect(result.plan.files).toHaveLength(1);
     expect(existsSync(destination)).toBe(true);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
   });
 }
 
@@ -204,9 +206,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(result.plan.registryItems).toEqual(["spinner"]);
     expect(result.plan.files).toHaveLength(1);
     expect(existsSync(destination)).toBe(true);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
   });
 }
 
@@ -226,9 +226,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(result.plan.registryItems).toEqual(["alert"]);
     expect(result.plan.files).toHaveLength(1);
     expect(existsSync(destination)).toBe(true);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
     expect(dependencyCalls[0].dependencies).toEqual([
       { name: "tailwind-merge", version: "^3.6.0", missing: true },
     ]);
@@ -254,9 +252,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(readdirSync(dirname(destination))).toEqual([
       `Table.${fixture.extension}`,
     ]);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
     expect(dependencyCalls[0].dependencies).toEqual([
       { name: "tailwind-merge", version: "^3.6.0", missing: true },
     ]);
@@ -325,9 +321,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(readdirSync(dirname(destination))).toEqual([
       `Avatar.${fixture.extension}`,
     ]);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
     expect(dependencyCalls[0].dependencies).toEqual([
       { name: "tailwind-merge", version: "^3.6.0", missing: true },
     ]);
@@ -355,9 +349,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(readdirSync(dirname(destination))).toEqual([
       `Card.${fixture.extension}`,
     ]);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
     expect(dependencyCalls[0].dependencies).toEqual([
       { name: "tailwind-merge", version: "^3.6.0", missing: true },
     ]);
@@ -385,9 +377,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(readdirSync(dirname(destination))).toEqual([
       `Badge.${fixture.extension}`,
     ]);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
     expect(dependencyCalls[0].dependencies).toEqual([
       { name: "tailwind-merge", version: "^3.6.0", missing: true },
     ]);
@@ -415,9 +405,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(readdirSync(dirname(destination))).toEqual([
       `Separator.${fixture.extension}`,
     ]);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
     expect(dependencyCalls[0].dependencies).toEqual([
       { name: "tailwind-merge", version: "^3.6.0", missing: true },
     ]);
@@ -442,9 +430,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(result.plan.registryItems).toEqual(["tooltip"]);
     expect(result.plan.files).toHaveLength(1);
     expect(existsSync(destination)).toBe(true);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
     expect(dependencyCalls[0].dependencies).toEqual([
       { name: "@floating-ui/dom", version: "^1.8.0", missing: true },
       { name: "tailwind-merge", version: "^3.6.0", missing: true },
@@ -468,9 +454,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(result.plan.registryItems).toEqual(["tabs"]);
     expect(result.plan.files).toHaveLength(1);
     expect(existsSync(destination)).toBe(true);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
     expect(dependencyCalls[0].dependencies).toEqual([
       { name: "tailwind-merge", version: "^3.6.0", missing: true },
     ]);
@@ -503,9 +487,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(readdirSync(dirname(destination))).toEqual([
       `Pagination.${fixture.extension}`,
     ]);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
     expect(dependencyCalls[0].dependencies).toEqual([
       { name: adapter, version: "^3.6.1", missing: true },
       { name: "tailwind-merge", version: "^3.6.0", missing: true },
@@ -539,9 +521,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
     expect(readdirSync(dirname(destination))).toEqual([
       `Breadcrumb.${fixture.extension}`,
     ]);
-    expect(readFileSync(destination, "utf8")).toBe(
-      readFileSync(result.plan.file.sourcePath, "utf8"),
-    );
+    expectApplicationSource(root, result.plan.file);
     expect(dependencyCalls[0].dependencies).toEqual([
       { name: adapter, version: "^3.6.1", missing: true },
       { name: "tailwind-merge", version: "^3.6.0", missing: true },
@@ -644,9 +624,7 @@ for (const [framework, fixture] of Object.entries(FRAMEWORK_FIXTURES)) {
       expect(result.plan.registryItems).toEqual([component]);
       expect(result.plan.files).toHaveLength(1);
       expect(existsSync(destination)).toBe(true);
-      expect(readFileSync(destination, "utf8")).toBe(
-        readFileSync(result.plan.file.sourcePath, "utf8"),
-      );
+      expectApplicationSource(root, result.plan.file);
       expect(allFiles(root).some((path) => path.includes(".klean-"))).toBe(
         false,
       );
@@ -706,7 +684,48 @@ test("reuses a formatter-only registry dependency without rewriting it", () => {
   expect(comboboxPlan.action).toBe("create");
   expect(readFileSync(popover, "utf8")).toBe(formatted);
   expect(readFileSync(comboboxPlan.targetPath, "utf8")).toBe(
-    comboboxPlan.registrySource,
+    createSourceFormatter(root).format(
+      comboboxPlan.registrySource,
+      comboboxPlan.targetPath,
+    ),
+  );
+});
+
+test("writes new source with the application's formatter configuration", () => {
+  const root = makeFixture({ framework: "vue" });
+  write(
+    resolve(root, ".prettierrc.json"),
+    `${JSON.stringify({ singleQuote: true, semi: false }, null, 2)}\n`,
+  );
+
+  const result = installComponent("button", { cwd: root });
+  const installed = readFileSync(result.plan.file.targetPath, "utf8");
+  const expected = createSourceFormatter(root).format(
+    result.plan.file.registrySource,
+    result.plan.file.targetPath,
+  );
+
+  expect(installed).toBe(expected);
+  expect(installed).not.toBe(result.plan.file.registrySource);
+});
+
+test("falls back to canonical registry source when formatting cannot run", () => {
+  const root = makeFixture({ framework: "vue" });
+  let attempts = 0;
+  const result = installComponent("button", {
+    cwd: root,
+    sourceFormatter: {
+      equivalent: () => false,
+      format() {
+        attempts += 1;
+        throw new Error("formatter unavailable");
+      },
+    },
+  });
+
+  expect(attempts).toBe(1);
+  expect(readFileSync(result.plan.file.targetPath, "utf8")).toBe(
+    result.plan.file.registrySource,
   );
 });
 
