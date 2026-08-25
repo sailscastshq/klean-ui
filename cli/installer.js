@@ -773,6 +773,14 @@ function writeFileAtomically(path, source) {
   }
 }
 
+function applicationSource(file, sourceFormatter) {
+  try {
+    return sourceFormatter.format(file.registrySource, file.targetPath);
+  } catch {
+    return file.registrySource;
+  }
+}
+
 function verifyInstalledDependencies(plan) {
   const packageJson = readJson(plan.packagePath, plan.packagePath);
   const expectedDependencies =
@@ -811,6 +819,8 @@ export function applyInstallPlan(plan, options = {}) {
 
   const dependencyInstaller =
     options.dependencyInstaller ?? defaultDependencyInstaller;
+  const sourceFormatter =
+    options.sourceFormatter ?? createSourceFormatter(plan.root);
   const directoryRollbackBoundaries = plan.files.map((file) => ({
     directory: dirname(file.targetPath),
     boundary: nearestExistingDirectory(dirname(file.targetPath)),
@@ -824,7 +834,10 @@ export function applyInstallPlan(plan, options = {}) {
   try {
     for (const file of plan.files) {
       if (["create", "overwrite", "update"].includes(file.action)) {
-        writeFileAtomically(file.targetPath, file.registrySource);
+        writeFileAtomically(
+          file.targetPath,
+          applicationSource(file, sourceFormatter),
+        );
       }
     }
 

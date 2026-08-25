@@ -344,6 +344,61 @@ for (const [framework, fixture] of Object.entries(FRAMEWORKS)) {
   });
 }
 
+for (const [framework, fixture] of Object.entries(FRAMEWORKS)) {
+  test(`writes updated ${framework} source with application formatting`, () => {
+    const registry = makeRegistry();
+    const oldSource = FORMATTER_SOURCES[framework];
+    const latestSources = Object.fromEntries(
+      Object.entries(FORMATTER_SOURCES).map(([name, source]) => [
+        name,
+        source.replaceAll("Save", "Continue"),
+      ]),
+    );
+    const latestSource = latestSources[framework];
+    writeRegistryItem(registry, "formatted", {
+      files: componentFiles("formatted", latestSources),
+    });
+    writeLineage(registry, {
+      formatted: Object.fromEntries(
+        Object.entries(FRAMEWORKS).map(([name, frameworkFixture]) => [
+          name,
+          [
+            revision(1, {
+              [`formatted/formatted.${frameworkFixture.extension}`]:
+                FORMATTER_SOURCES[name],
+            }),
+            revision(2, {
+              [`formatted/formatted.${frameworkFixture.extension}`]:
+                latestSources[name],
+            }),
+          ],
+        ]),
+      ),
+    });
+    const root = makeApp(framework);
+    write(
+      resolve(root, ".prettierrc.json"),
+      `${JSON.stringify({ singleQuote: true, semi: false }, null, 2)}\n`,
+    );
+    const target = resolve(
+      root,
+      `assets/js/components/ui/formatted/formatted.${fixture.extension}`,
+    );
+    const formatter = createSourceFormatter(root);
+    write(target, formatter.format(oldSource, target));
+
+    const plan = createUpdatePlan("formatted", {
+      cwd: root,
+      registryDirectory: registry,
+    });
+    applyUpdatePlan(plan);
+
+    expect(readFileSync(target, "utf8")).toBe(
+      formatter.format(latestSource, target),
+    );
+  });
+}
+
 test("uses the application's formatter version when it is available", () => {
   const root = makeApp("vue", { prettier: "test" });
   const prettierDirectory = resolve(root, "node_modules/prettier");
@@ -500,7 +555,9 @@ test("adds files introduced by a later compound revision", () => {
   expect(plan.files.map((file) => file.action)).toEqual(["update", "create"]);
   applyUpdatePlan(plan);
   expect(readFileSync(componentPath, "utf8")).toBe(latestComponent);
-  expect(readFileSync(helperPath, "utf8")).toBe(helper);
+  expect(readFileSync(helperPath, "utf8")).toBe(
+    createSourceFormatter(root).format(helper, helperPath),
+  );
 });
 
 test("updates safe items atomically and skips modified items with --all", () => {
