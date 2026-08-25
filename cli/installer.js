@@ -18,6 +18,7 @@ import {
   sep,
 } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createSourceFormatter } from "./source-formatter.js";
 
 const CLI_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_REGISTRY_DIRECTORY = resolve(CLI_DIRECTORY, "../registry");
@@ -498,6 +499,8 @@ function rewriteRegistryImports(
 
 export function createInstallPlan(component, options = {}) {
   const application = findApplicationRoot(options.cwd);
+  const sourceFormatter =
+    options.sourceFormatter ?? createSourceFormatter(application.root);
   const frameworkDetection = detectFramework(
     application.root,
     application.packageJson,
@@ -606,7 +609,11 @@ export function createInstallPlan(component, options = {}) {
     let action = "create";
     let difference;
 
-    if (currentSource === registrySource) {
+    if (
+      currentSource === registrySource ||
+      (currentSource !== undefined &&
+        sourceFormatter.equivalent(currentSource, registrySource, targetPath))
+    ) {
       action = "unchanged";
     } else if (currentSource !== undefined) {
       action = options.overwrite ? "overwrite" : "conflict";

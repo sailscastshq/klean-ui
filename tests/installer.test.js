@@ -16,6 +16,7 @@ import {
   installComponent,
   KleanInstallerError,
 } from "../cli/installer.js";
+import { createSourceFormatter } from "../cli/source-formatter.js";
 
 const fixtures = [];
 
@@ -673,6 +674,40 @@ test("is idempotent when the application-owned source still matches", () => {
   expect(first.changed).toBe(true);
   expect(second.changed).toBe(false);
   expect(second.plan.file.action).toBe("unchanged");
+});
+
+test("reuses a formatter-only registry dependency without rewriting it", () => {
+  const root = makeFixture({
+    framework: "vue",
+    dependencies: { "@floating-ui/dom": "^1.8.0" },
+  });
+  const first = installComponent("popover", { cwd: root });
+  const popover = first.plan.file.targetPath;
+  write(
+    resolve(root, ".prettierrc.json"),
+    `${JSON.stringify({ singleQuote: true, semi: false }, null, 2)}\n`,
+  );
+  const formatted = createSourceFormatter(root).format(
+    readFileSync(popover, "utf8"),
+    popover,
+  );
+  expect(formatted).not.toBe(first.plan.file.registrySource);
+  write(popover, formatted);
+
+  const result = installComponent("combobox", { cwd: root });
+  const popoverPlan = result.plan.files.find(
+    (file) => file.component === "popover",
+  );
+  const comboboxPlan = result.plan.files.find(
+    (file) => file.component === "combobox",
+  );
+
+  expect(popoverPlan.action).toBe("unchanged");
+  expect(comboboxPlan.action).toBe("create");
+  expect(readFileSync(popover, "utf8")).toBe(formatted);
+  expect(readFileSync(comboboxPlan.targetPath, "utf8")).toBe(
+    comboboxPlan.registrySource,
+  );
 });
 
 test("refuses to overwrite locally edited source and shows the difference", () => {
