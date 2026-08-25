@@ -1,5 +1,6 @@
 import FileUploadExample from "./FileUploadExample.svelte";
 import FileUploadHagfish from "./FileUploadHagfish.svelte";
+import FileUploadAttachments from "./FileUploadAttachments.svelte";
 
 const meta = {
   title: "Components/FileUpload",
@@ -20,6 +21,11 @@ const meta = {
 export default meta;
 
 export const Playground = {};
+
+export const Attachments = {
+  parameters: { layout: "fullscreen", controls: { disable: true } },
+  render: () => ({ Component: FileUploadAttachments }),
+};
 
 export const Hagfish = {
   parameters: { layout: "fullscreen", controls: { disable: true } },

@@ -82,6 +82,7 @@ function harness(options = {}) {
           handleChange,
           handleReject,
           rejections,
+          multiple: options.multiple ?? false,
           validate:
             options.validate ??
             ((candidate) =>
@@ -93,6 +94,7 @@ function harness(options = {}) {
           v-model="file"
           :accept="accept"
           :disabled="disabled"
+          :multiple="multiple"
           :validate="validate"
           class="rounded-xl border"
           @change="handleChange"
@@ -102,7 +104,10 @@ function harness(options = {}) {
           <button type="button" class="choose" @click="upload.choose">Choose file</button>
           <div class="dropzone" v-bind="upload.dropzone">Drop file</div>
           <output class="filename">{{ upload.file?.name }}</output>
+          <output class="filenames">{{ upload.files.map((file) => file.name).join(',') }}</output>
           <output class="preview">{{ upload.previewUrl }}</output>
+          <output class="previews">{{ upload.previews.map((preview) => preview.previewUrl).join(',') }}</output>
+          <button v-for="candidate in upload.files" :key="candidate.name" type="button" class="remove" @click="upload.remove(candidate)">Remove {{ candidate.name }}</button>
           <button v-if="upload.file" type="button" class="clear" @click="upload.clear">Remove</button>
         </FileUpload>
       `,
@@ -216,6 +221,101 @@ test("rejects type, size, and multiple-file mistakes without losing accepted sta
   }
 });
 
+test("appends a partially accepted native multiple selection with stable removable previews", async () => {
+  const urls = installObjectUrlSpies();
+  const signature = (candidate) =>
+    [
+      candidate.name,
+      candidate.size,
+      candidate.type,
+      candidate.lastModified,
+    ].join(":");
+  const validate = (candidate, context) => {
+    if (
+      context.files.some((entry) => signature(entry) === signature(candidate))
+    ) {
+      return {
+        reason: "duplicate",
+        message: "That image is already attached.",
+      };
+    }
+    return context.files.length < 3
+      ? true
+      : { reason: "count", message: "Attach up to 3 images." };
+  };
+  const first = new File(["one"], "one.png", { type: "image/png" });
+  const second = new File(["two"], "two.png", { type: "image/png" });
+  const third = new File(["three"], "three.png", { type: "image/png" });
+  const fourth = new File(["four"], "four.png", { type: "image/png" });
+  const wrongType = new File(["notes"], "notes.txt", {
+    type: "text/plain",
+  });
+  const { changes, file, rejections, wrapper } = harness({
+    accept: "image/png",
+    file: [],
+    multiple: true,
+    validate,
+  });
+
+  try {
+    expect(
+      wrapper.get('input[type="file"]').attributes("multiple"),
+    ).toBeDefined();
+    const drop = dispatchDrop(wrapper.get(".dropzone").element, [
+      first,
+      wrongType,
+      second,
+      third,
+      fourth,
+    ]);
+    await nextTick();
+
+    expect(drop.defaultPrevented).toBe(true);
+    expect(file.value).toEqual([first, second, third]);
+    expect(changes.value).toEqual([[first, second, third]]);
+    expect(rejections.value.map(({ reason }) => reason)).toEqual([
+      "accept",
+      "count",
+    ]);
+    expect(wrapper.get(".filename").text()).toBe("");
+    expect(wrapper.get(".filenames").text()).toBe("one.png,two.png,three.png");
+    expect(wrapper.get(".previews").text()).toBe(
+      "blob:klean-1,blob:klean-2,blob:klean-3",
+    );
+
+    await wrapper.findAll("button.remove")[0].trigger("click");
+    expect(file.value).toEqual([second, third]);
+    expect(urls.revoked).toEqual(["blob:klean-1"]);
+
+    await changeFiles(wrapper, [second, fourth]);
+    expect(file.value).toEqual([second, third, fourth]);
+    expect(rejections.value.at(-1)).toMatchObject({ reason: "duplicate" });
+    expect(wrapper.get(".previews").text()).toBe(
+      "blob:klean-2,blob:klean-3,blob:klean-4",
+    );
+
+    file.value = [fourth, second, third];
+    await nextTick();
+    expect(wrapper.get(".previews").text()).toBe(
+      "blob:klean-4,blob:klean-2,blob:klean-3",
+    );
+    expect(urls.created).toHaveLength(4);
+
+    wrapper.getComponent(FileUpload).vm.clear();
+    await nextTick();
+    expect(file.value).toEqual([]);
+    expect(urls.revoked).toEqual([
+      "blob:klean-1",
+      "blob:klean-4",
+      "blob:klean-2",
+      "blob:klean-3",
+    ]);
+  } finally {
+    wrapper.unmount();
+    urls.restore();
+  }
+});
+
 test("uses additive drop bindings without inventing keyboard semantics", async () => {
   const urls = installObjectUrlSpies();
   const { disabled, file, wrapper } = harness();
@@ -320,6 +420,8 @@ test("ships equivalent parseable native-first source for every framework", () =>
     expect(source).toContain("createObjectURL");
     expect(source).toContain("revokeObjectURL");
     expect(source).toContain("showPicker");
+    expect(source).toContain("multiple");
+    expect(source).toContain("previews");
     expect(source).not.toMatch(
       /FileUploadTrigger|FileUploadDropzone|FileUploadPreview/,
     );
