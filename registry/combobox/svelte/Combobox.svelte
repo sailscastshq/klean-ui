@@ -299,8 +299,6 @@
       {disabled}
       value={visibleValue}
       {placeholder}
-      popovertarget={contentId}
-      popovertargetaction="show"
       aria-expanded={String(isOpen)}
       aria-controls={listboxId}
       aria-haspopup="listbox"

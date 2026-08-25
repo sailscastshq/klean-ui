@@ -372,8 +372,6 @@ defineExpose({
         :disabled="disabled"
         :value="visibleValue"
         :placeholder="placeholder"
-        :popovertarget="contentId"
-        popovertargetaction="show"
         :aria-expanded="String(isOpen)"
         :aria-controls="listboxId"
         aria-haspopup="listbox"

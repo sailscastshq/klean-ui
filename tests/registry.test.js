@@ -475,6 +475,7 @@ test("keeps Combobox editable, native-first, durable, and class-first", () => {
     expect(source).toContain("clearTimeout");
     expect(source).toContain('type="hidden"');
     expect(source).toContain('data-slot="combobox-input"');
+    expect(source).not.toMatch(/popover[Tt]arget(?:[Aa]ction)?/);
     expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);
     expect(source).not.toMatch(/searchUrl|fetch\(/);
     expect(source).not.toMatch(/\b(?:variant|tone|size)\s*(?::|=(?!=))/i);
