@@ -86,6 +86,9 @@ test("keeps focus on the input while filtering and selecting", async () => {
 
   input.element.focus();
   await settle();
+  expect(input.attributes("aria-expanded")).toBe("false");
+  await input.trigger("click");
+  await settle();
   expect(input.attributes("aria-expanded")).toBe("true");
   expect(document.activeElement).toBe(input.element);
   expect(wrapper.findAll('[role="listbox"]')).toHaveLength(1);
@@ -111,6 +114,8 @@ test("keyboard navigation skips disabled options and exposes the active descenda
   const { wrapper, input, cleanup } = await mountCombobox();
 
   input.element.focus();
+  await settle();
+  key(input.element, "ArrowDown");
   await settle();
   key(input.element, "ArrowDown");
   await settle();
@@ -146,6 +151,8 @@ test("Tab closes without trapping focus or committing the highlight", async () =
 
   input.element.focus();
   await settle();
+  await input.trigger("click");
+  await settle();
   const event = key(input.element, "Tab");
   await settle();
 
@@ -171,7 +178,7 @@ test("debounces application-owned remote search and clears replaced work", async
 test("requests an initial remote page with an empty query when opened", async () => {
   const { wrapper, input, cleanup } = await mountCombobox({ searchDelay: 10 });
 
-  input.element.focus();
+  await input.trigger("click");
   await new Promise((resolve) => setTimeout(resolve, 20));
 
   expect(wrapper.emitted("search")).toEqual([[""]]);
@@ -184,7 +191,7 @@ test("keeps useful results present alongside loading and error status", async ()
     error: "Could not refresh repositories.",
   });
 
-  input.element.focus();
+  await input.trigger("click");
   await settle();
 
   expect(wrapper.findAll('[role="option"]')).toHaveLength(3);

@@ -392,10 +392,7 @@ const Combobox = forwardRef(function Combobox(
           data-state={isOpen ? "open" : "closed"}
           className={twMerge(INPUT_CLASSES, className)}
           style={style}
-          onFocus={(event) => {
-            onFocus?.(event);
-            if (!event.defaultPrevented) openCombobox("selected");
-          }}
+          onFocus={onFocus}
           onClick={(event) => {
             onClick?.(event);
             if (!event.defaultPrevented) openCombobox("selected");

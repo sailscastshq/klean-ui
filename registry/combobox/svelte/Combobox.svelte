@@ -316,10 +316,7 @@
         className,
       )}
       {style}
-      onfocus={(event) => {
-        onfocus?.(event);
-        if (!event.defaultPrevented) show("selected");
-      }}
+      {onfocus}
       onclick={(event) => {
         onclick?.(event);
         if (!event.defaultPrevented) show("selected");
