@@ -37,6 +37,7 @@
     "dev": "rslib build --watch",
     "test": "rstest",
     "test:watch": "rstest --watch",
+    "test:package": "node scripts/smoke-packed-cli.mjs",
     "registry:lineage": "node scripts/update-registry-lineage.mjs",
     "registry:lineage:check": "node scripts/update-registry-lineage.mjs --check",
     "lint:tailwind": "node scripts/check-tailwind-canonical.mjs",
@@ -45,7 +46,8 @@
     "storybook:vue": "storybook dev --config-dir .storybook-vue --port 6007 --no-open",
     "storybook:react": "storybook dev --config-dir .storybook-react --port 6008 --no-open",
     "storybook:svelte": "storybook dev --config-dir .storybook-svelte --port 6009 --no-open",
-    "build-storybook": "node scripts/storybook.js build"
+    "build-storybook": "node scripts/storybook.js build",
+    "release:check": "npm test && npm run registry:lineage:check && npm run lint:tailwind && npm run build && npm run build-storybook && npm run test:package"
   },
   "devDependencies": {
     "@babel/parser": "^7.28.6",
