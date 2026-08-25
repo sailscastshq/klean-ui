@@ -3,12 +3,14 @@ import {
   existsSync,
   mkdirSync,
   mkdtempSync,
+  readFileSync,
   rmSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { HELP, runCli } from "../cli/index.js";
+import { createSourceFormatter } from "../cli/source-formatter.js";
 
 const fixtures = [];
 
@@ -167,6 +169,52 @@ test("checks and diffs installed source without writing", () => {
     }),
   ).toBe(0);
   expect(diff.value()).toContain("there is no upstream diff");
+});
+
+test("treats application formatting as a no-op across CLI workflows", () => {
+  const root = makeApp();
+  write(
+    resolve(root, ".prettierrc.json"),
+    `${JSON.stringify({ singleQuote: true, semi: false }, null, 2)}\n`,
+  );
+  runCli(["add", "button"], { cwd: root, stdout: outputBuffer().stream });
+  const target = resolve(root, "assets/js/components/ui/button/Button.vue");
+  const formatted = createSourceFormatter(root).format(
+    readFileSync(target, "utf8"),
+    target,
+  );
+  write(target, formatted);
+
+  const check = outputBuffer();
+  expect(
+    runCli(["check"], {
+      cwd: root,
+      stdout: check.stream,
+      stderr: outputBuffer().stream,
+    }),
+  ).toBe(0);
+  expect(check.value()).toContain("✓ button is current");
+
+  const diff = outputBuffer();
+  expect(
+    runCli(["diff", "button"], {
+      cwd: root,
+      stdout: diff.stream,
+      stderr: outputBuffer().stream,
+    }),
+  ).toBe(0);
+  expect(diff.value()).toContain("there is no upstream diff");
+
+  const update = outputBuffer();
+  expect(
+    runCli(["update", "button"], {
+      cwd: root,
+      stdout: update.stream,
+      stderr: outputBuffer().stream,
+    }),
+  ).toBe(0);
+  expect(update.value()).toContain("Everything is already current.");
+  expect(readFileSync(target, "utf8")).toBe(formatted);
 });
 
 test("reports modified source and refuses to update it implicitly", () => {

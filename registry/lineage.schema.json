@@ -42,6 +42,15 @@
             "pattern": "^sha256:[a-f0-9]{64}$"
           }
         },
+        "sources": {
+          "description": "Compressed source snapshots used to recognize formatter-only application changes.",
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^gzip:[A-Za-z0-9+/]+={0,2}$"
+          }
+        },
         "dependencies": {
           "type": "object",
           "additionalProperties": { "type": "string" }

@@ -73,6 +73,7 @@
     "axios": "^1.19.0",
     "chrono-node": "^2.10.1",
     "happy-dom": "^20.11.1",
+    "prettier-plugin-svelte": "^4.1.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "storybook": "10.4.6",
@@ -89,5 +90,9 @@
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "make-synchronized": "^0.8.0",
+    "prettier": "^3.9.6"
   }
 }
