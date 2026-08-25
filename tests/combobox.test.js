@@ -67,6 +67,8 @@ test("uses an editable combobox with one owned listbox and typed form value", as
   expect(input.attributes("role")).toBe("combobox");
   expect(input.attributes("aria-autocomplete")).toBe("list");
   expect(input.attributes("aria-expanded")).toBe("false");
+  expect(input.attributes("popovertarget")).toBeUndefined();
+  expect(input.attributes("popovertargetaction")).toBeUndefined();
   expect(input.attributes("aria-required")).toBe("true");
   expect(input.attributes("aria-labelledby")).toBe("project-label");
   expect(input.element.value).toBe("Slipway");
