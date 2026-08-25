@@ -7,6 +7,8 @@ import {
   createInstallPlan,
   KleanInstallerError,
 } from "./installer.js";
+import { unarchiveSource } from "./source-archive.js";
+import { createSourceFormatter } from "./source-formatter.js";
 
 const CLI_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_REGISTRY_DIRECTORY = resolve(CLI_DIRECTORY, "../registry");
@@ -53,6 +55,26 @@ export function registryNames(options = {}) {
     .sort();
 }
 
+function validSourceArchives(revision) {
+  if (revision.sources === undefined) return true;
+  if (!revision.sources || typeof revision.sources !== "object") return false;
+
+  const files = Object.keys(revision.files ?? {});
+  if (Object.keys(revision.sources).length !== files.length) return false;
+
+  try {
+    return files.every(
+      (path) =>
+        typeof revision.sources[path] === "string" &&
+        revision.sources[path].startsWith("gzip:") &&
+        hashSource(unarchiveSource(revision.sources[path])) ===
+          revision.files[path],
+    );
+  } catch {
+    return false;
+  }
+}
+
 export function readRegistryLineage(options = {}) {
   const path = resolve(registryDirectory(options), "lineage.json");
 
@@ -90,6 +112,7 @@ export function readRegistryLineage(options = {}) {
           Object.values(revision.files).every((hash) =>
             /^sha256:[a-f0-9]{64}$/.test(hash),
           );
+        const validSources = validSourceArchives(revision);
         const validRevision =
           Number.isInteger(revision.revision) &&
           revision.revision > previousRevision;
@@ -105,6 +128,7 @@ export function readRegistryLineage(options = {}) {
 
         if (
           !validFiles ||
+          !validSources ||
           !validRevision ||
           !validDependencies ||
           !validNotes
@@ -131,7 +155,7 @@ function ownedFiles(plan, component) {
   return plan.files.filter((file) => file.component === component);
 }
 
-function matchesRevision(files, revision) {
+function matchesRevision(files, revision, sourceFormatter) {
   const existingFiles = files.filter(
     (file) => file.currentSource !== undefined,
   );
@@ -143,19 +167,38 @@ function matchesRevision(files, revision) {
     existingFiles.map((file) => [file.displayPath, file.currentSource]),
   );
 
-  return revisionFiles.every(
+  const exactMatch = revisionFiles.every(
     ([path, hash]) =>
       currentByPath.has(path) && hashSource(currentByPath.get(path)) === hash,
   );
+
+  if (exactMatch) return true;
+  if (!sourceFormatter || !revision.sources) return false;
+
+  const filesByPath = new Map(
+    existingFiles.map((file) => [file.displayPath, file]),
+  );
+
+  return revisionFiles.every(([path]) => {
+    const file = filesByPath.get(path);
+    const archivedSource = revision.sources[path];
+    if (!file || !archivedSource) return false;
+
+    return sourceFormatter.equivalent(
+      file.currentSource,
+      unarchiveSource(archivedSource),
+      file.targetPath,
+    );
+  });
 }
 
-function knownRevision(files, revisions) {
+function knownRevision(files, revisions, sourceFormatter) {
   return [...revisions]
     .reverse()
-    .find((revision) => matchesRevision(files, revision));
+    .find((revision) => matchesRevision(files, revision, sourceFormatter));
 }
 
-function classifyItem(plan, component, lineage) {
+function classifyItem(plan, component, lineage, sourceFormatter) {
   const files = ownedFiles(plan, component);
   const existingFiles = files.filter(
     (file) => file.currentSource !== undefined,
@@ -187,11 +230,19 @@ function classifyItem(plan, component, lineage) {
     };
   }
 
-  const matchedRevision = knownRevision(files, revisions);
+  const matchedRevision = knownRevision(files, revisions, sourceFormatter);
+  const matchesLatest =
+    matchedRevision &&
+    latestRevision &&
+    matchedRevision.revision === latestRevision.revision;
 
   return {
     component,
-    status: matchedRevision ? "update" : "modified",
+    status: matchedRevision
+      ? matchesLatest
+        ? "current"
+        : "update"
+      : "modified",
     files,
     revisions,
     latestRevision,
@@ -267,14 +318,17 @@ export function createCheckReport(options = {}) {
     createInstallPlan(component, installOptions(options)),
   );
   const detectionPlan = plans[0];
+  const sourceFormatter =
+    options.sourceFormatter ??
+    (detectionPlan ? createSourceFormatter(detectionPlan.root) : undefined);
   const knownTargets = new Set();
   const entries = [];
 
   for (const [index, component] of names.entries()) {
     const plan = plans[index];
-    const state = classifyItem(plan, component, lineage);
+    const state = classifyItem(plan, component, lineage, sourceFormatter);
     const states = plan.registryItems.map((item) =>
-      classifyItem(plan, item, lineage),
+      classifyItem(plan, item, lineage, sourceFormatter),
     );
 
     for (const file of state.files) knownTargets.add(file.targetPath);
@@ -410,8 +464,10 @@ function updateFileActions(state, overwrite) {
 export function createUpdatePlan(component, options = {}) {
   const lineage = readRegistryLineage(options);
   const plan = createInstallPlan(component, installOptions(options));
+  const sourceFormatter =
+    options.sourceFormatter ?? createSourceFormatter(plan.root);
   const states = plan.registryItems.map((item) =>
-    classifyItem(plan, item, lineage),
+    classifyItem(plan, item, lineage, sourceFormatter),
   );
   const rootState = states.find((state) => state.component === component);
 
@@ -568,7 +624,7 @@ export function unifiedDiff(before, after, path, context = 3) {
 export function createDiffReport(component, options = {}) {
   const plan = createUpdatePlan(component, options);
   const files = plan.files
-    .filter((file) => file.currentSource !== file.registrySource)
+    .filter((file) => file.action !== "unchanged")
     .map((file) => ({
       ...file,
       diff: unifiedDiff(

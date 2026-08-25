@@ -5,10 +5,12 @@ import {
   rmSync,
   writeFileSync,
 } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createInstallPlan } from "../cli/installer.js";
+import { archiveSource, unarchiveSource } from "../cli/source-archive.js";
 import {
   hashSource,
   readRegistryLineage,
@@ -76,6 +78,76 @@ function sameSnapshot(left, right) {
   return JSON.stringify(left) === JSON.stringify(right);
 }
 
+function sourceFromHistory(file, expectedHash) {
+  if (hashSource(file.registrySource) === expectedHash) {
+    return file.registrySource;
+  }
+
+  const sourcePath = relative(ROOT, file.sourcePath);
+  const commits = execFileSync(
+    "git",
+    ["log", "--format=%H", "--all", "--", sourcePath],
+    { cwd: ROOT, encoding: "utf8" },
+  )
+    .trim()
+    .split("\n")
+    .filter(Boolean);
+
+  for (const commit of commits) {
+    try {
+      const source = execFileSync("git", ["show", `${commit}:${sourcePath}`], {
+        cwd: ROOT,
+        encoding: "utf8",
+      });
+      if (hashSource(source) === expectedHash) return source;
+    } catch {
+      // The path may not exist in a commit that only changed a related file.
+    }
+  }
+
+  throw new Error(
+    `Could not recover known source ${file.displayPath} (${expectedHash}) from registry history.`,
+  );
+}
+
+function hydrateRevisionSources(revisions, files) {
+  const fileByTarget = new Map(files.map((file) => [file.displayPath, file]));
+
+  return revisions.map((revision) => {
+    try {
+      const sources = Object.fromEntries(
+        Object.entries(revision.files).map(([path, expectedHash]) => {
+          const archived = revision.sources?.[path];
+          if (archived) {
+            try {
+              if (hashSource(unarchiveSource(archived)) === expectedHash) {
+                return [path, archived];
+              }
+            } catch {
+              // Recover the source below so corrupt maintainer metadata cannot persist.
+            }
+          }
+
+          const file = fileByTarget.get(path);
+          if (!file) {
+            throw new Error(
+              `Could not map known source ${path} to the current registry manifest.`,
+            );
+          }
+          return [path, archiveSource(sourceFromHistory(file, expectedHash))];
+        }),
+      );
+
+      return { ...revision, sources };
+    } catch {
+      // Some early revisions were recorded more than once inside a squashed PR,
+      // so their intermediate source never entered Git history. Their raw hash
+      // remains valid; every recoverable and current revision gets an archive.
+      return revision;
+    }
+  });
+}
+
 try {
   const lineage = readRegistryLineage({
     registryDirectory: REGISTRY_DIRECTORY,
@@ -115,18 +187,35 @@ try {
           .filter((file) => file.component === component)
           .map((file) => [file.displayPath, hashSource(file.registrySource)]),
       );
+      const componentFiles = plan.files.filter(
+        (file) => file.component === component,
+      );
       const snapshot = {
         files,
+        sources: Object.fromEntries(
+          componentFiles.map((file) => [
+            file.displayPath,
+            archiveSource(file.registrySource),
+          ]),
+        ),
         dependencies: manifest.frameworks[framework].dependencies ?? {},
       };
-      const revisions = next.items[component][framework] ?? [];
+      const storedRevisions = next.items[component][framework] ?? [];
+      const revisions = hydrateRevisionSources(storedRevisions, componentFiles);
       const current = revisions.at(-1);
       const currentSnapshot = current
         ? { files: current.files, dependencies: current.dependencies }
         : undefined;
+      const nextSnapshot = {
+        files: snapshot.files,
+        dependencies: snapshot.dependencies,
+      };
 
-      if (currentSnapshot && sameSnapshot(currentSnapshot, snapshot)) {
+      if (currentSnapshot && sameSnapshot(currentSnapshot, nextSnapshot)) {
         next.items[component][framework] = revisions;
+        if (!sameSnapshot(storedRevisions, revisions)) {
+          changed.push(`${component}/${framework} source archives`);
+        }
         continue;
       }
 

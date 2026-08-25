@@ -10,6 +10,8 @@ import {
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { KleanInstallerError } from "../cli/installer.js";
+import { archiveSource } from "../cli/source-archive.js";
+import { createSourceFormatter } from "../cli/source-formatter.js";
 import {
   applyUpdatePlan,
   createCheckReport,
@@ -135,6 +137,12 @@ function revision(revisionNumber, files, dependencies = {}, notes = []) {
     files: Object.fromEntries(
       Object.entries(files).map(([path, source]) => [path, hashSource(source)]),
     ),
+    sources: Object.fromEntries(
+      Object.entries(files).map(([path, source]) => [
+        path,
+        archiveSource(source),
+      ]),
+    ),
     dependencies,
     migrationNotes: notes,
   };
@@ -203,6 +211,33 @@ function widgetRegistry() {
   return { registry, oldSource, latestSource };
 }
 
+const FORMATTER_SOURCES = {
+  vue: `<script setup>\nconst props = defineProps({ label: { type: String, default: "Save" } });\n</script>\n\n<template><button type="button" class="inline-flex px-4 py-2">{{ props.label }}</button></template>\n`,
+  react: `export function Formatted({ label = "Save" }) { return <button type="button" className="inline-flex px-4 py-2">{label}</button>; }\n`,
+  svelte: `<script>\nlet { label = "Save" } = $props();\n</script>\n\n<button type="button" class="inline-flex px-4 py-2">{label}</button>\n`,
+};
+
+function formatterRegistry() {
+  const registry = makeRegistry();
+  writeRegistryItem(registry, "formatted", {
+    files: componentFiles("formatted", FORMATTER_SOURCES),
+  });
+  writeLineage(registry, {
+    formatted: Object.fromEntries(
+      Object.entries(FRAMEWORKS).map(([framework, fixture]) => [
+        framework,
+        [
+          revision(1, {
+            [`formatted/formatted.${fixture.extension}`]:
+              FORMATTER_SOURCES[framework],
+          }),
+        ],
+      ]),
+    ),
+  });
+  return registry;
+}
+
 for (const [framework, fixture] of Object.entries(FRAMEWORKS)) {
   test(`recognizes and safely updates unchanged historical ${framework} source`, () => {
     const { registry, oldSource, latestSource } = widgetRegistry();
@@ -259,6 +294,78 @@ for (const [framework, fixture] of Object.entries(FRAMEWORKS)) {
     ).toBe(0);
   });
 }
+
+for (const [framework, fixture] of Object.entries(FRAMEWORKS)) {
+  test(`recognizes formatter-only changes in current ${framework} source`, () => {
+    const registry = formatterRegistry();
+    const root = makeApp(framework);
+    write(
+      resolve(root, ".prettierrc.json"),
+      `${JSON.stringify({ singleQuote: true, semi: false }, null, 2)}\n`,
+    );
+    const target = resolve(
+      root,
+      `assets/js/components/ui/formatted/formatted.${fixture.extension}`,
+    );
+    const formatter = createSourceFormatter(root);
+    const applicationSource = formatter.format(
+      FORMATTER_SOURCES[framework],
+      target,
+    );
+    expect(applicationSource).not.toBe(FORMATTER_SOURCES[framework]);
+    write(target, applicationSource);
+
+    const check = createCheckReport({ cwd: root, registryDirectory: registry });
+    expect(check.exitCode).toBe(0);
+    expect(check.entries[0]).toEqual(
+      expect.objectContaining({ component: "formatted", status: "current" }),
+    );
+
+    const diff = createDiffReport("formatted", {
+      cwd: root,
+      registryDirectory: registry,
+    });
+    expect(diff.exitCode).toBe(0);
+    expect(diff.files).toEqual([]);
+    expect(readFileSync(target, "utf8")).toBe(applicationSource);
+
+    write(target, applicationSource.replace("Save", "Delete"));
+    const modified = createCheckReport({
+      cwd: root,
+      registryDirectory: registry,
+    });
+    expect(modified.entries[0].status).toBe("modified");
+    expect(
+      createUpdatePlan("formatted", {
+        cwd: root,
+        registryDirectory: registry,
+      }).hasConflicts,
+    ).toBe(true);
+  });
+}
+
+test("uses the application's formatter version when it is available", () => {
+  const root = makeApp("vue", { prettier: "test" });
+  const prettierDirectory = resolve(root, "node_modules/prettier");
+  write(
+    resolve(prettierDirectory, "package.json"),
+    `${JSON.stringify({
+      name: "prettier",
+      version: "0.0.0-test",
+      type: "module",
+      exports: "./index.js",
+    })}\n`,
+  );
+  write(
+    resolve(prettierDirectory, "index.js"),
+    `export async function resolveConfig() { return { application: true } }\nexport async function format(source, options) { return options.application ? \`application:\${source}\` : \`bundled:\${source}\` }\n`,
+  );
+
+  const target = resolve(root, "assets/js/components/ui/example.js");
+  expect(createSourceFormatter(root).format("const value = 1", target)).toBe(
+    "application:const value = 1",
+  );
+});
 
 test("distinguishes locally modified and untracked source without writing", () => {
   const { registry } = widgetRegistry();
