@@ -382,7 +382,6 @@ defineExpose({
         :data-state="isOpen ? 'open' : 'closed'"
         :class="inputClasses"
         :style="attrs.style"
-        @focus="openCombobox('selected')"
         @click="openCombobox('selected')"
         @input="handleInput"
         @keydown="handleKeydown"
