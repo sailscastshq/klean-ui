@@ -65,8 +65,8 @@ test("the 0.0.1 package metadata describes the copied-source product", () => {
   );
 });
 
-test("every public component has complete framework-native registry source", () => {
-  expect(componentNames).toHaveLength(42);
+test("every public registry item has complete framework-native source", () => {
+  expect(componentNames).toHaveLength(43);
 
   const gaps = [];
 
@@ -111,11 +111,13 @@ test("every public component has complete framework-native registry source", () 
   expect(gaps).toEqual([]);
 });
 
-test("every registry component is compiled through all three Storybooks", () => {
+test("every visual registry component is compiled through all three Storybooks", () => {
   const gaps = [];
 
   for (const component of componentNames) {
-    const componentName = primaryComponentName(manifestFor(component));
+    const manifest = manifestFor(component);
+    if (manifest.kind === "utility") continue;
+    const componentName = primaryComponentName(manifest);
     const stories = [
       resolve("stories", `${componentName}.stories.js`),
       resolve("stories/react", `${componentName}.stories.jsx`),
@@ -151,6 +153,7 @@ test("the Vue workbench renders the source that consumers actually receive", () 
     const drift = [];
 
     for (const component of componentNames) {
+      if (manifestFor(component).kind === "utility") continue;
       const plan = createInstallPlan(component, {
         cwd: applicationRoot,
         framework: "vue",

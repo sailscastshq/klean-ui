@@ -12,6 +12,11 @@
     "description": {
       "type": "string"
     },
+    "kind": {
+      "type": "string",
+      "enum": ["component", "utility"],
+      "default": "component"
+    },
     "registryDependencies": {
       "type": "array",
       "items": {
