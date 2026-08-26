@@ -11,11 +11,15 @@ export default {
     },
     options: {
       storySort: {
-        order: ['Klean UI', ['Introduction', 'Durable UI'], 'Components'],
+        order: [
+          "Klean UI",
+          ["Introduction", "Durable UI", "Theming"],
+          "Components",
+        ],
       },
     },
     a11y: {
-      test: 'error',
+      test: "error",
     },
   },
-}
+};
