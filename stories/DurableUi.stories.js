@@ -50,6 +50,8 @@ export const Contract = {
         <section class="grid gap-10 bg-white px-5 py-16 sm:px-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:px-12 lg:py-24" aria-labelledby="durable-surface-title">
           <div>
             <h2 id="durable-surface-title" class="text-3xl font-semibold tracking-[-0.04em]">Opinionated outcomes. Small APIs.</h2>
+            <pre class="mt-8 overflow-x-auto bg-klean-ink p-4 font-mono text-sm text-white"><code>npx klean-ui add durable-ui</code></pre>
+            <p class="mt-4 max-w-sm text-sm leading-6 text-klean-muted">One command. Framework-native source. No provider or state runtime.</p>
           </div>
           <ul class="grid gap-x-10 gap-y-6 text-sm leading-6 text-klean-muted sm:grid-cols-2" role="list">
             <li><strong class="block text-klean-ink">State resilience</strong>Storage, URL state, drafts, wizards, and scroll restoration.</li>
@@ -57,6 +59,22 @@ export const Contract = {
             <li><strong class="block text-klean-ink">Async resilience</strong>Optimistic rollback, toast queues, and stale-request cancellation.</li>
             <li><strong class="block text-klean-ink">Boring Stack fit</strong>Inertia-aware recipes and Sails integration without forcing them into every primitive.</li>
           </ul>
+        </section>
+
+        <section class="border-t border-klean-line bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24" aria-labelledby="durable-api-title">
+          <h2 id="durable-api-title" class="text-3xl font-semibold tracking-[-0.04em]">Seven focused tools. Compose only what the flow needs.</h2>
+          <div class="mt-10 overflow-x-auto">
+            <table class="w-full min-w-3xl border-collapse text-left text-sm">
+              <thead><tr class="border-b border-klean-line"><th class="py-3 pr-6 font-medium">Need</th><th class="py-3 pr-6 font-medium">Vue / React</th><th class="py-3 font-medium">Svelte</th></tr></thead>
+              <tbody class="divide-y divide-klean-line text-klean-muted">
+                <tr><td class="py-4 pr-6 text-klean-ink">Preference</td><td class="py-4 pr-6 font-mono">useStoredState</td><td class="py-4 font-mono">createStoredState</td></tr>
+                <tr><td class="py-4 pr-6 text-klean-ink">Shareable context</td><td class="py-4 pr-6 font-mono">useQueryState</td><td class="py-4 font-mono">createQueryState</td></tr>
+                <tr><td class="py-4 pr-6 text-klean-ink">User effort</td><td class="py-4 pr-6 font-mono">useFormDraft / useWizardDraft</td><td class="py-4 font-mono">createFormDraft / createWizardDraft</td></tr>
+                <tr><td class="py-4 pr-6 text-klean-ink">Return position</td><td class="py-4 pr-6 font-mono">useScrollRestoration</td><td class="py-4 font-mono">createScrollRestoration</td></tr>
+                <tr><td class="py-4 pr-6 text-klean-ink">Async recovery</td><td class="py-4 pr-6 font-mono">useOptimistic / useSearch</td><td class="py-4 font-mono">createOptimistic / createSearch</td></tr>
+              </tbody>
+            </table>
+          </div>
         </section>
       </main>
     `,

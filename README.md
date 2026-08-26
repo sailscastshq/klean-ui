@@ -19,6 +19,7 @@ npx klean-ui add menu
 npx klean-ui add select
 npx klean-ui add dialog
 npx klean-ui add toast
+npx klean-ui add durable-ui
 ```
 
 Klean detects Sails and the frontend framework from `package.json` and the conventional application entry. It then installs the selected framework-native registry item and its prerequisites. Button is one source file:
@@ -58,6 +59,16 @@ npx klean-ui add button \
 Klean will not silently replace edited source. Re-running an unchanged installation is a no-op; edited files produce a useful conflict and require the deliberate `--overwrite` flag.
 
 Read [the complete installation guide](https://docs.sailscasts.com/klean-ui/installation).
+
+## Add the resilience layer
+
+Durable UI is Klean source, not a second runtime package. One zero-configuration command adds the framework-native utilities and their small browser core:
+
+```bash
+npx klean-ui add durable-ui
+```
+
+Vue and React receive idiomatic `useStoredState`, `useQueryState`, `useFormDraft`, `useWizardDraft`, `useScrollRestoration`, `useOptimistic`, and `useSearch` APIs. Svelte receives the equivalent `create…` rune APIs. Defaults are SSR-safe and use namespaced, versioned storage; URL defaults stay out of the address; drafts expire and restore deliberately; scroll is session-scoped; optimistic work rolls back; and stale searches are aborted. No provider, initializer, manifest, or Klean state runtime is introduced.
 
 ## Update owned source safely
 

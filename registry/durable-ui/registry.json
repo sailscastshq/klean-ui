@@ -1,0 +1,104 @@
+{
+  "$schema": "../schema.json",
+  "name": "durable-ui",
+  "kind": "utility",
+  "description": "Framework-native resilience utilities for stored state, URL state, drafts, wizard progress, scroll, optimistic work, and cancellable search.",
+  "frameworks": {
+    "vue": {
+      "files": [
+        { "source": "core.js", "target": "durable-ui/core.js" },
+        {
+          "source": "vue/useStoredState.js",
+          "target": "durable-ui/useStoredState.js"
+        },
+        {
+          "source": "vue/useQueryState.js",
+          "target": "durable-ui/useQueryState.js"
+        },
+        {
+          "source": "vue/useFormDraft.js",
+          "target": "durable-ui/useFormDraft.js"
+        },
+        {
+          "source": "vue/useWizardDraft.js",
+          "target": "durable-ui/useWizardDraft.js"
+        },
+        {
+          "source": "vue/useScrollRestoration.js",
+          "target": "durable-ui/useScrollRestoration.js"
+        },
+        {
+          "source": "vue/useOptimistic.js",
+          "target": "durable-ui/useOptimistic.js"
+        },
+        { "source": "vue/useSearch.js", "target": "durable-ui/useSearch.js" }
+      ],
+      "dependencies": {}
+    },
+    "react": {
+      "files": [
+        { "source": "core.js", "target": "durable-ui/core.js" },
+        {
+          "source": "react/useStoredState.js",
+          "target": "durable-ui/useStoredState.js"
+        },
+        {
+          "source": "react/useQueryState.js",
+          "target": "durable-ui/useQueryState.js"
+        },
+        {
+          "source": "react/useFormDraft.js",
+          "target": "durable-ui/useFormDraft.js"
+        },
+        {
+          "source": "react/useWizardDraft.js",
+          "target": "durable-ui/useWizardDraft.js"
+        },
+        {
+          "source": "react/useScrollRestoration.js",
+          "target": "durable-ui/useScrollRestoration.js"
+        },
+        {
+          "source": "react/useOptimistic.js",
+          "target": "durable-ui/useOptimistic.js"
+        },
+        { "source": "react/useSearch.js", "target": "durable-ui/useSearch.js" }
+      ],
+      "dependencies": {}
+    },
+    "svelte": {
+      "files": [
+        { "source": "core.js", "target": "durable-ui/core.js" },
+        {
+          "source": "svelte/storedState.svelte.js",
+          "target": "durable-ui/storedState.svelte.js"
+        },
+        {
+          "source": "svelte/queryState.svelte.js",
+          "target": "durable-ui/queryState.svelte.js"
+        },
+        {
+          "source": "svelte/formDraft.svelte.js",
+          "target": "durable-ui/formDraft.svelte.js"
+        },
+        {
+          "source": "svelte/wizardDraft.svelte.js",
+          "target": "durable-ui/wizardDraft.svelte.js"
+        },
+        {
+          "source": "svelte/scrollRestoration.svelte.js",
+          "target": "durable-ui/scrollRestoration.svelte.js"
+        },
+        {
+          "source": "svelte/optimistic.svelte.js",
+          "target": "durable-ui/optimistic.svelte.js"
+        },
+        {
+          "source": "svelte/search.svelte.js",
+          "target": "durable-ui/search.svelte.js"
+        }
+      ],
+      "dependencies": {}
+    }
+  }
+}
