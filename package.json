@@ -21,7 +21,7 @@
     "url": "https://github.com/sailscastshq/klean-ui/issues"
   },
   "bin": {
-    "klean-ui": "./bin/klean-ui.js"
+    "klean-ui": "bin/klean-ui.js"
   },
   "files": [
     "bin",

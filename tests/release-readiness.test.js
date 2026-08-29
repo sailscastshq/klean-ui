@@ -52,7 +52,7 @@ test("the 0.0.1 package metadata describes the copied-source product", () => {
   expect(packageJson.version).toBe("0.0.1");
   expect(packageJson.homepage).toBe("https://docs.sailscasts.com/klean-ui/");
   expect(packageJson.files).toEqual(["bin", "cli", "registry", "README.md"]);
-  expect(packageJson.bin).toEqual({ "klean-ui": "./bin/klean-ui.js" });
+  expect(packageJson.bin).toEqual({ "klean-ui": "bin/klean-ui.js" });
   expect(packageJson.dependencies).toHaveProperty("prettier");
   expect(packageJson.dependencies).toHaveProperty("make-synchronized");
   expect(packageJson.dependencies).not.toHaveProperty("prettier-plugin-svelte");
