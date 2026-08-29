@@ -27,6 +27,7 @@
     "bin",
     "cli",
     "registry",
+    "skills",
     "README.md"
   ],
   "publishConfig": {

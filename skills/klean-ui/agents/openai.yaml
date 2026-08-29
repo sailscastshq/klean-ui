@@ -1,0 +1,4 @@
+interface:
+  display_name: "Klean UI"
+  short_description: "Build source-owned, durable application UI"
+  default_prompt: "Use $klean-ui to build this interface with Klean UI conventions."

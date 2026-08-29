@@ -138,6 +138,7 @@ try {
   assert.ok(
     existsSync(resolve(installedPackage, "registry/button/registry.json")),
   );
+  assert.ok(existsSync(resolve(installedPackage, "skills/klean-ui/SKILL.md")));
 
   for (const framework of ["vue", "react", "svelte"]) {
     const { applicationRoot, extension } = applicationFixture(framework);

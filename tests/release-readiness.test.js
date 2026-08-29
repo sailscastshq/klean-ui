@@ -51,7 +51,13 @@ test("the 0.0.1 package metadata describes the copied-source product", () => {
   expect(packageJson.name).toBe("klean-ui");
   expect(packageJson.version).toBe("0.0.1");
   expect(packageJson.homepage).toBe("https://docs.sailscasts.com/klean-ui/");
-  expect(packageJson.files).toEqual(["bin", "cli", "registry", "README.md"]);
+  expect(packageJson.files).toEqual([
+    "bin",
+    "cli",
+    "registry",
+    "skills",
+    "README.md",
+  ]);
   expect(packageJson.bin).toEqual({ "klean-ui": "bin/klean-ui.js" });
   expect(packageJson.dependencies).toHaveProperty("prettier");
   expect(packageJson.dependencies).toHaveProperty("make-synchronized");
@@ -62,6 +68,10 @@ test("the 0.0.1 package metadata describes the copied-source product", () => {
   expect(existsSync(resolve("docs"))).toBe(false);
   expect(readFileSync(resolve("README.md"), "utf8")).toContain(
     "The canonical documentation lives at [docs.sailscasts.com/klean-ui]",
+  );
+  expect(existsSync(resolve("skills/klean-ui/SKILL.md"))).toBe(true);
+  expect(readFileSync(resolve("skills/klean-ui/SKILL.md"), "utf8")).toContain(
+    "name: klean-ui",
   );
 });
 

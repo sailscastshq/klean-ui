@@ -60,6 +60,20 @@ Klean will not silently replace edited source. Re-running an unchanged installat
 
 Read [the complete installation guide](https://docs.sailscasts.com/klean-ui/installation).
 
+## Give your coding agent the Klean UI skill
+
+Install the project-level skill from the Klean UI repository:
+
+```bash
+npx skills add sailscastshq/klean-ui --skill klean-ui
+```
+
+Then invoke `$klean-ui` when building, migrating, or reviewing an interface. The
+skill teaches the agent Klean's source-ownership, Tailwind, native-platform,
+accessibility, and Durable UI decisions; the canonical component APIs remain in
+the documentation. Add `-g` to the installation command only when you want the
+skill available across projects.
+
 ## Add the resilience layer
 
 Durable UI is Klean source, not a second runtime package. One zero-configuration command adds the framework-native utilities and their small browser core:
