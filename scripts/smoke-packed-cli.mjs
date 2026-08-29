@@ -117,12 +117,28 @@ try {
   const installedMetadata = JSON.parse(
     readFileSync(resolve(installedPackage, "package.json"), "utf8"),
   );
+  const installedExecutable = resolve(
+    installDirectory,
+    "node_modules/.bin/klean-ui",
+  );
 
   assert.equal(installedMetadata.version, "0.0.1");
+  assert.deepEqual(installedMetadata.bin, {
+    "klean-ui": "bin/klean-ui.js",
+  });
   assert.ok(existsSync(cli));
+  assert.ok(existsSync(installedExecutable));
+  assert.equal(
+    run("npm", ["exec", "--offline", "--", "klean-ui", "--version"], {
+      cwd: installDirectory,
+      env: { ...process.env, npm_config_cache: npmCache },
+    }).trim(),
+    "0.0.1",
+  );
   assert.ok(
     existsSync(resolve(installedPackage, "registry/button/registry.json")),
   );
+  assert.ok(existsSync(resolve(installedPackage, "skills/klean-ui/SKILL.md")));
 
   for (const framework of ["vue", "react", "svelte"]) {
     const { applicationRoot, extension } = applicationFixture(framework);
