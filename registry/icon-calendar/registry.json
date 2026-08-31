@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-calendar",
+  "description": "A calendar page for dates and schedules.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Calendar.vue",
+      "target": "icons/Calendar.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Calendar.jsx",
+      "target": "icons/Calendar.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Calendar.svelte",
+      "target": "icons/Calendar.svelte",
+      "dependencies": {}
+    }
+  }
+}

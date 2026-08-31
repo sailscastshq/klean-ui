@@ -76,7 +76,7 @@ test("the 0.0.1 package metadata describes the copied-source product", () => {
 });
 
 test("every public registry item has complete framework-native source", () => {
-  expect(componentNames).toHaveLength(43);
+  expect(componentNames).toHaveLength(55);
 
   const gaps = [];
 
@@ -111,7 +111,9 @@ test("every public registry item has complete framework-native source", () => {
         if (!existsSync(source)) {
           gaps.push(`${component}/${framework}: missing ${file.source}`);
         }
-        if (!file.target.startsWith(`${component}/`)) {
+        const expectedDirectory =
+          manifest.kind === "icon" ? "icons/" : `${component}/`;
+        if (!file.target.startsWith(expectedDirectory)) {
           gaps.push(`${component}/${framework}: unconventional ${file.target}`);
         }
       }
@@ -128,10 +130,11 @@ test("every visual registry component is compiled through all three Storybooks",
     const manifest = manifestFor(component);
     if (manifest.kind === "utility") continue;
     const componentName = primaryComponentName(manifest);
+    const storyName = manifest.kind === "icon" ? "Icons" : componentName;
     const stories = [
-      resolve("stories", `${componentName}.stories.js`),
-      resolve("stories/react", `${componentName}.stories.jsx`),
-      resolve("stories/svelte", `${componentName}.stories.js`),
+      resolve("stories", `${storyName}.stories.js`),
+      resolve("stories/react", `${storyName}.stories.jsx`),
+      resolve("stories/svelte", `${storyName}.stories.js`),
     ];
 
     for (const story of stories) {
@@ -163,7 +166,8 @@ test("the Vue workbench renders the source that consumers actually receive", () 
     const drift = [];
 
     for (const component of componentNames) {
-      if (manifestFor(component).kind === "utility") continue;
+      const manifest = manifestFor(component);
+      if (manifest.kind === "utility") continue;
       const plan = createInstallPlan(component, {
         cwd: applicationRoot,
         framework: "vue",
@@ -172,11 +176,10 @@ test("the Vue workbench renders the source that consumers actually receive", () 
       for (const file of plan.files.filter(
         (candidate) => candidate.component === component,
       )) {
-        const workbenchSource = resolve(
-          "src/vue",
-          component,
-          basename(file.targetPath),
-        );
+        const workbenchSource =
+          manifest.kind === "icon"
+            ? resolve("src/vue/icons", basename(file.targetPath))
+            : resolve("src/vue", component, basename(file.targetPath));
 
         if (!existsSync(workbenchSource)) {
           drift.push(`${component}: missing ${workbenchSource}`);

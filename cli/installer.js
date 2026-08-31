@@ -74,6 +74,12 @@ const ENTRY_PATTERNS = {
   ],
 };
 
+export function publicRegistryName(component) {
+  return component.startsWith("icon-")
+    ? `icon ${component.slice("icon-".length)}`
+    : component;
+}
+
 export class KleanInstallerError extends Error {
   constructor(message, options = {}) {
     super(message);
@@ -307,7 +313,7 @@ function validateRegistryPath(root, path, label) {
 function loadRegistryItem(component, registryDirectory) {
   if (!/^[a-z0-9-]+$/.test(component)) {
     throw new KleanInstallerError(
-      `Invalid component name \`${component}\`. Component names use lowercase letters, numbers, and hyphens.`,
+      `Invalid component name \`${publicRegistryName(component)}\`. Component names use lowercase letters, numbers, and hyphens.`,
       { code: "INVALID_COMPONENT" },
     );
   }
@@ -317,7 +323,7 @@ function loadRegistryItem(component, registryDirectory) {
 
   if (!existsSync(manifestPath)) {
     throw new KleanInstallerError(
-      `Klean UI does not have a registry item named \`${component}\`.`,
+      `Klean UI does not have a registry item named \`${publicRegistryName(component)}\`.`,
       { code: "UNKNOWN_COMPONENT" },
     );
   }
@@ -498,6 +504,9 @@ function rewriteRegistryImports(
 }
 
 export function createInstallPlan(component, options = {}) {
+  const requestedComponents = Array.isArray(component)
+    ? component
+    : [component];
   const application = findApplicationRoot(options.cwd);
   const sourceFormatter =
     options.sourceFormatter ?? createSourceFormatter(application.root);
@@ -509,13 +518,19 @@ export function createInstallPlan(component, options = {}) {
   const registryDirectory = resolve(
     options.registryDirectory ?? DEFAULT_REGISTRY_DIRECTORY,
   );
-  const registryItems = [
-    ...resolveRegistryItems(
-      component,
+  const registryState = {
+    visiting: [],
+    resolved: new Map(),
+  };
+  for (const requestedComponent of requestedComponents) {
+    resolveRegistryItems(
+      requestedComponent,
       frameworkDetection.framework,
       registryDirectory,
-    ).resolved.values(),
-  ];
+      registryState,
+    );
+  }
+  const registryItems = [...registryState.resolved.values()];
 
   const componentsDirectory = ensureInsideRoot(
     application.root,
@@ -645,7 +660,9 @@ export function createInstallPlan(component, options = {}) {
 
   return {
     operation: "add",
-    component,
+    component:
+      requestedComponents.length === 1 ? requestedComponents[0] : "icons",
+    requestedComponents,
     root: application.root,
     packagePath: application.packagePath,
     packageManager: detectPackageManager(
@@ -859,7 +876,7 @@ export function applyInstallPlan(plan, options = {}) {
     }
 
     throw new KleanInstallerError(
-      `Klean UI could not ${plan.operation ?? "add"} ${plan.component}; changes to component and package files were rolled back. ${error.message}`,
+      `Klean UI could not ${plan.operation ?? "add"} ${publicRegistryName(plan.component)}; changes to component and package files were rolled back. ${error.message}`,
       { code: "APPLY_FAILED", plan, cause: error },
     );
   }

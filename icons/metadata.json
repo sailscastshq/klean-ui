@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "canvas": 24,
+  "strokeWidth": 1.5,
+  "provenance": "Original Klean geometry drawn from the repeated interface needs in Slipway and Hagfish. Iconoir, Heroicons, Lucide, Tabler, Phosphor, and Material Symbols were visual references only.",
+  "icons": [
+    {
+      "name": "Trash",
+      "description": "A waste bin for destructive removal actions.",
+      "keywords": ["delete", "remove", "discard"],
+      "opticalBounds": [4.5, 4.25, 19.5, 20]
+    },
+    {
+      "name": "Search",
+      "description": "A magnifying glass for search and discovery.",
+      "keywords": ["find", "filter", "lookup"],
+      "opticalBounds": [4.5, 4.5, 19.5, 19.5]
+    },
+    {
+      "name": "Calendar",
+      "description": "A calendar page for dates and schedules.",
+      "keywords": ["date", "schedule", "event"],
+      "opticalBounds": [3.75, 3.75, 20.25, 19.75]
+    },
+    {
+      "name": "CheckCircle",
+      "description": "A checked circle for successful or completed status.",
+      "keywords": ["success", "complete", "approved"],
+      "opticalBounds": [3.75, 3.75, 20.25, 20.25]
+    },
+    {
+      "name": "X",
+      "description": "A crossing mark for close, clear, or cancel actions.",
+      "keywords": ["close", "clear", "cancel"],
+      "opticalBounds": [6.5, 6.5, 17.5, 17.5]
+    },
+    {
+      "name": "ChevronRight",
+      "description": "A right-facing chevron for forward navigation.",
+      "keywords": ["next", "forward", "disclosure"],
+      "opticalBounds": [8.75, 6.25, 15.25, 17.75]
+    },
+    {
+      "name": "Copy",
+      "description": "Two overlapping sheets for copying content.",
+      "keywords": ["duplicate", "clipboard", "clone"],
+      "opticalBounds": [4.5, 4.5, 19.5, 19.5]
+    },
+    {
+      "name": "User",
+      "description": "A person for accounts, profiles, and ownership.",
+      "keywords": ["person", "profile", "account"],
+      "opticalBounds": [5.5, 4.75, 18.5, 20]
+    },
+    {
+      "name": "Folder",
+      "description": "A tabbed folder for projects and grouped files.",
+      "keywords": ["project", "directory", "files"],
+      "opticalBounds": [3.5, 5.25, 20.5, 19]
+    },
+    {
+      "name": "Server",
+      "description": "A stacked server for infrastructure and deployments.",
+      "keywords": ["machine", "host", "infrastructure"],
+      "opticalBounds": [3.75, 3.75, 20.25, 20.25]
+    },
+    {
+      "name": "Bell",
+      "description": "A bell for notifications and updates.",
+      "keywords": ["notification", "alert", "updates"],
+      "opticalBounds": [5, 3.75, 19, 20.25]
+    },
+    {
+      "name": "Rocket",
+      "description": "Klean's launch mark for deploy and release actions.",
+      "keywords": ["deploy", "launch", "release"],
+      "opticalBounds": [3.75, 3.25, 20.25, 20.75]
+    }
+  ]
+}

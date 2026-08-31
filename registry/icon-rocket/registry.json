@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-rocket",
+  "description": "Klean's launch mark for deploy and release actions.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Rocket.vue",
+      "target": "icons/Rocket.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Rocket.jsx",
+      "target": "icons/Rocket.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Rocket.svelte",
+      "target": "icons/Rocket.svelte",
+      "dependencies": {}
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-folder",
+  "description": "A tabbed folder for projects and grouped files.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Folder.vue",
+      "target": "icons/Folder.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Folder.jsx",
+      "target": "icons/Folder.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Folder.svelte",
+      "target": "icons/Folder.svelte",
+      "dependencies": {}
+    }
+  }
+}

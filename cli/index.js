@@ -26,9 +26,12 @@ export const HELP = `Klean UI — source-owned components for the Boring Stack
 
 Usage:
   klean-ui add <component> [options]
-  klean-ui check [options]
+  klean-ui add icon <name...> [options]
+  klean-ui check [icon <name...>] [options]
   klean-ui diff <component> [options]
+  klean-ui diff icon <name> [options]
   klean-ui update <component> [options]
+  klean-ui update icon <name> [options]
   klean-ui update --all [options]
 
 Examples:
@@ -41,6 +44,7 @@ Examples:
   klean-ui add dialog
   klean-ui add toast
   klean-ui add data-table
+  klean-ui add icon trash search calendar
   klean-ui add button --dry-run
   klean-ui add button --components-dir assets/js/components/ui
   klean-ui check
@@ -93,7 +97,10 @@ export function runCli(argv, options = {}) {
     };
 
     if (parsed.command === "check") {
-      const report = createCheckReport(commandOptions);
+      const report = createCheckReport({
+        ...commandOptions,
+        ...(parsed.components.length ? { components: parsed.components } : {}),
+      });
       stdout.write(`${formatDetection(report.detectionPlan)}\n\n`);
       stdout.write(`${formatCheckReport(report)}\n`);
       return report.exitCode;
@@ -124,7 +131,10 @@ export function runCli(argv, options = {}) {
       return update.skipped.length ? 2 : 0;
     }
 
-    const plan = createInstallPlan(parsed.component, commandOptions);
+    const plan = createInstallPlan(
+      parsed.components.length > 1 ? parsed.components : parsed.component,
+      commandOptions,
+    );
 
     stdout.write(`${formatDetection(plan)}\n\n`);
     detectionPrinted = true;

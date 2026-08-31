@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-trash",
+  "description": "A waste bin for destructive removal actions.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Trash.vue",
+      "target": "icons/Trash.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Trash.jsx",
+      "target": "icons/Trash.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Trash.svelte",
+      "target": "icons/Trash.svelte",
+      "dependencies": {}
+    }
+  }
+}

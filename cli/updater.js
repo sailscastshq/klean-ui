@@ -6,6 +6,7 @@ import {
   applyInstallPlan,
   createInstallPlan,
   KleanInstallerError,
+  publicRegistryName,
 } from "./installer.js";
 import { unarchiveSource } from "./source-archive.js";
 import { createSourceFormatter } from "./source-formatter.js";
@@ -312,7 +313,7 @@ function installOptions(options) {
 }
 
 export function createCheckReport(options = {}) {
-  const names = registryNames(options);
+  const names = options.components ?? registryNames(options);
   const lineage = readRegistryLineage(options);
   const plans = names.map((component) =>
     createInstallPlan(component, installOptions(options)),
@@ -352,9 +353,11 @@ export function createCheckReport(options = {}) {
     });
   }
 
-  const untracked = listFiles(detectionPlan?.componentsDirectory).filter(
-    (path) => !knownTargets.has(path),
-  );
+  const untracked = options.components
+    ? []
+    : listFiles(detectionPlan?.componentsDirectory).filter(
+        (path) => !knownTargets.has(path),
+      );
   const attention =
     entries.some((entry) => entry.status !== "current") || untracked.length > 0;
 
@@ -380,15 +383,15 @@ export function formatCheckReport(report) {
 
   for (const entry of report.entries) {
     if (entry.status === "current") {
-      lines.push(`✓ ${entry.component} is current`);
+      lines.push(`✓ ${publicRegistryName(entry.component)} is current`);
     } else if (entry.status === "update") {
       lines.push(
         entry.sourceStatus === "current"
-          ? `↑ ${entry.component} needs a direct dependency update`
-          : `↑ ${entry.component} has an update (${revisionLabel(entry.matchedRevision)} → ${revisionLabel(entry.latestRevision)})`,
+          ? `↑ ${publicRegistryName(entry.component)} needs a direct dependency update`
+          : `↑ ${publicRegistryName(entry.component)} has an update (${revisionLabel(entry.matchedRevision)} → ${revisionLabel(entry.latestRevision)})`,
       );
     } else {
-      lines.push(`! ${entry.component} has local changes`);
+      lines.push(`! ${publicRegistryName(entry.component)} has local changes`);
     }
   }
 
@@ -473,7 +476,7 @@ export function createUpdatePlan(component, options = {}) {
 
   if (!rootState || rootState.status === "absent") {
     throw new KleanInstallerError(
-      `${component} is not installed. Use \`klean-ui add ${component}\` instead.`,
+      `${publicRegistryName(component)} is not installed. Use \`klean-ui add ${publicRegistryName(component)}\` instead.`,
       { code: "NOT_INSTALLED", plan },
     );
   }
@@ -655,11 +658,11 @@ export function formatDiffReport(report) {
   for (const state of report.plan.states) {
     if (state.status === "update") {
       lines.push(
-        `${state.component}: ${revisionLabel(state.matchedRevision)} → ${revisionLabel(state.latestRevision)}`,
+        `${publicRegistryName(state.component)}: ${revisionLabel(state.matchedRevision)} → ${revisionLabel(state.latestRevision)}`,
       );
     } else if (state.status === "modified") {
       lines.push(
-        `${state.component}: local source is not a known Klean revision`,
+        `${publicRegistryName(state.component)}: local source is not a known Klean revision`,
       );
     }
   }
@@ -704,7 +707,7 @@ export function formatDiffReport(report) {
     !report.dependencyConflicts.length
   ) {
     lines.push(
-      `${report.plan.component} is current; there is no upstream diff.`,
+      `${publicRegistryName(report.plan.component)} is current; there is no upstream diff.`,
     );
   }
 

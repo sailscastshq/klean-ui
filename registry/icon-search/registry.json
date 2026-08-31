@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-search",
+  "description": "A magnifying glass for search and discovery.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Search.vue",
+      "target": "icons/Search.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Search.jsx",
+      "target": "icons/Search.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Search.svelte",
+      "target": "icons/Search.svelte",
+      "dependencies": {}
+    }
+  }
+}

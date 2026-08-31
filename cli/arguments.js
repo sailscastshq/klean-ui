@@ -59,30 +59,17 @@ export function parseArguments(argv) {
   }
 
   const rest = [...commandArguments];
-  let component;
-
-  if (rest[0] && !rest[0].startsWith("--")) {
-    component = rest.shift();
-  }
-
-  if (["add", "diff"].includes(command) && !component) {
-    throw new KleanInstallerError(
-      `The ${command} command needs a component name, for example \`klean-ui ${command} button\`.`,
-      { code: "INVALID_ARGUMENTS" },
-    );
-  }
-
-  if (command === "check" && component) {
-    throw new KleanInstallerError(
-      "The check command inspects every installed component and does not accept a component name.",
-      { code: "INVALID_ARGUMENTS" },
-    );
-  }
-
   const options = {};
+  const positionals = [];
 
   for (let index = 0; index < rest.length; index += 1) {
     const rawOption = rest[index];
+
+    if (!rawOption.startsWith("--")) {
+      positionals.push(rawOption);
+      continue;
+    }
+
     const optionName = rawOption.split("=")[0];
 
     if (BOOLEAN_OPTIONS.has(optionName)) {
@@ -114,6 +101,64 @@ export function parseArguments(argv) {
     );
   }
 
+  let components = [];
+  let collection;
+
+  if (positionals[0] === "icon") {
+    collection = "icon";
+    const iconNames = positionals.slice(1);
+
+    if (!iconNames.length) {
+      throw new KleanInstallerError(
+        `The ${command} command needs an icon name, for example \`klean-ui ${command} icon trash\`.`,
+        { code: "INVALID_ARGUMENTS" },
+      );
+    }
+
+    for (const iconName of iconNames) {
+      if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(iconName)) {
+        throw new KleanInstallerError(
+          `Invalid icon name \`${iconName}\`. Icon names use lowercase letters, numbers, and hyphens.`,
+          { code: "INVALID_ARGUMENTS" },
+        );
+      }
+    }
+
+    components = iconNames.map((name) => `icon-${name}`);
+  } else {
+    components = positionals;
+  }
+
+  if (["add", "diff"].includes(command) && !components.length) {
+    throw new KleanInstallerError(
+      `The ${command} command needs a component name, for example \`klean-ui ${command} button\`.`,
+      { code: "INVALID_ARGUMENTS" },
+    );
+  }
+
+  if (!collection && components.length > 1) {
+    throw new KleanInstallerError(
+      `The ${command} command accepts one component name. Use \`klean-ui ${command} icon <name...>\` for icons.`,
+      { code: "INVALID_ARGUMENTS" },
+    );
+  }
+
+  if (command === "check" && components.length && collection !== "icon") {
+    throw new KleanInstallerError(
+      "The check command inspects every installed component, or selected icons with `klean-ui check icon <name...>`.",
+      { code: "INVALID_ARGUMENTS" },
+    );
+  }
+
+  if (["diff", "update"].includes(command) && components.length > 1) {
+    throw new KleanInstallerError(
+      `The ${command} command inspects one item at a time. Run it once per icon.`,
+      { code: "INVALID_ARGUMENTS" },
+    );
+  }
+
+  const component = components[0];
+
   for (const option of Object.keys(options)) {
     if (
       !COMMAND_OPTIONS[command].has(option) &&
@@ -136,6 +181,8 @@ export function parseArguments(argv) {
   return {
     command,
     component,
+    components,
+    collection,
     options,
   };
 }

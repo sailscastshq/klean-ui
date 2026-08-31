@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-copy",
+  "description": "Two overlapping sheets for copying content.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Copy.vue",
+      "target": "icons/Copy.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Copy.jsx",
+      "target": "icons/Copy.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Copy.svelte",
+      "target": "icons/Copy.svelte",
+      "dependencies": {}
+    }
+  }
+}

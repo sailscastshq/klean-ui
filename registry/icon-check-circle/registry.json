@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-check-circle",
+  "description": "A checked circle for successful or completed status.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/CheckCircle.vue",
+      "target": "icons/CheckCircle.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/CheckCircle.jsx",
+      "target": "icons/CheckCircle.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/CheckCircle.svelte",
+      "target": "icons/CheckCircle.svelte",
+      "dependencies": {}
+    }
+  }
+}
