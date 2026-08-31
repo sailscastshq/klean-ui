@@ -45,11 +45,11 @@ function primaryComponentName(manifest) {
   return basename(primary.target, ".vue");
 }
 
-test("the 0.0.1 package metadata describes the copied-source product", () => {
+test("the 0.0.2 package metadata describes the copied-source product", () => {
   const packageJson = JSON.parse(readFileSync(resolve("package.json"), "utf8"));
 
   expect(packageJson.name).toBe("klean-ui");
-  expect(packageJson.version).toBe("0.0.1");
+  expect(packageJson.version).toBe("0.0.2");
   expect(packageJson.homepage).toBe("https://docs.sailscasts.com/klean-ui/");
   expect(packageJson.files).toEqual([
     "bin",
