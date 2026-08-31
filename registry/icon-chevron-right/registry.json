@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-chevron-right",
+  "description": "A right-facing chevron for forward navigation.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ChevronRight.vue",
+      "target": "icons/ChevronRight.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ChevronRight.jsx",
+      "target": "icons/ChevronRight.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ChevronRight.svelte",
+      "target": "icons/ChevronRight.svelte",
+      "dependencies": {}
+    }
+  }
+}

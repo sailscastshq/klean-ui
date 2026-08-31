@@ -14,7 +14,7 @@
     },
     "kind": {
       "type": "string",
-      "enum": ["component", "utility"],
+      "enum": ["component", "icon", "utility"],
       "default": "component"
     },
     "registryDependencies": {

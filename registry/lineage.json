@@ -2588,6 +2588,498 @@
           "migrationNotes": []
         }
       ]
+    },
+    "icon-bell": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Bell.vue": "sha256:8bb86414bae6c68eee39bb17e22fb9cc13a6c696fad9c48daf63769fd23aa6c0"
+          },
+          "sources": {
+            "icons/Bell.vue": "gzip:H4sIAAAAAAACE2WSwW7cIBCG736KEeohPTA2eLG1ibHU5lz1GYjNrklZsACvI0V59wh7q27UE/N/w/wDA10cgpkTRJ2WuS9GfTJO/56T8S4+vINxkw4m/UgpxEc4KRs1fHx/Krpyr+uLokv6MluVdF8AdPF6LgAA3i7WRUmmlObHslzXFdcafTiXvKqqMl7PZNt2NXr96d8kqaACfgB+2PlqxjRJwvRl15M25yndgZOxVhLnnd51TMH/0ZIMSwjapWdvfbjP0L+OKL5ga5we1CxJ8Isb/0u9euO+5FQwik5mHLWTJIXl1v7khyWqF6sl2Ya001ElRaP1SRIzeHe7Mn0xbpTkm8pDzazfeDerNG0RwCjJrwa5AFYhF0NFa2yBIxO0AYGtoE3MC3CsNw3NUMEBBbAsBNa3qMFWTJRlB4aHjVG++W4m2N6GUd4dYWt+zF7H3BuFwKYFhnULDHjmkeFRUKzrLCkje3mXX7UvuvLff/gErp9S+l0CAAA="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Bell.jsx": "sha256:577a4a0f32f5b3505799a55af0e99218a8317311620611ef5d06592dfca3591a"
+          },
+          "sources": {
+            "icons/Bell.jsx": "gzip:H4sIAAAAAAACE2WSwa7bIBBF9/6KEatEqscGB1tpQhev23bTTdfUhpiWgAU4jhTl3yv7OVHTt2LuuaM7CMacBx8S3ED7MMnQ/VAa7qCDPwMJSraJHLKs9S4meFPWgvincaNH1ybj3WJthuCH+AmC0lu4ZQBBpTE42GQAAMd4OS0FwPVsXRSkT2n4XBTTNOFUoQ+ngpVlWcTLiayNF6OmN38VpIQS2A7Y7uFMpku9IFSdH6RX5tSnF6SNtYI479SDxBT8HyVIO4agXPrqrQ+v3s81GPkr/2acauUgSPCj6z56v71x/5kyGJn3puuUEySF8XkL7dsxyl9WCaKljU/eySTzaH0SxLTePfANEZenva8gKC1uQel3/WWlx0GmHjpBvtfIONASGW/LvMIGGFKe18Cx4Xkd5wMYVouGui1hhxzoLDhWa1Vjw/uczgkUdwvL2ZK7hGDDCRQfR+/npP08GTnHugGKVQMU2MwjxT3PsapmmdNnwHH+87ncHrL79pBl6rrsZKe0HO373h2yv6DUUbepAgAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Bell.svelte": "sha256:f3632c8b318d609d1381bbbbc3ddad9698145941f3fa1dd2170de9b18bc7b1e0"
+          },
+          "sources": {
+            "icons/Bell.svelte": "gzip:H4sIAAAAAAACE12RQW7DIBBF9z7FCHXRLhgbHGylNVm06x7CtYlNS8ACEkeKcvcK1KRVV8x/A/9rhi4MXi9xVwAYFeECiLh4twS4goSHXD4+vRRdebtYdOE0FQDng7FBkjnG5bks13XFtUbnp5JXVVWG00QKgJNW66s7S1JBBXwDfJPoqsc4S8LUIalZ6WmOd7nXxkhinVVJhejdl5JkOHqvbHxzxvlfTm9OKP5Ao60a+kUS7452/Nf4dNr+6fRe93TW46isJNEfc+jeDcfQfxglyb43IbOxjz0NxkVJ9OBsQpfbrq5F2l+39HEuAABGSd4b5AJYhVwMFa2xBY5M0AYEtoI2IR3Asc4amqGCDQpgSQisf6oGWzFTlhwYbjKjPPtmE2zz1OU9PAdvk8825aIQ2LTAsG6BAU88MNwKinWdJGUkPe7SZ+2Kb52nHP8KAgAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "icon-calendar": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Calendar.vue": "sha256:f594dc557347a2315e34dccfc8b1d217bb7714c9037817f42e25b5b62c69ccc3"
+          },
+          "sources": {
+            "icons/Calendar.vue": "gzip:H4sIAAAAAAACE2VSy27bMBC86ysWixzag6mHLTcPUUDTs5FvYKS1yYYmBXJlOSj674EecWzkNjvDGZJDVrEJpmOIxH1XJy3tjaOXjo138cc/ME5TMPybOcRH2CsbCf7/fEqqdPbVSVIxHTurmOoEoIqnQwIAcD5aFyVq5u4xTYdhEMNa+HBIiyzL0ng64LTsZGh49meJGWRQbKDYzPxgWtYSczrOsyZz0HxF7I21Ep13NM+Rg38jiU0fAjn+460P18rqM1GUN7Q1jhrVSQy+d+036a837kZTwaiVNm1LTiKHftl+75s+qldLEqeSZrZVrFbRepZoGu+WK69ejWsl3qmx1JGrJ74K1DCcJa7FrxLhXWIpSrw0sR2HSw0bUZQI4SyxmFC6ZHSKNbQSd/cwxpzWotzl2y88AngQpZ7zrm0TgsWcr7XI8l1eXND2E93D6L3IC8bFftv2dLhJmXaqxoevkyr9+jIfg2qr24ACAAA="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Calendar.jsx": "sha256:3ca2d6d0fe608d8117b170b46244809c6443819f39ce1081f8e0f01366ffa4f3"
+          },
+          "sources": {
+            "icons/Calendar.jsx": "gzip:H4sIAAAAAAACE2WST5ObMAzF73wKjU7JTNf8SUi3TdxD99pceunZC3JwS2xGmEAnk+/egQVvaW8/vWc9e2SZa+PYwx20415x+Z00PECzuwIyqcLjMYoKZ1sPL6omWyoG+dfhje5s4Y2zwd407Jr2AzDpLdwjACbfsYVNBABwam+XCQCGa21biZX3zec47vte9Dvh+BJnSZLE7e2C88Gbof6rGyQmkEC2h2y/OL0pfSUxpeuiVGQulV9J2tS1ROssLUrr2f0iiUXHTNa/uNrx2vsxB4t8rX8zlgrVSGTX2fJ/76cz9h9TsVFPlSlLshI9d+EV2hVdq15rkqhV3Qa9VF49tbXzEk3h7CLfhRDTaB+zwKTlnUm/1V9m9cRUeBgk7sTHHOG3xFzkGCZ1GIswpL3IcgQeJGYTxSGlUb6CUuL5Gcag207k5/TwziPAJ5FXb4nrxplhDkh3lUjSc5oFOiz0DGN/sGfGELD6jemNszVfeBr3ZMTtMXpsj1FEw7TPJWnV1e87e4z+AFxqIWzpAgAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Calendar.svelte": "sha256:f7e03eaea38493e94177089711691060b374a09ec9f85415541e76aad4ce0f0e"
+          },
+          "sources": {
+            "icons/Calendar.svelte": "gzip:H4sIAAAAAAACE11Ry1LDIBTd8xV37rjQRcmrqVVDF7ruR2BCA0ohA+ThdPrvDrFN1d0553LOfVD52qku7AiAFgFOQCntnO08nIHB3QzvH15IlVwfksoPLQGYjtp4hjKE7jlJxnGkY0Gta5M8TdPEDy0SgEGJ8dVODFNIIV9Dvo7qqJogGWbiGJkUqpVhoQelNUNjjYjMB2c/BcO6d06Y8Ga1dTd9dU2i5S9RKyNq3jF0tjfNv8KHVeZXhTvFV1I1jTAMg+vnpgdb956/a8HwwLWftYYHvvLaBoaqtiZKp+utziTer3KiDjAxLOhjifDFsKQlLstuIll2XdO8RHATw3xGyZzQ8SChYbjfQgwZClrus80NRwBPtJQ/aTcTAYCLMSskTbN9li9oc0VbiL6lfME4m/8edB6KQOxQxb/ckW9KviAmKQIAAA=="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "icon-check-circle": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/CheckCircle.vue": "sha256:f3d5a141552d57229e63801beccba27d80341dc72ee7c061245d01a6764a4a13"
+          },
+          "sources": {
+            "icons/CheckCircle.vue": "gzip:H4sIAAAAAAACE2WRTU7DMBCF9znFyGIBi/w0NBIqcSTgAJzBtSfJgGNH9qQpQtwdpWlFKxa2Nd979mie66gDjQwReRqbxGBLDt9HJu/i/TeQ6zEQvzCHuINW2Yjw8/Cc1Pl6r0mSmnEYrWJsEoA6HroEAOA4WBel6JnHXZ7P85zNj5kPXV4WRZHHQydOtgPh/OqPUhRQQLmFcrvymQz3UmxwWOseqev5CrRkrRTOO1zryMF/ohR6CgEdv3nrw7WSXl7MqhtsyaFWoxTBT878kz48uRtNBVJpT8agk4LDdG7fej1FtbcoxSmklRrFKo3WsxSkvTuPnO7JGSnu1BLqwpoTrzUFbRH0UYpNKUB/rWeQ4ikrKwH52Tcq7sFIMSwYNuWyl9m6qqys0iq7uOsl6Sap878/+gWxk8i08QEAAA=="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/CheckCircle.jsx": "sha256:98fb8870cdf753cebcf849145d68ea32fda17d5fb0c24d1f319140e5cba59007"
+          },
+          "sources": {
+            "icons/CheckCircle.jsx": "gzip:H4sIAAAAAAACE2WSTW/bMAyG7/4VBE8JsMiOWwPDEvXQXHfapWdNpmKtsmhQcpwhyH8f8tmmO0iinvcFQZD0/cCS4QCOZTLS/iIHR3DCPaCQsRlXRWE5pgybjuz7xosNBPqTf+bGaLPn+NkxG4SH9A2E3BwOBYBQHiXCrAAAWKfd9hwA7PsQk8Yu5+FHWU7TpKYnxbIt66qqyrTb4tW48zS98l5jBRXUz1A/35TJt7nTuKT+Rjry2y4/IOdD0Bg50o2kLPxOGu0oQjFvOLA8am/XxKp55D99JGsGjcJjbP/X/rCPX0Qj3iw637YUNWYZ71U4tmMyvwNpdCakO29NNosUOGv0luMNH5RS59Yer0DI6YOQu/xfrnRtL3Oye43LGsH+vbyi8buqG4Ty7hxM7qDV2J8EWNanu1aX06i6WTTqw78+TeQUzlfFcb4qCtqf96clZ8bwsCOr4h9F6v1dXAIAAA=="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/CheckCircle.svelte": "sha256:23b7d51e31801af9cdb499e0e6833dfa34754ecd369ee77b52cf013420c48f82"
+          },
+          "sources": {
+            "icons/CheckCircle.svelte": "gzip:H4sIAAAAAAACE12QwW7DIBBE73zFatVDezC2aSxVrTeH9ksoJjYpBgtwnCrKv1fYShv1AOy8GS3StFEFM6U9A7A6wQU451PwU4QrEDys4+PTG2vLW5C18dQzgPNoXSQcUppey3JZFr48cx/6UlRVVcZTjwzgZPTy7s+EFVQgdiB2mS6mSwNhrcesBm36If3Kg7GW0Hmns4op+C9NqOYQtEsf3vrwx4vbJt7cQWucVnIiDH523T/j6I27c2QwshhM12lHmMK8fnrwao7y02rCg7RxZZ1MsojWJ0KjvMvocuvqynJ/rTJBWQ3qTFgLBPW9vYHwhYsGoVxTk0wDdIRjhlCLfAu+nYaLpmj4lm1ziXv2Awi/LKaiAQAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "icon-chevron-right": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/ChevronRight.vue": "sha256:257bf42bfe8ed8db69e8d67bda7b4cbad358a3f91d34756eb08955c62d534ead"
+          },
+          "sources": {
+            "icons/ChevronRight.vue": "gzip:H4sIAAAAAAACE2WQTU7DMBBG9znFyGIBi/wQmhaVOBJwAM7gxpNkwLEje9JUQtwdJWlFKzbWzPvGY/mVofY0MATkcagijQ1Z/BiYnA3330C2Q0/8yuzDHhplAsLPw0tUpuu9KopKxn4wirGKAMpwbCMAgFNvbJCiYx72aTpNUzI9Jc63aZ5lWRqOrVjGjoTTmztJkUEG+Qbyzcon0txJ8Yj92ndIbcdXoCFjpLDO4toH9u4LpahH79HyuzPOXyfxZWNS3GBDFms1SOHdaPW/6NORvcmUJxV3pDVaKdiP5+cbV49BHQxKsUhaqVas4mAcS0G1s+cvxweyWoo7NUudWbXwclDcgZaif052BWyTfD4KKJJdEV8KAemieTZYRWX65/4XP6me48kBAAA="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/ChevronRight.jsx": "sha256:c80d017b3fa376f7b124f96420971775374765e03e63a9b671b681cd42983b26"
+          },
+          "sources": {
+            "icons/ChevronRight.jsx": "gzip:H4sIAAAAAAACE2WSMU/DMBCF9/yKk6dWok4IDUW0ZqArUxdmk5wbQ+KLzk5TKep/R2kTRGCxnr/3fDrd2dYNcYAeDHGnuTiggQsYphoEo86D2EZRTs4H2Jd4YnIHeywDqF8PFqZ1ebDkZpFFw9T4O2A0S+gjAMbQsoNFBACw86fjVQCc68p5JcoQmuc47rpOdg+S+BinSZLE/nQUY/BksXulsxIJJJCuIV1PTmeLUCpxj/VEShx6mCFjq0oJRw4n4gPTFyqRt8zowp4q4rn3PhaW2Zy/WYe5bpRgal3x3/sk6/6Ymq1elbYo0CkRuP3pwlDeev1RoRJGV/6HFzrola8oKGFzchPupZTX0V5GwGhUz2hu95eR7hodSiiUqJ/kJoNHmQ5HBpncZKtJCIhv+d0w50Eut9FluY0iPF//RYFGt9V899voG3h+yFs1AgAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/ChevronRight.svelte": "sha256:dd23068a091e3f4ca28098bfaaa52c22b4ff9e5fc5dc8c0192e89bf1053ab226"
+          },
+          "sources": {
+            "icons/ChevronRight.svelte": "gzip:H4sIAAAAAAACE12QQU/EIBCF7/yKycSDHgq1bl2jpQf9JdiyBaVAgJZNNvvfDU2qGy+T9743mUleF4egfeoJgJEJLkAp9cH5CFfgcLfJ+4c30rF9kXRxnQjAeTY2clQp+VfGcs40P1EXJtbUdc3iOiEBWLXM7+7MsYYamgM0h0KzHpPi+Cjn4pTUk0q/9qSN4WidlcXFFNy35DgsIUibPpxx4Y9X+yXa3kCjrRyE5xjcYsd/wZfT9iYRQYtK6XGUlmMKy/b05IYlik8jOZ6EiRsbRRJVNC5x1IOzBV32rq6k9Nd5kRSMHOcXemzhmTZltNDSY1vtAoH1pcx16skPK7TzDXwBAAA="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "icon-copy": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Copy.vue": "sha256:87bc1a4d7052967988fcc51a0a6f5bb6836ef1893bd8f7bed93c630ad3718d69"
+          },
+          "sources": {
+            "icons/Copy.vue": "gzip:H4sIAAAAAAACE2VSsU7DMBDd8xUniwGGOHFIqARxJGBhQWzsJrk2BteO7EtThPh35KSlVAw++b3nd747uw6t1wNBQBqHJulwrS2+DKSdDZdfoG2PXtM9kQ+3sFYmIHxf3SV1tviaJKkJt4NRhE0CUIfdJgEA2G+NDZL1RMNtlk3TxKdr7vwmK/I8z8Juw+ZjO43Tg9tLlkMORQlFufCT7qiXTOB2wT3qTU9/iLU2RjLrLC44kHcfKFk7eo+WHp1x/q+SHjPy6ow22mKrBsm8G233T3p32p5pymuV9rrr0EpGfjxcv3btGNSbQcnmIS1sp0ilwTiSTLfOHlpO37TtJLtQcaiRa2a+9tgS7CVb8VXF4PO4ORYuZvQ7iAX6vWQFLyoG2SHLoKifdwCdZM/ihhcVxEy7VLR5KnhRpoLnIo22U3i64avqseKVgJJX8/oFUXoVZZtDdEN0Q/ScQi+W3uYi6vi8TVJnp4/xA/iAJldmAgAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Copy.jsx": "sha256:5aab52e7ee7a05aca5027e055bb92ec3612e99a314796f5820e3760256da092e"
+          },
+          "sources": {
+            "icons/Copy.jsx": "gzip:H4sIAAAAAAACE2VSsa7bMAzc/RWEpgSoZcu1X4Am6tAsHdqlQzurMhWrdSSDkmM/BPn3wk7s17SDCN4djxIo2nPnKcIVjKdBUf0NDdzAkD8DI1Q6sn2SaO9ChKPvXkH+VbgxvdPRejdLm458F94BodnCNQEgjD052CQAAIdwOc0JwHhuXZCsibH7kGXDMPDhPfd0yoo8z7NwObFH4cXi8MmPkuWQQ1FCUS7KYOvYSCbwvDAN2lMTnyhj21Yy5x0uTIjkf6NkuidCF4++9fSs/Xg05tUz/8U61KqTjHzv6v+1X966f0RFVqWNrWt0kkXq11cYr/ugfrYomVFtWPlaRZWG1kfJrPZuoa+c83m0twdBaOSV0Nzxxwd7INQRRsl2fFcxeF2SZVRiRuuY7pBGyQpeVAyytU+nYgO1ZF/FCy8qmLpcUqHzVPCiTAXPRTpZ3sLnF76rjhWvBJS8ms8KJum7KHUOkxsmN0yet9CI9fLD9PlTut0nt+0+SXCcl7NGo/r2voD75A8QBMncsgIAAA=="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Copy.svelte": "sha256:8f8e31a82427818489d26c33979b346fe5637fdb0c51178bb3c7fd8326ec67fd"
+          },
+          "sources": {
+            "icons/Copy.svelte": "gzip:H4sIAAAAAAACE11RsW7DIBDd+YoT6tAOxuCaRGpNhmbp0rU7xcSmJWABtlNF+fcKV06qDpzuveO9444mqmCGtEMAVic4AyFkCH6IcAEBd0t6//CMmnK9iJo4dQjgdLQuCtynNDyV5TzPZH4kPnRlRSkt49RhBDAZPb/4k8AUKFQ1VHVmZ9OmXmCmjxn12nR9usKDsVZg553OKKbgv7TAagxBu7T31ocbX6xOhP8hrXFayUHg4EfX/it8euP+VGQwsuhN22oncArj0vTg1Rjlh9UCH6SNC9fKJItofRLYKO8ydV53dUF5f03QKsFJ4C3Zcgzfa7K+kS3oOu0vDCeBK1JxDOXiMcjUIwCAVuA3tiEVh+wyFUzRgpGqLhihrMiSW3jdkC3fc8IZ1IQv5wpy6Z3VikJWQ1ZD1txCz/Iw5S7/8dTt0A+7UYbnEwIAAA=="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "icon-folder": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Folder.vue": "sha256:2eb892fdd9e97f805f283d18088a58e3a8b83e1f3bca6662136d59cd43227139"
+          },
+          "sources": {
+            "icons/Folder.vue": "gzip:H4sIAAAAAAACE2VSTU/EIBC991dMiAc9lJbuYl0tTdSLF+NvYFt2QVloYLo1Gv+7KfVjjReY9x68GWZoYhfMgBAVjkOb9WpnnHoa0HgXz9/BOK2CwVvEEK9hJ21U8HFxkzXFcq/NsgbVYbASVZsBNPG4zwAAXg/WRUE04nBdFNM00WlFfdgXVVmWRTzuSTp2NGq686+ClFBCtYZqvfCT6VELwtRhwVqZvcYTYmesFcR5pxYcMfgXJUg3hqAc3nvrw6mSfztS/oe2xqlODoIEP7r+n/TsjfujyWBkrk3fKycIhvEr/c53Y5RbqwRJTVrYXqLMo/UoiOm8+3pyvjWuF+RMzk2duTbxzSBRpwigF+RxRTnUlHdlzmi1BkZLlle04jAvKdIrymyVsK7ppqObGkpgtOa0vkp7Wo7JBWaXfHb5NUjRA6c1v/2BME+CwZydXdKavy1VFydF/pS3oVyzmixiM0+1zZri9z98Apx7HaddAgAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Folder.jsx": "sha256:6c489728da9f2289c0aff48ec0c856f4c93c74572a2f152c9dcd2cd3bf3407b4"
+          },
+          "sources": {
+            "icons/Folder.jsx": "gzip:H4sIAAAAAAACE22SQc/TMAyG7/0VVk6bRN2mWyljCxIgIQ5w+S6c87XJEsiSyk3XiWn/HbW0g/Fxcezntd5Yie2pDRThCjrQIKl5UhpuoCmcgJGSdWT7JKmD7yJ8Cq5RBOKv1pXufR1t8LO4aim03SsgpddwTQBIxZ48rBIAgEN3Pk4JwOXkfCeYibF9m2XDMOCwwUDHrMjzPOvORzY3nq0aPoSLYDnkUGyh2C7KYJtoBOPqtBCj7NHEB6Stc4L54NVCukjhhxKs7omUjx+DC/SofZuNsXzkX6xXtWwFo9D75qX2PVj/jyjJytTYplFesEj9fQod6r6Tz04JpqXr7ryRUaadC1EwWwe/4CsiTk97mwEpLa6k9O/63UwPrYwGGsG+brCECss6TzkWW+CY87TAooQxTJnZIHfFVJsKdzXuKsiBY1Vi9WY6p3CeXGB0SUeXPwZT9rnEqnx/L2H8JQ7j7fw1VuVPBtn/h9thaXh1lw/jn4/pep/c1vskUZdpLxulZe+W3dsnvwDjKcFZrwIAAA=="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Folder.svelte": "sha256:03810e57deced1a9f5966108df42bd764622fbefd170df3e92b6fdd83b1a0d5f"
+          },
+          "sources": {
+            "icons/Folder.svelte": "gzip:H4sIAAAAAAACE11Ry07DMBC85ytWFgc4ZBOnNaEQVwIuXPiIkLixwbUj20kqqv47sqU+xGV3Z9aaHY0b3zk1hm0GoEWAIyDi6Ozo4QQc7tJ4//CSNcX5Ydb4ecgADnttPCcyhPG5KJZlwWWF1g1FVZZl4eeBZACzEsubPXBSQgnVGqp1ZBfVB8kJFfuIpFCDDBe4U1pzYqwREfng7I/gpJucEya8W23dlc/PSshuSK2M6NqRE2cn0/9bfFtlbjatU20uVd8Lw0lwUzq6s93k2y8tONm12ieub0Obe20DJ6qzJlLHc1anLObXjG2QGQBAz8nnChnUyLoyp1itgWJJ8worBrGkSa6Q6iphWeOmw00NJVCsGdZPqacyJxWIKnlUuQqk6YNhzV4vEGLQFOJ1+og1+41Gi4u9i7UNMklrEldN/Kxt9gcYKWzCCgIAAA=="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "icon-rocket": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Rocket.vue": "sha256:7903203780645df5fbfc48f176763bea3c0482cd003451d6e5ef8855665055d9"
+          },
+          "sources": {
+            "icons/Rocket.vue": "gzip:H4sIAAAAAAACE2WSzY6bMBCA7zzFyOqhPXjABgPZ4khtr636DCw4wbuOjWwnpKr67pUhUTfby2jmm/+xuzB4PUcIKp7nfTaqg7bq5xy1s+Hjb9B2Ul7HLzH68ASH3gQFfz59zrp8y9tnWRfVaTZ9VPsMoAuXYwYAcD0ZGySZYpyf8nxZFlxKdP6Y86Io8nA5kjXsotXy1V0lKaAAXgGvNr7oMU6SMHXa7Enp4xTfgIM2RhLrrNrsEL17VZIMZ++Vjd+ccf6th94ronjARls19LMk3p3t+J/rxWn74Ou97umkx1FZSaI/39of3HAO/bNRkqxH2ujYx54G46IkenD2tjJ91naU5EOfjprYfuXd3McJRkl+7IBV2AgQSbAKBZSrVqMwFdbAkAkC+bu005a0A+SClklwymmKhQrrx/hVg7VZi6UA1mAtoEYBvEBhSmwogx0yQZMYGLK1Ek+tG1phiTtaY005lhR5QwVWLUXOE8Td9zQyK7E1lKXRgWMrKMP2dvr7JIP2g1EwXCVhaVcCwy9JWuSCgE9P1dzX7NKP2Wdd/u+v/QXJVEh1uQIAAA=="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Rocket.jsx": "sha256:e1969a2b4d607700703211f35ff35f3cbf41eedc89cc1686d5456eaecd0a65bb"
+          },
+          "sources": {
+            "icons/Rocket.jsx": "gzip:H4sIAAAAAAACE22SsZLbIBCGez3FDpU9E9YCCUmOTYqkvWuuSa0gZJHD4EHIcsbjd8/gsy9xLs3O8v3/wgJr9gcfIpyh92FuQ/eie7hAH/weSNCtimSTZcq7McKLV686gvzLuugnp6Lx7iYuDsEfxk8QdL+EcwYQdJyCg0UGALAdj7trAnDaWzdKMsR4+LxazfOMc4E+7FY8z/PVeNyRm/Fo9PzVnyTJIQdeAi/vymy6OEjC9P5OBm12Q3xAvbFWEuedvpMxBv+qJVFTCNrFb9768Kh9v22M4pE/GadVe5Ak+Ml1H7Wf3rh/xDaYlg6m67STJIbpvYveq2lsf1gtSd/a8Z13bWzpaH2UxCjv7viMiNenvdxA0L08B92/rb/c6PbQxgE6SZ7XwEqsBYgUWIkCimtWobAlVsCQCQKrD4X7t7I1IBe0SIFTTpMbSqz+V/HcYCGA1VgJqFAAz1HYAmvKYI1M0BQUQ3bdhaeDa1pigWtaYUU5FhR5TQWWDUXOE8T1U2qYFdhYylLjwLERlGHz0LMyQVkN6iQJS/ckoH5J0iAXBEL6v/qPfZtmKqXLTXZZbrJMn65z3+m+nex9tjfZb2aSy4kPAwAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Rocket.svelte": "sha256:4b09f2372d1dcef5adf25acd899a8aa68ff6ef2f469e8e14b42ed52eee3500eb"
+          },
+          "sources": {
+            "icons/Rocket.svelte": "gzip:H4sIAAAAAAACE11STZPbIAy9+1domB62B2SDjT9as4ftdfsjXExiWgIeIHE6O/vfd3AmbdqLRnp60pMEY1TBrOm5ALA6wRsg4hr8GuEdJHza3afPX4uxvBOLMV6OBcD1ZF2UZElp/VKW27bhVqMPx5JXVVXGy5EUABejtxd/laSCCngDvMnoZua0SML0KUeLNscl/QkPxlpJnHc6RzEF/0tLos4haJe+eevDX5zeO6F4AK1xWk2rJMGf3fxf4qc37iEzBTPRxcyzdpKkcN5FD16d4/TDakkOk407Nk9potH6JIlR3mXo7X6r9yLfb1yntMAsyfcBWIOdAJENa1BAvXstCttgCwyZIFD+U3S6lQyAXNA6G045zUxosH1kFwCwy/RYC2AdtgJaFMArFLbGjjIYkAmajWLI9i48i3a0wRoH2mJLOdYUeUcFNj1FzjOIw2seltXYW8ry0MCxF5Rhv9/3NoMyQVkN6ioJyxsSUL8l6ZELAiG/RXdbbsyf4Ln4AIXmliBiAgAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "icon-search": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Search.vue": "sha256:4c9fe7242eb7a890eb912e36592f9821e21d7937fcfb93024aeccc3d11322a0e"
+          },
+          "sources": {
+            "icons/Search.vue": "gzip:H4sIAAAAAAACE2WRQU7DMBBF9znFyGIBiyZpaEAqcSTgAJzBtSfJgGNH9qQpQtwdtUmhFZvRzPvftua7ijrQwBCRx6FODDbk8G1g8i7efgG5DgPxM3OIW2iUjQjfd09Jlc3n6iSpGPvBKsY6Aajivk0AAA69dVGKjnnYZtk0Tel0n/rQZkWe51nct+Jk2xNOL/4gRQ45FBsoNjOfyHAnxRr7ee6Q2o4vQEPWSuG8w3mOHPwHSqHHENDxq7c+XCqr841peYUtOdRqkCL40Zl/0rsnd6WpQGrVkTHopOAwLs83Xo9R7SxKcQpppkaxWkXrWQrS3i0rr3bkjBQ36hjqkdUnXmkK2iLogxTrPH0sBejP3zZI8ZAWpYBscQ+KOzBS9OsyLUqY6+ZcFl91TLpOquzvj34AggGDAfEBAAA="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Search.jsx": "sha256:06fff1aa30a15f0357a3ac6fe9c7ab3e105c9ffa2d937b6b4d0a33647395e9a0"
+          },
+          "sources": {
+            "icons/Search.jsx": "gzip:H4sIAAAAAAACE2WSMY/bMAyFd/8KglMC9GTHjVugiTq0a6d26KzKVKw7WTQoOU4R5L8Xl7ONpl2Ix+89EIRE3w8sGa7gWCYj7XdycAMn3AMKGZvxUBSWY8rwg4zYDvRf0Y0bo82e42xuBuEhvQMht4VrASCUR4mwKQAAjul8uguASx9i0tjlPHwqy2ma1PResZzKuqqqMp1POAfPnqYvfNFYQQX1Hur94ky+zZ3GHfUL6cifuvyAnA9BY+RIC0lZ+IU02lGEYv7KgeXR+zkPVs0j/+YjWTNoFB5j+7/3zD7+Yxrx5qnzbUtRY5Zx3cKxHZP5FUijMyGtvDXZPKXAWaO3HBd8VUrdn/Y2AyGnr0Lurf8806P1YgOBvWjcVepjg2B/r1I0flB1g1Cu+cHkDlqN/a5RdQNvdb+UNXl8/ZFXuT0Ut+2hKOhyv5qWnBnDchmH4g8thLwQTQIAAA=="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Search.svelte": "sha256:c3e9ac0f64730308bd7a33bd6b00ea2a8ae5a81c8af93b21e6bfe44eb60848b4"
+          },
+          "sources": {
+            "icons/Search.svelte": "gzip:H4sIAAAAAAACE12QzU7EMAyE73kKy+IAh6Y/tCBBvQd4kpCmbSBNqiT9Qat9d9SiLisu1sznkS1NHaTXYzwxAKMinIFzPno3BrgAwd0u7x9eWZ0eQVaHuWMA62BsIOxjHF/SdFkWvjxy57u0yLIsDXOHDGDWanlzK2EGGRQlFOVGF93EnjBXw+Z6pbs+Xm2rjSG0zqrNhejdlyKUk/fKxndnnP/jyXGJVzfQaKukGAm9m2zzb/HptL3ZCK9F0uumUZYw+ml/2jo5BfFhFGErTNhZI6JIgnGRUEtnN3Q+urqwrb9aai+NArkS5hl/rhDk91V6wideVAjpnh1F7KEhHPKKFxX8zvIYe6reSjyxHxfPzaOiAQAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "icon-server": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Server.vue": "sha256:0dfb7beda77dfb1788e1f4b470fd1c47dbc91c8a62bca37659f41f5b38b3d673"
+          },
+          "sources": {
+            "icons/Server.vue": "gzip:H4sIAAAAAAACE5WSTU7DMBCF9znFaMQCFnV+iltR4kjAuuIMJpk2BteO7ElThLg7akKBCrFgN/M9+4397DLWwXQMkbjvqqShjXH02LHxLl6+gXEtBcN3zCGuYKNtJHi/uk3KdNpXJUnJtOusZqoSgDLutwkAwGFnXVTYMnerNB2GQQxz4cM2LbIsS+N+i+OyvaHh3h8UZpBBcQ3F9cQH03CrMKfd1Ldkti3/ABtjrULnHU195OBfSGHdh0COH7z14acyOzkKeYatcVTrTmHwvWt+Sc/euDNNB6NnrWkacgo59J/jN77uo36ypHAMaaKNZj2L1rNCU3v3eeXZk3GNwgt9DPXIqpGXgWqGg8K5WEqE11NxOvhCSPzKYTFK4aCwEIVESP/yyOfivx6d5hYaheulKCQsRS5bkeXrPJtqKZZykvKFuDlJYy1Hx9GnPL5xlZTp9+/4AJyzfoZrAgAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Server.jsx": "sha256:ddfb4c6ace0e5afd89f650760ce8fd351434f76d55abcdcafb35b3d60628c0b5"
+          },
+          "sources": {
+            "icons/Server.jsx": "gzip:H4sIAAAAAAACE5WSPW/bMBCGd/2Kw0020FAfDm0kNju0a7M0Q2ZGOlpMZVI4UpYKw/+9iCwZdYoO2V4+z+EFcTh7aD1HOIHx3GuufpKBMxj2B0AmXUbcJknpXYjwTHwkBvXX6MJ0rozWu0kuWvZt+AJMZgmnBIApduxgkQAA7MJxPwaA4dC4oLCOsX1M077vRb8SnvdpkWVZGo57nAaPlvpvflCYQQbFPRT3s+ltFWuFOR1mUpPd1/EGGds0Cp13NJMQ2f8ihWXHTC5+943nW/cyFQt5y39YR6VuFbLvXPWve/PWfZCarb6rbVWRUxi5u/7C+LIL+rUhhUY34corHfVdaHxUaEvvZnwSQoyrPU+AyagTk7m8v050x1RGGBSuxEYi/J7DvKq1kHjd0npUPCgsRCER0v+35Cvx+ZZWxxoqhU8bUUjYiFzWIsuf8uySpdjIi8rX4mFWY5Zj59S0e7+G97jcJuflNkloGC+2IqO7Zr7KbfIHmvsTSckCAAA="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Server.svelte": "sha256:6e913f7151a27779df085235b2a3ec2520d0cf96243b9930587843537f953651"
+          },
+          "sources": {
+            "icons/Server.svelte": "gzip:H4sIAAAAAAACE5WRzU7DMBCE73mK1YoDHLr5ad0IiHuAcx/CJG7i4tqR7fygqu+OkiqlQly4zXxjjdfrwpdOtWEXAWgZ4AxE1DrbergAh4dZPj69RkW8HIwK39cRwHjSxnNsQmhf4ngYBhrWZF0dZ0mSxL6vMQLolRze7MgxgQSyDWSbiQ6qCg3HVJ4m10hVN+FmD0prjsYaOTkfnP2UHMvOOWnCu9XW/fDV0kTsDmplZClajs52pvoVHK0yd4lwSqwaVVXScAyumy892LLz4kNLjgeh/cwqEcTKaxs4qtKaCZ2XXV2iaX+Fk2WAkeOacobwtYhlxi0xvD12O0du5JhRxhDivxvSNf2voRWhgYrjPqeMQU4payhJ92ly1Yxydo3SLT0v0azZ3Bfvpq/u6130DT7VGFsaAgAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "icon-trash": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Trash.vue": "sha256:44f622c03d39523a2519e30f014bbaa2d4da507625302f6b84ae76ba07bc2b1a"
+          },
+          "sources": {
+            "icons/Trash.vue": "gzip:H4sIAAAAAAACE22SwU7DMAyG730KK+IAh6ZNt6wDmkrAGfEMoc2WQJZUidsiId4dde3EYJzi//sdW3ZSxSaYDiEq7Ls6adXOOPXSofEuXn+CcVoFgw+IId7BTtqo4OvmPqmy+V6dJBWqQ2clqjoBqOKwTwAAPg7WRUE0YneXZeM40nFFfdhnRZ7nWRz25Jg2GDU++g9BcsihWEOxnvloWtSCMHWYtVZmr/EM7Iy1gjjv1KwjBv+uBGn6EJTDJ299OHfSU0XKf2FrnGpkJ0jwvWsvrDdv3C9PBiNTbdpWOUEw9Ev7nW/6KF+tEuS4pJm2EmUarUdBTOPdMnL6alwryJWcljqx+sirTqKGVpDnNeVQ0oJrxglkf93bozekjPImT+l2RTflJIBRPp161dDtCvJJ000JizVMk19UO2yWXrTkwArK9S3llpY8ncQ/3VkOjA2cFvyZrU/hkldN71onVfbzI74Brb866l8CAAA="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Trash.jsx": "sha256:a310f68ac362b26d14b7e63082b4f7ced91027061ebcb5bc7b824cbffb4cd851"
+          },
+          "sources": {
+            "icons/Trash.jsx": "gzip:H4sIAAAAAAACE22SPY/bMAxAd/8KQlMCNPRHoviuiTq0a28pCnRWbSlSa0sGJdsBgvz3wjk7uPRuEvkeQREEbdt5inAB7WmUVP9QGq6gybfASMkqskOSVN6FCD9JBgPiTeVK966K1rtXt+rId+ETkNJruCQApGJPDlYJAMAxDKdbAHBuGxcEMzF2n9N0HEcct+jplBZZlqVhOLG5cLBq/OrPgmWQQbGDYreY0dbRCJardiFG2ZOJD0jbphHMeacWEiL5v0qwqidSLn7zjadH92tujPyRf7dOVbITjHzv6vfuj7fuPynJyo2xda2cYJH6+xTaV32QvxslmJZNuPNaRrkJjY+C2cq7BV8Q8bba6wxIaXEhpV/zLzM9djIaqAV72SGHEgtucs4gfe+fb3bY5MirbINPW9yXUwI58uk12wqftpBNOe5LmNUwLeWDfu1+/g9LDnmB3Dwjb7Dkmyn5cII8gzwfOBb8Jd8t4b3yON3AFK4PyXV9SBJ1vl1prbTsm/kSD8k/1L7N5LwCAAA="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/Trash.svelte": "sha256:6780badfd95e69517e8483aa5f482443e34566e37f832b79043b61c5da10fa66"
+          },
+          "sources": {
+            "icons/Trash.svelte": "gzip:H4sIAAAAAAACE2WRQW6DMBBF95xiZHXRLhgw4JC0OIt2nUNQcLBbx0a2A5Gi3L0yStq0XXne/6P5mnHjO6fGsE0AtAhwBkQcnR09XIDDw1I+Pr0kTXZrTBo/DQnA6aCN50SGMD5n2TzPOJdo3ZAVeZ5nfhpIAjApMb/aEyc55FBUUFRRnVUfJCdUHCJJoQYZvnGvtObEWCMi+eDsp+CkOzonTHiz2rofPb1NQnYnamVE146cOHs0/R/jwypz57ROtalUfS8MJ8Edl9C97Y6+fdeCk32r/aL1bWhTr23gRHXWROl8u9UlifdrxjZI6DnZVcigxoJJyghkv73N4kwpRdblKa5LXNURgCKLryw7XJeQR8ZVDVdriiv+mXVYXXOwZkALZHKDTGPN0gj/kmkOlE4MC7aj1a1cupr4XdvkC7tYIFcMAgAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "icon-user": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/User.vue": "sha256:f12bc579dc3ce166c8dadef49046c8bf1da45e3d57d12966b63c1ed79dc5b513"
+          },
+          "sources": {
+            "icons/User.vue": "gzip:H4sIAAAAAAACE2WRwW7bMAyG734KguihO1i2VTtNU8tA1/Oww55AlZlYrSIZEh1nKPbuQ+wMa9Eb+f0/SZBsk4l2ZEjE09hlPe2tp58j2+DT7TtYP1C0/MQc0w722iWCP98es7ZY67osa5mOo9NMXQbQptMhAwA4H51PCgfmcVcU8zyL+U6EeChkWZZFOh1wsZ0szd/DWWEJJcgaZL3y2fY8KKzouOYD2cPAH8DeOqfQB09rnjiGN1JophjJ83NwIX5U8n8dRfMJO+vJ6FFhDJPvv0ivwfpPmo5W54Pte/IKOU7X8ftgpqRfHClcjrTSXrPOkwus0JrgryvnL9b3Cm/05agX1i28NTYaR2DOCiuJYH4r3ArZIESFd6JBKK7GUfMAvcIfjWhAlkbUMq9FBVLcy3wjqgY2olmCX9VWlFuoGvEA1XZxX9u0lx90WVv8/95fRktyDgsCAAA="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/User.jsx": "sha256:d8b3950efecb0663c444b9836f2b679c715d7307b12b9d1854877d1b15010cff"
+          },
+          "sources": {
+            "icons/User.jsx": "gzip:H4sIAAAAAAACE2WSsW7bMBCGdz3F4SYbiCmJsVInNju0a7O0KDKz1NFiS5PCkbIcGH73IIpt1O328/t+HAjy3K6PnOEINvKouf1OFk5gOe4AmbTJuC4KE0PK8DMRg/qrOLNDMNnFMKlZz7FPd8Bk53AsAJjywAFmBQDAJu23UwA47HxICruc+6eyHMdRjPci8raUVVWVab/Fc3HvaPwSDworqEAuQS4vZnRt7hTWtLuQjty2yzfIOu8VhhjoQlLm+IcUmoGZQv4afeRb93IeLJpb/s0FMrpXyHEI7f/ud3ThH6nZ6UXn2paCwszD9RY2miHpX54UWu3Tlbc660XyMSt0JoYLPgohpqc9nQGTVUcm+3H+fKYb49h4AnNQWEsE86pwJWSDwArvRYNQXqu9zh20Cp8b0YCsjFjKxVLUIMUnuXgQdQMPopnCj3olqhXUjXiEejW1r4M273/1Hufr4jRfFwUdpl1qyerBf+zLungDn5BwumECAAA="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/User.svelte": "sha256:c0bfe6ee5344a810f2ee2d88dea0ba333dadd090f0e151274acf50a02bbcaeee"
+          },
+          "sources": {
+            "icons/User.svelte": "gzip:H4sIAAAAAAACE12QwU7DMBBE7/mK1YoDHLJJ3LgEiHuAMye+wDhuYnDtyHaaoqr/jhKpgLjtvBnNStNGFcyYdhmA1QnOQERj8GOECwi4Wc/bu6esLa7BrI3HPgM4HayLAoeUxseimOeZ5g350BesLMsiHnvMAI5Gz8/+JLCEElgNrF7obLo0CKz0YVGDNv2QfuTeWCvQeacXFVPwn1qgmkLQLr1468Mvz69NxP9Aa5xWchQY/OS6f8aHN+6PI4OR+WC6TjuBKUzr071XU5TvVgvcSxtX1skk82h9EmiUdws6X7e6ZMt+rTJBWQ3qJLBiCOpLYEOMIwSBG+IIxRobZRqgE/jKiQMrFdUsr6kCRvcs31LFYUt8Pd6qhsoGKk4PUDVrei1pl3l32TcxyHmCvAEAAA=="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
+    },
+    "icon-x": {
+      "vue": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/X.vue": "sha256:d7628615249b5aacdc7cb41fbfd019414e50c57817e7f377de5ae76c71f664ab"
+          },
+          "sources": {
+            "icons/X.vue": "gzip:H4sIAAAAAAACE2WQy07DMBBF9/mKkcUCFnmVFqQSRwLWiG9w40k84NiRPWkqIf4dJSmiFQsv7rkztnyq2AQaGCLyONSJxpYcvg9M3sXbLyBnMBA/M4e4h1bZiPB995RU+bpXJ0nF2A9WMdYJQBWPXQIAcOqti1IY5mGf59M0ZdN95kOXb4qiyOOxE8vYkXB68ScpCihgs4XNduUTaTZSlNiv2SB1hi9AS9ZK4bzDNUcO/hOlaMYQ0PGrtz5cNunvjdnuClty2KhBiuBHp/9VH57cVacCqdSQ1uik4DCen299M0Z1sCjFImmlWrFKo/UsBTXenb+cHshpKW7ULHVm9cKrQbEBLUX/kO1gPmUJZflWPq7RpksWkC+iZ4d1UuV/9n8AEUUcA8sBAAA="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "react": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/X.jsx": "sha256:94be883db8f3b275e729a4f4b8a2453466f7a9e76784bc75844a93f47388ebf6"
+          },
+          "sources": {
+            "icons/X.jsx": "gzip:H4sIAAAAAAACE2WSTU/DMAyG7/0VVk6bxPoxBkh04QBXuHBh19A6bSCNKyddJ1X772hdOzE4WPL7vLZlWTZNSxxgAE3cKy7fUcMRNFMDglEVQeRRVJDzAXYgf1UtdOeKYMjBbtEytf4GGPUShgiAMXTsYBEBAGz9vhoTgENjnZeiDqF9TJK+7+P+NiauknWaponfV2Iq3Bvsn+kgRQoprDew3sxOb8pQS5FhM5MaTVWHK6SNtVI4cjgTH5i+UYqiY0YXXsgSX3sf0+D47pq/GoeFaqVg6lz53/si4/6Yio1a1aYs0UkRuLtsoanovPq0KIVW1l94qYJaeUtBClOQm/EQx/F42uMEGLUcGPVZP01026pQQylFcx/fwSmyDLLsLXs4S7satYDk3LE9XfqULvPouMyjCA/jD5SoVWcD7PLoB6W7B9gWAgAA"
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ],
+      "svelte": [
+        {
+          "revision": 1,
+          "files": {
+            "icons/X.svelte": "sha256:33091e9b85d023c9d76475bef98a128d4f5b3e4e76e0240a9edb96d0dea8dee2"
+          },
+          "sources": {
+            "icons/X.svelte": "gzip:H4sIAAAAAAACE12QwU7EIBCG7zzFhHjQQ6HU3TXR0oOefQhsaUEpEKBlk82+u6GmuvEwyXzfTGaSv4190D51CMDIBBcghPjgfIQrcLjb2vuHF9TSfRG1cZ0QwHk2NnKsUvLPlOacSX4kLky0qeuaxnXCCGDVMr+6M8c11NAcoDkUm/WQFMdMzoWU1JNKvzhqYzi2zspCMQX3JTnulxCkTW/OuPDnq/0SOd5Io63shec4uMUO/wafTtubiQhaVEoPg7Qcp7BsT0fXL1F8GMnxKEzc3CCSqKJxiWPdO1vUZc/qikp+rRdJwcDxfCJHKMUYMPbOnn7QVBtjoF2Jc5069A295gzSfgEAAA=="
+          },
+          "dependencies": {},
+          "migrationNotes": []
+        }
+      ]
     }
   }
 }

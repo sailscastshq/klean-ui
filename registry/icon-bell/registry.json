@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-bell",
+  "description": "A bell for notifications and updates.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Bell.vue",
+      "target": "icons/Bell.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Bell.jsx",
+      "target": "icons/Bell.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Bell.svelte",
+      "target": "icons/Bell.svelte",
+      "dependencies": {}
+    }
+  }
+}

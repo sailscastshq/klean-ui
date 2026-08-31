@@ -122,7 +122,7 @@ try {
     "node_modules/.bin/klean-ui",
   );
 
-  assert.equal(installedMetadata.version, "0.0.1");
+  assert.equal(installedMetadata.version, "0.0.2");
   assert.deepEqual(installedMetadata.bin, {
     "klean-ui": "bin/klean-ui.js",
   });
@@ -133,7 +133,7 @@ try {
       cwd: installDirectory,
       env: { ...process.env, npm_config_cache: npmCache },
     }).trim(),
-    "0.0.1",
+    "0.0.2",
   );
   assert.ok(
     existsSync(resolve(installedPackage, "registry/button/registry.json")),

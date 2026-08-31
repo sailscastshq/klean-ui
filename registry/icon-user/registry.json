@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-user",
+  "description": "A person for accounts, profiles, and ownership.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/User.vue",
+      "target": "icons/User.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/User.jsx",
+      "target": "icons/User.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/User.svelte",
+      "target": "icons/User.svelte",
+      "dependencies": {}
+    }
+  }
+}

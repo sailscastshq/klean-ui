@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-server",
+  "description": "A stacked server for infrastructure and deployments.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Server.vue",
+      "target": "icons/Server.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Server.jsx",
+      "target": "icons/Server.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Server.svelte",
+      "target": "icons/Server.svelte",
+      "dependencies": {}
+    }
+  }
+}

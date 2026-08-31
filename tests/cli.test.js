@@ -81,12 +81,97 @@ test("shows terse command help", () => {
   expect(stdout.value()).toContain("klean-ui add dialog");
   expect(stdout.value()).toContain("klean-ui add toast");
   expect(stdout.value()).toContain("klean-ui add data-table");
+  expect(stdout.value()).toContain("klean-ui add icon trash search calendar");
   expect(stdout.value()).toContain("klean-ui check");
   expect(stdout.value()).toContain("klean-ui diff button");
   expect(stdout.value()).toContain("klean-ui update button");
   expect(stdout.value()).toContain("klean-ui update --all");
   expect(stdout.value()).not.toContain("klean-ui add field");
   expect(stdout.value()).not.toContain("klean-ui init");
+});
+
+test("installs selected icons as one atomic source-owned collection", () => {
+  const root = makeApp();
+  const stdout = outputBuffer();
+  const stderr = outputBuffer();
+
+  expect(
+    runCli(["add", "icon", "trash", "search", "calendar"], {
+      cwd: root,
+      stdout: stdout.stream,
+      stderr: stderr.stream,
+    }),
+  ).toBe(0);
+
+  expect(stderr.value()).toBe("");
+  expect(stdout.value()).toContain("✓ Added icons/Trash.vue");
+  expect(stdout.value()).toContain("✓ Added icons/Search.vue");
+  expect(stdout.value()).toContain("✓ Added icons/Calendar.vue");
+  expect(
+    existsSync(resolve(root, "assets/js/components/ui/icons/Trash.vue")),
+  ).toBe(true);
+  expect(
+    existsSync(resolve(root, "assets/js/components/ui/icons/Search.vue")),
+  ).toBe(true);
+  expect(
+    existsSync(resolve(root, "assets/js/components/ui/icons/Calendar.vue")),
+  ).toBe(true);
+  expect(
+    existsSync(resolve(root, "assets/js/components/ui/icons/index.js")),
+  ).toBe(false);
+
+  const check = outputBuffer();
+  expect(
+    runCli(["check", "icon", "trash", "search"], {
+      cwd: root,
+      stdout: check.stream,
+      stderr: outputBuffer().stream,
+    }),
+  ).toBe(0);
+  expect(check.value()).toContain("✓ icon trash is current");
+  expect(check.value()).toContain("✓ icon search is current");
+  expect(check.value()).not.toContain("icon-trash");
+
+  const diff = outputBuffer();
+  expect(
+    runCli(["diff", "icon", "calendar"], {
+      cwd: root,
+      stdout: diff.stream,
+      stderr: outputBuffer().stream,
+    }),
+  ).toBe(0);
+  expect(diff.value()).toContain(
+    "icon calendar is current; there is no upstream diff",
+  );
+
+  const update = outputBuffer();
+  expect(
+    runCli(["update", "icon", "trash"], {
+      cwd: root,
+      stdout: update.stream,
+      stderr: outputBuffer().stream,
+    }),
+  ).toBe(0);
+  expect(update.value()).toContain("Everything is already current.");
+});
+
+test("keeps the icon collection grammar explicit and unambiguous", () => {
+  for (const argv of [
+    ["add", "icon"],
+    ["add", "icon", "Trash"],
+    ["diff", "icon", "trash", "search"],
+    ["update", "icon", "trash", "search"],
+  ]) {
+    const stderr = outputBuffer();
+    expect(
+      runCli(argv, {
+        cwd: makeApp(),
+        stdout: outputBuffer().stream,
+        stderr: stderr.stream,
+      }),
+    ).toBe(1);
+    expect(stderr.value()).toContain("✗");
+  }
 });
 
 test("prints the detected conventions and dry-run mutations", () => {

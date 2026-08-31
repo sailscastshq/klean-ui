@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-x",
+  "description": "A crossing mark for close, clear, or cancel actions.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/X.vue",
+      "target": "icons/X.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/X.jsx",
+      "target": "icons/X.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/X.svelte",
+      "target": "icons/X.svelte",
+      "dependencies": {}
+    }
+  }
+}
