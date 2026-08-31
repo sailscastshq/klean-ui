@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-chevron-down",
+  "description": "A downward chevron for disclosure and selection.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ChevronDown.vue",
+      "target": "icons/ChevronDown.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ChevronDown.jsx",
+      "target": "icons/ChevronDown.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ChevronDown.svelte",
+      "target": "icons/ChevronDown.svelte",
+      "dependencies": {}
+    }
+  }
+}

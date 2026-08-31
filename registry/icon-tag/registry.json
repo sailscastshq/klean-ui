@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-tag",
+  "description": "A price tag for labels and metadata.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Tag.vue",
+      "target": "icons/Tag.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Tag.jsx",
+      "target": "icons/Tag.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Tag.svelte",
+      "target": "icons/Tag.svelte",
+      "dependencies": {}
+    }
+  }
+}

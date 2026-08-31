@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-arrow-right",
+  "description": "A right-pointing arrow for forward movement and navigation.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ArrowRight.vue",
+      "target": "icons/ArrowRight.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ArrowRight.jsx",
+      "target": "icons/ArrowRight.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ArrowRight.svelte",
+      "target": "icons/ArrowRight.svelte",
+      "dependencies": {}
+    }
+  }
+}

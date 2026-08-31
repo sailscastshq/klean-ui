@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-envelope-open",
+  "description": "An open envelope for received and read messages.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/EnvelopeOpen.vue",
+      "target": "icons/EnvelopeOpen.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/EnvelopeOpen.jsx",
+      "target": "icons/EnvelopeOpen.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/EnvelopeOpen.svelte",
+      "target": "icons/EnvelopeOpen.svelte",
+      "dependencies": {}
+    }
+  }
+}

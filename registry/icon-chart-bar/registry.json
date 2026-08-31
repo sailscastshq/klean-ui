@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-chart-bar",
+  "description": "Three measured bars for analytics and performance.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ChartBar.vue",
+      "target": "icons/ChartBar.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ChartBar.jsx",
+      "target": "icons/ChartBar.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ChartBar.svelte",
+      "target": "icons/ChartBar.svelte",
+      "dependencies": {}
+    }
+  }
+}

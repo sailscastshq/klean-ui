@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-database",
+  "description": "A stacked database cylinder for persistent data.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Database.vue",
+      "target": "icons/Database.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Database.jsx",
+      "target": "icons/Database.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Database.svelte",
+      "target": "icons/Database.svelte",
+      "dependencies": {}
+    }
+  }
+}

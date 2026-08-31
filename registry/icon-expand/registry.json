@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-expand",
+  "description": "Four outward corners for expanding a view.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Expand.vue",
+      "target": "icons/Expand.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Expand.jsx",
+      "target": "icons/Expand.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Expand.svelte",
+      "target": "icons/Expand.svelte",
+      "dependencies": {}
+    }
+  }
+}

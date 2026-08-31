@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-eye",
+  "description": "An open eye for visibility and preview.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Eye.vue",
+      "target": "icons/Eye.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Eye.jsx",
+      "target": "icons/Eye.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Eye.svelte",
+      "target": "icons/Eye.svelte",
+      "dependencies": {}
+    }
+  }
+}

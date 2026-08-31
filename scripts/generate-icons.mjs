@@ -60,6 +60,17 @@ function readMetadata() {
         `${icon.name} opticalBounds must stay on the 24px canvas.`,
       );
     }
+    if (
+      !Array.isArray(icon.applications) ||
+      icon.applications.some(
+        (application) => !["hagfish", "slipway"].includes(application),
+      ) ||
+      new Set(icon.applications).size !== icon.applications.length
+    ) {
+      throw new Error(
+        `${icon.name} applications must contain unique hagfish or slipway values.`,
+      );
+    }
   }
 
   return metadata;
@@ -235,6 +246,49 @@ function manifest(icon) {
   )}\n`;
 }
 
+function storyModule(metadata, framework) {
+  const sourceRoot = {
+    vue: "../../src/vue/icons",
+    react: "../../../registry",
+    svelte: "../../../registry",
+  }[framework];
+  const imports = metadata.icons
+    .map((icon) => {
+      const registryName = `icon-${kebabCase(icon.name)}`;
+      const source =
+        framework === "vue"
+          ? `${sourceRoot}/${icon.name}.vue`
+          : `${sourceRoot}/${registryName}/${framework}/${icon.name}.${framework === "react" ? "jsx" : "svelte"}`;
+      return `import ${icon.name} from ${JSON.stringify(source)};`;
+    })
+    .join("\n");
+  const components = metadata.icons.map((icon) => `  ${icon.name},`).join("\n");
+  const entries = metadata.icons
+    .map(
+      (icon) => `  {
+    name: ${JSON.stringify(icon.name)},
+    component: ${icon.name},
+    description: ${JSON.stringify(icon.description)},
+    keywords: ${JSON.stringify(icon.keywords)},
+    applications: ${JSON.stringify(icon.applications ?? [])},
+  },`,
+    )
+    .join("\n");
+
+  return `${imports}
+
+export const iconComponents = {
+${components}
+};
+
+export const iconEntries = [
+${entries}
+];
+
+export const iconNames = iconEntries.map(({ name }) => name);
+`;
+}
+
 const changed = [];
 
 async function formattedSource(path, source) {
@@ -242,6 +296,7 @@ async function formattedSource(path, source) {
   const parser = {
     ".vue": "vue",
     ".jsx": "babel",
+    ".js": "babel",
     ".svelte": "svelte",
     ".json": "json",
   }[extension];
@@ -287,6 +342,15 @@ for (const icon of metadata.icons) {
   await output(
     resolve(ROOT, `registry/${registryName}/registry.json`),
     manifest(icon),
+  );
+}
+
+for (const framework of ["vue", "react", "svelte"]) {
+  const directory =
+    framework === "vue" ? "generated" : `${framework}/generated`;
+  await output(
+    resolve(ROOT, `stories/${directory}/icons.js`),
+    storyModule(metadata, framework),
   );
 }
 

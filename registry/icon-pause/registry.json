@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-pause",
+  "description": "Two vertical bars for pausing activity.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Pause.vue",
+      "target": "icons/Pause.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Pause.jsx",
+      "target": "icons/Pause.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Pause.svelte",
+      "target": "icons/Pause.svelte",
+      "dependencies": {}
+    }
+  }
+}

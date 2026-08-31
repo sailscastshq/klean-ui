@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-wallet",
+  "description": "A wallet for balances and stored payment methods.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Wallet.vue",
+      "target": "icons/Wallet.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Wallet.jsx",
+      "target": "icons/Wallet.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Wallet.svelte",
+      "target": "icons/Wallet.svelte",
+      "dependencies": {}
+    }
+  }
+}

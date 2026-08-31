@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-swap",
+  "description": "Opposing horizontal arrows for exchanging values.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Swap.vue",
+      "target": "icons/Swap.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Swap.jsx",
+      "target": "icons/Swap.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Swap.svelte",
+      "target": "icons/Swap.svelte",
+      "dependencies": {}
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-sidebar-open",
+  "description": "A sidebar frame with an outward opening cue.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/SidebarOpen.vue",
+      "target": "icons/SidebarOpen.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/SidebarOpen.jsx",
+      "target": "icons/SidebarOpen.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/SidebarOpen.svelte",
+      "target": "icons/SidebarOpen.svelte",
+      "dependencies": {}
+    }
+  }
+}

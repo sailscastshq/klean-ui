@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-arrow-left",
+  "description": "A left-pointing arrow for return and backward movement.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ArrowLeft.vue",
+      "target": "icons/ArrowLeft.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ArrowLeft.jsx",
+      "target": "icons/ArrowLeft.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ArrowLeft.svelte",
+      "target": "icons/ArrowLeft.svelte",
+      "dependencies": {}
+    }
+  }
+}

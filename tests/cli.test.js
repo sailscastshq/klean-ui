@@ -96,17 +96,32 @@ test("installs selected icons as one atomic source-owned collection", () => {
   const stderr = outputBuffer();
 
   expect(
-    runCli(["add", "icon", "trash", "search", "calendar"], {
-      cwd: root,
-      stdout: stdout.stream,
-      stderr: stderr.stream,
-    }),
+    runCli(
+      [
+        "add",
+        "icon",
+        "trash",
+        "search",
+        "calendar",
+        "arrow-right",
+        "fingerprint",
+        "terminal",
+      ],
+      {
+        cwd: root,
+        stdout: stdout.stream,
+        stderr: stderr.stream,
+      },
+    ),
   ).toBe(0);
 
   expect(stderr.value()).toBe("");
   expect(stdout.value()).toContain("✓ Added icons/Trash.vue");
   expect(stdout.value()).toContain("✓ Added icons/Search.vue");
   expect(stdout.value()).toContain("✓ Added icons/Calendar.vue");
+  expect(stdout.value()).toContain("✓ Added icons/ArrowRight.vue");
+  expect(stdout.value()).toContain("✓ Added icons/Fingerprint.vue");
+  expect(stdout.value()).toContain("✓ Added icons/Terminal.vue");
   expect(
     existsSync(resolve(root, "assets/js/components/ui/icons/Trash.vue")),
   ).toBe(true);
@@ -115,6 +130,15 @@ test("installs selected icons as one atomic source-owned collection", () => {
   ).toBe(true);
   expect(
     existsSync(resolve(root, "assets/js/components/ui/icons/Calendar.vue")),
+  ).toBe(true);
+  expect(
+    existsSync(resolve(root, "assets/js/components/ui/icons/ArrowRight.vue")),
+  ).toBe(true);
+  expect(
+    existsSync(resolve(root, "assets/js/components/ui/icons/Fingerprint.vue")),
+  ).toBe(true);
+  expect(
+    existsSync(resolve(root, "assets/js/components/ui/icons/Terminal.vue")),
   ).toBe(true);
   expect(
     existsSync(resolve(root, "assets/js/components/ui/icons/index.js")),

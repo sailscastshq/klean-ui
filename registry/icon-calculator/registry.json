@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-calculator",
+  "description": "A calculator for totals, pricing, and arithmetic.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Calculator.vue",
+      "target": "icons/Calculator.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Calculator.jsx",
+      "target": "icons/Calculator.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Calculator.svelte",
+      "target": "icons/Calculator.svelte",
+      "dependencies": {}
+    }
+  }
+}

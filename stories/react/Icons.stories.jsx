@@ -1,32 +1,40 @@
-import Bell from "../../registry/icon-bell/react/Bell.jsx";
-import Calendar from "../../registry/icon-calendar/react/Calendar.jsx";
-import CheckCircle from "../../registry/icon-check-circle/react/CheckCircle.jsx";
-import ChevronRight from "../../registry/icon-chevron-right/react/ChevronRight.jsx";
-import Copy from "../../registry/icon-copy/react/Copy.jsx";
-import Folder from "../../registry/icon-folder/react/Folder.jsx";
-import Rocket from "../../registry/icon-rocket/react/Rocket.jsx";
-import Search from "../../registry/icon-search/react/Search.jsx";
-import Server from "../../registry/icon-server/react/Server.jsx";
-import Trash from "../../registry/icon-trash/react/Trash.jsx";
-import User from "../../registry/icon-user/react/User.jsx";
-import X from "../../registry/icon-x/react/X.jsx";
+import { iconComponents, iconEntries, iconNames } from "./generated/icons.js";
 
-const iconComponents = {
-  Trash,
-  Search,
-  Calendar,
-  CheckCircle,
-  X,
-  ChevronRight,
-  Copy,
-  User,
-  Folder,
-  Server,
-  Bell,
-  Rocket,
-};
+const Rocket = iconComponents.Rocket;
+const Trash = iconComponents.Trash;
 
-const iconEntries = Object.entries(iconComponents);
+const groupDefinitions = [
+  {
+    id: "shared",
+    title: "Shared application language",
+    entries: iconEntries.filter(
+      ({ applications }) => applications.length === 2,
+    ),
+  },
+  {
+    id: "hagfish",
+    title: "Hagfish application set",
+    entries: iconEntries.filter(
+      ({ applications }) =>
+        applications.length === 1 && applications[0] === "hagfish",
+    ),
+  },
+  {
+    id: "slipway",
+    title: "Slipway application set",
+    entries: iconEntries.filter(
+      ({ applications }) =>
+        applications.length === 1 && applications[0] === "slipway",
+    ),
+  },
+  {
+    id: "signature",
+    title: "Klean signature",
+    entries: iconEntries.filter(
+      ({ applications }) => applications.length === 0,
+    ),
+  },
+];
 
 const meta = {
   title: "Components/Icons",
@@ -34,7 +42,7 @@ const meta = {
   parameters: { layout: "centered" },
   args: { icon: "Rocket", size: 24, color: "#111827", strokeWidth: 1.5 },
   argTypes: {
-    icon: { control: "select", options: Object.keys(iconComponents) },
+    icon: { control: "select", options: iconNames },
     size: { control: { type: "range", min: 12, max: 64, step: 1 } },
     color: { control: "color" },
     strokeWidth: { control: { type: "range", min: 1, max: 2.5, step: 0.25 } },
@@ -57,23 +65,37 @@ export function ProofSet() {
     <main className="klean-story-canvas min-h-screen px-5 py-14 sm:px-8 lg:px-12 lg:py-20">
       <header className="max-w-3xl">
         <h1 className="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">
-          Twelve marks. One quiet voice.
+          The application vocabulary in native React.
         </h1>
         <p className="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">
-          React receives ordinary forwardRef SVG components with the same Klean
-          geometry and caller-owned visual surface.
+          Ninety-seven audited product concepts and Klean&apos;s redesigned
+          Rocket, delivered as ordinary forwardRef SVG components.
         </p>
       </header>
-      <ul className="mt-12 grid max-w-7xl grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
-        {iconEntries.map(([name, Icon]) => (
-          <li key={name} className="grid justify-items-center gap-3 text-center">
-            <div className="grid aspect-square w-full max-w-32 place-items-center rounded-3xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-950 dark:text-white dark:ring-white/10">
-              <Icon className="size-6" />
-            </div>
-            <p className="text-sm font-medium">{name}</p>
-          </li>
-        ))}
-      </ul>
+      {groupDefinitions.map((group) => (
+        <section key={group.id} className="mt-14 max-w-screen-2xl">
+          <div className="flex items-baseline gap-4">
+            <h2 className="text-2xl font-semibold tracking-tight">
+              {group.title}
+            </h2>
+            <span className="text-sm tabular-nums text-klean-muted">
+              {group.entries.length} icons
+            </span>
+          </div>
+          <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
+            {group.entries.map(({ name, component: Icon, description }) => (
+              <li
+                key={name}
+                title={description}
+                className="grid min-w-0 justify-items-center gap-3 rounded-2xl bg-white px-3 py-5 text-center shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-950 dark:ring-white/10"
+              >
+                <Icon className="size-6" />
+                <p className="w-full truncate text-xs font-medium">{name}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
     </main>
   );
 }

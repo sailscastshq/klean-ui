@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-chevron-up",
+  "description": "An upward chevron for collapse and ascending selection.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ChevronUp.vue",
+      "target": "icons/ChevronUp.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ChevronUp.jsx",
+      "target": "icons/ChevronUp.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ChevronUp.svelte",
+      "target": "icons/ChevronUp.svelte",
+      "dependencies": {}
+    }
+  }
+}

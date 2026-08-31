@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-shield-check",
+  "description": "A checked shield for verified protection.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ShieldCheck.vue",
+      "target": "icons/ShieldCheck.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ShieldCheck.jsx",
+      "target": "icons/ShieldCheck.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ShieldCheck.svelte",
+      "target": "icons/ShieldCheck.svelte",
+      "dependencies": {}
+    }
+  }
+}

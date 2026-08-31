@@ -169,6 +169,32 @@ try {
       /Everything is already current/,
     );
 
+    const iconOutput = run(
+      process.execPath,
+      [cli, "add", "icon", "arrow-right", "fingerprint", "terminal"],
+      { cwd: applicationRoot },
+    );
+    for (const iconName of ["ArrowRight", "Fingerprint", "Terminal"]) {
+      assert.match(
+        iconOutput,
+        new RegExp(`Added icons/${iconName}\\.${extension}`),
+      );
+      assert.ok(
+        existsSync(
+          resolve(
+            applicationRoot,
+            `assets/js/components/ui/icons/${iconName}.${extension}`,
+          ),
+        ),
+      );
+    }
+    assert.match(
+      run(process.execPath, [cli, "check", "icon", "terminal"], {
+        cwd: applicationRoot,
+      }),
+      /icon terminal is current/,
+    );
+
     writeFileSync(
       target,
       `${readFileSync(target, "utf8")}${

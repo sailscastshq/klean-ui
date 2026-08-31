@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-check",
+  "description": "A simple check mark for confirmation and selection.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Check.vue",
+      "target": "icons/Check.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Check.jsx",
+      "target": "icons/Check.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Check.svelte",
+      "target": "icons/Check.svelte",
+      "dependencies": {}
+    }
+  }
+}

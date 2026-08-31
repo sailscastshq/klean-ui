@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-book-open",
+  "description": "An open book for documentation and guides.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/BookOpen.vue",
+      "target": "icons/BookOpen.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/BookOpen.jsx",
+      "target": "icons/BookOpen.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/BookOpen.svelte",
+      "target": "icons/BookOpen.svelte",
+      "dependencies": {}
+    }
+  }
+}

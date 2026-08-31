@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-upload",
+  "description": "An upward transfer arrow leaving a tray.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Upload.vue",
+      "target": "icons/Upload.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Upload.jsx",
+      "target": "icons/Upload.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Upload.svelte",
+      "target": "icons/Upload.svelte",
+      "dependencies": {}
+    }
+  }
+}

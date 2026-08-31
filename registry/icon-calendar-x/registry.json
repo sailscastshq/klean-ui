@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-calendar-x",
+  "description": "A calendar page marked unavailable.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/CalendarX.vue",
+      "target": "icons/CalendarX.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/CalendarX.jsx",
+      "target": "icons/CalendarX.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/CalendarX.svelte",
+      "target": "icons/CalendarX.svelte",
+      "dependencies": {}
+    }
+  }
+}

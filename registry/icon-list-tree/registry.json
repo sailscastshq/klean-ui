@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-list-tree",
+  "description": "A branching list for hierarchy and nested resources.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ListTree.vue",
+      "target": "icons/ListTree.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ListTree.jsx",
+      "target": "icons/ListTree.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ListTree.svelte",
+      "target": "icons/ListTree.svelte",
+      "dependencies": {}
+    }
+  }
+}

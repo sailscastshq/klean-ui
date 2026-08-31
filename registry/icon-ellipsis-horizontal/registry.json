@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-ellipsis-horizontal",
+  "description": "Three horizontal dots for more actions.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/EllipsisHorizontal.vue",
+      "target": "icons/EllipsisHorizontal.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/EllipsisHorizontal.jsx",
+      "target": "icons/EllipsisHorizontal.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/EllipsisHorizontal.svelte",
+      "target": "icons/EllipsisHorizontal.svelte",
+      "dependencies": {}
+    }
+  }
+}

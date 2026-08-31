@@ -15,6 +15,9 @@ import { createInstallPlan } from "../cli/installer.js";
 
 const frameworks = ["vue", "react", "svelte"];
 const registryDirectory = resolve("registry");
+const iconMetadata = JSON.parse(
+  readFileSync(resolve("icons/metadata.json"), "utf8"),
+);
 const componentNames = readdirSync(registryDirectory)
   .filter((entry) => {
     const path = resolve(registryDirectory, entry);
@@ -76,7 +79,14 @@ test("the 0.0.2 package metadata describes the copied-source product", () => {
 });
 
 test("every public registry item has complete framework-native source", () => {
-  expect(componentNames).toHaveLength(55);
+  const iconNames = componentNames.filter((name) => name.startsWith("icon-"));
+  const componentPrimitives = componentNames.filter(
+    (name) => !name.startsWith("icon-"),
+  );
+
+  expect(componentPrimitives).toHaveLength(43);
+  expect(iconNames).toHaveLength(iconMetadata.icons.length);
+  expect(componentNames).toHaveLength(43 + iconMetadata.icons.length);
 
   const gaps = [];
 

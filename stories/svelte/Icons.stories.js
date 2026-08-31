@@ -1,19 +1,5 @@
 import IconsExample from "./IconsExample.svelte";
-
-const iconNames = [
-  "Trash",
-  "Search",
-  "Calendar",
-  "CheckCircle",
-  "X",
-  "ChevronRight",
-  "Copy",
-  "User",
-  "Folder",
-  "Server",
-  "Bell",
-  "Rocket",
-];
+import { iconNames } from "./generated/icons.js";
 
 const meta = {
   title: "Components/Icons",

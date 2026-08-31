@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-info-circle",
+  "description": "An information mark inside a circle.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/InfoCircle.vue",
+      "target": "icons/InfoCircle.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/InfoCircle.jsx",
+      "target": "icons/InfoCircle.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/InfoCircle.svelte",
+      "target": "icons/InfoCircle.svelte",
+      "dependencies": {}
+    }
+  }
+}

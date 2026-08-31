@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-chevron-left",
+  "description": "A left-facing chevron for previous navigation.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ChevronLeft.vue",
+      "target": "icons/ChevronLeft.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ChevronLeft.jsx",
+      "target": "icons/ChevronLeft.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ChevronLeft.svelte",
+      "target": "icons/ChevronLeft.svelte",
+      "dependencies": {}
+    }
+  }
+}

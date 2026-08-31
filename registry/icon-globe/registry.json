@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-globe",
+  "description": "A globe for public, international, and web contexts.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Globe.vue",
+      "target": "icons/Globe.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Globe.jsx",
+      "target": "icons/Globe.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Globe.svelte",
+      "target": "icons/Globe.svelte",
+      "dependencies": {}
+    }
+  }
+}

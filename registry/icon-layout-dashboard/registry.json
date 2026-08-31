@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-layout-dashboard",
+  "description": "An asymmetric panel grid for dashboards.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/LayoutDashboard.vue",
+      "target": "icons/LayoutDashboard.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/LayoutDashboard.jsx",
+      "target": "icons/LayoutDashboard.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/LayoutDashboard.svelte",
+      "target": "icons/LayoutDashboard.svelte",
+      "dependencies": {}
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-envelope",
+  "description": "A closed envelope for email and messages.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Envelope.vue",
+      "target": "icons/Envelope.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Envelope.jsx",
+      "target": "icons/Envelope.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Envelope.svelte",
+      "target": "icons/Envelope.svelte",
+      "dependencies": {}
+    }
+  }
+}

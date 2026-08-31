@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-document",
+  "description": "A simple folded document for files and records.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Document.vue",
+      "target": "icons/Document.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Document.jsx",
+      "target": "icons/Document.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Document.svelte",
+      "target": "icons/Document.svelte",
+      "dependencies": {}
+    }
+  }
+}

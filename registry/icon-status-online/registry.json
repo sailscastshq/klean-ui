@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-status-online",
+  "description": "Concentric signal rings for online status.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/StatusOnline.vue",
+      "target": "icons/StatusOnline.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/StatusOnline.jsx",
+      "target": "icons/StatusOnline.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/StatusOnline.svelte",
+      "target": "icons/StatusOnline.svelte",
+      "dependencies": {}
+    }
+  }
+}

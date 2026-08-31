@@ -1,7 +1,7 @@
 {
   "$schema": "../schema.json",
   "name": "icon-rocket",
-  "description": "Klean's launch mark for deploy and release actions.",
+  "description": "Klean's balanced launch mark for deploy and release actions.",
   "kind": "icon",
   "frameworks": {
     "vue": {

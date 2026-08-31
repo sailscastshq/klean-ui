@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-wrap-text",
+  "description": "Text lines with a returning wrap arrow.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/WrapText.vue",
+      "target": "icons/WrapText.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/WrapText.jsx",
+      "target": "icons/WrapText.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/WrapText.svelte",
+      "target": "icons/WrapText.svelte",
+      "dependencies": {}
+    }
+  }
+}

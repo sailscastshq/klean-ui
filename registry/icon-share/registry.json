@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-share",
+  "description": "Three connected nodes for sharing content.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Share.vue",
+      "target": "icons/Share.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Share.jsx",
+      "target": "icons/Share.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Share.svelte",
+      "target": "icons/Share.svelte",
+      "dependencies": {}
+    }
+  }
+}

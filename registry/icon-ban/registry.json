@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-ban",
+  "description": "A barred circle for prohibited and unavailable actions.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Ban.vue",
+      "target": "icons/Ban.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Ban.jsx",
+      "target": "icons/Ban.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Ban.svelte",
+      "target": "icons/Ban.svelte",
+      "dependencies": {}
+    }
+  }
+}

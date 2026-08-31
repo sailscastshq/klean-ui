@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-currency-dollar",
+  "description": "A dollar mark in a circle for currency values.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/CurrencyDollar.vue",
+      "target": "icons/CurrencyDollar.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/CurrencyDollar.jsx",
+      "target": "icons/CurrencyDollar.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/CurrencyDollar.svelte",
+      "target": "icons/CurrencyDollar.svelte",
+      "dependencies": {}
+    }
+  }
+}

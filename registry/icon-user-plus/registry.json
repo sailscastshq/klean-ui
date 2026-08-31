@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-user-plus",
+  "description": "A person with a plus mark for invitations.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/UserPlus.vue",
+      "target": "icons/UserPlus.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/UserPlus.jsx",
+      "target": "icons/UserPlus.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/UserPlus.svelte",
+      "target": "icons/UserPlus.svelte",
+      "dependencies": {}
+    }
+  }
+}

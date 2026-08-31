@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-comment",
+  "description": "A compact comment card with text lines.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Comment.vue",
+      "target": "icons/Comment.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Comment.jsx",
+      "target": "icons/Comment.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Comment.svelte",
+      "target": "icons/Comment.svelte",
+      "dependencies": {}
+    }
+  }
+}

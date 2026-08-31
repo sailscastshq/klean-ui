@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-settings",
+  "description": "A compact gear for settings and configuration.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Settings.vue",
+      "target": "icons/Settings.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Settings.jsx",
+      "target": "icons/Settings.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Settings.svelte",
+      "target": "icons/Settings.svelte",
+      "dependencies": {}
+    }
+  }
+}

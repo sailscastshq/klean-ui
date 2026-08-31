@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-cash",
+  "description": "A banknote for cash and monetary amounts.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Cash.vue",
+      "target": "icons/Cash.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Cash.jsx",
+      "target": "icons/Cash.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Cash.svelte",
+      "target": "icons/Cash.svelte",
+      "dependencies": {}
+    }
+  }
+}

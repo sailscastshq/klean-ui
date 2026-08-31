@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-table-cells",
+  "description": "A structured grid of table cells.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/TableCells.vue",
+      "target": "icons/TableCells.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/TableCells.jsx",
+      "target": "icons/TableCells.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/TableCells.svelte",
+      "target": "icons/TableCells.svelte",
+      "dependencies": {}
+    }
+  }
+}

@@ -18,21 +18,33 @@ function kebabCase(value) {
     .toLowerCase();
 }
 
-test("keeps the twelve-icon proof generated from canonical geometry", () => {
-  expect(metadata.icons.map(({ name }) => name)).toEqual([
-    "Trash",
-    "Search",
-    "Calendar",
-    "CheckCircle",
-    "X",
-    "ChevronRight",
-    "Copy",
-    "User",
-    "Folder",
-    "Server",
-    "Bell",
-    "Rocket",
-  ]);
+test("keeps the complete proving-app vocabulary generated from canonical geometry", () => {
+  const names = metadata.icons.map(({ name }) => name);
+  const applicationIcons = metadata.icons.filter(
+    ({ applications }) => applications.length,
+  );
+  const hagfishIcons = applicationIcons.filter(({ applications }) =>
+    applications.includes("hagfish"),
+  );
+  const slipwayIcons = applicationIcons.filter(({ applications }) =>
+    applications.includes("slipway"),
+  );
+  const sharedIcons = applicationIcons.filter(
+    ({ applications }) => applications.length === 2,
+  );
+
+  expect(names).toHaveLength(98);
+  expect(new Set(names).size).toBe(98);
+  expect(applicationIcons).toHaveLength(97);
+  expect(hagfishIcons).toHaveLength(64);
+  expect(slipwayIcons).toHaveLength(71);
+  expect(sharedIcons).toHaveLength(38);
+  expect(
+    metadata.icons.find(({ name }) => name === "Rocket").applications,
+  ).toEqual([]);
+  expect(names).toContain("ArrowRight");
+  expect(names).toContain("Fingerprint");
+  expect(names).toContain("Terminal");
 
   const result = spawnSync(
     process.execPath,

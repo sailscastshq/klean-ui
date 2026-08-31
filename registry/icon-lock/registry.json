@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-lock",
+  "description": "A closed padlock for security and private state.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Lock.vue",
+      "target": "icons/Lock.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Lock.jsx",
+      "target": "icons/Lock.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Lock.svelte",
+      "target": "icons/Lock.svelte",
+      "dependencies": {}
+    }
+  }
+}

@@ -1,35 +1,53 @@
-import Bell from "../src/vue/icons/Bell.vue";
-import Calendar from "../src/vue/icons/Calendar.vue";
-import CheckCircle from "../src/vue/icons/CheckCircle.vue";
-import ChevronRight from "../src/vue/icons/ChevronRight.vue";
-import Copy from "../src/vue/icons/Copy.vue";
-import Folder from "../src/vue/icons/Folder.vue";
-import Rocket from "../src/vue/icons/Rocket.vue";
-import Search from "../src/vue/icons/Search.vue";
-import Server from "../src/vue/icons/Server.vue";
-import Trash from "../src/vue/icons/Trash.vue";
-import User from "../src/vue/icons/User.vue";
-import X from "../src/vue/icons/X.vue";
+import { computed, ref } from "vue";
+import { iconComponents, iconEntries, iconNames } from "./generated/icons.js";
 
-const iconComponents = {
-  Trash,
-  Search,
-  Calendar,
-  CheckCircle,
-  X,
-  ChevronRight,
-  Copy,
-  User,
-  Folder,
-  Server,
-  Bell,
-  Rocket,
-};
+const Rocket = iconComponents.Rocket;
+const Search = iconComponents.Search;
+const Server = iconComponents.Server;
+const CheckCircle = iconComponents.CheckCircle;
+const Copy = iconComponents.Copy;
+const Trash = iconComponents.Trash;
 
-const iconEntries = Object.entries(iconComponents).map(([name, component]) => ({
-  name,
-  component,
-}));
+const groupDefinitions = [
+  {
+    id: "shared",
+    title: "Shared application language",
+    description:
+      "The actions, navigation, status, and content symbols used by both proving applications.",
+    entries: iconEntries.filter(
+      ({ applications }) => applications.length === 2,
+    ),
+  },
+  {
+    id: "hagfish",
+    title: "Hagfish application set",
+    description:
+      "Billing, invoices, communication, identity, and expressive product workflows.",
+    entries: iconEntries.filter(
+      ({ applications }) =>
+        applications.length === 1 && applications[0] === "hagfish",
+    ),
+  },
+  {
+    id: "slipway",
+    title: "Slipway application set",
+    description:
+      "Infrastructure, navigation, developer tools, data, and operational controls.",
+    entries: iconEntries.filter(
+      ({ applications }) =>
+        applications.length === 1 && applications[0] === "slipway",
+    ),
+  },
+  {
+    id: "signature",
+    title: "Klean signature",
+    description:
+      "The redesigned Rocket remains Klean's launch mark even though neither current application needs it yet.",
+    entries: iconEntries.filter(
+      ({ applications }) => applications.length === 0,
+    ),
+  },
+];
 
 const meta = {
   title: "Components/Icons",
@@ -50,7 +68,7 @@ const meta = {
     strokeWidth: 1.5,
   },
   argTypes: {
-    icon: { control: "select", options: Object.keys(iconComponents) },
+    icon: { control: "select", options: iconNames },
     size: { control: { type: "range", min: 12, max: 64, step: 1 } },
     color: { control: "color" },
     strokeWidth: {
@@ -87,36 +105,85 @@ export const ProofSet = {
   render: () => ({
     components: iconComponents,
     setup() {
-      return { iconEntries };
+      const query = ref("");
+      const groups = computed(() => {
+        const search = query.value.trim().toLowerCase();
+        if (!search) return groupDefinitions;
+
+        return groupDefinitions
+          .map((group) => ({
+            ...group,
+            entries: group.entries.filter((icon) =>
+              [icon.name, icon.description, ...icon.keywords]
+                .join(" ")
+                .toLowerCase()
+                .includes(search),
+            ),
+          }))
+          .filter(({ entries }) => entries.length);
+      });
+
+      const resultCount = computed(() =>
+        groups.value.reduce((total, group) => total + group.entries.length, 0),
+      );
+
+      return { groups, query, resultCount };
     },
     template: `
       <main class="klean-story-canvas px-5 py-14 sm:px-8 lg:px-12 lg:py-20" aria-labelledby="icons-proof-title">
-        <header class="max-w-3xl">
-          <h1 id="icons-proof-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Twelve marks. One quiet voice.</h1>
-          <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted">Every drawing shares the same 24-pixel canvas, 1.5 stroke, round joins, and deliberate breathing room. They stay recognizable at interface size without becoming loud.</p>
+        <header class="max-w-4xl">
+          <h1 id="icons-proof-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">The vocabulary our applications actually speak.</h1>
+          <p class="mt-5 max-w-3xl text-pretty text-base leading-7 text-klean-muted">Ninety-seven audited product concepts, plus Klean's redesigned Rocket. Every drawing shares the same 24-pixel canvas, quiet 1.5 stroke, round joins, and enough breathing room to remain clear at interface size.</p>
         </header>
 
-        <section class="mt-12 max-w-7xl" aria-labelledby="icons-light-title">
-          <h2 id="icons-light-title" class="text-sm font-medium text-klean-muted">Light surface</h2>
-          <ul class="mt-5 grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
-            <li v-for="icon in iconEntries" :key="icon.name" class="grid justify-items-center gap-3 text-center">
-              <div class="grid aspect-square w-full max-w-32 place-items-center rounded-3xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-950/5">
-                <component :is="icon.component" class="size-6" />
-              </div>
-              <p class="text-sm font-medium">{{ icon.name }}</p>
-            </li>
-          </ul>
-        </section>
+        <div class="mt-10 max-w-xl">
+          <label for="icon-search" class="sr-only">Search icons</label>
+          <div class="flex min-h-12 items-center gap-3 rounded-2xl bg-white px-4 shadow-sm ring-1 ring-gray-950/10 focus-within:ring-2 focus-within:ring-gray-950 dark:bg-gray-950 dark:ring-white/10 dark:focus-within:ring-white">
+            <Search class="size-5 shrink-0 text-klean-muted" />
+            <input id="icon-search" v-model="query" type="search" class="min-w-0 flex-1 bg-transparent py-3 text-base outline-none" placeholder="Search by name or purpose" />
+            <span class="text-sm tabular-nums text-klean-muted">{{ resultCount }}</span>
+          </div>
+        </div>
 
-        <section class="mt-16 max-w-7xl rounded-4xl bg-gray-950 px-5 py-8 text-white sm:px-8" aria-labelledby="icons-dark-title">
-          <h2 id="icons-dark-title" class="text-sm font-medium text-gray-400">Dark surface</h2>
-          <ul class="mt-6 grid grid-cols-3 gap-5 sm:grid-cols-6 lg:grid-cols-12">
-            <li v-for="icon in iconEntries" :key="icon.name" class="grid place-items-center gap-3">
+        <p v-if="!groups.length" class="mt-12 text-klean-muted">No Klean icon matches “{{ query }}”.</p>
+
+        <section v-for="group in groups" :key="group.id" class="mt-16 max-w-screen-2xl" :aria-labelledby="group.id + '-title'">
+          <div class="flex max-w-4xl flex-wrap items-baseline gap-x-4 gap-y-2">
+            <h2 :id="group.id + '-title'" class="text-2xl font-semibold tracking-tight">{{ group.title }}</h2>
+            <span class="text-sm tabular-nums text-klean-muted">{{ group.entries.length }} icons</span>
+          </div>
+          <p class="mt-2 max-w-3xl text-sm leading-6 text-klean-muted">{{ group.description }}</p>
+          <ul class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
+            <li v-for="icon in group.entries" :key="icon.name" class="grid min-w-0 justify-items-center gap-3 rounded-2xl bg-white px-3 py-5 text-center shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-950 dark:ring-white/10" :title="icon.description">
               <component :is="icon.component" class="size-6" />
-              <span class="sr-only">{{ icon.name }}</span>
+              <p class="w-full truncate text-xs font-medium">{{ icon.name }}</p>
             </li>
           </ul>
         </section>
+      </main>
+    `,
+  }),
+};
+
+export const DarkSurface = {
+  parameters: { layout: "fullscreen", controls: { disable: true } },
+  render: () => ({
+    components: iconComponents,
+    setup() {
+      return { iconEntries };
+    },
+    template: `
+      <main class="min-h-screen bg-gray-950 px-5 py-14 text-white sm:px-8 lg:px-12 lg:py-20" aria-labelledby="icons-dark-title">
+        <header class="max-w-3xl">
+          <h1 id="icons-dark-title" class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl">Drawn with light, not filled with paint.</h1>
+          <p class="mt-5 max-w-2xl text-pretty text-base leading-7 text-gray-400">Every icon inherits currentColor, so the same source remains crisp across restrained operational surfaces and expressive product treatments.</p>
+        </header>
+        <ul class="mt-12 grid max-w-screen-2xl grid-cols-4 gap-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12">
+          <li v-for="icon in iconEntries" :key="icon.name" class="grid aspect-square place-items-center rounded-2xl bg-white/5 text-gray-100 ring-1 ring-white/10" :title="icon.name">
+            <component :is="icon.component" class="size-5" />
+            <span class="sr-only">{{ icon.name }}</span>
+          </li>
+        </ul>
       </main>
     `,
   }),

@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-terminal",
+  "description": "A command prompt inside a terminal frame.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Terminal.vue",
+      "target": "icons/Terminal.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Terminal.jsx",
+      "target": "icons/Terminal.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Terminal.svelte",
+      "target": "icons/Terminal.svelte",
+      "dependencies": {}
+    }
+  }
+}

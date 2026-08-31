@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-filter",
+  "description": "A narrowing funnel for filtering data.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Filter.vue",
+      "target": "icons/Filter.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Filter.jsx",
+      "target": "icons/Filter.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Filter.svelte",
+      "target": "icons/Filter.svelte",
+      "dependencies": {}
+    }
+  }
+}

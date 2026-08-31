@@ -1,0 +1,27 @@
+import { forwardRef } from "react";
+
+const FilePdf = forwardRef(function FilePdf(props, ref) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+      data-slot="icon"
+      {...props}
+      ref={ref}
+    >
+      <path d="M6 3.75h7l5 5v11.5H6zM13 3.75v5h5" />
+      <path d="M8.5 16.5v-4h1.25c1.1 0 1.75.6 1.75 1.5s-.65 1.5-1.75 1.5H8.5M13.25 16.5v-4h1c1.25 0 2 .75 2 2s-.75 2-2 2z" />
+    </svg>
+  );
+});
+
+export default FilePdf;

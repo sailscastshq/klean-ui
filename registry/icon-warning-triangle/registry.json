@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-warning-triangle",
+  "description": "A warning mark inside a balanced triangle.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/WarningTriangle.vue",
+      "target": "icons/WarningTriangle.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/WarningTriangle.jsx",
+      "target": "icons/WarningTriangle.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/WarningTriangle.svelte",
+      "target": "icons/WarningTriangle.svelte",
+      "dependencies": {}
+    }
+  }
+}

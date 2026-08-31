@@ -1,33 +1,41 @@
 <script>
-  import Bell from "../../registry/icon-bell/svelte/Bell.svelte";
-  import Calendar from "../../registry/icon-calendar/svelte/Calendar.svelte";
-  import CheckCircle from "../../registry/icon-check-circle/svelte/CheckCircle.svelte";
-  import ChevronRight from "../../registry/icon-chevron-right/svelte/ChevronRight.svelte";
-  import Copy from "../../registry/icon-copy/svelte/Copy.svelte";
-  import Folder from "../../registry/icon-folder/svelte/Folder.svelte";
-  import Rocket from "../../registry/icon-rocket/svelte/Rocket.svelte";
-  import Search from "../../registry/icon-search/svelte/Search.svelte";
-  import Server from "../../registry/icon-server/svelte/Server.svelte";
-  import Trash from "../../registry/icon-trash/svelte/Trash.svelte";
-  import User from "../../registry/icon-user/svelte/User.svelte";
-  import X from "../../registry/icon-x/svelte/X.svelte";
+  import { iconComponents, iconEntries } from "./generated/icons.js";
 
-  const iconComponents = {
-    Trash,
-    Search,
-    Calendar,
-    CheckCircle,
-    X,
-    ChevronRight,
-    Copy,
-    User,
-    Folder,
-    Server,
-    Bell,
-    Rocket,
-  };
+  const Trash = iconComponents.Trash;
+  const Rocket = iconComponents.Rocket;
 
-  const iconEntries = Object.entries(iconComponents);
+  const groupDefinitions = [
+    {
+      id: "shared",
+      title: "Shared application language",
+      entries: iconEntries.filter(
+        ({ applications }) => applications.length === 2,
+      ),
+    },
+    {
+      id: "hagfish",
+      title: "Hagfish application set",
+      entries: iconEntries.filter(
+        ({ applications }) =>
+          applications.length === 1 && applications[0] === "hagfish",
+      ),
+    },
+    {
+      id: "slipway",
+      title: "Slipway application set",
+      entries: iconEntries.filter(
+        ({ applications }) =>
+          applications.length === 1 && applications[0] === "slipway",
+      ),
+    },
+    {
+      id: "signature",
+      title: "Klean signature",
+      entries: iconEntries.filter(
+        ({ applications }) => applications.length === 0,
+      ),
+    },
+  ];
 
   let {
     mode = "playground",
@@ -88,29 +96,38 @@
       <h1
         class="text-balance text-4xl font-semibold tracking-tighter sm:text-5xl"
       >
-        Twelve marks. One quiet voice.
+        The application vocabulary in native Svelte.
       </h1>
       <p
         class="mt-5 max-w-2xl text-pretty text-base leading-7 text-klean-muted"
       >
-        Svelte receives ordinary rune-era source with the same Klean geometry
-        and caller-owned visual surface.
+        Ninety-seven audited product concepts and Klean's redesigned Rocket,
+        delivered as ordinary rune-era SVG components.
       </p>
     </header>
-    <ul
-      class="mt-12 grid max-w-7xl grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-6"
-    >
-      {#each iconEntries as [name, component]}
-        {@const Icon = component}
-        <li class="grid justify-items-center gap-3 text-center">
-          <div
-            class="grid aspect-square w-full max-w-32 place-items-center rounded-3xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-950 dark:text-white dark:ring-white/10"
+    {#each groupDefinitions as group}
+      <section class="mt-14 max-w-screen-2xl">
+        <div class="flex items-baseline gap-4">
+          <h2 class="text-2xl font-semibold tracking-tight">{group.title}</h2>
+          <span class="text-sm tabular-nums text-klean-muted"
+            >{group.entries.length} icons</span
           >
-            <Icon class="size-6" />
-          </div>
-          <p class="text-sm font-medium">{name}</p>
-        </li>
-      {/each}
-    </ul>
+        </div>
+        <ul
+          class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8"
+        >
+          {#each group.entries as entry}
+            {@const Icon = entry.component}
+            <li
+              title={entry.description}
+              class="grid min-w-0 justify-items-center gap-3 rounded-2xl bg-white px-3 py-5 text-center shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-950 dark:ring-white/10"
+            >
+              <Icon class="size-6" />
+              <p class="w-full truncate text-xs font-medium">{entry.name}</p>
+            </li>
+          {/each}
+        </ul>
+      </section>
+    {/each}
   </main>
 {/if}

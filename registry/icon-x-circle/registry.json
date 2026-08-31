@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-x-circle",
+  "description": "A crossing mark inside a circle for failure and removal.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/XCircle.vue",
+      "target": "icons/XCircle.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/XCircle.jsx",
+      "target": "icons/XCircle.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/XCircle.svelte",
+      "target": "icons/XCircle.svelte",
+      "dependencies": {}
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-users",
+  "description": "Two people for teams and shared ownership.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Users.vue",
+      "target": "icons/Users.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Users.jsx",
+      "target": "icons/Users.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Users.svelte",
+      "target": "icons/Users.svelte",
+      "dependencies": {}
+    }
+  }
+}

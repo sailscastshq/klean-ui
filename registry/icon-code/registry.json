@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-code",
+  "description": "Angle brackets for code and source.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Code.vue",
+      "target": "icons/Code.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Code.jsx",
+      "target": "icons/Code.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Code.svelte",
+      "target": "icons/Code.svelte",
+      "dependencies": {}
+    }
+  }
+}

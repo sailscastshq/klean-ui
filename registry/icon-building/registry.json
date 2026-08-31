@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-building",
+  "description": "A compact office building for organizations.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Building.vue",
+      "target": "icons/Building.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Building.jsx",
+      "target": "icons/Building.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Building.svelte",
+      "target": "icons/Building.svelte",
+      "dependencies": {}
+    }
+  }
+}

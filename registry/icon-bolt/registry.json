@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-bolt",
+  "description": "A sharp energy bolt for fast and powered actions.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Bolt.vue",
+      "target": "icons/Bolt.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Bolt.jsx",
+      "target": "icons/Bolt.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Bolt.svelte",
+      "target": "icons/Bolt.svelte",
+      "dependencies": {}
+    }
+  }
+}

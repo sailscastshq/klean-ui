@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-heart",
+  "description": "A heart for favorites and care.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Heart.vue",
+      "target": "icons/Heart.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Heart.jsx",
+      "target": "icons/Heart.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Heart.svelte",
+      "target": "icons/Heart.svelte",
+      "dependencies": {}
+    }
+  }
+}

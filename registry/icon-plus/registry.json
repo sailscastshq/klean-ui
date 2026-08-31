@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-plus",
+  "description": "A plus mark for adding and creating.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Plus.vue",
+      "target": "icons/Plus.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Plus.jsx",
+      "target": "icons/Plus.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Plus.svelte",
+      "target": "icons/Plus.svelte",
+      "dependencies": {}
+    }
+  }
+}

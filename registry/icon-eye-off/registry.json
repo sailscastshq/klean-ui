@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-eye-off",
+  "description": "A crossed eye for hidden or private content.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/EyeOff.vue",
+      "target": "icons/EyeOff.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/EyeOff.jsx",
+      "target": "icons/EyeOff.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/EyeOff.svelte",
+      "target": "icons/EyeOff.svelte",
+      "dependencies": {}
+    }
+  }
+}

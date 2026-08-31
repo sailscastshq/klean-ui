@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-stop",
+  "description": "A compact stop square for terminating activity.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Stop.vue",
+      "target": "icons/Stop.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Stop.jsx",
+      "target": "icons/Stop.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Stop.svelte",
+      "target": "icons/Stop.svelte",
+      "dependencies": {}
+    }
+  }
+}

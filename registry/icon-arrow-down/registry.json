@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-arrow-down",
+  "description": "A downward arrow for movement and descending actions.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ArrowDown.vue",
+      "target": "icons/ArrowDown.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ArrowDown.jsx",
+      "target": "icons/ArrowDown.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ArrowDown.svelte",
+      "target": "icons/ArrowDown.svelte",
+      "dependencies": {}
+    }
+  }
+}

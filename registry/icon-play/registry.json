@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-play",
+  "description": "A right-pointing play triangle for starting activity.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Play.vue",
+      "target": "icons/Play.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Play.jsx",
+      "target": "icons/Play.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Play.svelte",
+      "target": "icons/Play.svelte",
+      "dependencies": {}
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-arrow-up",
+  "description": "An upward arrow for movement and ascending actions.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ArrowUp.vue",
+      "target": "icons/ArrowUp.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ArrowUp.jsx",
+      "target": "icons/ArrowUp.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ArrowUp.svelte",
+      "target": "icons/ArrowUp.svelte",
+      "dependencies": {}
+    }
+  }
+}

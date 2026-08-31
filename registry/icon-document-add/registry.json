@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-document-add",
+  "description": "A folded document with a plus mark.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/DocumentAdd.vue",
+      "target": "icons/DocumentAdd.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/DocumentAdd.jsx",
+      "target": "icons/DocumentAdd.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/DocumentAdd.svelte",
+      "target": "icons/DocumentAdd.svelte",
+      "dependencies": {}
+    }
+  }
+}

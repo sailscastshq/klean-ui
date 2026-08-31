@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-ticket",
+  "description": "A perforated ticket for credits and admissions.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Ticket.vue",
+      "target": "icons/Ticket.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Ticket.jsx",
+      "target": "icons/Ticket.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Ticket.svelte",
+      "target": "icons/Ticket.svelte",
+      "dependencies": {}
+    }
+  }
+}

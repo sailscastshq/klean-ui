@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-history",
+  "description": "A returning clock for history and recent activity.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/History.vue",
+      "target": "icons/History.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/History.jsx",
+      "target": "icons/History.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/History.svelte",
+      "target": "icons/History.svelte",
+      "dependencies": {}
+    }
+  }
+}

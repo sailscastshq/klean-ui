@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-send",
+  "description": "A folded paper plane for sending content.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Send.vue",
+      "target": "icons/Send.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Send.jsx",
+      "target": "icons/Send.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Send.svelte",
+      "target": "icons/Send.svelte",
+      "dependencies": {}
+    }
+  }
+}

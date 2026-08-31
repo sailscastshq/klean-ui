@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-sort",
+  "description": "Opposing vertical arrows for sorting order.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Sort.vue",
+      "target": "icons/Sort.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Sort.jsx",
+      "target": "icons/Sort.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Sort.svelte",
+      "target": "icons/Sort.svelte",
+      "dependencies": {}
+    }
+  }
+}

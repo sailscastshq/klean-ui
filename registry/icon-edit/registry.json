@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-edit",
+  "description": "A precise pencil for editing content.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Edit.vue",
+      "target": "icons/Edit.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Edit.jsx",
+      "target": "icons/Edit.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Edit.svelte",
+      "target": "icons/Edit.svelte",
+      "dependencies": {}
+    }
+  }
+}

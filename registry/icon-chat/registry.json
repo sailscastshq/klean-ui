@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-chat",
+  "description": "A rounded conversation bubble for chat.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Chat.vue",
+      "target": "icons/Chat.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Chat.jsx",
+      "target": "icons/Chat.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Chat.svelte",
+      "target": "icons/Chat.svelte",
+      "dependencies": {}
+    }
+  }
+}

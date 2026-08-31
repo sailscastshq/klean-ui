@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-cloud-upload",
+  "description": "A cloud receiving an upload arrow.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/CloudUpload.vue",
+      "target": "icons/CloudUpload.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/CloudUpload.jsx",
+      "target": "icons/CloudUpload.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/CloudUpload.svelte",
+      "target": "icons/CloudUpload.svelte",
+      "dependencies": {}
+    }
+  }
+}

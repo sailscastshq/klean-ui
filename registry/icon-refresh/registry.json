@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-refresh",
+  "description": "Two returning arcs for refresh and retry.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Refresh.vue",
+      "target": "icons/Refresh.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Refresh.jsx",
+      "target": "icons/Refresh.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Refresh.svelte",
+      "target": "icons/Refresh.svelte",
+      "dependencies": {}
+    }
+  }
+}

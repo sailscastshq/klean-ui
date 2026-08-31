@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-file-pdf",
+  "description": "A folded document with an archival PDF mark.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/FilePdf.vue",
+      "target": "icons/FilePdf.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/FilePdf.jsx",
+      "target": "icons/FilePdf.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/FilePdf.svelte",
+      "target": "icons/FilePdf.svelte",
+      "dependencies": {}
+    }
+  }
+}

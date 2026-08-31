@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-key",
+  "description": "A key for credentials and access.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Key.vue",
+      "target": "icons/Key.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Key.jsx",
+      "target": "icons/Key.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Key.svelte",
+      "target": "icons/Key.svelte",
+      "dependencies": {}
+    }
+  }
+}

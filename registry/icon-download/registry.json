@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-download",
+  "description": "A downward transfer arrow landing in a tray.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Download.vue",
+      "target": "icons/Download.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Download.jsx",
+      "target": "icons/Download.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Download.svelte",
+      "target": "icons/Download.svelte",
+      "dependencies": {}
+    }
+  }
+}

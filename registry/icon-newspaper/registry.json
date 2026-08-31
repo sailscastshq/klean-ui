@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-newspaper",
+  "description": "A newspaper layout for editorial content and updates.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Newspaper.vue",
+      "target": "icons/Newspaper.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Newspaper.jsx",
+      "target": "icons/Newspaper.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Newspaper.svelte",
+      "target": "icons/Newspaper.svelte",
+      "dependencies": {}
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-document-text",
+  "description": "A folded document with text lines.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/DocumentText.vue",
+      "target": "icons/DocumentText.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/DocumentText.jsx",
+      "target": "icons/DocumentText.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/DocumentText.svelte",
+      "target": "icons/DocumentText.svelte",
+      "dependencies": {}
+    }
+  }
+}

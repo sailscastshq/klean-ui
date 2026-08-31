@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-cube",
+  "description": "An isometric cube for packages and services.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Cube.vue",
+      "target": "icons/Cube.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Cube.jsx",
+      "target": "icons/Cube.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Cube.svelte",
+      "target": "icons/Cube.svelte",
+      "dependencies": {}
+    }
+  }
+}

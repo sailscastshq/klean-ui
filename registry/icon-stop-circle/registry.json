@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-stop-circle",
+  "description": "A stop square inside a circle for terminating activity.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/StopCircle.vue",
+      "target": "icons/StopCircle.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/StopCircle.jsx",
+      "target": "icons/StopCircle.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/StopCircle.svelte",
+      "target": "icons/StopCircle.svelte",
+      "dependencies": {}
+    }
+  }
+}

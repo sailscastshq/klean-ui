@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-camera",
+  "description": "A camera for capturing and attaching photographs.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Camera.vue",
+      "target": "icons/Camera.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Camera.jsx",
+      "target": "icons/Camera.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Camera.svelte",
+      "target": "icons/Camera.svelte",
+      "dependencies": {}
+    }
+  }
+}

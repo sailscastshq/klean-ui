@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-wrench",
+  "description": "An angled wrench for tools and maintenance.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Wrench.vue",
+      "target": "icons/Wrench.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Wrench.jsx",
+      "target": "icons/Wrench.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Wrench.svelte",
+      "target": "icons/Wrench.svelte",
+      "dependencies": {}
+    }
+  }
+}

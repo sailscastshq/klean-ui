@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-image",
+  "description": "A framed landscape for images and media.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Image.vue",
+      "target": "icons/Image.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Image.jsx",
+      "target": "icons/Image.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Image.svelte",
+      "target": "icons/Image.svelte",
+      "dependencies": {}
+    }
+  }
+}

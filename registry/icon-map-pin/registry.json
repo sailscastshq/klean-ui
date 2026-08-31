@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-map-pin",
+  "description": "A location pin for places and addresses.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/MapPin.vue",
+      "target": "icons/MapPin.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/MapPin.jsx",
+      "target": "icons/MapPin.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/MapPin.svelte",
+      "target": "icons/MapPin.svelte",
+      "dependencies": {}
+    }
+  }
+}

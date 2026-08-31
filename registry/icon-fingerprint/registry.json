@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-fingerprint",
+  "description": "Layered fingerprint ridges for identity verification.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Fingerprint.vue",
+      "target": "icons/Fingerprint.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Fingerprint.jsx",
+      "target": "icons/Fingerprint.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Fingerprint.svelte",
+      "target": "icons/Fingerprint.svelte",
+      "dependencies": {}
+    }
+  }
+}

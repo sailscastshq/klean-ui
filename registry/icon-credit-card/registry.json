@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-credit-card",
+  "description": "A payment card for billing and checkout.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/CreditCard.vue",
+      "target": "icons/CreditCard.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/CreditCard.jsx",
+      "target": "icons/CreditCard.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/CreditCard.svelte",
+      "target": "icons/CreditCard.svelte",
+      "dependencies": {}
+    }
+  }
+}

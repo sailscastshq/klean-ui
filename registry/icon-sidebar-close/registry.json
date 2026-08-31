@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-sidebar-close",
+  "description": "A sidebar frame with an inward closing cue.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/SidebarClose.vue",
+      "target": "icons/SidebarClose.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/SidebarClose.jsx",
+      "target": "icons/SidebarClose.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/SidebarClose.svelte",
+      "target": "icons/SidebarClose.svelte",
+      "dependencies": {}
+    }
+  }
+}

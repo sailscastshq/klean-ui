@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-clock",
+  "description": "A clock face for time, duration, and schedules.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Clock.vue",
+      "target": "icons/Clock.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Clock.jsx",
+      "target": "icons/Clock.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Clock.svelte",
+      "target": "icons/Clock.svelte",
+      "dependencies": {}
+    }
+  }
+}

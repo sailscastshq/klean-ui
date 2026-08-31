@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-sign-out",
+  "description": "An exit arrow leaving a doorway.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/SignOut.vue",
+      "target": "icons/SignOut.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/SignOut.jsx",
+      "target": "icons/SignOut.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/SignOut.svelte",
+      "target": "icons/SignOut.svelte",
+      "dependencies": {}
+    }
+  }
+}

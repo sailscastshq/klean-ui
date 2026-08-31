@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-menu",
+  "description": "Three balanced lines for application navigation.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Menu.vue",
+      "target": "icons/Menu.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Menu.jsx",
+      "target": "icons/Menu.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Menu.svelte",
+      "target": "icons/Menu.svelte",
+      "dependencies": {}
+    }
+  }
+}

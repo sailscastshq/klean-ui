@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-recurring",
+  "description": "Two circular arrows for recurring activity.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Recurring.vue",
+      "target": "icons/Recurring.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Recurring.jsx",
+      "target": "icons/Recurring.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Recurring.svelte",
+      "target": "icons/Recurring.svelte",
+      "dependencies": {}
+    }
+  }
+}

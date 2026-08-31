@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-link",
+  "description": "Two joined links for URLs and relationships.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Link.vue",
+      "target": "icons/Link.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Link.jsx",
+      "target": "icons/Link.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Link.svelte",
+      "target": "icons/Link.svelte",
+      "dependencies": {}
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-pin",
+  "description": "A pushpin for keeping important resources in reach.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Pin.vue",
+      "target": "icons/Pin.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Pin.jsx",
+      "target": "icons/Pin.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Pin.svelte",
+      "target": "icons/Pin.svelte",
+      "dependencies": {}
+    }
+  }
+}

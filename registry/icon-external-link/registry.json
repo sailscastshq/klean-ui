@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-external-link",
+  "description": "An arrow leaving a frame for external destinations.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/ExternalLink.vue",
+      "target": "icons/ExternalLink.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ExternalLink.jsx",
+      "target": "icons/ExternalLink.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ExternalLink.svelte",
+      "target": "icons/ExternalLink.svelte",
+      "dependencies": {}
+    }
+  }
+}

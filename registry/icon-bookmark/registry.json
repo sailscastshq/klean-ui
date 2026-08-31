@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-bookmark",
+  "description": "A bookmark ribbon for saved items.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Bookmark.vue",
+      "target": "icons/Bookmark.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/Bookmark.jsx",
+      "target": "icons/Bookmark.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/Bookmark.svelte",
+      "target": "icons/Bookmark.svelte",
+      "dependencies": {}
+    }
+  }
+}

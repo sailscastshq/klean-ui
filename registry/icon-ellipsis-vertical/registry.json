@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "icon-ellipsis-vertical",
+  "description": "Three vertical dots for more actions.",
+  "kind": "icon",
+  "frameworks": {
+    "vue": {
+      "source": "vue/EllipsisVertical.vue",
+      "target": "icons/EllipsisVertical.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/EllipsisVertical.jsx",
+      "target": "icons/EllipsisVertical.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/EllipsisVertical.svelte",
+      "target": "icons/EllipsisVertical.svelte",
+      "dependencies": {}
+    }
+  }
+}
