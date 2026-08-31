@@ -102,9 +102,9 @@
     >
       {#each iconEntries as [name, component]}
         {@const Icon = component}
-        <li class="space-y-3">
+        <li class="grid justify-items-center gap-3 text-center">
           <div
-            class="grid aspect-square max-w-32 place-items-center rounded-3xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-950 dark:text-white dark:ring-white/10"
+            class="grid aspect-square w-full max-w-32 place-items-center rounded-3xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-950 dark:text-white dark:ring-white/10"
           >
             <Icon class="size-6" />
           </div>

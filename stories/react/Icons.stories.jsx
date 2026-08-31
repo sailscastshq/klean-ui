@@ -66,8 +66,8 @@ export function ProofSet() {
       </header>
       <ul className="mt-12 grid max-w-7xl grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
         {iconEntries.map(([name, Icon]) => (
-          <li key={name} className="space-y-3">
-            <div className="grid aspect-square max-w-32 place-items-center rounded-3xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-950 dark:text-white dark:ring-white/10">
+          <li key={name} className="grid justify-items-center gap-3 text-center">
+            <div className="grid aspect-square w-full max-w-32 place-items-center rounded-3xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-950 dark:text-white dark:ring-white/10">
               <Icon className="size-6" />
             </div>
             <p className="text-sm font-medium">{name}</p>

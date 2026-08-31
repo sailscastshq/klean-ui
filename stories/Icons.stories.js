@@ -99,8 +99,8 @@ export const ProofSet = {
         <section class="mt-12 max-w-7xl" aria-labelledby="icons-light-title">
           <h2 id="icons-light-title" class="text-sm font-medium text-klean-muted">Light surface</h2>
           <ul class="mt-5 grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
-            <li v-for="icon in iconEntries" :key="icon.name" class="space-y-3">
-              <div class="grid aspect-square max-w-32 place-items-center rounded-3xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-950/5">
+            <li v-for="icon in iconEntries" :key="icon.name" class="grid justify-items-center gap-3 text-center">
+              <div class="grid aspect-square w-full max-w-32 place-items-center rounded-3xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-950/5">
                 <component :is="icon.component" class="size-6" />
               </div>
               <p class="text-sm font-medium">{{ icon.name }}</p>
