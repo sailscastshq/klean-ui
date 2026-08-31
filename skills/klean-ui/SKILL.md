@@ -37,6 +37,33 @@ making its behavior accessible, resilient, and unsurprising.
 6. Keep framework implementations idiomatic. Do not create a cross-framework
    runtime abstraction merely to make Vue, React, and Svelte source look alike.
 
+## Use Klean Icons as application-owned source
+
+Install only the semantic icons the feature needs, as one atomic collection:
+
+```bash
+npx klean-ui add icon trash search calendar
+```
+
+Use the installed component's semantic name, such as `Trash`, rather than an
+`Icon`-suffixed alias such as `TrashIcon`, and import it directly from the
+application-owned icon directory. Do not introduce an icon runtime or global
+library import.
+
+Klean Icons inherit `currentColor` and accept ordinary classes and SVG
+attributes. Size and color them at the call site. Preserve the default 24px
+canvas, calm 1.5px stroke, and rounded joins unless the application has a
+deliberate reason to adjust the presentation.
+
+The SVG is decorative by default. Put the accessible name on the surrounding
+button, link, label, or text instead of making assistive technology announce
+the glyph. When an icon conveys a standalone status, pair it with meaningful
+application text.
+
+Choose icons by meaning rather than visual resemblance. Consult the live
+[Klean Icons catalog](https://docs.sailscasts.com/klean-ui/components/icons)
+instead of duplicating the evolving icon list in this skill.
+
 ## Make behavior durable where it matters
 
 Durability is a product decision, not a wrapper around every primitive. Keep
