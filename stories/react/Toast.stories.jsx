@@ -2,6 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import { expect, userEvent, within } from "storybook/test";
 import Toast from "../../registry/toast/react/Toast.jsx";
 import { createToast } from "../../registry/toast/toast.js";
+import {
+  deployment,
+  longNotification,
+  verifyToastBounds,
+} from "../toast-overflow.js";
 
 const positions = [
   "top-left",
@@ -184,4 +189,98 @@ export const CustomContent = {
   name: "Custom content",
   parameters: { controls: { disable: true } },
   render: () => <CustomDemo />,
+};
+
+function LongContentDemo({ custom = false }) {
+  const notifications = useMemo(() => createToast({ duration: false }), []);
+  useEffect(() => () => notifications.destroy(), [notifications]);
+
+  return (
+    <div className="klean-toast-motion-preview">
+      <button
+        type="button"
+        className="min-h-11 cursor-pointer rounded-md bg-gray-950 px-4 py-2 font-medium text-white hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2"
+        onClick={() =>
+          notifications(
+            custom
+              ? {
+                  deployment,
+                  class:
+                    "block overflow-visible bg-transparent p-0 shadow-none ring-0 dark:bg-transparent",
+                }
+              : longNotification,
+          )
+        }
+      >
+        {custom ? "Show deployment notification" : "Show long notification"}
+      </button>
+      <Toast
+        controller={notifications}
+        position="bottom-right"
+        from="none"
+        to="none"
+        className={
+          custom ? "w-80 max-w-[calc(100vw-2rem)] overflow-y-auto" : undefined
+        }
+      >
+        {custom
+          ? ({ item, dismiss }) => (
+              <article
+                data-slot="deployment-card"
+                className="rounded-xl bg-white p-4 text-gray-950 shadow-xl ring-1 ring-gray-950/10 dark:bg-gray-950 dark:text-white dark:ring-white/15"
+              >
+                <div className="flex items-start gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="grid size-10 shrink-0 place-items-center rounded-lg bg-emerald-500/20 text-emerald-700 dark:text-emerald-400"
+                  >
+                    ✓
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-sm font-medium">Deployment ready</p>
+                      <button
+                        type="button"
+                        data-slot="deployment-dismiss"
+                        className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:hover:bg-gray-800 dark:hover:text-white dark:focus-visible:ring-white"
+                        aria-label="Dismiss deployment notification"
+                        onClick={dismiss}
+                      >
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <a
+                      href="#deployment"
+                      data-slot="deployment-link"
+                      className="mt-0.5 block w-full truncate text-left text-sm font-medium hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:focus-visible:ring-white"
+                    >
+                      {item.deployment.project.name} /{" "}
+                      {item.deployment.environment.name} /{" "}
+                      {item.deployment.app.name}
+                    </a>
+                    <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                      {item.deployment.gitBranch}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            )
+          : undefined}
+      </Toast>
+    </div>
+  );
+}
+
+export const LongContent = {
+  name: "Long content",
+  parameters: { controls: { disable: true } },
+  render: () => <LongContentDemo />,
+  play: verifyToastBounds,
+};
+
+export const LongCustomContent = {
+  name: "Long custom content",
+  parameters: { controls: { disable: true } },
+  render: () => <LongContentDemo custom />,
+  play: verifyToastBounds,
 };
