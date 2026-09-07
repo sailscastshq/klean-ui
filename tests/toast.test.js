@@ -292,6 +292,89 @@ test("keeps the native top-layer contract aligned across frameworks", () => {
   }
 });
 
+test("keeps a shrinkable toast column even when custom cards allow overflow", async () => {
+  const controller = createToast({ duration: false });
+  const wrapper = mount(Toast, {
+    props: { controller },
+    slots: {
+      default: () => h("article", {}, "production.example.com/".repeat(10)),
+    },
+  });
+
+  controller({ class: "block overflow-visible p-0" });
+  await nextTick();
+
+  expect(wrapper.get('[data-slot="toast-list"]').classes()).toContain(
+    "min-w-0",
+  );
+  expect(wrapper.get("[data-klean-toast-row]").classes()).toEqual(
+    expect.arrayContaining(["min-w-0", "grid-cols-1"]),
+  );
+  expect(wrapper.get('[data-slot="toast"]').classes()).toEqual(
+    expect.arrayContaining([
+      "block",
+      "min-w-0",
+      "overflow-visible",
+      "wrap-anywhere",
+    ]),
+  );
+  expect(wrapper.get('[data-slot="toast"]').classes()).not.toContain(
+    "overflow-hidden",
+  );
+
+  wrapper.unmount();
+  controller.destroy();
+});
+
+for (const kind of ["link", "button"]) {
+  test(`wraps long notification text and ${kind} labels without changing their content`, async () => {
+    const controller = createToast({ duration: false });
+    const wrapper = mount(Toast, { props: { controller } });
+    const title = "ProductionDeployment".repeat(5);
+    const message = `https://example.com/${"deployment-output".repeat(10)}`;
+    const label = "ViewDeploymentHistoryAndBuildOutput".repeat(4);
+    controller({
+      title,
+      message,
+      action: { label, ...(kind === "link" ? { href: "#deployment" } : {}) },
+    });
+    await nextTick();
+
+    expect(wrapper.get('[data-slot="toast-title"]').text()).toBe(title);
+    expect(wrapper.get('[data-slot="toast-message"]').text()).toBe(message);
+    expect(wrapper.get('[data-slot="toast"]').classes()).toContain(
+      "wrap-anywhere",
+    );
+    const action = wrapper.get('[data-slot="toast-action"]');
+    expect(action.element.tagName).toBe(kind === "link" ? "A" : "BUTTON");
+    expect(action.text()).toBe(label);
+    expect(action.classes()).toEqual(
+      expect.arrayContaining(["max-w-full", "whitespace-normal", "text-left"]),
+    );
+
+    wrapper.unmount();
+    controller.destroy();
+  });
+}
+
+test("keeps toast width and wrapping defaults aligned across source and framework copies", () => {
+  const vue = readFileSync(resolve("registry/toast/vue/Toast.vue"), "utf8");
+  expect(readFileSync(resolve("src/vue/toast/Toast.vue"), "utf8")).toBe(
+    vue.replace('from "../toast.js"', 'from "./toast.js"'),
+  );
+  for (const file of [
+    "registry/toast/vue/Toast.vue",
+    "registry/toast/react/Toast.jsx",
+    "registry/toast/svelte/Toast.svelte",
+  ]) {
+    const source = readFileSync(resolve(file), "utf8");
+    expect(source).toContain("grid min-w-0 grid-cols-1 grid-rows-[1fr]");
+    expect(source).toContain("wrap-anywhere");
+    expect(source.match(/min-h-8 max-w-full/g)).toHaveLength(2);
+    expect(source.match(/whitespace-normal/g)).toHaveLength(2);
+  }
+});
+
 test("keeps default motion on the nearest horizontal edge", () => {
   const controller = createToast({ duration: false });
   const left = mount(Toast, {

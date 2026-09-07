@@ -107,8 +107,9 @@
     const activeController = controller;
     promotedItemId = undefined;
     const sync = () => {
-      items = activeController.getSnapshot();
-      const enteringItem = items.findLast((item) => item.state === "entering");
+      const snapshot = activeController.getSnapshot();
+      items = snapshot;
+      const enteringItem = snapshot.findLast((item) => item.state === "entering");
       if (enteringItem && enteringItem.id !== promotedItemId) {
         promotedItemId = enteringItem.id;
         try {
@@ -204,13 +205,13 @@
   )}
   style={motionStyle}
 >
-  <ol data-slot="toast-list" class="m-0 flex w-full list-none flex-col p-0">
+  <ol data-slot="toast-list" class="m-0 flex w-full min-w-0 list-none flex-col p-0">
     {#each items as item (item.id)}
       <li
         data-klean-toast-row
         data-state={item.state}
         aria-atomic="true"
-        class="grid grid-rows-[1fr] pb-3"
+        class="grid min-w-0 grid-cols-1 grid-rows-[1fr] pb-3"
         onmouseenter={() => controller.pause(item.id, "hover")}
         onmouseleave={() => controller.resume(item.id, "hover")}
         onfocusin={() => controller.pause(item.id, "focus")}
@@ -223,7 +224,7 @@
           data-from={resolvedFrom}
           data-to={resolvedTo}
           class={twMerge(
-            "pointer-events-auto grid min-h-0 w-full grid-cols-[minmax(0,1fr)_auto] items-start gap-3 overflow-hidden rounded-xl bg-white px-4 py-3 text-gray-950 shadow-xl ring-1 ring-gray-950/10 dark:bg-gray-950 dark:text-white dark:ring-white/15",
+            "pointer-events-auto grid min-h-0 w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-3 overflow-hidden rounded-xl bg-white px-4 py-3 wrap-anywhere text-gray-950 shadow-xl ring-1 ring-gray-950/10 dark:bg-gray-950 dark:text-white dark:ring-white/15",
             item.class,
             item.className,
           )}
@@ -254,7 +255,7 @@
                   data-slot="toast-action"
                   href={item.action.href}
                   class={twMerge(
-                    "mt-2 inline-flex min-h-8 items-center text-sm font-semibold text-gray-950 underline decoration-gray-300 underline-offset-4 hover:decoration-current focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:text-white dark:decoration-gray-600 dark:focus-visible:ring-white",
+                    "mt-2 inline-flex min-h-8 max-w-full items-center whitespace-normal text-left text-sm font-semibold text-gray-950 underline decoration-gray-300 underline-offset-4 hover:decoration-current focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:text-white dark:decoration-gray-600 dark:focus-visible:ring-white",
                     item.action.class,
                     item.action.className,
                   )}
@@ -267,7 +268,7 @@
                   type="button"
                   data-slot="toast-action"
                   class={twMerge(
-                    "mt-2 inline-flex min-h-8 cursor-pointer items-center text-sm font-semibold text-gray-950 hover:text-gray-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:text-white dark:hover:text-gray-300 dark:focus-visible:ring-white",
+                    "mt-2 inline-flex min-h-8 max-w-full cursor-pointer items-center whitespace-normal text-left text-sm font-semibold text-gray-950 hover:text-gray-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:text-white dark:hover:text-gray-300 dark:focus-visible:ring-white",
                     item.action.class,
                     item.action.className,
                   )}

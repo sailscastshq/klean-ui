@@ -236,7 +236,7 @@ export default function Toast({
               data-slot="toast-action"
               href={item.action.href}
               className={twMerge(
-                "mt-2 inline-flex min-h-8 items-center text-sm font-semibold text-gray-950 underline decoration-gray-300 underline-offset-4 hover:decoration-current focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:text-white dark:decoration-gray-600 dark:focus-visible:ring-white",
+                "mt-2 inline-flex min-h-8 max-w-full items-center whitespace-normal text-left text-sm font-semibold text-gray-950 underline decoration-gray-300 underline-offset-4 hover:decoration-current focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:text-white dark:decoration-gray-600 dark:focus-visible:ring-white",
                 item.action.class,
                 item.action.className,
               )}
@@ -249,7 +249,7 @@ export default function Toast({
               type="button"
               data-slot="toast-action"
               className={twMerge(
-                "mt-2 inline-flex min-h-8 cursor-pointer items-center text-sm font-semibold text-gray-950 hover:text-gray-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:text-white dark:hover:text-gray-300 dark:focus-visible:ring-white",
+                "mt-2 inline-flex min-h-8 max-w-full cursor-pointer items-center whitespace-normal text-left text-sm font-semibold text-gray-950 hover:text-gray-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:text-white dark:hover:text-gray-300 dark:focus-visible:ring-white",
                 item.action.class,
                 item.action.className,
               )}
@@ -299,7 +299,7 @@ export default function Toast({
       <style>{MOTION_CSS}</style>
       <ol
         data-slot="toast-list"
-        className="m-0 flex w-full list-none flex-col p-0"
+        className="m-0 flex w-full min-w-0 list-none flex-col p-0"
       >
         {items.map((item) => (
           <li
@@ -307,7 +307,7 @@ export default function Toast({
             data-klean-toast-row=""
             data-state={item.state}
             aria-atomic="true"
-            className="grid grid-rows-[1fr] pb-3"
+            className="grid min-w-0 grid-cols-1 grid-rows-[1fr] pb-3"
             onMouseEnter={() => controller.pause(item.id, "hover")}
             onMouseLeave={() => controller.resume(item.id, "hover")}
             onFocus={() => controller.pause(item.id, "focus")}
@@ -324,7 +324,7 @@ export default function Toast({
               data-from={resolvedFrom}
               data-to={resolvedTo}
               className={twMerge(
-                "pointer-events-auto grid min-h-0 w-full grid-cols-[minmax(0,1fr)_auto] items-start gap-3 overflow-hidden rounded-xl bg-white px-4 py-3 text-gray-950 shadow-xl ring-1 ring-gray-950/10 dark:bg-gray-950 dark:text-white dark:ring-white/15",
+                "pointer-events-auto grid min-h-0 w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-3 overflow-hidden rounded-xl bg-white px-4 py-3 wrap-anywhere text-gray-950 shadow-xl ring-1 ring-gray-950/10 dark:bg-gray-950 dark:text-white dark:ring-white/15",
                 item.class,
                 item.className,
               )}

@@ -1,5 +1,7 @@
 import { expect, userEvent, within } from "storybook/test";
 import ToastExample from "./ToastExample.svelte";
+import ToastOverflowExample from "./ToastOverflowExample.svelte";
+import { verifyToastBounds } from "../toast-overflow.js";
 
 const positions = [
   "top-left",
@@ -65,4 +67,18 @@ export const CustomContent = {
   name: "Custom content",
   args: { custom: true, position: "bottom-right" },
   parameters: { controls: { disable: true } },
+};
+
+export const LongContent = {
+  name: "Long content",
+  parameters: { controls: { disable: true } },
+  render: () => ({ Component: ToastOverflowExample }),
+  play: verifyToastBounds,
+};
+
+export const LongCustomContent = {
+  name: "Long custom content",
+  parameters: { controls: { disable: true } },
+  render: () => ({ Component: ToastOverflowExample, props: { custom: true } }),
+  play: verifyToastBounds,
 };

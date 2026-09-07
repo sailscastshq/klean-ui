@@ -2,6 +2,11 @@ import { expect, userEvent, within } from "storybook/test";
 import { onBeforeUnmount, ref } from "vue";
 import Toast from "../src/vue/toast/Toast.vue";
 import { createToast } from "../src/vue/toast/toast.js";
+import {
+  deployment,
+  longNotification,
+  verifyToastBounds,
+} from "./toast-overflow.js";
 
 const positions = [
   "top-left",
@@ -50,6 +55,73 @@ const meta = {
 };
 
 export default meta;
+
+export const LongContent = {
+  parameters: { controls: { disable: true } },
+  render: () => ({
+    components: { Toast },
+    setup() {
+      const notifications = createToast({ duration: false });
+      onBeforeUnmount(notifications.destroy);
+      return {
+        notifications,
+        notify: () => notifications(longNotification),
+      };
+    },
+    template: `
+      <button type="button" class="min-h-11 cursor-pointer rounded-md bg-gray-950 px-4 py-2 font-medium text-white" @click="notify">Show long notification</button>
+      <Toast :controller="notifications" position="bottom-right" from="none" to="none" />
+    `,
+  }),
+  play: verifyToastBounds,
+};
+
+export const LongCustomContent = {
+  parameters: { controls: { disable: true } },
+  render: () => ({
+    components: { Toast },
+    setup() {
+      const notifications = createToast({ duration: false });
+      onBeforeUnmount(notifications.destroy);
+      return {
+        deployment,
+        notifications,
+        notify: () =>
+          notifications({
+            title: "Building",
+            class:
+              "block overflow-visible bg-transparent p-0 shadow-none ring-0 dark:bg-transparent",
+          }),
+      };
+    },
+    template: `
+      <button type="button" class="min-h-11 cursor-pointer rounded-md bg-gray-950 px-4 py-2 font-medium text-white" @click="notify">Show deployment notification</button>
+      <Toast :controller="notifications" position="bottom-right" from="none" to="none" class="w-80 max-w-[calc(100vw-2rem)] overflow-y-auto">
+        <template #default="{ item, dismiss }">
+          <article data-slot="deployment-card" class="w-full overflow-hidden rounded-xl border border-gray-700 bg-gray-900 text-white shadow-xl">
+            <div class="h-0.5 bg-blue-500" aria-hidden="true"></div>
+            <div class="flex items-start gap-3 p-4">
+              <span class="grid size-10 shrink-0 place-items-center rounded-lg bg-gray-800 text-blue-400" aria-hidden="true">↑</span>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-start justify-between gap-2">
+                  <p class="text-sm font-semibold text-blue-400">{{ item.title }}</p>
+                  <button type="button" data-slot="deployment-dismiss" class="grid size-6 shrink-0 cursor-pointer place-items-center rounded text-gray-400 hover:text-white" aria-label="Dismiss deployment notification" @click="dismiss">×</button>
+                </div>
+                <a href="#deployment" data-slot="deployment-link" class="block w-full truncate text-sm font-semibold underline">{{ deployment.project.name }} / {{ deployment.environment.name }} / {{ deployment.app.name }}</a>
+                <p class="mt-1 text-xs text-gray-400">Hoisting the sails…</p>
+                <div class="mt-2 flex items-center gap-3 text-xs text-gray-400">
+                  <span class="min-w-0 truncate">{{ deployment.gitBranch }}</span>
+                  <span class="shrink-0">28s</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </template>
+      </Toast>
+    `,
+  }),
+  play: verifyToastBounds,
+};
 
 export const Playground = {
   parameters: { controls: { include: ["position", "from", "to"] } },
