@@ -13,6 +13,9 @@ import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const packageMetadata = JSON.parse(
+  readFileSync(resolve(root, "package.json"), "utf8"),
+);
 const temporaryRoot = mkdtempSync(join(tmpdir(), "klean-ui-packed-cli-"));
 
 function run(command, args, options = {}) {
@@ -122,7 +125,7 @@ try {
     "node_modules/.bin/klean-ui",
   );
 
-  assert.equal(installedMetadata.version, "0.0.2");
+  assert.equal(installedMetadata.version, packageMetadata.version);
   assert.deepEqual(installedMetadata.bin, {
     "klean-ui": "bin/klean-ui.js",
   });
@@ -133,7 +136,7 @@ try {
       cwd: installDirectory,
       env: { ...process.env, npm_config_cache: npmCache },
     }).trim(),
-    "0.0.2",
+    packageMetadata.version,
   );
   assert.ok(
     existsSync(resolve(installedPackage, "registry/button/registry.json")),
@@ -167,6 +170,22 @@ try {
         cwd: applicationRoot,
       }),
       /Everything is already current/,
+    );
+
+    run(process.execPath, [cli, "add", "toast"], { cwd: applicationRoot });
+    const toastSource = readFileSync(
+      resolve(
+        applicationRoot,
+        `assets/js/components/ui/toast/Toast.${extension}`,
+      ),
+      "utf8",
+    );
+    assert.match(toastSource, /grid-cols-1/);
+    assert.match(toastSource, /wrap-anywhere/);
+    assert.match(toastSource, /max-w-full/);
+    assert.match(
+      run(process.execPath, [cli, "diff", "toast"], { cwd: applicationRoot }),
+      /toast is current; there is no upstream diff/,
     );
 
     const iconOutput = run(
