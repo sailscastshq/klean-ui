@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A future-only schedule field that commits valid natural-language input on Enter or when focus leaves the complete picker.",
+          "Choose a date, time and timezone together. Future-only by default; allowPast enables historical records. Valid input commits on Enter or when focus leaves the complete picker.",
       },
     },
   },
@@ -20,6 +20,7 @@ const meta = {
     required: true,
     disabled: false,
     readonly: false,
+    allowPast: false,
     class: "w-[min(34rem,calc(100vw-2rem))]",
   },
   argTypes: {
@@ -29,6 +30,7 @@ const meta = {
     required: { control: "boolean" },
     disabled: { control: "boolean" },
     readonly: { control: "boolean" },
+    allowPast: { control: "boolean" },
     class: { control: "text" },
   },
 };
@@ -45,6 +47,7 @@ export const Playground = {
         "required",
         "disabled",
         "readonly",
+        "allowPast",
         "class",
       ],
     },
@@ -67,6 +70,7 @@ export const Playground = {
           :required="args.required"
           :disabled="args.disabled"
           :readonly="args.readonly"
+          :allow-past="args.allowPast"
           :class="args.class"
         />
         <output class="break-all font-mono text-xs text-gray-500">{{ value || 'No committed instant yet' }}</output>
@@ -97,6 +101,45 @@ export const PublishingWorkflow = {
           </div>
         </form>
       </main>
+    `,
+  }),
+};
+
+export const HistoricalRecord = {
+  parameters: { controls: { disable: true } },
+  render: () => ({
+    components: { SchedulePicker },
+    setup() {
+      const value = ref("2020-02-29T14:35:27.123Z");
+      return { value };
+    },
+    template: `
+      <form class="grid w-[min(34rem,calc(100vw-2rem))] gap-3" @submit.prevent>
+        <h1 class="text-xl font-semibold">Edit record</h1>
+        <label for="record-occurred-at" class="text-sm font-medium">Occurred at</label>
+        <SchedulePicker id="record-occurred-at" v-model="value" name="occurredAt" allow-past time-zone="UTC" locale="en-US" placeholder="February 29, 2020 at 2:35pm" class="**:data-[slot=input]:border-dashed **:data-[slot=input]:shadow-none" />
+        <output class="break-all font-mono text-xs text-gray-500">{{ value }}</output>
+        <button type="submit" class="min-h-11 justify-self-start rounded-md bg-gray-950 px-4 py-2 text-sm font-medium text-white">Save record</button>
+      </form>
+    `,
+  }),
+};
+
+export const BoundedPeriod = {
+  parameters: { controls: { disable: true } },
+  render: () => ({
+    components: { SchedulePicker },
+    setup() {
+      const value = ref("2020-02-29T14:35:00.000Z");
+      return { value };
+    },
+    template: `
+      <div class="grid w-[min(34rem,calc(100vw-2rem))] gap-3">
+        <label for="bounded-datetime" class="text-sm font-medium">Recorded during February 2020</label>
+        <SchedulePicker id="bounded-datetime" v-model="value" name="recordedAt" allow-past time-zone="UTC" locale="en-GB" min="2020-02-01T00:00:00.000Z" max="2020-03-01T00:00:00.000Z" />
+        <output class="break-all font-mono text-xs text-gray-500">{{ value }}</output>
+        <button type="button" class="min-h-11 justify-self-start rounded-md border border-gray-300 px-4 text-sm">Continue</button>
+      </div>
     `,
   }),
 };

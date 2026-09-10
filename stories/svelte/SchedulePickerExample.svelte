@@ -1,27 +1,37 @@
 <script>
+  import { untrack } from "svelte";
   import SchedulePicker from "../../registry/schedule-picker/svelte/SchedulePicker.svelte";
 
   let {
     name = "publishAt",
     timeZone = "Africa/Lagos",
+    locale,
+    allowPast = false,
+    defaultValue = "",
+    min,
+    max,
     minuteStep = 15,
     required = true,
     disabled = false,
     readonly = false,
     class: className = "w-[min(34rem,calc(100vw-2rem))]",
   } = $props();
-  let value = $state("");
+  let value = $state(untrack(() => defaultValue));
 </script>
 
 <div class="grid gap-2">
   <label for="svelte-schedule-picker" class="text-sm font-medium">
-    Publish at
+    {allowPast ? "Occurred at" : "Publish at"}
   </label>
   <SchedulePicker
     id="svelte-schedule-picker"
     bind:value
     {name}
     {timeZone}
+    {locale}
+    {allowPast}
+    {min}
+    {max}
     {minuteStep}
     {required}
     {disabled}

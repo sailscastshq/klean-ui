@@ -11,9 +11,7 @@ async function settle() {
 async function mountPopover(options = {}) {
   const host = document.createElement("div");
   const trigger = document.createElement("button");
-  const anchor = options.anchorId
-    ? document.createElement("input")
-    : undefined;
+  const anchor = options.anchorId ? document.createElement("input") : undefined;
   const id = options.id ?? "test-popover";
   let cleanupRoot = host;
 
@@ -32,10 +30,10 @@ async function mountPopover(options = {}) {
     const shadowHost = document.createElement("div");
     const shadowRoot = shadowHost.attachShadow({ mode: "open" });
     shadowRoot.append(host);
-    document.body.append(shadowHost);
+    (options.parent ?? document.body).append(shadowHost);
     cleanupRoot = shadowHost;
   } else {
-    document.body.append(host);
+    (options.parent ?? document.body).append(host);
   }
 
   const wrapper = mount(Popover, {
@@ -55,6 +53,49 @@ async function mountPopover(options = {}) {
       cleanupRoot.remove();
     },
   };
+}
+
+// Happy DOM has shadow trees but not the browser's native popover top layer.
+function emulateNativePopovers() {
+  const restores = [];
+  function replace(target, property, value) {
+    const descriptor = Object.getOwnPropertyDescriptor(target, property);
+    Object.defineProperty(target, property, {
+      configurable: true,
+      writable: true,
+      value,
+    });
+    restores.push(() =>
+      descriptor
+        ? Object.defineProperty(target, property, descriptor)
+        : delete target[property],
+    );
+  }
+  replace(HTMLElement.prototype, "showPopover", function () {
+    this.setAttribute("data-test-popover-open", "");
+  });
+  replace(HTMLElement.prototype, "hidePopover", function () {
+    this.removeAttribute("data-test-popover-open");
+  });
+  const matches = Element.prototype.matches;
+  replace(Element.prototype, "matches", function (selector) {
+    return matches.call(
+      this,
+      selector === ":popover-open" ? "[data-test-popover-open]" : selector,
+    );
+  });
+  for (const prototype of [document, ShadowRoot.prototype]) {
+    for (const method of ["querySelector", "querySelectorAll"]) {
+      const original = prototype[method];
+      replace(prototype, method, function (selector) {
+        return original.call(
+          this,
+          selector === ":popover-open" ? "[data-test-popover-open]" : selector,
+        );
+      });
+    }
+  }
+  return () => restores.reverse().forEach((restore) => restore());
 }
 
 test("can position from a field without replacing the native invoker", async () => {
@@ -152,6 +193,96 @@ test("Escape closes and returns focus to the native invoker", async () => {
   expect(trigger.getAttribute("aria-expanded")).toBe("false");
   expect(document.activeElement).toBe(trigger);
   cleanup();
+});
+
+test("native Escape returns focus within the popover's shadow root", async () => {
+  const restore = emulateNativePopovers();
+  let fixture;
+  try {
+    fixture = await mountPopover({
+      shadow: true,
+      props: { defaultOpen: true },
+      slots: { default: () => h("button", { type: "button" }, "Inside") },
+    });
+    const { wrapper, trigger } = fixture;
+    const content = wrapper.get('[data-slot="popover-content"]').element;
+    expect(content.matches(":popover-open")).toBe(true);
+    expect(document.querySelectorAll(":popover-open")).toHaveLength(0);
+    wrapper.get("button").element.focus();
+    wrapper.get("button").element.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Escape",
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }),
+    );
+    await settle();
+    expect(content.matches(":popover-open")).toBe(false);
+    expect(content.getRootNode().activeElement).toBe(trigger);
+  } finally {
+    fixture?.cleanup();
+    restore();
+  }
+});
+
+test("Escape dismisses only the nested popover across shadow boundaries", async () => {
+  const restore = emulateNativePopovers();
+  let outer;
+  let inner;
+  try {
+    outer = await mountPopover({
+      id: "outer-popover",
+      props: { defaultOpen: true },
+    });
+    const outerContent = outer.wrapper.get(
+      '[data-slot="popover-content"]',
+    ).element;
+    inner = await mountPopover({
+      parent: outerContent,
+      shadow: true,
+      id: "inner-popover",
+      props: { defaultOpen: true },
+      slots: { default: () => h("button", { type: "button" }, "Inside") },
+    });
+    const innerContent = inner.wrapper.get(
+      '[data-slot="popover-content"]',
+    ).element;
+    inner.wrapper.get("button").element.focus();
+    inner.wrapper.get("button").element.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Escape",
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }),
+    );
+    await settle();
+    expect(innerContent.matches(":popover-open")).toBe(false);
+    expect(outerContent.matches(":popover-open")).toBe(true);
+    expect(innerContent.getRootNode().activeElement).toBe(inner.trigger);
+    expect(
+      innerContent.getRootNode().querySelector(":popover-open"),
+    ).toBeNull();
+    expect([...document.querySelectorAll(":popover-open")]).toEqual([
+      outerContent,
+    ]);
+    inner.trigger.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Escape",
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      }),
+    );
+    await settle();
+    expect(outerContent.matches(":popover-open")).toBe(false);
+    expect(document.activeElement).toBe(outer.trigger);
+  } finally {
+    inner?.cleanup();
+    outer?.cleanup();
+    restore();
+  }
 });
 
 test("the content slot can explicitly close and recover focus", async () => {
