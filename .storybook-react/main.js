@@ -28,6 +28,14 @@ const config = {
         rspack: {
           plugins: [
             new NormalModuleReplacementPlugin(
+              /^\.\.\/icons\/Link\.jsx$/,
+              resolve(process.cwd(), "registry/icon-link/react/Link.jsx"),
+            ),
+            new NormalModuleReplacementPlugin(
+              /^\.\.\/icons\/Image\.jsx$/,
+              resolve(process.cwd(), "registry/icon-image/react/Image.jsx"),
+            ),
+            new NormalModuleReplacementPlugin(
               /^\.\.\/menu\/Menu\.jsx$/,
               resolve(process.cwd(), "registry/menu/react/Menu.jsx"),
             ),

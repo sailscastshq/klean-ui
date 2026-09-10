@@ -26,6 +26,20 @@ const config = {
       resolve: {
         alias: [
           {
+            find: /^\.\.\/icons\/Link\.svelte$/,
+            replacement: resolve(
+              process.cwd(),
+              "registry/icon-link/svelte/Link.svelte",
+            ),
+          },
+          {
+            find: /^\.\.\/icons\/Image\.svelte$/,
+            replacement: resolve(
+              process.cwd(),
+              "registry/icon-image/svelte/Image.svelte",
+            ),
+          },
+          {
             find: /^\.\.\/menu\/Menu\.svelte$/,
             replacement: resolve(
               process.cwd(),

@@ -19,6 +19,7 @@ import {
 } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createSourceFormatter } from "./source-formatter.js";
+import semver from "semver";
 
 const CLI_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_REGISTRY_DIRECTORY = resolve(CLI_DIRECTORY, "../registry");
@@ -798,13 +799,24 @@ function applicationSource(file, sourceFormatter) {
   }
 }
 
+export function matchesDependencyRange(recorded, requested) {
+  if (recorded === requested) return true;
+  // Package managers can save a newer compatible range or an exact version.
+  return Boolean(
+    typeof recorded === "string" &&
+    semver.validRange(recorded) &&
+    semver.validRange(requested) &&
+    semver.subset(recorded, requested),
+  );
+}
+
 function verifyInstalledDependencies(plan) {
   const packageJson = readJson(plan.packagePath, plan.packagePath);
   const expectedDependencies =
     plan.dependenciesToInstall ?? plan.missingDependencies;
   const dependencies = dependencyMap(packageJson);
   const missing = expectedDependencies.filter(
-    ({ name, version }) => dependencies[name] !== version,
+    ({ name, version }) => !matchesDependencyRange(dependencies[name], version),
   );
 
   if (missing.length) {

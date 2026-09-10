@@ -11,6 +11,7 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import semver from "semver";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const packageMetadata = JSON.parse(
@@ -186,6 +187,75 @@ try {
     assert.match(
       run(process.execPath, [cli, "diff", "toast"], { cwd: applicationRoot }),
       /toast is current; there is no upstream diff/,
+    );
+
+    const richTextOutput = run(process.execPath, [cli, "add", "rich-text"], {
+      cwd: applicationRoot,
+    });
+    assert.match(richTextOutput, /Added rich-text\/RichText\./);
+    for (const file of [
+      `rich-text/RichText.${extension}`,
+      "rich-text/rich-text.js",
+      `popover/Popover.${extension}`,
+      `icons/Link.${extension}`,
+      `icons/Image.${extension}`,
+    ]) {
+      assert.ok(
+        existsSync(resolve(applicationRoot, "assets/js/components/ui", file)),
+        `RichText must install ${file} for ${framework}`,
+      );
+    }
+    const richTextRegistry = JSON.parse(
+      readFileSync(
+        resolve(installedPackage, "registry/rich-text/registry.json"),
+        "utf8",
+      ),
+    );
+    const popoverRegistry = JSON.parse(
+      readFileSync(
+        resolve(installedPackage, "registry/popover/registry.json"),
+        "utf8",
+      ),
+    );
+    const applicationDependencies = JSON.parse(
+      readFileSync(resolve(applicationRoot, "package.json"), "utf8"),
+    ).dependencies;
+    for (const [dependency, version] of Object.entries({
+      ...popoverRegistry.frameworks[framework].dependencies,
+      ...richTextRegistry.frameworks[framework].dependencies,
+    })) {
+      assert.ok(
+        applicationDependencies[dependency] &&
+          semver.subset(applicationDependencies[dependency], version),
+        `RichText must install a compatible direct dependency ${dependency} for ${framework}`,
+      );
+    }
+    const richTextHelpers = readFileSync(
+      resolve(
+        applicationRoot,
+        "assets/js/components/ui/rich-text/rich-text.js",
+      ),
+      "utf8",
+    );
+    assert.match(richTextHelpers, /htmlRoundTripMatches/);
+    assert.match(richTextHelpers, /sanitizeRichTextHtml/);
+    assert.match(
+      run(process.execPath, [cli, "check"], {
+        cwd: applicationRoot,
+      }),
+      /rich-text is current/,
+    );
+    assert.match(
+      run(process.execPath, [cli, "diff", "rich-text"], {
+        cwd: applicationRoot,
+      }),
+      /rich-text is current; there is no upstream diff/,
+    );
+    assert.match(
+      run(process.execPath, [cli, "update", "rich-text"], {
+        cwd: applicationRoot,
+      }),
+      /Everything is already current/,
     );
 
     const iconOutput = run(

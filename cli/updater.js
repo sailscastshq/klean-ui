@@ -6,6 +6,7 @@ import {
   applyInstallPlan,
   createInstallPlan,
   KleanInstallerError,
+  matchesDependencyRange,
   publicRegistryName,
 } from "./installer.js";
 import { unarchiveSource } from "./source-archive.js";
@@ -284,7 +285,10 @@ function dependencyAssessment(plan, states = [], overwrite = false) {
           overwrite,
       };
     })
-    .filter(({ currentVersion, version }) => currentVersion !== version);
+    .filter(
+      ({ currentVersion, version }) =>
+        !matchesDependencyRange(currentVersion, version),
+    );
 
   return {
     changes: changes.filter((dependency) => dependency.safe),
