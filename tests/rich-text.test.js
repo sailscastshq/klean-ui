@@ -1,6 +1,6 @@
 import { expect, test } from "@rstest/core";
 import { mount } from "@vue/test-utils";
-import { nextTick } from "vue";
+import { nextTick, ref } from "vue";
 import { readFileSync } from "node:fs";
 import { JSDOM } from "jsdom";
 import { parse } from "@babel/parser";
@@ -259,6 +259,38 @@ test("replacing a document clears its previous record's undo history", async () 
     expect(content(fixture.wrapper).text()).toBe("Second record");
   } finally {
     fixture.dispose();
+  }
+});
+
+test("a controlled parent keeps its queued replacement after source composition ends", async () => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  const wrapper = mount(
+    {
+      components: { RichText },
+      setup: () => ({ value: ref("Original") }),
+      template:
+        '<RichText v-model="value" format="markdown" aria-label="Body" />',
+    },
+    { attachTo: host },
+  );
+  try {
+    await settle();
+    const child = wrapper.getComponent(RichText);
+    await child.vm.setMode("source");
+    const input = field(child);
+    await input.trigger("compositionstart");
+    input.element.value = "Composing";
+    await input.trigger("input", { isComposing: true });
+    wrapper.vm.value = "Remote replacement";
+    await nextTick();
+    await input.trigger("compositionend");
+    await settle();
+    expect(wrapper.vm.value).toBe("Remote replacement");
+    expect(input.element.value).toBe("Remote replacement");
+  } finally {
+    wrapper.unmount();
+    host.remove();
   }
 });
 
