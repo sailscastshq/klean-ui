@@ -92,9 +92,9 @@ test("every public registry item has complete framework-native source", () => {
     (name) => !name.startsWith("icon-"),
   );
 
-  expect(componentPrimitives).toHaveLength(43);
+  expect(componentPrimitives).toHaveLength(44);
   expect(iconNames).toHaveLength(iconMetadata.icons.length);
-  expect(componentNames).toHaveLength(43 + iconMetadata.icons.length);
+  expect(componentNames).toHaveLength(44 + iconMetadata.icons.length);
 
   const gaps = [];
 
