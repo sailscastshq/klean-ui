@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "name": "chips",
+  "description": "An accessible editable list of values with keyboard add/remove, validation, and caller-owned styling.",
+  "frameworks": {
+    "vue": {
+      "source": "vue/Chips.vue",
+      "target": "chips/Chips.vue",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "source": "react/Chips.jsx",
+      "target": "chips/Chips.jsx",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "source": "svelte/Chips.svelte",
+      "target": "chips/Chips.svelte",
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}
