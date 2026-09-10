@@ -149,6 +149,40 @@ test("Vue form drafts clear after confirmed success", async () => {
   app.unmount();
 });
 
+test.each(["reactive", "ref"])(
+  "Vue %s form drafts track in-place field edits and nested changes",
+  async (kind) => {
+    const data = { abstract: "", settings: { title: "" } };
+    const form = kind === "ref" ? ref(data) : reactive(data);
+    const value = () => (kind === "ref" ? form.value : form);
+    let draft;
+    const app = createApp({
+      setup() {
+        draft = useFormDraft(`proposal:${kind}`, form, {
+          debounceMs: 0,
+          guard: false,
+        });
+        return () => h("form");
+      },
+    });
+    app.mount(document.createElement("div"));
+    try {
+      expect(draft.dirty.value).toBe(false);
+      value().abstract = "A proposal worth saving";
+      value().settings.title = "Build it together";
+      await nextTick();
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      expect(draft.dirty.value).toBe(true);
+      expect(readDraft(`proposal:${kind}`).data).toEqual(value());
+      draft.clear();
+      expect(draft.dirty.value).toBe(false);
+      expect(readDraft(`proposal:${kind}`)).toBeNull();
+    } finally {
+      app.unmount();
+    }
+  },
+);
+
 test("scroll positions are session-scoped and validated", () => {
   expect(writeScroll("invoices", { x: 12, y: 480 })).toBe(true);
   expect(readScroll("invoices")).toEqual({ x: 12, y: 480 });

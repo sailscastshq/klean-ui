@@ -74,10 +74,22 @@
     "@sveltejs/vite-plugin-svelte": "^7.2.0",
     "@tailwindcss/oxide": "^4.3.3",
     "@tailwindcss/vite": "^4.3.3",
+    "@tiptap/core": "^3.31.3",
+    "@tiptap/extension-file-handler": "^3.31.3",
+    "@tiptap/extension-image": "^3.31.3",
+    "@tiptap/extension-placeholder": "^3.31.3",
+    "@tiptap/markdown": "^3.31.3",
+    "@tiptap/pm": "^3.31.3",
+    "@tiptap/react": "^3.31.3",
+    "@tiptap/starter-kit": "^3.31.3",
+    "@tiptap/vue-3": "^3.31.3",
     "@vue/test-utils": "^2.4.11",
     "axios": "^1.19.0",
     "chrono-node": "^2.10.1",
+    "dompurify": "^3.4.14",
     "happy-dom": "^20.11.1",
+    "jsdom": "^27.4.0",
+    "marked": "^17.0.1",
     "prettier-plugin-svelte": "^4.1.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
@@ -98,6 +110,7 @@
   },
   "dependencies": {
     "make-synchronized": "^0.8.0",
-    "prettier": "^3.9.6"
+    "prettier": "^3.9.6",
+    "semver": "^7.8.5"
   }
 }

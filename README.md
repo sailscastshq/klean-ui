@@ -10,6 +10,7 @@ Run the same command in every standard Boring Stack application:
 npx klean-ui add button
 npx klean-ui add input
 npx klean-ui add textarea
+npx klean-ui add rich-text
 npx klean-ui add checkbox
 npx klean-ui add radio
 npx klean-ui add switch

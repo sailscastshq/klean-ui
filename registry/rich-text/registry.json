@@ -1,0 +1,67 @@
+{
+  "$schema": "../schema.json",
+  "name": "rich-text",
+  "description": "A source-owned rich-text field with HTML or Markdown, accessible formatting, source editing, and application-owned image uploads.",
+  "registryDependencies": ["popover", "icon-link", "icon-image"],
+  "frameworks": {
+    "vue": {
+      "files": [
+        { "source": "vue/RichText.vue", "target": "rich-text/RichText.vue" },
+        { "source": "vue/rich-text.js", "target": "rich-text/rich-text.js" }
+      ],
+      "dependencies": {
+        "@tiptap/core": "^3.31.3",
+        "@tiptap/pm": "^3.31.3",
+        "@tiptap/vue-3": "^3.31.3",
+        "@tiptap/starter-kit": "^3.31.3",
+        "@tiptap/extension-file-handler": "^3.31.3",
+        "@tiptap/extension-image": "^3.31.3",
+        "@tiptap/extension-placeholder": "^3.31.3",
+        "@tiptap/markdown": "^3.31.3",
+        "dompurify": "^3.4.14",
+        "marked": "^17.0.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "files": [
+        { "source": "react/RichText.jsx", "target": "rich-text/RichText.jsx" },
+        { "source": "react/rich-text.js", "target": "rich-text/rich-text.js" }
+      ],
+      "dependencies": {
+        "@tiptap/core": "^3.31.3",
+        "@tiptap/pm": "^3.31.3",
+        "@tiptap/react": "^3.31.3",
+        "@tiptap/starter-kit": "^3.31.3",
+        "@tiptap/extension-file-handler": "^3.31.3",
+        "@tiptap/extension-image": "^3.31.3",
+        "@tiptap/extension-placeholder": "^3.31.3",
+        "@tiptap/markdown": "^3.31.3",
+        "dompurify": "^3.4.14",
+        "marked": "^17.0.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "files": [
+        {
+          "source": "svelte/RichText.svelte",
+          "target": "rich-text/RichText.svelte"
+        },
+        { "source": "svelte/rich-text.js", "target": "rich-text/rich-text.js" }
+      ],
+      "dependencies": {
+        "@tiptap/core": "^3.31.3",
+        "@tiptap/pm": "^3.31.3",
+        "@tiptap/starter-kit": "^3.31.3",
+        "@tiptap/extension-file-handler": "^3.31.3",
+        "@tiptap/extension-image": "^3.31.3",
+        "@tiptap/extension-placeholder": "^3.31.3",
+        "@tiptap/markdown": "^3.31.3",
+        "dompurify": "^3.4.14",
+        "marked": "^17.0.1",
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

@@ -462,6 +462,35 @@ test("overwrites modified source only after the explicit escape hatch", () => {
   expect(readFileSync(target, "utf8")).toBe(latestSource.vue);
 });
 
+test.each(["^2.1.0", "~2.1.0", "2.1.0"])(
+  "retains compatible application dependency %s without false local changes or downgrades",
+  (currentVersion) => {
+    const { registry, latestSource } = widgetRegistry();
+    const root = makeApp("vue", { "widget-runtime": currentVersion });
+    write(
+      resolve(root, "assets/js/components/ui/widget/widget.vue"),
+      latestSource.vue,
+    );
+    const check = createCheckReport({ cwd: root, registryDirectory: registry });
+    expect(check.entries[0].status).toBe("current");
+    expect(check.entries[0].dependencyConflicts).toEqual([]);
+    const plan = createUpdatePlan("widget", {
+      cwd: root,
+      registryDirectory: registry,
+    });
+    expect(plan.hasConflicts).toBe(false);
+    const calls = [];
+    applyUpdatePlan(plan, {
+      dependencyInstaller: recordingDependencyInstaller(calls),
+    });
+    expect(calls).toEqual([]);
+    expect(
+      JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"))
+        .dependencies["widget-runtime"],
+    ).toBe(currentVersion);
+  },
+);
+
 test("does not downgrade an application-owned dependency implicitly", () => {
   const { registry, latestSource } = widgetRegistry();
   const root = makeApp("vue", { "widget-runtime": "^3.0.0" });

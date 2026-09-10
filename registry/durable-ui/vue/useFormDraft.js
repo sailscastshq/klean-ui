@@ -4,7 +4,6 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
-  toRaw,
   unref,
   watch,
 } from "vue";
@@ -110,7 +109,7 @@ export function useFormDraft(key, source, options = {}) {
 
 function readSource(source) {
   if (typeof source === "function") return source();
-  return toRaw(unref(source));
+  return unref(source);
 }
 
 function writeSource(source, data) {

@@ -37,6 +37,7 @@ export { default as Menu } from "./vue/menu/Menu.vue";
 export { default as Pagination } from "./vue/pagination/Pagination.vue";
 export { default as Popover } from "./vue/popover/Popover.vue";
 export { default as Radio } from "./vue/radio/Radio.vue";
+export { default as RichText } from "./vue/rich-text/RichText.vue";
 export { default as RowActions } from "./vue/row-actions/RowActions.vue";
 export { default as SchedulePicker } from "./vue/schedule-picker/SchedulePicker.vue";
 export { default as Select } from "./vue/select/Select.vue";

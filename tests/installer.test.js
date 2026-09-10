@@ -784,6 +784,56 @@ test("adds only missing direct dependencies with the detected package manager", 
   expect(readPackage(root).dependencies["tailwind-merge"]).toBe("^3.6.0");
 });
 
+test.each(["^3.6.1", "~3.6.1", "3.6.1"])(
+  "accepts npm's compatible recorded dependency %s",
+  (recorded) => {
+    const root = makeFixture({ framework: "vue", tailwindMerge: false });
+    const result = installComponent("button", {
+      cwd: root,
+      dependencyInstaller: ({ root: applicationRoot }) => {
+        const packageJson = readPackage(applicationRoot);
+        packageJson.dependencies["tailwind-merge"] = recorded;
+        write(
+          resolve(applicationRoot, "package.json"),
+          JSON.stringify(packageJson),
+        );
+      },
+    });
+    expect(existsSync(result.plan.file.targetPath)).toBe(true);
+    expect(readPackage(root).dependencies["tailwind-merge"]).toBe(recorded);
+  },
+);
+
+test.each([
+  "^4.0.0",
+  "^3.5.0",
+  "*",
+  "latest",
+  "file:../unverified",
+  "not-a-version",
+])("rejects and rolls back incompatible recorded dependency %s", (recorded) => {
+  const root = makeFixture({ framework: "vue", tailwindMerge: false });
+  const initialPackage = readFileSync(resolve(root, "package.json"), "utf8");
+  const plan = createInstallPlan("button", { cwd: root });
+  expect(() =>
+    installComponent("button", {
+      cwd: root,
+      dependencyInstaller: ({ root: applicationRoot }) => {
+        const packageJson = readPackage(applicationRoot);
+        packageJson.dependencies["tailwind-merge"] = recorded;
+        write(
+          resolve(applicationRoot, "package.json"),
+          JSON.stringify(packageJson),
+        );
+      },
+    }),
+  ).toThrow(/did not record/);
+  expect(readFileSync(resolve(root, "package.json"), "utf8")).toBe(
+    initialPackage,
+  );
+  expect(existsSync(plan.file.targetPath)).toBe(false);
+});
+
 test("honors explicit non-standard component and CSS paths", () => {
   const root = makeFixture({ framework: "react" });
   const result = installComponent("button", {
