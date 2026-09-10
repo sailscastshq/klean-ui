@@ -659,12 +659,13 @@ test("reuses a formatter-only registry dependency without rewriting it", () => {
     framework: "vue",
     dependencies: { "@floating-ui/dom": "^1.8.0" },
   });
-  const first = installComponent("popover", { cwd: root });
-  const popover = first.plan.file.targetPath;
   write(
     resolve(root, ".prettierrc.json"),
     `${JSON.stringify({ singleQuote: true, semi: false }, null, 2)}\n`,
   );
+  // Configure the application before the formatter caches its first result.
+  const first = installComponent("popover", { cwd: root });
+  const popover = first.plan.file.targetPath;
   const formatted = createSourceFormatter(root).format(
     readFileSync(popover, "utf8"),
     popover,
