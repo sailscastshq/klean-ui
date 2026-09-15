@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "avatar-group",
+  "description": "A stack of Avatars with a truthful overflow count for partial lists, group semantics, and caller-owned Tailwind.",
+  "registryDependencies": ["avatar"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/AvatarGroup.vue",
+      "target": "avatar-group/AvatarGroup.vue",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "source": "react/AvatarGroup.jsx",
+      "target": "avatar-group/AvatarGroup.jsx",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "source": "svelte/AvatarGroup.svelte",
+      "target": "avatar-group/AvatarGroup.svelte",
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}
