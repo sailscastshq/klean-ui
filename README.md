@@ -192,3 +192,47 @@ The package contains the CLI and its versioned registry. It does not publish the
 Klean is the canonical implementation of our Durable UI practice. Durable behavior lives in the component, composable, or Boring Stack block that owns it; it does not turn every primitive into a state-management abstraction.
 
 The canonical documentation lives at [docs.sailscasts.com/klean-ui](https://docs.sailscasts.com/klean-ui/), including the [doctrine](https://docs.sailscasts.com/klean-ui/doctrine), [installation guide](https://docs.sailscasts.com/klean-ui/installation), [Durable UI contract](https://docs.sailscasts.com/klean-ui/durable-ui), [theming convention](https://docs.sailscasts.com/klean-ui/theming), and every [component page](https://docs.sailscasts.com/klean-ui/components/).
+
+## Flag
+
+`npx klean-ui add flag` installs framework-native `Flag` and its local asset
+registry. `country` accepts a case-insensitive two-letter code (surrounding
+whitespace is ignored). A nonempty `src` takes precedence; `alt` defaults to
+`""` for decorative flags beside a country name. Supply `alt` for standalone
+meaning. Native image attributes and error listeners pass through. Missing,
+invalid or failed images render a fallback span, hidden from assistive
+technology when decorative, named by `alt` when informative. Vue/Svelte slots
+or React children own fallback content. Changing the resolved source retries.
+
+```vue
+<Flag country="NG" class="w-5" />
+<Flag country="KE" alt="Kenya" class="w-8" />
+<Flag country="GH" class="size-10 aspect-square rounded-full" />
+<Flag src="/flags/organization.svg" alt="Organization" class="w-12" />
+```
+
+Default geometry is 24px wide, 3:2. Use `w-5`, `w-6`, `w-8`, `w-10`, `w-12`
+for 20/24/32/40/48px. A circle uses `aspect-square rounded-full` and a width or
+size class. Klean deliberately has no `size` or `circle` presentation props.
+React uses `className`; Svelte uses `class`.
+
+### Assets, coverage and performance
+
+Original component behavior; no Flux implementation source is used. Flag art
+comes from [country-flag-icons](https://github.com/catamphetamine/country-flag-icons)
+**1.6.20**, npm tarball SHA-1 `aa6f36104568993f9cd43e7da283f9b7d0a802cc`.
+The full MIT license travels in `flags.js`, including installed application
+source. The fixed registry has 257 entries: 249 ISO 3166-1 codes plus AC, EU,
+IC, TA, XA, XC, XK, XO supplied by this asset version. This is asset coverage,
+not an assertion of political status or a Unicode RGI registry. `countries`
+is exported from the installed `flags.js`; applications own the eligible
+picker list and localized country names.
+
+SVGs are encoded as data URLs in one application-owned module (~242KB before
+minification/compression), avoiding asset-host setup and all built-in flag
+network requests. The complete registry is eagerly included when Flag is
+imported. Lazy-load a country picker where appropriate; a product using only
+one flag can use a local `src` and trim its owned registry. Allow `data:` in
+CSP `img-src`. No asset dependency or tracker runs at render time. A custom
+`src` follows the application's network/CSP/privacy policy. Flag depicts an
+explicit chosen region; never infer ethnicity or nationality from identity.
