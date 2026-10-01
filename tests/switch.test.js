@@ -1,7 +1,7 @@
 import { expect, test } from "@rstest/core";
 import { mount } from "@vue/test-utils";
 import { defineComponent, nextTick, ref } from "vue";
-import Switch from "../src/vue/switch/Switch.vue";
+import { Switch } from "../src/index.js";
 
 const BooleanFixture = defineComponent({
   components: { Switch },
