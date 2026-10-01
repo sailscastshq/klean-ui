@@ -25,6 +25,32 @@ function registrySource(framework, filename, item = "button") {
   );
 }
 
+test("ships Slider with matching Vue source, shared arithmetic and native framework adapters", () => {
+  expect(registrySource("vue", "Slider.vue", "slider")).toBe(
+    readFileSync(resolve("src/vue/slider/Slider.vue"), "utf8"),
+  );
+  const helper = readFileSync(resolve("src/vue/slider/slider.js"), "utf8");
+  for (const framework of ["vue", "react", "svelte"]) {
+    expect(registrySource(framework, "slider.js", "slider")).toBe(helper);
+  }
+  const react = registrySource("react", "Slider.jsx", "slider");
+  expect(() =>
+    parse(react, { sourceType: "module", plugins: ["jsx"] }),
+  ).not.toThrow();
+  const svelte = registrySource("svelte", "Slider.svelte", "slider");
+  expect(
+    compile(svelte, { filename: "Slider.svelte", generate: false }).warnings,
+  ).toEqual([]);
+  for (const source of [react, svelte]) {
+    expect(source).toContain('type="range"');
+    expect(source).toContain("minStepsBetween");
+    expect(source).toContain("aria-valuemin");
+    expect(source).toContain("slider-thumb");
+    expect(source).toContain("reset");
+    expect(source).not.toMatch(/^\s*(?:variant|tone|size)\s*(?::|=(?!=))/im);
+  }
+});
+
 test("keeps the Vue workbench and installable registry source identical", () => {
   expect(registrySource("vue", "Button.vue")).toBe(
     readFileSync(resolve("src/vue/button/Button.vue"), "utf8"),
