@@ -1,7 +1,7 @@
 {
   "$schema": "../schema.json",
   "name": "flag",
-  "description": "A local country flag image with decorative defaults, custom source precedence and resilient fallback.",
+  "description": "A local country flag image with inferred built-in names, explicit alt overrides, custom source precedence and resilient fallback.",
   "frameworks": {
     "vue": {
       "files": [
