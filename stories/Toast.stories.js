@@ -56,6 +56,54 @@ const meta = {
 
 export default meta;
 
+export const DeploymentStack = {
+  parameters: { controls: { disable: true }, layout: "fullscreen" },
+  render: () => ({
+    components: { Toast },
+    setup() {
+      const notifications = createToast({ duration: false, max: 0 });
+      let count = 0;
+      function notify() {
+        count++;
+        notifications({
+          title: "Building",
+          project: ["flossafrica", "depth", "slipway"][count % 3],
+          elapsed: `${count * 12}s`,
+          class:
+            "block overflow-visible bg-transparent p-0 shadow-none ring-0 dark:bg-transparent",
+        });
+      }
+      for (let index = 0; index < 7; index++) notify();
+      onBeforeUnmount(notifications.destroy);
+      return { notifications, notify };
+    },
+    template: `
+      <main class="min-h-dvh bg-gray-50 p-8 dark:bg-gray-900">
+        <h1 class="text-2xl font-semibold text-gray-950 dark:text-white">Deployments</h1>
+        <p class="mt-2 max-w-sm text-sm leading-6 text-gray-500">Keep working while your deployments run. Open the notification stack to inspect each build.</p>
+        <button type="button" class="mt-6 min-h-11 cursor-pointer rounded-lg bg-gray-950 px-4 text-sm font-medium text-white dark:bg-white dark:text-gray-950" @click="notify">Start another build</button>
+        <Toast :controller="notifications" position="bottom-right" class="w-80 max-w-[calc(100vw-2rem)]">
+          <template #default="{ item, dismiss }">
+            <article class="w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-none dark:border-gray-700 dark:bg-gray-950">
+              <div class="h-0.5 bg-blue-500" aria-hidden="true"></div>
+              <div class="flex items-start gap-3 p-4">
+                <span class="grid size-10 shrink-0 place-items-center rounded-lg bg-gray-100 text-blue-600 dark:bg-gray-800 dark:text-blue-400" aria-hidden="true">↑</span>
+                <div class="min-w-0 flex-1">
+                  <p class="text-sm font-semibold text-blue-600 dark:text-blue-400">{{ item.title }}</p>
+                  <a :href="'#deployment-' + item.id" class="mt-1 block truncate text-sm font-semibold text-gray-950 dark:text-white">{{ item.project }} / Production / {{ item.project }}.com</a>
+                  <p class="mt-1 text-xs text-gray-500">Hoisting the sails…</p>
+                  <div class="mt-3 flex gap-3 text-xs text-gray-500"><span>main</span><span>{{ item.elapsed }}</span></div>
+                </div>
+                <button type="button" class="-mr-2 -mt-1 grid size-8 shrink-0 cursor-pointer place-items-center rounded-lg text-gray-400 hover:bg-gray-100 focus-visible:outline-2 dark:hover:bg-gray-800" :aria-label="'Dismiss ' + item.project + ' deployment'" @click="dismiss">×</button>
+              </div>
+            </article>
+          </template>
+        </Toast>
+      </main>
+    `,
+  }),
+};
+
 export const LongContent = {
   parameters: { controls: { disable: true } },
   render: () => ({
