@@ -193,7 +193,9 @@ function enabledItems() {
 }
 
 function focusedElement() {
-  return contentElement()?.getRootNode?.().activeElement ?? document.activeElement;
+  return (
+    contentElement()?.getRootNode?.().activeElement ?? document.activeElement
+  );
 }
 
 function focusItem(item) {
@@ -208,6 +210,24 @@ function focusEdge(edge = "first") {
   const item = edge === "last" ? items.at(-1) : items[0];
   if (item) focusItem(item);
   else contentElement()?.focus({ preventScroll: true });
+}
+
+function focusPending() {
+  if (pendingFocus == null) return;
+  const content = contentElement();
+  if (
+    content == null ||
+    content.hidden ||
+    (typeof content.showPopover === "function" &&
+      !content.matches(":popover-open"))
+  )
+    return;
+  focusEdge(pendingFocus);
+  pendingFocus = undefined;
+}
+
+function handleToggle(event) {
+  if (event.newState === "open" && isOpen.value) focusPending();
 }
 
 function clearTypeahead() {
@@ -242,7 +262,9 @@ function handleTypeahead(event) {
   if (!items.length) return true;
   const current = items.indexOf(focusedElement());
   const ordered = [...items.slice(current + 1), ...items.slice(0, current + 1)];
-  let match = ordered.find((item) => normalizedText(item).startsWith(typeahead));
+  let match = ordered.find((item) =>
+    normalizedText(item).startsWith(typeahead),
+  );
 
   if (!match && new Set(typeahead).size === 1) {
     typeahead = typeahead.at(-1);
@@ -254,13 +276,16 @@ function handleTypeahead(event) {
 }
 
 function requestOpen(nextOpen) {
+  if (nextOpen) pendingFocus ??= "first";
   if (!isControlled.value) internalOpen.value = nextOpen;
   emit("update:open", nextOpen);
 }
 
-function openMenu(edge = "first") {
+function openMenu(edge = "first", source) {
+  if (source?.isConnected) activeInvoker.value = source;
   pendingFocus = edge;
   if (isOpen.value) focusEdge(edge);
+  else if (source?.isConnected) popover.value?.open(source);
   else requestOpen(true);
 }
 
@@ -274,6 +299,7 @@ function closeMenu({ restoreFocus = false } = {}) {
 }
 
 function handlePopoverOpen(nextOpen) {
+  if (nextOpen) pendingFocus ??= "first";
   if (!isControlled.value) internalOpen.value = nextOpen;
   emit("update:open", nextOpen);
 }
@@ -363,8 +389,7 @@ watch(
     syncInvokerSemantics();
 
     if (nextOpen) {
-      focusEdge(pendingFocus);
-      pendingFocus = "first";
+      focusPending();
       return;
     }
 
@@ -391,7 +416,7 @@ onMounted(async () => {
     itemObserver.observe(content, { childList: true, subtree: true });
   }
 
-  if (isOpen.value) focusEdge(pendingFocus);
+  if (isOpen.value) focusPending();
 });
 
 onBeforeUnmount(() => {
@@ -401,7 +426,7 @@ onBeforeUnmount(() => {
   interactionRoot?.removeEventListener("click", rememberInvoker, true);
 });
 
-defineExpose({ close: closeMenu, open: openMenu });
+defineExpose({ close: closeMenu, open: openMenu, getContent: contentElement });
 </script>
 
 <template>
@@ -419,6 +444,7 @@ defineExpose({ close: closeMenu, open: openMenu });
     @update:open="handlePopoverOpen"
     @click.capture="handleClick"
     @keydown="handleKeydown"
+    @toggle="handleToggle"
   >
     <slot :open="isOpen" :close="closeMenu" />
   </Popover>

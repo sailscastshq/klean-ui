@@ -17,6 +17,7 @@
     children,
     onkeydown,
     onclickcapture,
+    ontoggle,
     ...contentProps
   } = $props();
 
@@ -30,6 +31,10 @@
   let tabExitTarget;
   let typeahead = "";
   let typeaheadTimer;
+
+  export function getContent() {
+    return popoverElement?.getContent?.();
+  }
 
   function contentElement() {
     return popoverElement?.getContent?.();
@@ -73,7 +78,9 @@
     let root = content?.getRootNode?.() ?? document;
 
     while (anchor && root) {
-      const stops = [...(root.querySelectorAll?.(TABBABLE_SELECTOR) ?? [])].filter(
+      const stops = [
+        ...(root.querySelectorAll?.(TABBABLE_SELECTOR) ?? []),
+      ].filter(
         (element) =>
           !content?.contains(element) &&
           element.tabIndex >= 0 &&
@@ -125,7 +132,8 @@
     if (!content) return [];
 
     for (const element of content.querySelectorAll("button, a[href]")) {
-      if (!element.hasAttribute("role")) element.setAttribute("role", "menuitem");
+      if (!element.hasAttribute("role"))
+        element.setAttribute("role", "menuitem");
     }
 
     const items = [
@@ -152,7 +160,9 @@
   }
 
   function focusedElement() {
-    return contentElement()?.getRootNode?.().activeElement ?? document.activeElement;
+    return (
+      contentElement()?.getRootNode?.().activeElement ?? document.activeElement
+    );
   }
 
   function focusItem(item) {
@@ -167,6 +177,20 @@
     const item = edge === "last" ? items.at(-1) : items[0];
     if (item) focusItem(item);
     else contentElement()?.focus({ preventScroll: true });
+  }
+
+  function focusPending() {
+    if (pendingFocus == null) return;
+    const content = contentElement();
+    if (
+      content == null ||
+      content.hidden ||
+      (typeof content.showPopover === "function" &&
+        !content.matches(":popover-open"))
+    )
+      return;
+    focusEdge(pendingFocus);
+    pendingFocus = undefined;
   }
 
   function clearTypeahead() {
@@ -200,12 +224,19 @@
     const items = enabledItems();
     if (!items.length) return true;
     const current = items.indexOf(focusedElement());
-    const ordered = [...items.slice(current + 1), ...items.slice(0, current + 1)];
-    let match = ordered.find((item) => normalizedText(item).startsWith(typeahead));
+    const ordered = [
+      ...items.slice(current + 1),
+      ...items.slice(0, current + 1),
+    ];
+    let match = ordered.find((item) =>
+      normalizedText(item).startsWith(typeahead),
+    );
 
     if (!match && new Set(typeahead).size === 1) {
       typeahead = typeahead.at(-1);
-      match = ordered.find((item) => normalizedText(item).startsWith(typeahead));
+      match = ordered.find((item) =>
+        normalizedText(item).startsWith(typeahead),
+      );
     }
 
     if (match) focusItem(match);
@@ -213,18 +244,21 @@
   }
 
   function requestOpen(nextOpen) {
+    if (nextOpen) pendingFocus ??= "first";
     if (open === undefined) internalOpen = nextOpen;
     else open = nextOpen;
     onOpenChange?.(nextOpen);
   }
 
-  function openMenu(edge = "first") {
+  export function show(edge = "first", source) {
+    if (source?.isConnected) activeInvoker = source;
     pendingFocus = edge;
     if (isOpen) focusEdge(edge);
+    else if (source?.isConnected) popoverElement?.show(source);
     else requestOpen(true);
   }
 
-  function closeMenu({ restoreFocus = false } = {}) {
+  export function closeMenu({ restoreFocus = false } = {}) {
     restoreOnClose ||= restoreFocus;
     if (isOpen) requestOpen(false);
     else if (restoreOnClose) {
@@ -305,8 +339,7 @@
       syncInvokerSemantics();
 
       if (nextOpen) {
-        focusEdge(pendingFocus);
-        pendingFocus = "first";
+        focusPending();
         return;
       }
 
@@ -334,7 +367,7 @@
 
       if (event.key === "ArrowDown" || event.key === "ArrowUp") {
         event.preventDefault();
-        openMenu(event.key === "ArrowUp" ? "last" : "first");
+        show(event.key === "ArrowUp" ? "last" : "first");
       }
     }
 
@@ -372,6 +405,10 @@
   class={twMerge("min-w-40 p-1", className)}
   onclickcapture={handleClick}
   onkeydown={handleKeydown}
+  ontoggle={(event) => {
+    if (event.newState === "open" && isOpen) focusPending();
+    ontoggle?.(event);
+  }}
 >
   {@render children?.({ open: isOpen, close: closeMenu })}
 </Popover>
