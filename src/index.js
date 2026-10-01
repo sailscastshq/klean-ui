@@ -47,6 +47,7 @@ export { default as Sidebar } from "./vue/sidebar/Sidebar.vue";
 export { default as Slide } from "./vue/slide/Slide.vue";
 export { default as Sparkline } from "./vue/sparkline/Sparkline.vue";
 export { default as Spinner } from "./vue/spinner/Spinner.vue";
+export { default as Switch } from "./vue/switch/Switch.vue";
 export { default as Table } from "./vue/table/Table.vue";
 export { default as TagsInput } from "./vue/tags-input/TagsInput.vue";
 export { default as Textarea } from "./vue/textarea/Textarea.vue";
