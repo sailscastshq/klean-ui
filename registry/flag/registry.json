@@ -1,0 +1,52 @@
+{
+  "$schema": "../schema.json",
+  "name": "flag",
+  "description": "A local country flag image with inferred built-in names, explicit alt overrides, custom source precedence and resilient fallback.",
+  "frameworks": {
+    "vue": {
+      "files": [
+        {
+          "source": "vue/Flag.vue",
+          "target": "flag/Flag.vue"
+        },
+        {
+          "source": "shared/flags.js",
+          "target": "flag/flags.js"
+        }
+      ],
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "react": {
+      "files": [
+        {
+          "source": "react/Flag.jsx",
+          "target": "flag/Flag.jsx"
+        },
+        {
+          "source": "shared/flags.js",
+          "target": "flag/flags.js"
+        }
+      ],
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    },
+    "svelte": {
+      "files": [
+        {
+          "source": "svelte/Flag.svelte",
+          "target": "flag/Flag.svelte"
+        },
+        {
+          "source": "shared/flags.js",
+          "target": "flag/flags.js"
+        }
+      ],
+      "dependencies": {
+        "tailwind-merge": "^3.6.0"
+      }
+    }
+  }
+}

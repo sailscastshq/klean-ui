@@ -198,3 +198,62 @@ The canonical documentation lives at [docs.sailscasts.com/klean-ui](https://docs
 `multi-select` selects an array from fixed `{ value, label, disabled?, group? }` choices. Vue uses `v-model`, React `value` / `onValueChange`, Svelte `bind:value`; `defaultValue` starts uncontrolled use. `name`, `form`, `required`, and `disabled` retain native multiple-select form semantics. Use `FormData.getAll(name)`. Arrows/Home/End/typeahead move; Space/Enter toggle; Escape/outside dismiss while preserving selected choices. The popup stays open while collecting choices. Native form reset restores uncontrolled defaults; controlled forms reset their array. Values remain typed in state and serialize to strings in option order. Prefer strings and require unique string serialization; `1` and `"1"` cannot coexist as distinct native form choices. Only known choices render/submit; disabled options cannot activate.
 
 Caller classes style the trigger. Selected-collection and option slots/render callbacks/snippets provide product-owned count/chip treatments; there are no visual props or free token creation. Required failures focus the visible trigger and set `aria-invalid`; application descriptions supply validation wording. The copied source composes existing Popover, adding no new dependency. See canonical docs `/klean-ui/components/multi-select`. Published 0.0.6 does not include this draft registry item.
+
+## Flag
+
+`npx klean-ui add flag` installs framework-native `Flag` and its local asset
+registry. `country` accepts a case-insensitive two-letter code (surrounding
+whitespace is ignored). A nonempty `src` takes precedence. Omitted `alt` derives a stable English
+country name: `<Flag country="NG" />` has `alt="Nigeria"`. An explicit string
+always wins, including `alt=""` for decorative flags beside country text or
+`alt="Based in Nigeria"` for application meaning. `alt` remains a string,
+not a Boolean switch. Native image attributes and error listeners pass through. Missing,
+invalid or failed images render a fallback span, hidden from assistive
+technology when decorative, named by `alt` when informative. Vue/Svelte slots
+or React children own fallback content. Changing the resolved source retries.
+
+```vue
+<Flag country="NG" class="w-5" />
+<Flag country="KE" class="w-8" />
+<Flag country="NG" alt="Based in Nigeria" />
+<Flag country="NG" alt="" />
+<!-- Decorative beside country text -->
+<Flag country="GH" class="size-10 aspect-square rounded-full" />
+<Flag src="/flags/organization.svg" alt="Organization" class="w-12" />
+```
+
+Default geometry is 24px wide, 3:2. Use `w-5`, `w-6`, `w-8`, `w-10`, `w-12`
+for 20/24/32/40/48px. A circle uses `aspect-square rounded-full` and a width or
+size class. Klean deliberately has no `size` or `circle` presentation props.
+React uses `className`; Svelte uses `class`.
+
+### Assets, coverage and performance
+
+Original component behavior; no Flux implementation source is used. Flag art
+comes from [country-flag-icons](https://github.com/catamphetamine/country-flag-icons)
+**1.6.20**, npm tarball SHA-1 `aa6f36104568993f9cd43e7da283f9b7d0a802cc`.
+The full MIT license travels in `flags.js`, including installed application
+source. The fixed registry has 257 entries: 249 ISO 3166-1 codes plus AC, EU,
+IC, TA, XA, XC, XK, XO supplied by this asset version. This is asset coverage,
+not an assertion of political status or a Unicode RGI registry. `countries`
+is exported from the installed `flags.js`; applications own the eligible
+picker list and localized country names. `countryName(country)` exports the
+fixed English lookup. Names are checked in alongside the asset registry, with
+no render-time `Intl.DisplayNames`, browser language lookup, or locale prop.
+The same code yields the same default name during SSR and hydration. Override
+`alt` with the application's localized label. Unknown or missing codes derive
+`""`; a custom source without a known country must receive a meaningful
+explicit `alt` or `alt=""` for deliberate decoration. Any nonempty custom `src` disables inferred naming even when `country` is
+also supplied: the source could depict anything. Only an explicit `alt`
+labels a custom image.
+XA/XC/XO names follow this asset package (Abkhazia/Northern Cyprus/South
+Ossetia), not Unicode's unrelated pseudo-region assignments.
+
+SVGs are encoded as data URLs in one application-owned module (~247KB before
+minification/compression), avoiding asset-host setup and all built-in flag
+network requests. The complete registry is eagerly included when Flag is
+imported. Lazy-load a country picker where appropriate; a product using only
+one flag can use a local `src` and trim its owned registry. Allow `data:` in
+CSP `img-src`. No asset dependency or tracker runs at render time. A custom
+`src` follows the application's network/CSP/privacy policy. Flag depicts an
+explicit chosen region; never infer ethnicity or nationality from identity.
