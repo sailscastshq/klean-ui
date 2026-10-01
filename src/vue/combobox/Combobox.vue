@@ -21,6 +21,8 @@ const props = defineProps({
   defaultValue: { default: undefined },
   /** Choices in the form `{ value, label, description?, disabled?, group?, keywords? }`. */
   options: { type: Array, default: () => [] },
+  /** Apply local text matching. Disable when the application supplies matched results. */
+  filter: { type: Boolean, default: true },
   /** Framework-native controlled search text. Usually left uncontrolled. */
   query: { type: String, default: undefined },
   /** Initial search text when `query` is not controlled. */
@@ -148,7 +150,12 @@ const filteredEntries = computed(() => {
 
   return props.options
     .map((option, index) => ({ option, index }))
-    .filter(({ option }) => !needle || searchableText(option).includes(needle));
+    .filter(
+      ({ option }) =>
+        props.filter === false ||
+        !needle ||
+        searchableText(option).includes(needle),
+    );
 });
 const groupedEntries = computed(() => {
   const groups = new Map();
@@ -204,10 +211,13 @@ function setQuery(nextQuery, { search = false } = {}) {
   searchTimer = undefined;
   if (!search) return;
 
-  searchTimer = setTimeout(() => {
-    emit("search", nextQuery);
-    searchTimer = undefined;
-  }, Math.max(0, props.searchDelay));
+  searchTimer = setTimeout(
+    () => {
+      emit("search", nextQuery);
+      searchTimer = undefined;
+    },
+    Math.max(0, props.searchDelay),
+  );
 }
 
 function requestOpen(nextOpen) {
@@ -411,7 +421,11 @@ defineExpose({
           stroke-width="1.8"
           class="size-4"
         >
-          <path d="m6 8 4 4 4-4" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="m6 8 4 4 4-4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </span>
     </span>
@@ -440,9 +454,13 @@ defineExpose({
         :id="listboxId"
         role="listbox"
         :aria-labelledby="
-          attrs['aria-label'] ? undefined : (attrs['aria-labelledby'] ?? controlId)
+          attrs['aria-label']
+            ? undefined
+            : (attrs['aria-labelledby'] ?? controlId)
         "
-        :aria-label="attrs['aria-label'] ? `${attrs['aria-label']} options` : undefined"
+        :aria-label="
+          attrs['aria-label'] ? `${attrs['aria-label']} options` : undefined
+        "
         :aria-busy="loading || undefined"
         data-slot="combobox-listbox"
         class="max-h-76 overflow-y-auto overscroll-contain outline-none"
@@ -516,7 +534,11 @@ defineExpose({
                 stroke-width="2"
                 class="size-4 shrink-0"
               >
-                <path d="m5 10 3 3 7-7" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="m5 10 3 3 7-7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </div>
           </div>

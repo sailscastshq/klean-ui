@@ -217,3 +217,75 @@ test("caller Tailwind wins on the visible input", async () => {
   expect(input.attributes("aria-invalid")).toBe("true");
   cleanup();
 });
+
+test("local filtering stays on by default and can yield to application matching", async () => {
+  const { wrapper, input, cleanup } = await mountCombobox({
+    options: [{ value: 42, label: "Automobile" }],
+  });
+  await input.setValue("car");
+  await settle();
+  expect(wrapper.findAll('[role="option"]')).toHaveLength(0);
+  await wrapper.setProps({ filter: false });
+  await settle();
+  expect(wrapper.get('[role="option"]').text()).toContain("Automobile");
+  expect(input.attributes("filter")).toBeUndefined();
+  await wrapper.setProps({ filter: true });
+  await settle();
+  expect(wrapper.findAll('[role="option"]')).toHaveLength(0);
+  expect(wrapper.emitted("change")).toBeUndefined();
+  cleanup();
+});
+
+test("application matches retain ranking, skip disabled choices and commit typed values", async () => {
+  const { wrapper, input, cleanup } = await mountCombobox({
+    filter: false,
+    name: "vehicle",
+    searchDelay: 10,
+    options: [{ value: "waiting", label: "Previous result" }],
+  });
+  input.element.focus();
+  await input.setValue("car");
+  await wrapper.setProps({
+    options: [
+      { value: "archived", label: "Archived vehicle", disabled: true },
+      { value: 42, label: "Automobile" },
+      { value: 7, label: "Motor vehicle" },
+    ],
+  });
+  await settle();
+  expect(
+    wrapper.findAll('[role="option"]').map((option) => option.text()),
+  ).toEqual(["Archived vehicle", "Automobile", "Motor vehicle"]);
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  expect(wrapper.emitted("search").at(-1)).toEqual(["car"]);
+  expect(wrapper.emitted("change")).toBeUndefined();
+  key(input.element, "Home");
+  key(input.element, "Enter");
+  await settle();
+  expect(wrapper.emitted("update:modelValue")).toEqual([[42]]);
+  expect(wrapper.get('input[type="hidden"]').element.value).toBe("42");
+  expect(input.element.value).toBe("Automobile");
+  expect(document.activeElement).toBe(input.element);
+  cleanup();
+});
+
+test("controlled query and value stay authoritative with application matches", async () => {
+  const { wrapper, input, cleanup } = await mountCombobox({
+    filter: false,
+    query: "car",
+    modelValue: 7,
+    defaultOpen: true,
+    options: [
+      { value: 42, label: "Automobile" },
+      { value: 7, label: "Motor vehicle" },
+    ],
+  });
+  expect(wrapper.findAll('[role="option"]')).toHaveLength(2);
+  key(input.element, "Home");
+  key(input.element, "Enter");
+  await settle();
+  expect(wrapper.emitted("update:modelValue")).toEqual([[42]]);
+  expect(wrapper.find('input[type="hidden"]').exists()).toBe(false);
+  expect(input.element.value).toBe("Motor vehicle");
+  cleanup();
+});

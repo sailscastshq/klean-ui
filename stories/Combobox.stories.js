@@ -220,12 +220,41 @@ export const RemoteSearch = {
           id="repository-combobox"
           v-model="repository"
           :options="results"
+          :filter="false"
           :loading="loading"
           placeholder="Search repositories"
           @search="search"
         />
         <p class="text-sm text-gray-500 dark:text-gray-400">Search emits after 300 ms; this recipe ignores replaced work and keeps current results visible.</p>
       </div>
+    `,
+  }),
+};
+
+export const ApplicationMatches = {
+  name: "Application matches",
+  args: { filter: false },
+  argTypes: { filter: { control: "boolean" } },
+  parameters: { controls: { include: ["filter"] } },
+  render: (args) => ({
+    components: { Combobox },
+    setup() {
+      const vehicle = ref();
+      const results = [
+        { value: "archived", label: "Archived vehicle", disabled: true },
+        { value: 42, label: "Automobile" },
+        { value: 7, label: "Motor vehicle" },
+      ];
+      return { args, vehicle, results };
+    },
+    template: `
+      <form class="grid w-[min(24rem,calc(100vw-2rem))] gap-2" @submit.prevent>
+        <label for="matched-vehicle" class="text-sm font-medium">Vehicle</label>
+        <Combobox id="matched-vehicle" v-model="vehicle" name="vehicle" :options="results" :filter="args.filter" />
+        <p class="text-sm text-gray-500 dark:text-gray-400">Type car, then choose Automobile. Results retain their application order.</p>
+        <output class="text-sm">Committed value: {{ vehicle ?? 'none' }}</output>
+        <button type="button" class="min-h-11 rounded-md border border-gray-300 px-3 text-sm dark:border-gray-700">After combobox</button>
+      </form>
     `,
   }),
 };

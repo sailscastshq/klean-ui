@@ -33,6 +33,7 @@ const Combobox = forwardRef(function Combobox(
     value: controlledValue,
     defaultValue,
     options = [],
+    filter = true,
     query: controlledQuery,
     defaultQuery = "",
     placeholder = "Search and choose",
@@ -106,9 +107,12 @@ const Combobox = forwardRef(function Combobox(
     return options
       .map((option, index) => ({ option, index }))
       .filter(
-        ({ option }) => !needle || searchableText(option).includes(needle),
+        ({ option }) =>
+          filter === false ||
+          !needle ||
+          searchableText(option).includes(needle),
       );
-  }, [currentQuery, options]);
+  }, [currentQuery, options, filter]);
   const groupedEntries = useMemo(() => {
     const groups = new Map();
     for (const entry of filteredEntries) {
