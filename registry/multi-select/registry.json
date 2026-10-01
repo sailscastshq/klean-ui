@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "multi-select",
+  "description": "A fixed-choice collection picker with multi-listbox semantics and native repeated form values.",
+  "registryDependencies": ["popover"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/MultiSelect.vue",
+      "target": "multi-select/MultiSelect.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/MultiSelect.jsx",
+      "target": "multi-select/MultiSelect.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/MultiSelect.svelte",
+      "target": "multi-select/MultiSelect.svelte",
+      "dependencies": {}
+    }
+  }
+}
