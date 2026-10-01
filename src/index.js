@@ -46,6 +46,7 @@ export { default as Separator } from "./vue/separator/Separator.vue";
 export { default as Sheet } from "./vue/sheet/Sheet.vue";
 export { default as Sidebar } from "./vue/sidebar/Sidebar.vue";
 export { default as Slide } from "./vue/slide/Slide.vue";
+export { default as Slider } from "./vue/slider/Slider.vue";
 export { default as Sparkline } from "./vue/sparkline/Sparkline.vue";
 export { default as Spinner } from "./vue/spinner/Spinner.vue";
 export { default as Table } from "./vue/table/Table.vue";
