@@ -193,6 +193,12 @@ Klean is the canonical implementation of our Durable UI practice. Durable behavi
 
 The canonical documentation lives at [docs.sailscasts.com/klean-ui](https://docs.sailscasts.com/klean-ui/), including the [doctrine](https://docs.sailscasts.com/klean-ui/doctrine), [installation guide](https://docs.sailscasts.com/klean-ui/installation), [Durable UI contract](https://docs.sailscasts.com/klean-ui/durable-ui), [theming convention](https://docs.sailscasts.com/klean-ui/theming), and every [component page](https://docs.sailscasts.com/klean-ui/components/).
 
+### MultiSelect (unreleased)
+
+`multi-select` selects an array from fixed `{ value, label, disabled?, group? }` choices. Vue uses `v-model`, React `value` / `onValueChange`, Svelte `bind:value`; `defaultValue` starts uncontrolled use. `name`, `form`, `required`, and `disabled` retain native multiple-select form semantics. Use `FormData.getAll(name)`. Arrows/Home/End/typeahead move; Space/Enter toggle; Escape/outside dismiss while preserving selected choices. The popup stays open while collecting choices. Native form reset restores uncontrolled defaults; controlled forms reset their array. Values remain typed in state and serialize to strings in option order. Prefer strings and require unique string serialization; `1` and `"1"` cannot coexist as distinct native form choices. Only known choices render/submit; disabled options cannot activate.
+
+Caller classes style the trigger. Selected-collection and option slots/render callbacks/snippets provide product-owned count/chip treatments; there are no visual props or free token creation. Required failures focus the visible trigger and set `aria-invalid`; application descriptions supply validation wording. The copied source composes existing Popover, adding no new dependency. See canonical docs `/klean-ui/components/multi-select`. Published 0.0.6 does not include this draft registry item.
+
 ## Flag
 
 `npx klean-ui add flag` installs framework-native `Flag` and its local asset

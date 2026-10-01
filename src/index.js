@@ -55,3 +55,5 @@ export { default as Tooltip } from "./vue/tooltip/Tooltip.vue";
 export { default as Tabs } from "./vue/tabs/Tabs.vue";
 export { default as Toast } from "./vue/toast/Toast.vue";
 export { createToast, toast } from "./vue/toast/toast.js";
+
+export { default as MultiSelect } from "./vue/multi-select/MultiSelect.vue";
