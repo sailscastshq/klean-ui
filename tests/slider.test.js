@@ -112,6 +112,19 @@ const pointer = (type, x) =>
     clientX: x,
   });
 
+test("pointer positions follow the rendered custom thumb size", async () => {
+  const wrapper = mountedSlider({}, { class: "[--thumb-size:3.5rem]" });
+  wrapper.get(".invisible").element.getBoundingClientRect = () => ({
+    width: 56,
+  });
+  wrapper.element.dispatchEvent(pointer("pointerdown", 64));
+  wrapper.element.dispatchEvent(pointer("pointerup", 64));
+  await nextTick();
+  expect(wrapper.props("modelValue")).toBe(25);
+  expect(wrapper.emitted("commit")).toEqual([[25]]);
+  wrapper.unmount();
+});
+
 test("selects the nearest thumb and cancels without committing", async () => {
   const wrapper = mountedSlider({ modelValue: [20, 80], minStepsBetween: 10 });
   wrapper.element.dispatchEvent(pointer("pointerdown", 46));
