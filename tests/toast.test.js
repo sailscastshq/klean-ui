@@ -96,6 +96,191 @@ test("offers a provider-free callable API with update and dismissal methods", ()
   controller.destroy();
 });
 
+test("keeps persistent notifications mounted in a compact newest-front stack", async () => {
+  const controller = createToast({ duration: false, max: 0 });
+  const wrapper = mount(Toast, {
+    props: { controller, position: "bottom-right" },
+  });
+  for (let index = 0; index < 7; index++)
+    controller({ title: `Build ${index}` });
+  await nextTick();
+  expect(wrapper.attributes("data-expanded")).toBe("false");
+  expect(wrapper.attributes("data-stack-count")).toBe("7");
+  expect(wrapper.findAll("[data-klean-toast-row]")).toHaveLength(7);
+  expect(wrapper.get('[data-depth="0"]').text()).toContain("Build 6");
+  expect(
+    wrapper.get('[data-slot="toast-expand"]').attributes("aria-expanded"),
+  ).toBe("false");
+  expect(wrapper.get('[data-slot="toast"]').classes()).toContain("shadow-sm");
+  await wrapper.get('[data-slot="toast-expand"]').trigger("click");
+  expect(wrapper.attributes("data-expanded")).toBe("true");
+  await wrapper.get('[data-slot="toast-expand"]').trigger("click");
+  expect(wrapper.attributes("data-expanded")).toBe("false");
+  wrapper.unmount();
+  controller.destroy();
+});
+
+test("puts the newest notification nearest either viewport edge", async () => {
+  const controller = createToast({ duration: false });
+  const wrapper = mount(Toast, { props: { controller, position: "top-left" } });
+  controller("First");
+  controller("Second");
+  await nextTick();
+  expect(wrapper.findAll("[data-klean-toast-row]")[0].text()).toContain(
+    "Second",
+  );
+  await wrapper.setProps({ position: "bottom-left" });
+  expect(wrapper.findAll("[data-klean-toast-row]")[1].text()).toContain(
+    "Second",
+  );
+  wrapper.unmount();
+  controller.destroy();
+});
+
+test("measures mixed-height cards and does not collapse the shelf mid-exit", async () => {
+  const descriptor = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    "offsetHeight",
+  );
+  Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+    configurable: true,
+    get() {
+      return this.textContent.includes("Tall") ? 180 : 60;
+    },
+  });
+  const controller = createToast({ duration: false });
+  const wrapper = mount(Toast, { props: { controller } });
+  try {
+    controller("Tall");
+    const front = controller("Short");
+    await nextTick();
+    const list = wrapper.get('[data-slot="toast-list"]');
+    expect(list.element.style.height).toBe("72px");
+    await wrapper.setProps({ expanded: true });
+    expect(list.element.style.height).toBe("264px");
+    expect(wrapper.findAll("[data-klean-toast-row]")[1].element.style.top).toBe(
+      "72px",
+    );
+    await wrapper.setProps({ expanded: false });
+    controller.dismiss(front);
+    await nextTick();
+    expect(list.element.style.height).toBe("72px");
+    controller.remove(front);
+    await nextTick();
+    expect(list.element.style.height).toBe("192px");
+  } finally {
+    wrapper.unmount();
+    controller.destroy();
+    if (descriptor)
+      Object.defineProperty(HTMLElement.prototype, "offsetHeight", descriptor);
+    else delete HTMLElement.prototype.offsetHeight;
+  }
+});
+
+test("releases stack-reading pauses when unmounted or switching controllers", async () => {
+  const first = createToast({ duration: 1000 });
+  const second = createToast({ duration: 1000 });
+  const wrapper = mount(Toast, {
+    props: { controller: first, expanded: true },
+  });
+  const oldId = first("Old");
+  await nextTick();
+  await wrapper.trigger("pointerenter", { pointerType: "mouse" });
+  advance(2000);
+  expect(first.getSnapshot()[0].state).toBe("open");
+  const newId = second("New");
+  await wrapper.setProps({ controller: second });
+  await nextTick();
+  advance(1000);
+  expect(first.getSnapshot().find((item) => item.id === oldId)?.state).toBe(
+    "closing",
+  );
+  expect(second.getSnapshot().find((item) => item.id === newId).state).toBe(
+    "open",
+  );
+  wrapper.unmount();
+  advance(1000);
+  expect(second.getSnapshot().find((item) => item.id === newId)?.state).toBe(
+    "closing",
+  );
+  first.destroy();
+  second.destroy();
+});
+
+test("always-expanded is a layout preference, not a permanent timer pause", async () => {
+  const controller = createToast({ duration: 1000 });
+  const wrapper = mount(Toast, { props: { controller, expanded: true } });
+  const id = controller("Timed");
+  await nextTick();
+  advance(1000);
+  expect(controller.getSnapshot().find((item) => item.id === id).state).toBe(
+    "closing",
+  );
+  wrapper.unmount();
+  controller.destroy();
+});
+
+test("pauses the whole stack while reading, including incoming notifications", async () => {
+  const controller = createToast({ duration: 1000, max: 0 });
+  const wrapper = mount(Toast, { props: { controller } });
+  const first = controller("First");
+  const second = controller("Second");
+  await nextTick();
+  advance(400);
+  await wrapper.trigger("pointerenter", { pointerType: "mouse" });
+  expect(wrapper.attributes("data-expanded")).toBe("true");
+  const third = controller("Third");
+  await nextTick();
+  advance(2000);
+  expect(controller.getSnapshot().every((item) => item.state === "open")).toBe(
+    true,
+  );
+  await wrapper.trigger("pointerleave", { pointerType: "mouse" });
+  advance(599);
+  expect(controller.getSnapshot().find((item) => item.id === first).state).toBe(
+    "open",
+  );
+  advance(1);
+  expect(
+    controller.getSnapshot().find((item) => item.id === second).state,
+  ).toBe("closing");
+  expect(controller.getSnapshot().find((item) => item.id === third).state).toBe(
+    "open",
+  );
+  wrapper.unmount();
+  controller.destroy();
+});
+
+test("reveals keyboard-focused cards, ignores touch hover, and resets empty stacks", async () => {
+  const controller = createToast({ duration: false });
+  const wrapper = mount(Toast, {
+    props: { controller },
+    attachTo: document.body,
+  });
+  controller("First");
+  controller("Second");
+  await nextTick();
+  await wrapper.trigger("pointerenter", { pointerType: "touch" });
+  expect(wrapper.attributes("data-expanded")).toBe("false");
+  wrapper.get('[data-slot="toast-dismiss"]').element.focus();
+  await nextTick();
+  expect(wrapper.attributes("data-expanded")).toBe("true");
+  const external = document.createElement("button");
+  document.body.append(external);
+  external.focus();
+  await nextTick();
+  expect(wrapper.attributes("data-expanded")).toBe("false");
+  await wrapper.get('[data-slot="toast-expand"]').trigger("click");
+  controller.clear();
+  await nextTick();
+  controller("Fresh");
+  await nextTick();
+  expect(wrapper.attributes("data-expanded")).toBe("false");
+  wrapper.unmount();
+  controller.destroy();
+  external.remove();
+});
+
 test("pauses the remaining duration for every active interaction reason", () => {
   const controller = createToast({ duration: 1000 });
   const id = controller({ title: "Saved" });

@@ -1,5 +1,6 @@
 import { expect, userEvent, within } from "storybook/test";
 import ToastExample from "./ToastExample.svelte";
+import ToastStackExample from "./ToastStackExample.svelte";
 import ToastOverflowExample from "./ToastOverflowExample.svelte";
 import { verifyToastBounds } from "../toast-overflow.js";
 
@@ -38,6 +39,11 @@ const meta = {
 };
 
 export default meta;
+
+export const DeploymentStack = {
+  parameters: { layout: "fullscreen", controls: { disable: true } },
+  render: () => ({ Component: ToastStackExample }),
+};
 
 export const Playground = {
   parameters: { controls: { include: ["position", "from", "to"] } },
