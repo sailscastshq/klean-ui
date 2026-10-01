@@ -363,3 +363,18 @@ test("controlled state emits intent without inventing persistence", async () => 
   expect(trigger.getAttribute("aria-expanded")).toBe("false");
   cleanup();
 });
+
+test("native popover attribute defaults to auto and may explicitly use manual", async () => {
+  const automatic = await mountPopover();
+  expect(
+    automatic.wrapper
+      .get('[data-slot="popover-content"]')
+      .attributes("popover"),
+  ).toBe("auto");
+  automatic.cleanup();
+  const manual = await mountPopover({ attrs: { popover: "manual" } });
+  expect(
+    manual.wrapper.get('[data-slot="popover-content"]').attributes("popover"),
+  ).toBe("manual");
+  manual.cleanup();
+});

@@ -340,7 +340,11 @@ test("keeps Popover semantic, class-first, and ephemeral", () => {
     const source = registrySource(framework, filename, "popover");
 
     expect(source).toContain("@floating-ui/dom");
-    expect(source).toContain('popover="auto"');
+    expect(source).toContain(
+      framework === "vue"
+        ? "attrs.popover ?? 'auto'"
+        : 'contentProps.popover ?? "auto"',
+    );
     expect(source).toContain("aria-expanded");
     expect(source).toContain("bottom-start");
     expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams/);

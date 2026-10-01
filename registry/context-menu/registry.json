@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "name": "context-menu",
+  "description": "A pointer- and keyboard-invoked action menu composed on Menu with point anchoring.",
+  "registryDependencies": ["menu"],
+  "frameworks": {
+    "vue": {
+      "source": "vue/ContextMenu.vue",
+      "target": "context-menu/ContextMenu.vue",
+      "dependencies": {}
+    },
+    "react": {
+      "source": "react/ContextMenu.jsx",
+      "target": "context-menu/ContextMenu.jsx",
+      "dependencies": {}
+    },
+    "svelte": {
+      "source": "svelte/ContextMenu.svelte",
+      "target": "context-menu/ContextMenu.svelte",
+      "dependencies": {}
+    }
+  }
+}

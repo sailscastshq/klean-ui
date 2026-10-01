@@ -167,7 +167,7 @@ composes three framework-native Storybooks:
 
 Open **Vue**, **React**, or **Svelte**, then choose **Components / Button**,
 **Input**, **Textarea**, **Checkbox**, **Radio**, **Switch**, **Spinner**,
-**Tooltip**, **Tabs**, **Popover**, **Menu**, **Select**, **Combobox**,
+**Tooltip**, **Tabs**, **Popover**, **Menu**, **ContextMenu**, **Select**, **Combobox**,
 **Command**, **Dialog**, **Separator**, **Slide**, or **Toast**. The stories mount the actual
 registry source and share behavior expectations without sharing a runtime
 component abstraction. Controls stay limited to useful behavioral inputs;
@@ -192,6 +192,49 @@ The package contains the CLI and its versioned registry. It does not publish the
 Klean is the canonical implementation of our Durable UI practice. Durable behavior lives in the component, composable, or Boring Stack block that owns it; it does not turn every primitive into a state-management abstraction.
 
 The canonical documentation lives at [docs.sailscasts.com/klean-ui](https://docs.sailscasts.com/klean-ui/), including the [doctrine](https://docs.sailscasts.com/klean-ui/doctrine), [installation guide](https://docs.sailscasts.com/klean-ui/installation), [Durable UI contract](https://docs.sailscasts.com/klean-ui/durable-ui), [theming convention](https://docs.sailscasts.com/klean-ui/theming), and every [component page](https://docs.sailscasts.com/klean-ui/components/).
+
+## ContextMenu
+
+`npx klean-ui add context-menu` installs ContextMenu, Menu and Popover as owned
+source, using the existing `@floating-ui/dom` and `tailwind-merge` dependencies.
+The published 0.0.6 registry does not include this unreleased addition yet.
+
+Pair the surface with an existing focusable target by id (same document/shadow
+root) or element. Right-click places it at the pointer; ContextMenu/Shift+F10
+places it at the target’s lower start edge. Native menu items retain Menu’s
+roving focus, typeahead, selection, Escape, Tab and outside dismissal behavior.
+
+```vue
+<div id="project" tabindex="0">Northstar project</div>
+<ContextMenu
+  ref="actions"
+  target="project"
+  aria-label="Project actions"
+  class="w-52"
+>
+  <button type="button" class="block w-full px-3 py-2 text-left focus:bg-gray-100">Rename</button>
+</ContextMenu>
+<button
+  type="button"
+  @click="$refs.actions.show($event.currentTarget)"
+>Actions</button>
+```
+
+`target` is required; `id`, `disabled`, `open`, `placement` (bottom-start), and
+`offset` (0) are optional behavior props. Vue uses `v-model:open`, React uses
+`open`/`onOpenChange`, Svelte uses `bind:open`/`onOpenChange`. `show(source?)` and
+`hide()` are exposed through Vue/React refs and Svelte component bindings; the
+normal action button shown above is the touch alternative. Disabled targets
+(including native disabled or aria-disabled) retain the browser context menu.
+No long-press interception, submenus, theme or visual props. Classes/attributes
+apply to the Menu surface; style native item markup in the application.
+
+Target must exist when mounted, have an accessible name and be keyboard
+focusable. ContextMenu adds/cleans up aria-haspopup, aria-controls and
+aria-expanded without replacing target markup. Selection/Escape return focus
+to the invoking target/button; outside clicks keep their ordinary focus.
+Transient menu state is not persisted. ContextMenu uses native `popover="manual"` top-layer display with explicit outside/Escape dismissal, so the opening right-click cannot light-dismiss itself on pointer release. Ordinary Popover keeps its `auto` default. Replacing a target node with the same id requires a keyed ContextMenu remount or updating the actual element prop; this component does not observe document-wide DOM replacements. Point anchoring uses Popover’s additive
+virtual-anchor support and existing viewport flip/shift collision handling.
 
 ## Flag
 

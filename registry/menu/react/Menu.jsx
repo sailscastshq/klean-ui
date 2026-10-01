@@ -15,7 +15,10 @@ const TABBABLE_SELECTOR =
   'a[href], button, input, select, textarea, [tabindex], [contenteditable="true"]';
 
 function eventPath(event) {
-  return event.nativeEvent?.composedPath?.() ?? event.composedPath?.() ?? [event.target];
+  return (
+    event.nativeEvent?.composedPath?.() ??
+    event.composedPath?.() ?? [event.target]
+  );
 }
 
 function itemRole(element) {
@@ -45,6 +48,7 @@ const Menu = forwardRef(function Menu(
     children,
     onKeyDown,
     onClickCapture,
+    onToggle,
     ...contentProps
   },
   forwardedRef,
@@ -156,7 +160,8 @@ const Menu = forwardRef(function Menu(
     if (!content) return [];
 
     for (const element of content.querySelectorAll("button, a[href]")) {
-      if (!element.hasAttribute("role")) element.setAttribute("role", "menuitem");
+      if (!element.hasAttribute("role"))
+        element.setAttribute("role", "menuitem");
     }
 
     const items = [...content.querySelectorAll(ITEM_SELECTOR)].filter(
@@ -172,7 +177,8 @@ const Menu = forwardRef(function Menu(
   );
 
   const focusedElement = useCallback(
-    () => contentElement()?.getRootNode?.().activeElement ?? document.activeElement,
+    () =>
+      contentElement()?.getRootNode?.().activeElement ?? document.activeElement,
     [contentElement],
   );
 
@@ -187,7 +193,8 @@ const Menu = forwardRef(function Menu(
   );
 
   const focusEdge = useCallback(
-    (edge = "first") => {
+    (edge = "first", source) => {
+      if (source?.isConnected) activeInvoker.current = source;
       const items = enabledItems();
       const item = edge === "last" ? items.at(-1) : items[0];
       if (item) focusItem(item);
@@ -195,6 +202,20 @@ const Menu = forwardRef(function Menu(
     },
     [contentElement, enabledItems, focusItem],
   );
+
+  const focusPending = useCallback(() => {
+    if (pendingFocus.current == null) return;
+    const content = contentElement();
+    if (
+      content == null ||
+      content.hidden ||
+      (typeof content.showPopover === "function" &&
+        !content.matches(":popover-open"))
+    )
+      return;
+    focusEdge(pendingFocus.current);
+    pendingFocus.current = undefined;
+  }, [contentElement, focusEdge]);
 
   const clearTypeahead = useCallback(() => {
     typeahead.current = "";
@@ -204,6 +225,7 @@ const Menu = forwardRef(function Menu(
 
   const requestOpen = useCallback(
     (nextOpen) => {
+      if (nextOpen) pendingFocus.current ??= "first";
       if (!isControlled) setInternalOpen(nextOpen);
       onOpenChange?.(nextOpen);
     },
@@ -211,9 +233,11 @@ const Menu = forwardRef(function Menu(
   );
 
   const openMenu = useCallback(
-    (edge = "first") => {
+    (edge = "first", source) => {
+      if (source?.isConnected) activeInvoker.current = source;
       pendingFocus.current = edge;
       if (latestOpen.current) focusEdge(edge);
+      else if (source?.isConnected) popoverRef.current?.open(source);
       else requestOpen(true);
     },
     [focusEdge, requestOpen],
@@ -233,7 +257,12 @@ const Menu = forwardRef(function Menu(
 
   useImperativeHandle(
     forwardedRef,
-    () => ({ content: contentElement(), open: openMenu, close: closeMenu }),
+    () => ({
+      content: contentElement(),
+      getContent: contentElement,
+      open: openMenu,
+      close: closeMenu,
+    }),
     [closeMenu, contentElement, openMenu],
   );
 
@@ -241,8 +270,7 @@ const Menu = forwardRef(function Menu(
     syncInvokerSemantics();
 
     if (isOpen) {
-      focusEdge(pendingFocus.current);
-      pendingFocus.current = "first";
+      focusPending();
       return;
     }
 
@@ -254,7 +282,7 @@ const Menu = forwardRef(function Menu(
   }, [
     clearTypeahead,
     completeTabExit,
-    focusEdge,
+    focusPending,
     isOpen,
     menuItems,
     restoreInvokerFocus,
@@ -353,16 +381,23 @@ const Menu = forwardRef(function Menu(
     const items = enabledItems();
     if (!items.length) return true;
     const current = items.indexOf(focusedElement());
-    const ordered = [...items.slice(current + 1), ...items.slice(0, current + 1)];
+    const ordered = [
+      ...items.slice(current + 1),
+      ...items.slice(0, current + 1),
+    ];
     const itemText = (item) =>
       (item.getAttribute("aria-label") ?? item.textContent ?? "")
         .trim()
         .toLocaleLowerCase();
-    let match = ordered.find((item) => itemText(item).startsWith(typeahead.current));
+    let match = ordered.find((item) =>
+      itemText(item).startsWith(typeahead.current),
+    );
 
     if (!match && new Set(typeahead.current).size === 1) {
       typeahead.current = typeahead.current.at(-1);
-      match = ordered.find((item) => itemText(item).startsWith(typeahead.current));
+      match = ordered.find((item) =>
+        itemText(item).startsWith(typeahead.current),
+      );
     }
 
     if (match) focusItem(match);
@@ -425,6 +460,14 @@ const Menu = forwardRef(function Menu(
       className={twMerge("min-w-40 p-1", className)}
       onClickCapture={handleClick}
       onKeyDown={handleKeydown}
+      onToggle={(event) => {
+        if (
+          (event.nativeEvent?.newState ?? event.newState) === "open" &&
+          latestOpen.current
+        )
+          focusPending();
+        onToggle?.(event);
+      }}
     >
       {typeof children === "function"
         ? children({ open: isOpen, close: closeMenu })

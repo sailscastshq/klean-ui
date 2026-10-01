@@ -1251,3 +1251,26 @@ for (const [framework, extension] of [
     expect(existsSync(resolve(root, "assets/js/lib/cn.js"))).toBe(false);
   });
 }
+
+for (const [framework, extension] of [
+  ["vue", "vue"],
+  ["react", "jsx"],
+  ["svelte", "svelte"],
+]) {
+  test(`installs ${framework} ContextMenu with its complete owned source chain`, () => {
+    const root = makeFixture({ framework, tailwindMerge: false });
+    const plan = createInstallPlan("context-menu", { cwd: root });
+    expect(plan.registryItems).toEqual(["popover", "menu", "context-menu"]);
+    expect(plan.files.map((file) => file.displayPath)).toEqual([
+      `popover/Popover.${extension}`,
+      `menu/Menu.${extension}`,
+      `context-menu/ContextMenu.${extension}`,
+    ]);
+    expect(plan.dependencies.map((dependency) => dependency.name)).toEqual([
+      "@floating-ui/dom",
+      "tailwind-merge",
+    ]);
+    installComponent("context-menu", { cwd: root });
+    expect(existsSync(resolve(root, "klean-ui.json"))).toBe(false);
+  });
+}
