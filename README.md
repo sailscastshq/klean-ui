@@ -197,16 +197,21 @@ The canonical documentation lives at [docs.sailscasts.com/klean-ui](https://docs
 
 `npx klean-ui add flag` installs framework-native `Flag` and its local asset
 registry. `country` accepts a case-insensitive two-letter code (surrounding
-whitespace is ignored). A nonempty `src` takes precedence; `alt` defaults to
-`""` for decorative flags beside a country name. Supply `alt` for standalone
-meaning. Native image attributes and error listeners pass through. Missing,
+whitespace is ignored). A nonempty `src` takes precedence. Omitted `alt` derives a stable English
+country name: `<Flag country="NG" />` has `alt="Nigeria"`. An explicit string
+always wins, including `alt=""` for decorative flags beside country text or
+`alt="Based in Nigeria"` for application meaning. `alt` remains a string,
+not a Boolean switch. Native image attributes and error listeners pass through. Missing,
 invalid or failed images render a fallback span, hidden from assistive
 technology when decorative, named by `alt` when informative. Vue/Svelte slots
 or React children own fallback content. Changing the resolved source retries.
 
 ```vue
 <Flag country="NG" class="w-5" />
-<Flag country="KE" alt="Kenya" class="w-8" />
+<Flag country="KE" class="w-8" />
+<Flag country="NG" alt="Based in Nigeria" />
+<Flag country="NG" alt="" />
+<!-- Decorative beside country text -->
 <Flag country="GH" class="size-10 aspect-square rounded-full" />
 <Flag src="/flags/organization.svg" alt="Organization" class="w-12" />
 ```
@@ -226,9 +231,19 @@ source. The fixed registry has 257 entries: 249 ISO 3166-1 codes plus AC, EU,
 IC, TA, XA, XC, XK, XO supplied by this asset version. This is asset coverage,
 not an assertion of political status or a Unicode RGI registry. `countries`
 is exported from the installed `flags.js`; applications own the eligible
-picker list and localized country names.
+picker list and localized country names. `countryName(country)` exports the
+fixed English lookup. Names are checked in alongside the asset registry, with
+no render-time `Intl.DisplayNames`, browser language lookup, or locale prop.
+The same code yields the same default name during SSR and hydration. Override
+`alt` with the application's localized label. Unknown or missing codes derive
+`""`; a custom source without a known country must receive a meaningful
+explicit `alt` or `alt=""` for deliberate decoration. Any nonempty custom `src` disables inferred naming even when `country` is
+also supplied: the source could depict anything. Only an explicit `alt`
+labels a custom image.
+XA/XC/XO names follow this asset package (Abkhazia/Northern Cyprus/South
+Ossetia), not Unicode's unrelated pseudo-region assignments.
 
-SVGs are encoded as data URLs in one application-owned module (~242KB before
+SVGs are encoded as data URLs in one application-owned module (~247KB before
 minification/compression), avoiding asset-host setup and all built-in flag
 network requests. The complete registry is eagerly included when Flag is
 imported. Lazy-load a country picker where appropriate; a product using only

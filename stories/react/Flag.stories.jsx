@@ -8,7 +8,7 @@ export default {
     docs: {
       description: {
         component:
-          "Native country image with decorative alt by default, local assets and custom src precedence. Tailwind owns size and circular cropping.",
+          "Native country image with a derived English country name when alt is omitted, local assets and custom src precedence. Tailwind owns size and circular cropping.",
       },
     },
   },
@@ -18,7 +18,7 @@ export default {
     alt: { control: "text" },
     className: { control: "text" },
   },
-  args: { country: "NG", src: "", alt: "", className: "" },
+  args: { country: "NG", src: "", className: "" },
 };
 export const Playground = {};
 export const Circle = {
@@ -46,3 +46,14 @@ export const Sizes = {
 export const CustomSource = {
   args: { country: "NG", src: flagSource("KE"), alt: "Kenya" },
 };
+
+export const Decorative = { args: { alt: "" } };
+export const LabelOverride = { args: { alt: "Based in Nigeria" } };
+export const InvalidCountry = { args: { country: "ZZ" } };
+export const CustomSourceWithoutCountry = {
+  args: { country: "", src: flagSource("KE"), alt: "Kenya" },
+};
+export const UnknownCustomSource = {
+  args: { country: "", src: flagSource("KE") },
+};
+export const FailedSource = { args: { src: "data:image/png;base64,broken" } };

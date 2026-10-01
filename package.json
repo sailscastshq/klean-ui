@@ -50,7 +50,8 @@
     "storybook:react": "storybook dev --config-dir .storybook-react --port 6008 --no-open",
     "storybook:svelte": "storybook dev --config-dir .storybook-svelte --port 6009 --no-open",
     "build-storybook": "node scripts/storybook.js build",
-    "release:check": "npm test && npm run icons:check && npm run registry:lineage:check && npm run lint:tailwind && npm run build && npm run build-storybook && npm run test:package"
+    "release:check": "npm test && npm run test:flag-ssr && npm run icons:check && npm run registry:lineage:check && npm run lint:tailwind && npm run build && npm run build-storybook && npm run test:package",
+    "test:flag-ssr": "node scripts/check-flag-ssr.mjs"
   },
   "devDependencies": {
     "@babel/parser": "^7.28.6",

@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { parse } from "@babel/parser";
 import { compile } from "svelte/compiler";
 import Flag from "../src/vue/flag/Flag.vue";
-import { countries, flagSource } from "../src/vue/flag/flags.js";
+import { countries, countryName, flagSource } from "../src/vue/flag/flags.js";
 
 test("uses a fixed local registry and normalizes only two-letter codes", () => {
   expect(countries.length).toBe(257);
@@ -15,9 +15,9 @@ test("uses a fixed local registry and normalizes only two-letter codes", () => {
   expect(flagSource("NG", "/custom.svg")).toBe("/custom.svg");
 });
 
-test("is decorative by default and caller Tailwind controls geometry", () => {
+test("explicit empty alt is decorative and caller Tailwind controls geometry", () => {
   const wrapper = mount(Flag, {
-    props: { country: "ng" },
+    props: { country: "ng", alt: "" },
     attrs: { class: "w-12 aspect-square rounded-full", loading: "lazy" },
   });
   expect(wrapper.attributes("alt")).toBe("");
@@ -53,6 +53,75 @@ test("custom source takes precedence and remains caller-owned", () => {
   });
   expect(wrapper.attributes("src")).toBe("/my-flag.svg");
   expect(wrapper.attributes("alt")).toBe("My organization");
+});
+
+test("derives stable built-in names, while every explicit alt string wins", async () => {
+  const wrapper = mount(Flag, { props: { country: " ng " } });
+  expect(wrapper.attributes("alt")).toBe("Nigeria");
+  await wrapper.setProps({ country: "KE" });
+  expect(wrapper.attributes("alt")).toBe("Kenya");
+  await wrapper.setProps({ alt: "Based in Kenya" });
+  expect(wrapper.attributes("alt")).toBe("Based in Kenya");
+  await wrapper.setProps({ alt: "" });
+  expect(wrapper.attributes("alt")).toBe("");
+  await wrapper.get("img").trigger("error");
+  expect(wrapper.attributes("aria-hidden")).toBe("true");
+  await wrapper.setProps({ country: "NG", alt: undefined });
+  expect(wrapper.attributes("alt")).toBe("Nigeria");
+  await wrapper.get("img").trigger("error");
+  expect(wrapper.attributes("aria-label")).toBe("Nigeria");
+  await wrapper.setProps({ country: "KE" });
+  expect(wrapper.get("img").attributes("alt")).toBe("Kenya");
+  for (const country of ["", "ZZ", "USA"]) {
+    await wrapper.setProps({ country });
+    expect(wrapper.attributes("aria-hidden")).toBe("true");
+    expect(wrapper.attributes("aria-label")).toBeUndefined();
+  }
+});
+
+test("never infers a custom source label, even when country is known", async () => {
+  const wrapper = mount(Flag, { props: { country: "NG", src: "/custom.svg" } });
+  expect(wrapper.attributes("alt")).toBe("");
+  await wrapper.get("img").trigger("error");
+  expect(wrapper.attributes("aria-hidden")).toBe("true");
+  await wrapper.setProps({ src: "/another.svg", alt: "Organization" });
+  expect(wrapper.attributes("alt")).toBe("Organization");
+  await wrapper.setProps({ alt: "" });
+  expect(wrapper.attributes("alt")).toBe("");
+  await wrapper.setProps({ src: "", alt: undefined });
+  expect(wrapper.attributes("alt")).toBe("Nigeria");
+});
+
+test("name lookup is fixed, guarded and matches the asset code assignments", () => {
+  for (const code of countries) expect(countryName(code)).toBeTruthy();
+  expect(countryName(" ng ")).toBe("Nigeria");
+  expect(countryName("XA")).toBe("Abkhazia");
+  expect(countryName("XC")).toBe("Northern Cyprus");
+  expect(countryName("XO")).toBe("South Ossetia");
+  for (const code of ["", "ZZ", "USA", "__proto__", null, 12])
+    expect(countryName(code)).toBe("");
+  expect(readFileSync("src/vue/flag/flags.js", "utf8")).not.toContain(
+    "Intl.DisplayNames",
+  );
+});
+
+test("fallback retains explicit caller semantics and strips image-only attrs", () => {
+  const wrapper = mount(Flag, {
+    props: { country: "ZZ", alt: "Unavailable" },
+    attrs: {
+      role: "presentation",
+      "aria-hidden": "true",
+      loading: "lazy",
+      srcset: "/other.svg 2x",
+      title: "Country",
+    },
+  });
+  expect(wrapper.attributes("role")).toBe("presentation");
+  expect(wrapper.attributes("aria-label")).toBeUndefined();
+  expect(wrapper.attributes("aria-hidden")).toBe("true");
+  expect(wrapper.attributes("loading")).toBeUndefined();
+  expect(wrapper.attributes("srcset")).toBeUndefined();
+  expect(wrapper.attributes("title")).toBe("Country");
 });
 
 test("ships valid framework-native sources and carries the asset license", () => {
