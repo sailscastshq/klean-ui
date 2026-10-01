@@ -173,6 +173,48 @@ try {
       /Everything is already current/,
     );
 
+    const flagOutput = run(process.execPath, [cli, "add", "flag"], {
+      cwd: applicationRoot,
+    });
+    assert.match(flagOutput, /Added flag\/Flag\./);
+    const flagSource = readFileSync(
+      resolve(
+        applicationRoot,
+        `assets/js/components/ui/flag/Flag.${extension}`,
+      ),
+      "utf8",
+    );
+    assert.match(flagSource, /["']\.\/flags\.js["']/);
+    const flagAssets = readFileSync(
+      resolve(applicationRoot, "assets/js/components/ui/flag/flags.js"),
+      "utf8",
+    );
+    assert.equal(
+      flagAssets,
+      readFileSync(
+        resolve(installedPackage, "registry/flag/shared/flags.js"),
+        "utf8",
+      ),
+    );
+    assert.match(flagAssets, /country-flag-icons 1\.6\.20/);
+    assert.match(flagAssets, /Permission is hereby granted, free of charge/);
+    const flagHelpers = await import(
+      `data:text/javascript;base64,${Buffer.from(flagAssets).toString("base64")}`
+    );
+    assert.equal(flagHelpers.countries.length, 257);
+    assert.equal(flagHelpers.countryName(" ng "), "Nigeria");
+    assert.match(flagHelpers.flagSource("NG"), /^data:image\/svg\+xml;base64,/);
+    assert.equal(flagHelpers.flagSource("ZZ"), "");
+    assert.equal(flagHelpers.flagSource("NG", "/custom.svg"), "/custom.svg");
+    assert.match(
+      run(process.execPath, [cli, "check"], { cwd: applicationRoot }),
+      /flag is current/,
+    );
+    assert.match(
+      run(process.execPath, [cli, "update", "flag"], { cwd: applicationRoot }),
+      /Everything is already current/,
+    );
+
     run(process.execPath, [cli, "add", "toast"], { cwd: applicationRoot });
     const toastSource = readFileSync(
       resolve(
