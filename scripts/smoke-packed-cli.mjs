@@ -215,6 +215,29 @@ try {
       /Everything is already current/,
     );
 
+    run(process.execPath, [cli, "add", "slider"], { cwd: applicationRoot });
+    const sliderDirectory = resolve(
+      applicationRoot,
+      "assets/js/components/ui/slider",
+    );
+    assert.match(
+      readFileSync(resolve(sliderDirectory, `Slider.${extension}`), "utf8"),
+      /type="range"/,
+    );
+    assert.equal(
+      readFileSync(resolve(sliderDirectory, "slider.js"), "utf8"),
+      readFileSync(
+        resolve(installedPackage, `registry/slider/${framework}/slider.js`),
+        "utf8",
+      ),
+    );
+    if (framework === "react")
+      assert.ok(existsSync(resolve(sliderDirectory, "slider.css")));
+    assert.match(
+      run(process.execPath, [cli, "check"], { cwd: applicationRoot }),
+      /slider is current/,
+    );
+
     run(process.execPath, [cli, "add", "toast"], { cwd: applicationRoot });
     const toastSource = readFileSync(
       resolve(

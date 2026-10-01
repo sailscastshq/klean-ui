@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json",
+  "name": "slider",
+  "description": "Native numeric sliders for single values, discrete steps and constrained two-thumb ranges.",
+  "frameworks": {
+    "vue": {
+      "files": [
+        { "source": "vue/Slider.vue", "target": "slider/Slider.vue" },
+        { "source": "vue/slider.js", "target": "slider/slider.js" }
+      ],
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "react": {
+      "files": [
+        { "source": "react/Slider.jsx", "target": "slider/Slider.jsx" },
+        { "source": "react/slider.js", "target": "slider/slider.js" },
+        { "source": "react/slider.css", "target": "slider/slider.css" }
+      ],
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    },
+    "svelte": {
+      "files": [
+        { "source": "svelte/Slider.svelte", "target": "slider/Slider.svelte" },
+        { "source": "svelte/slider.js", "target": "slider/slider.js" }
+      ],
+      "dependencies": { "tailwind-merge": "^3.6.0" }
+    }
+  }
+}

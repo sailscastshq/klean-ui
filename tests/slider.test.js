@@ -194,3 +194,21 @@ test("degenerate bounds disable the native input instead of dividing by zero", (
   ).toContain("width: 0%");
   wrapper.unmount();
 });
+
+test("reset restores both native range inputs even when one endpoint did not change", async () => {
+  const form = document.createElement("form");
+  form.id = "slider-range-reset";
+  document.body.append(form);
+  const wrapper = mountedSlider({ modelValue: [20, 80] }, { form: form.id });
+  await wrapper.findAll("input")[0].setValue(50);
+  form.reset();
+  await nextTick();
+  await nextTick();
+  expect(wrapper.props("modelValue")).toEqual([20, 80]);
+  expect(wrapper.findAll("input").map((input) => input.element.value)).toEqual([
+    "20",
+    "80",
+  ]);
+  wrapper.unmount();
+  form.remove();
+});
